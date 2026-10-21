@@ -21,7 +21,7 @@ describe("G3 application boot", () => {
         expect(markup).toContain(`data-testid="nav-${screen}"`);
       }
       expect(markup).toContain("Preparing your workspace");
-      expect(markup).toContain("DRAFT · Local review");
+      expect(markup).toContain("v0.4 · Data snapshot 21 Oct 2026");
       expect(markup).toContain('href="https://hakangulmez.github.io/"');
       expect(markup).not.toContain("Analysis complete");
       expect(markup).not.toContain("G0 tooling scaffold");

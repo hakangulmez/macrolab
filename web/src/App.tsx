@@ -420,14 +420,7 @@ export function App() {
         <div className="snapshot">
           Data updated {manifest?.as_of_date ?? "…"}
           <br />
-          <span className="badge draft">
-            {manifest?.publication?.local_only_comparison ||
-            manifest?.publication?.source_mode === "all"
-              ? "DRAFT · Local comparison"
-              : manifest?.publication?.mode === "static_candidate"
-                ? "DRAFT · Static candidate"
-                : "DRAFT · Local review"}
-          </span>
+          <span className="badge draft">v0.4 · Data snapshot 21 Oct 2026</span>
         </div>
       </div>
     </header>

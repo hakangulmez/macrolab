@@ -4,6 +4,8 @@
 
 The classifications drive [`configs/publication_sources.json`](configs/publication_sources.json). `allowed` means **OK to redistribute processed data with attribution**, within the stated scope and conditions. IMF inclusion is specifically non-commercial. Pink Sheet remains **unclear** and excluded by the owner. No source is classified **not allowed**. All country narratives remain withheld. The source policy does not authorise any remote, push or deployment.
 
+**Data and data-derived outputs are not covered by the MIT licence.** The MIT licence applies to MacroLab code; the source-specific attribution, reuse and redistribution terms are recorded in this `DATA.md`. Third-party software and fonts retain their own licences.
+
 ## Licence table
 
 | Source | Classification for this snapshot | Official terms and short exact clause | Required attribution and restrictions |
