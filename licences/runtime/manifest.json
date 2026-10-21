@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "publication_approved": false,
+  "pyodide_version": "314.0.7",
+  "python_version": "3.14.2",
+  "runtime_npm_integrity": "sha512-0YvXxEhfEdpLfb/XkM2BFAeMROq0iMUX2bzzH9pOttyMcWkwq+HbE5uyuGD82LN7y2q+SNvi/6V5JEsOlD2R1A==",
+  "scope": "Pinned Pyodide and CPython full licence texts, upstream incorporated-software acknowledgements, exact-version provenance and corresponding-source access. No runtime changes, package upgrade or blanket legal certification.",
+  "components": [
+    {
+      "name": "Pyodide",
+      "version": "314.0.7",
+      "license": "MPL-2.0",
+      "tag": "314.0.7",
+      "commit": "b1e4fcc2488962f6360a97f19b9982d6fdb5d16f",
+      "source_url": "https://github.com/pyodide/pyodide/tree/b1e4fcc2488962f6360a97f19b9982d6fdb5d16f"
+    },
+    {
+      "name": "CPython",
+      "version": "3.14.2",
+      "license": "PSF-2.0 and incorporated-software notices",
+      "tag": "v3.14.2",
+      "commit": "df793163d5821791d4e7caf88885a2c11a107986",
+      "source_url": "https://github.com/python/cpython/tree/df793163d5821791d4e7caf88885a2c11a107986"
+    }
+  ],
+  "provenance": [
+    {
+      "file": "pyodide-tag.json",
+      "url": "https://api.github.com/repos/pyodide/pyodide/git/ref/tags/314.0.7",
+      "resolved_url": "https://api.github.com/repos/pyodide/pyodide/git/ref/tags/314.0.7",
+      "retrieved_utc": "2026-10-21T02:13:47.987958+00:00",
+      "sha256": "e9d678d03294bf6fba9108704ca1d240d1c82c9c0206aa462194dc61dbd54d7b",
+      "bytes": 341
+    },
+    {
+      "file": "cpython-tag.json",
+      "url": "https://api.github.com/repos/python/cpython/git/ref/tags/v3.14.2",
+      "resolved_url": "https://api.github.com/repos/python/cpython/git/ref/tags/v3.14.2",
+      "retrieved_utc": "2026-10-21T02:13:48.264485+00:00",
+      "sha256": "a0fce1460d99629ae8b91b200e40efe275381ee3e214d950dd882f5de5515e97",
+      "bytes": 333
+    },
+    {
+      "file": "cpython-license.rst",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.14.2/Doc/license.rst",
+      "resolved_url": "https://raw.githubusercontent.com/python/cpython/v3.14.2/Doc/license.rst",
+      "retrieved_utc": "2026-10-21T02:13:48.566220+00:00",
+      "sha256": "c695d550b135e53e38807e76496d1db17d22c40e461d1f3f354c86188d3305dd",
+      "bytes": 57595
+    },
+    {
+      "file": "pyodide-release.json",
+      "url": "https://registry.npmjs.org/pyodide/314.0.7",
+      "resolved_url": "https://registry.npmjs.org/pyodide/314.0.7",
+      "retrieved_utc": "2026-10-21T02:13:48.989997+00:00",
+      "sha256": "a74d0aae68ed38dc02b7624ecdd3a5edd44bc8f7e871bc067d450fc1eaba6b93",
+      "bytes": 3245
+    },
+    {
+      "file": "runs/p2/runtime-notices/cpython-tag-object.json",
+      "url": "https://api.github.com/repos/python/cpython/git/tags/a1d0069daf8e85b25a0c3f96abc43182be6d429e",
+      "resolved_url": "https://api.github.com/repos/python/cpython/git/tags/a1d0069daf8e85b25a0c3f96abc43182be6d429e",
+      "retrieved_utc": "2026-10-21T02:14:22.271583+00:00",
+      "sha256": "bcfbd31892fe326e04d8b743b600cba1c4f0500f07e0dd79aa28dc8d1a4a1f91",
+      "bytes": 683
+    },
+    {
+      "file": "runs/p2/runtime-notices/pyodide-root.json",
+      "url": "https://api.github.com/repos/pyodide/pyodide/contents/?ref=b1e4fcc2488962f6360a97f19b9982d6fdb5d16f",
+      "resolved_url": "https://api.github.com/repos/pyodide/pyodide/contents/?ref=b1e4fcc2488962f6360a97f19b9982d6fdb5d16f",
+      "retrieved_utc": "2026-10-21T02:14:22.551728+00:00",
+      "sha256": "2bca090371c867dbfa76dcbd003a5a8c6357eafaae5154522a5d110b6d204ccb",
+      "bytes": 33437
+    }
+  ],
+  "files": [
+    {
+      "url": "https://raw.githubusercontent.com/pyodide/pyodide/b1e4fcc2488962f6360a97f19b9982d6fdb5d16f/LICENSE",
+      "resolved_url": "https://raw.githubusercontent.com/pyodide/pyodide/b1e4fcc2488962f6360a97f19b9982d6fdb5d16f/LICENSE",
+      "retrieved_utc": "2026-10-21T02:14:22.831866+00:00",
+      "sha256": "1f256ecad192880510e84ad60474eab7589218784b9a50bc7ceee34c2b91f1d5",
+      "bytes": 16725,
+      "path": "Pyodide-314.0.7/LICENSE"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/python/cpython/df793163d5821791d4e7caf88885a2c11a107986/LICENSE",
+      "resolved_url": "https://raw.githubusercontent.com/python/cpython/df793163d5821791d4e7caf88885a2c11a107986/LICENSE",
+      "retrieved_utc": "2026-10-21T02:14:23.077366+00:00",
+      "sha256": "b0e25a78cffb43f4d92de8b61ccfa1f1f98ecbc22330b54b5251e7b6ba010231",
+      "bytes": 13804,
+      "path": "CPython-3.14.2/LICENSE"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/python/cpython/df793163d5821791d4e7caf88885a2c11a107986/Doc/license.rst",
+      "resolved_url": "https://raw.githubusercontent.com/python/cpython/df793163d5821791d4e7caf88885a2c11a107986/Doc/license.rst",
+      "retrieved_utc": "2026-10-21T02:14:23.393483+00:00",
+      "sha256": "c695d550b135e53e38807e76496d1db17d22c40e461d1f3f354c86188d3305dd",
+      "bytes": 57595,
+      "path": "CPython-3.14.2/Doc/license.rst"
+    },
+    {
+      "path": "SOURCE_AVAILABILITY.md",
+      "origin": "MacroLab source-access and modification summary",
+      "bytes": 2641,
+      "sha256": "f3c30d76c46aa6f90bfd29afc56afff97c472e1d2b4e0b5b342c0420e1832bde"
+    }
+  ]
+}
