@@ -56,5 +56,10 @@ empty; candidate preparation also withholds generated narratives.
 - [Pinned runtime notices and source availability](third_party/runtime/SOURCE_AVAILABILITY.md)
 - [Explicit export omissions and modifications](EXPORT_SCOPE.md)
 
-MacroLab code is MIT licensed; third-party code, fonts and data retain their own
-terms. A shared configuration is not a data licence or publication approval.
+## Licence
+
+MacroLab's original code is licensed under the [MIT License](LICENSE).
+**Data and data-derived outputs are not covered by the MIT licence**; see
+[DATA.md](DATA.md) for source-specific terms, attribution and restrictions.
+Third-party software, fonts and runtime components retain their own licences
+and notices. A shared configuration does not grant data reuse rights.
