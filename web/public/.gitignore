@@ -1,0 +1,3 @@
+# Prepared local observations and runtime binaries are never publication artifacts.
+*
+!.gitignore

@@ -1,0 +1,189 @@
+schema_version: 1
+status: withheld_pending_review
+review_required: true
+source_policy: official_only
+verified_as_of: '2026-10-20'
+scope_note: Country metadata is intersected with live OECD membership. Narrative country
+  notes are withheld from this source export.
+sources:
+  ecb_euro_adoption:
+    url: https://www.ecb.europa.eu/euro/changeover/html/index.en.html
+    title: 'ECB: Joining the euro area'
+    verification: Official source read and archived during G1.
+  ecb_denmark_erm:
+    url: https://www.ecb.europa.eu/press/pr/date/1998/html/pr981231_3.en.html
+    title: 'ECB: Euro central rates and intervention rates in ERM II'
+    verification: Official source read and archived during G1.
+  oecd_turkiye_2025:
+    url: https://www.oecd.org/en/publications/oecd-economic-surveys-turkiye-2025_d01c660f-en/full-report/staying-the-course-on-macroeconomic-stabilisation_91899ae0.html
+    title: 'OECD Economic Surveys: Türkiye 2025, section 1.1.3'
+    verification: Official web source read; direct snapshot client received HTTP 403.
+      This archival limitation is recorded, not bypassed.
+  ecb_emu_history:
+    url: https://www.ecb.europa.eu/ecb/history-arts-culture/history/emu/html/index.en.html
+    title: 'ECB: Economic and Monetary Union (EMU), Stage Three'
+    verification: Official page archived; explicitly states exact adoption dates from
+      1999 through 2026.
+eu_members:
+- AUT
+- BEL
+- BGR
+- CYP
+- CZE
+- DEU
+- DNK
+- ESP
+- EST
+- FIN
+- FRA
+- GRC
+- HRV
+- HUN
+- IRL
+- ITA
+- LTU
+- LUX
+- LVA
+- MLT
+- NLD
+- POL
+- PRT
+- ROU
+- SVK
+- SVN
+- SWE
+euro_adoptions:
+  AUT:
+    date: '1999-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  BEL:
+    date: '1999-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  BGR:
+    date: '2026-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  CYP:
+    date: '2008-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  DEU:
+    date: '1999-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  ESP:
+    date: '1999-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  EST:
+    date: '2011-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  FIN:
+    date: '1999-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  FRA:
+    date: '1999-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  GRC:
+    date: '2001-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  HRV:
+    date: '2023-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  IRL:
+    date: '1999-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  ITA:
+    date: '1999-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  LTU:
+    date: '2015-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  LUX:
+    date: '1999-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  LVA:
+    date: '2014-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  MLT:
+    date: '2008-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  NLD:
+    date: '1999-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  PRT:
+    date: '1999-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  SVK:
+    date: '2009-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+  SVN:
+    date: '2007-01-01'
+    source: ecb_euro_adoption
+    status: DRAFT
+    review_required: true
+    date_source: ecb_emu_history
+currency_overrides:
+  TUR:
+    name: Turkish lira
+    code: TRY
+    source: oecd_turkiye_2025
+    reason: WDI CurrencyUnit retains historical wording New Turkish lira; the official
+      OECD report uses Turkish lira and TRY.
+notes: []

@@ -1,0 +1,77 @@
+schema_version: 1
+implementation_gate: G2
+status: implemented
+defaults:
+  stationarity_alpha: 0.05
+  stationarity_min_observations: 20
+  elb_threshold: 0.25
+  covid_start: '2020-01-01'
+  covid_end: '2021-06-30'
+  shock_quantile_low: 0.05
+  shock_quantile_high: 0.95
+rules:
+  - code: model_inputs
+    owner: shared
+    level: block
+    condition: Registry series counts, required roles, role families and panel compatibility.
+  - code: nonstationary_level
+    owner: shared
+    level: warn_or_info
+    condition: ADF does not reject unit root and KPSS rejects stationarity at 5 percent in level/log/index inputs to regression or VAR.
+    method: ADF autolag AIC; KPSS automatic bandwidth; constant or constant-and-trend matching model trend; no-trend models use a constant for both diagnostics.
+    caveat: Exogenous-role findings are information notes with unchanged diagnostic evidence. Other roles warn. Conflicting evidence is inconclusive, not proof of stationarity; no automatic transform or cointegration claim.
+  - code: freq_mismatch
+    owner: data_and_shared
+    level: block
+    condition: Data layer checks explicit aggregation; shared checks compare prepared, configured and model-supported frequencies.
+  - code: shared_rate
+    owner: shared
+    level: warn
+    condition: An EA member uses policy_rate as shock and its effective sample includes post-adoption observations.
+  - code: pre_euro_break
+    owner: shared
+    level: warn
+    condition: Effective policy-shock sample spans the official adoption date.
+  - code: elb_period
+    owner: shared
+    level: warn
+    condition: A native policy-rate observation contributing to the effective sample is at or below special_periods.elb_threshold, default 0.25 percentage points.
+    caveat: Prepared levels are a labelled fallback; aggregated-only evidence cannot rule out lower-bound months. Shadow rates are future-only.
+  - code: covid_period
+    owner: shared
+    level: warn_or_info
+    condition: Effective sample overlaps 2020-01-01 through 2021-06-30; include warns, implemented dummies or exclusions report treatment.
+    caveat: Missing/malformed requested dummies or retained excluded periods block; descriptive/test/filter outputs do not claim regression-dummy adjustment.
+  - code: shock_out_of_range
+    owner: shared_postfit
+    level: warn
+    condition: Physical shock lies outside q05/q95 of matching identified historical physical shocks; endpoints are inside.
+  - code: unstable_dynamics
+    owner: shared_postfit
+    level: warn
+    condition: Fitted model is unstable or companion spectral radius is at least one.
+  - code: nsa_series
+    owner: shared
+    level: warn
+    condition: NSA metadata in monthly/quarterly ARDL, VAR, recursive identification or Granger model without a YoY transform.
+  - code: small_sample
+    owner: model_plugin
+    postfit_owner: shared_for_VAR_selected_lag
+    level: info_warn_or_block
+    condition: Fewer than 5 observations per parameter warns; 5 inclusive to 10 exclusive is informational; at least 10 has no ratio finding. A ratio below 3 is not a blocker. Nonpositive residual degrees of freedom, rank deficiency, required lags/windows and the VAR minimum of 8 effective observations remain blocking requirements. Automatic VAR selection rechecks the actual fitted sample after estimation.
+  - code: collinearity
+    owner: model_plugin
+    level: warn_or_block
+    condition: Estimator design condition number or deficient rank.
+  - code: granger_language
+    owner: model_plugin
+    level: info
+    condition: Granger tests describe predictive content, not causal identification.
+  - code: missing_coverage
+    owner: data
+    level: block
+    condition: Selected country lacks the required source-backed series.
+  - code: weak_instrument
+    owner: future_instrumental_variable_plugin
+    status: future_only
+    condition: First-stage instrument strength when an IV model is released; no IV model or instrument is supported in v0.

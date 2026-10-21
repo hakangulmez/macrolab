@@ -1,0 +1,80 @@
+schema_version: 1
+stage: G1.1
+verified_on: '2026-10-20'
+sample_start: '1998'
+policy: Add separate price-series candidates; never splice classifications, adjustments, markets or reference
+  bases.
+oecd_cpi:
+  id: g11_cpi2018
+  flow: OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0
+  title: Consumer price indices, COICOP 2018
+  metadata_url: https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/1.0?references=all
+  data_url: https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0/.M+Q..CPI.IX._T+_TXCP01_NRG+_TXNRG_01_02.._Z?startPeriod=1998
+  dimensions:
+  - REF_AREA
+  - FREQ
+  - METHODOLOGY
+  - MEASURE
+  - UNIT_MEASURE
+  - EXPENDITURE
+  - ADJUSTMENT
+  - TRANSFORMATION
+  verified_codes:
+    MEASURE:
+      CPI: Consumer price index
+    UNIT_MEASURE:
+      IX: Index
+    EXPENDITURE:
+      _T: Total
+      _TXCP01_NRG: All items non-food non-energy
+      _TXNRG_01_02: Overall index excluding energy, food, alcohol and tobacco
+    METHODOLOGY:
+      N: National
+      HICP: Eurostat harmonised index of consumer prices (HICP)
+  core_rule: National CPI excludes food and energy; EU/EA HICP core also excludes alcohol and tobacco,
+    explicitly flagged.
+oecd_ppi:
+  discovery_status: no_current_replacement_verified
+  evidence: Current OECD STES inventory has nine flows and no dedicated producer-price flow. The discovered
+    industry flow actual/allowed measure constraints exclude PP; the verified KEI PP history remains stale.
+  existing_flow: OECD.SDD.STES,DSD_KEI@DF_KEI,4.0
+  inventory_url: https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/all/latest?references=none
+  inventory_sha256: 2c0117cdfd36607fa39413c2af0a3867926abf908d2bfb59b29bb50a4554096c
+  industry_metadata_url: https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_INDSERV/4.3?references=all
+  industry_metadata_sha256: 8bb82b9ebe76ee491c51360d4b01273f2a327fb8d7037d2f842ae2054ab67704
+  actual_measures:
+  - TOCAPA
+  - NODW
+  - WSDW
+  - TOVM
+  - PRVM
+  allowed_measures:
+  - NODW
+  - PRVM
+  - SERVPRD
+  - SL
+  - TOCAPA
+  - TOVM
+  - WSDW
+  discovery_snapshot: g11-price-discovery-20261020-221928
+eurostat_ppi:
+  concept: ppi
+  dataset: sts_inppd_m
+  data_url: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sts_inppd_m?lang=EN&freq=M&unit=I21&s_adj=NSA&indic_bt=PRC_PRR_DOM&nace_r2=C&sinceTimePeriod=1998-01
+  filters:
+    freq: M
+    indic_bt: PRC_PRR_DOM
+    nace_r2: C
+    s_adj: NSA
+    unit: I21
+  unit: index
+  unit_mult: 0
+  sa_flag: NSA
+  price_basis: producer_prices
+  base_year: '2021'
+  definition: Manufacturing producer-price index for domestic market, NACE Rev. 2 C; unadjusted, 2021=100.
+  flags:
+  - manufacturing_domestic_market
+  - not_seasonally_adjusted
+  - PPI_market_scope_explicit
+  scope: Runtime EU members plus EA only; non-EU observations are excluded even if returned by Eurostat.

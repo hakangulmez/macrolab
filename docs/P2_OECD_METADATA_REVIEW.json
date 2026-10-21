@@ -1,0 +1,134 @@
+{
+  "reviewed_on": "2026-10-21",
+  "criterion": "Owner instruction: include each selected flow if official metadata contains no explicit third-party restriction or additional reuse note; exclude only explicitly restricted flows.",
+  "flow_count": 7,
+  "restricted_flows": [],
+  "flows": [
+    {
+      "flow": "OECD.SDD.NAD,DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES,1.1",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.NAD/DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES/1.1?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.NAD/DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES/1.1?references=all",
+      "http_status": 200,
+      "retrieved_utc": "2026-10-21T02:15:15.715026+00:00",
+      "bytes": 3745002,
+      "sha256": "dfe72de3daa9f37bc60bc6b3f13cdcd10dba77c717782e245f39a807be602a0e",
+      "names": [
+        "Quarterly GDP and components - expenditure approach -  volume and price indices"
+      ],
+      "reference_metadata_components": [],
+      "explicit_restrictions": [],
+      "classification": "allowed",
+      "keyword_hits_reviewed": 23,
+      "keyword_result": "Economic classification labels only; no reuse or ownership notice.",
+      "citation": "OECD (2026), Quarterly GDP and components - expenditure approach -  volume and price indices, OECD Data Explorer, https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.NAD,DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES,1.1/ (accessed on 2026-10-20)."
+    },
+    {
+      "flow": "OECD.SDD.STES,DSD_KEI@DF_KEI,4.0",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_KEI@DF_KEI/4.0?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_KEI@DF_KEI/4.0?references=all",
+      "http_status": 200,
+      "retrieved_utc": "2026-10-21T02:15:16.471519+00:00",
+      "bytes": 1875518,
+      "sha256": "cde7518f797b53a8c8247c644bd5bb655ab2a0543f85837cf7ad101b85d30e36",
+      "names": [
+        "Key short-term economic indicators"
+      ],
+      "reference_metadata_components": [],
+      "explicit_restrictions": [],
+      "classification": "allowed",
+      "keyword_hits_reviewed": 2,
+      "keyword_result": "Economic classification labels only; no reuse or ownership notice.",
+      "citation": "OECD (2026), Key short-term economic indicators, OECD Data Explorer, https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/ (accessed on 2026-10-20)."
+    },
+    {
+      "flow": "OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_PRICES@DF_PRICES_ALL/1.0?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_PRICES@DF_PRICES_ALL/1.0?references=all",
+      "http_status": 200,
+      "retrieved_utc": "2026-10-21T02:15:17.571561+00:00",
+      "bytes": 1489563,
+      "sha256": "73b9c557dd8c638dab5b31b45a079de782f84967ddd0cd03d2c1ff0471defcd2",
+      "names": [
+        "Consumer price indices (CPIs, HICPs), COICOP 1999"
+      ],
+      "reference_metadata_components": [],
+      "explicit_restrictions": [],
+      "classification": "allowed",
+      "keyword_hits_reviewed": 6,
+      "keyword_result": "Economic classification labels only; no reuse or ownership notice.",
+      "citation": "OECD (2026), Consumer price indices (CPIs, HICPs), COICOP 1999, OECD Data Explorer, https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/ (accessed on 2026-10-20)."
+    },
+    {
+      "flow": "OECD.SDD.TPS,DSD_LFS@DF_IALFS_LF_WAP_Q,1.0",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_LFS@DF_IALFS_LF_WAP_Q/1.0?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_LFS@DF_IALFS_LF_WAP_Q/1.0?references=all",
+      "http_status": 200,
+      "retrieved_utc": "2026-10-21T02:15:18.521869+00:00",
+      "bytes": 2182609,
+      "sha256": "bc111ea592b2cc31a1c4713eb0552711b5828d2d06bbf2cfbc840aa5e4c5c603",
+      "names": [
+        "Labour force participation rate"
+      ],
+      "reference_metadata_components": [],
+      "explicit_restrictions": [],
+      "classification": "allowed",
+      "keyword_hits_reviewed": 2,
+      "keyword_result": "Economic classification labels only; no reuse or ownership notice.",
+      "citation": "OECD (2026), Labour force participation rate, OECD Data Explorer, https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_LFS@DF_IALFS_LF_WAP_Q,1.0/ (accessed on 2026-10-20)."
+    },
+    {
+      "flow": "OECD.SDD.STES,DSD_STES@DF_FINMARK,4.0",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_FINMARK/4.0?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_FINMARK/4.0?references=all",
+      "http_status": 200,
+      "retrieved_utc": "2026-10-21T02:15:19.214434+00:00",
+      "bytes": 1872509,
+      "sha256": "a8c8fadb37c753851f5f198b98df5ee510f55062d83d6c8094711ccb6cc4e066",
+      "names": [
+        "Financial market"
+      ],
+      "reference_metadata_components": [],
+      "explicit_restrictions": [],
+      "classification": "allowed",
+      "keyword_hits_reviewed": 2,
+      "keyword_result": "Economic classification labels only; no reuse or ownership notice.",
+      "citation": "OECD (2026), Financial market, OECD Data Explorer, https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.STES,DSD_STES@DF_FINMARK,4.0/ (accessed on 2026-10-20)."
+    },
+    {
+      "flow": "OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/1.0?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/1.0?references=all",
+      "http_status": 200,
+      "retrieved_utc": "2026-10-21T02:15:20.159820+00:00",
+      "bytes": 1997121,
+      "sha256": "ab1894e88f74f2d1847bebe6cfb8f77456513c23042185783fdc3d14d8466fcc",
+      "names": [
+        "Consumer price indices (CPIs,HICPs), COICOP 2018"
+      ],
+      "reference_metadata_components": [],
+      "explicit_restrictions": [],
+      "classification": "allowed",
+      "keyword_hits_reviewed": 20,
+      "keyword_result": "Economic classification labels only; no reuse or ownership notice.",
+      "citation": "OECD (2026), Consumer price indices (CPIs,HICPs), COICOP 2018, OECD Data Explorer, https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0/ (accessed on 2026-10-20)."
+    },
+    {
+      "flow": "OECD.SDD.STES,DSD_STES@DF_CLI,4.1",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_CLI/4.1?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_CLI/4.1?references=all",
+      "http_status": 200,
+      "retrieved_utc": "2026-10-21T02:15:21.317011+00:00",
+      "bytes": 1924354,
+      "sha256": "9eb680c63cc7377d5e2c85ccab4aaf0c3bfd27acf6b8554c5904ac5de1492ecc",
+      "names": [
+        "Composite leading indicators"
+      ],
+      "reference_metadata_components": [],
+      "explicit_restrictions": [],
+      "classification": "allowed",
+      "keyword_hits_reviewed": 2,
+      "keyword_result": "Economic classification labels only; no reuse or ownership notice.",
+      "citation": "OECD (2026), Composite leading indicators, OECD Data Explorer, https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.STES,DSD_STES@DF_CLI,4.1/ (accessed on 2026-10-20)."
+    }
+  ]
+}

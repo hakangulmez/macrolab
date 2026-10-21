@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>MacroLab runtime validation</title>
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <p>
+      Local G2 runtime validation. Synthetic data only; no published estimates.
+    </p>
+    <script type="module">
+      const worker = new Worker("./worker.mjs", { type: "module" });
+      const pending = new Map();
+      let next = 0;
+      window.runtimeLogs = [];
+      worker.onmessage = ({ data }) => {
+        if (data.type === "log") {
+          window.runtimeLogs.push(data.text);
+          return;
+        }
+        const promise = pending.get(data.id);
+        if (!promise) return;
+        pending.delete(data.id);
+        if (data.type === "error") promise.reject(new Error(data.message));
+        else promise.resolve(data.result);
+      };
+      worker.onerror = (error) => {
+        for (const promise of pending.values())
+          promise.reject(new Error(error.message));
+        pending.clear();
+      };
+      window.runtimeRequest = (message) =>
+        new Promise((resolve, reject) => {
+          const id = ++next;
+          pending.set(id, { resolve, reject });
+          worker.postMessage({ id, ...message });
+        });
+      window.cancelRuntime = () => {
+        worker.terminate();
+        for (const promise of pending.values())
+          promise.reject(new Error("Cancelled"));
+        pending.clear();
+      };
+    </script>
+  </body>
+</html>

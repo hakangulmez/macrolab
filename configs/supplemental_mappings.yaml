@@ -1,0 +1,236 @@
+schema_version: 1
+verification_snapshot: g1-supplemental-discovery-pilot-20261020-214128
+country_universe: Runtime country entries supplied by pipeline; no fixed OECD membership
+  list in adapters.
+BIS:
+- concept_id: policy_rate
+  flow: WS_CBPOL
+  key: M.{ISO2_or_XM}
+  unit_code: '368'
+  unit: percent
+  timing: end_of_month
+  note: Return national and EA raw rows; pipeline applies adoption splice.
+- concept_id: us_policy_rate
+  flow: WS_CBPOL
+  key: M.US
+  country: GLOBAL
+  unit_code: '368'
+  unit: percent
+  note: Exact copy of US policy observations, not another policy instrument.
+- concept_id: credit_pnfs
+  flow: WS_TC
+  key: Q.{ISO2_or_XM}.P.A.M.770.A
+  unit: percent_gdp
+  borrowers: private non-financial sector
+  lenders: all sectors
+  valuation: market
+  adjustment: break-adjusted
+- concept_id: house_real
+  flow: WS_SPP
+  key: Q.{ISO2_or_XM}.R.628
+  unit: index
+  base_year: '2010'
+  exclude_unit_code: 771 (already YoY growth)
+- concept_id: reer
+  flow: WS_EER
+  key: M.R.B.{ISO2_or_XM}
+  unit_code: '882'
+  unit: index
+  base_year: '2020'
+  basket: broad
+- concept_id: neer
+  flow: WS_EER
+  key: M.N.B.{ISO2_or_XM}
+  unit_code: '882'
+  unit: index
+  base_year: '2020'
+  basket: broad
+ECB:
+- concept_id: money_broad
+  country: EA
+  flow: BSI
+  key: M.U2.Y.V.M30.X.1.U2.2300.Z01.E
+  unit: EUR
+  unit_mult: 6
+  sa_flag: SA
+  timing: end_of_month
+  composition: Euro area changing composition
+IMF:
+- concept_id: gov_debt
+  flow: IMF.RES,WEO,9.0.0
+  key: '{ISO3}.GGXWDG_NGDP.A'
+  unit: percent_gdp
+  unit_code: PT
+  forecast_rule: Keep only years <= LATEST_ACTUAL_ANNUAL_DATA; omit series if cutoff
+    is unavailable.
+- concept_id: gov_balance
+  flow: IMF.RES,WEO,9.0.0
+  key: '{ISO3}.GGXCNL_NGDP.A'
+  unit: percent_gdp
+  unit_code: PT
+  forecast_rule: Keep only years <= LATEST_ACTUAL_ANNUAL_DATA; omit series if cutoff
+    is unavailable.
+- concept_id: fx_usd
+  flow: IMF.STA,ER,4.0.1
+  key: '{ISO3}.XDC_USD.PA_RT.M'
+  unit: national_currency_per_USD
+  timing: monthly_average
+  note: Native national currency history retained; no guessed euro conversion.
+Eurostat:
+- concept: cpi
+  dataset: prc_hicp_minr
+  filters:
+    unit: I25
+    coicop18: TOTAL
+  unit: index
+  sa_flag: NSA
+  price_basis: consumer_prices
+  base_year: '2025'
+  flags:
+  - HICP
+  - ECOICOP2
+- concept: cpi_core
+  dataset: prc_hicp_minr
+  filters:
+    unit: I25
+    coicop18: TOT_X_NRG_FOOD
+  unit: index
+  sa_flag: NSA
+  price_basis: consumer_prices
+  base_year: '2025'
+  flags:
+  - HICP
+  - ECOICOP2
+  - excludes_energy_food_alcohol_tobacco
+- concept: gov_debt
+  dataset: gov_10dd_edpt1
+  filters:
+    unit: PC_GDP
+    sector: S13
+    na_item: GD
+  unit: percent_gdp
+  sa_flag: UNKNOWN
+  price_basis: nominal
+  flags:
+  - seasonal_adjustment_unknown
+  - maastricht_consolidated_gross_debt
+- concept: gov_balance
+  dataset: gov_10dd_edpt1
+  filters:
+    unit: PC_GDP
+    sector: S13
+    na_item: B9
+  unit: percent_gdp
+  sa_flag: UNKNOWN
+  price_basis: nominal
+  flags:
+  - seasonal_adjustment_unknown
+- concept: unemp
+  dataset: une_rt_m
+  filters:
+    unit: PC_ACT
+    s_adj: SA
+    sex: T
+    age: TOTAL
+  unit: percent
+  sa_flag: SA
+  price_basis: not_applicable
+  flags:
+  - harmonised_unemployment
+- concept: gdp_real
+  dataset: namq_10_gdp
+  filters:
+    unit: CLV10_MEUR
+    s_adj: SCA
+    na_item: B1GQ
+  unit: EUR
+  unit_mult: 6
+  sa_flag: SA
+  price_basis: chain_linked_volume
+  base_year: '2010'
+  flags:
+  - calendar_adjusted
+  - chain_linked_volumes_nonadditive
+- concept: cons_priv
+  dataset: namq_10_gdp
+  filters:
+    unit: CLV10_MEUR
+    s_adj: SCA
+    na_item: P31_S14_S15
+  unit: EUR
+  unit_mult: 6
+  sa_flag: SA
+  price_basis: chain_linked_volume
+  base_year: '2010'
+  flags:
+  - calendar_adjusted
+  - chain_linked_volumes_nonadditive
+- concept: gfcf
+  dataset: namq_10_gdp
+  filters:
+    unit: CLV10_MEUR
+    s_adj: SCA
+    na_item: P51G
+  unit: EUR
+  unit_mult: 6
+  sa_flag: SA
+  price_basis: chain_linked_volume
+  base_year: '2010'
+  flags:
+  - calendar_adjusted
+  - chain_linked_volumes_nonadditive
+- concept: cons_gov
+  dataset: namq_10_gdp
+  filters:
+    unit: CLV10_MEUR
+    s_adj: SCA
+    na_item: P3_S13
+  unit: EUR
+  unit_mult: 6
+  sa_flag: SA
+  price_basis: chain_linked_volume
+  base_year: '2010'
+  flags:
+  - calendar_adjusted
+  - chain_linked_volumes_nonadditive
+- concept: exports_real
+  dataset: namq_10_gdp
+  filters:
+    unit: CLV10_MEUR
+    s_adj: SCA
+    na_item: P6
+  unit: EUR
+  unit_mult: 6
+  sa_flag: SA
+  price_basis: chain_linked_volume
+  base_year: '2010'
+  flags:
+  - calendar_adjusted
+  - chain_linked_volumes_nonadditive
+- concept: imports_real
+  dataset: namq_10_gdp
+  filters:
+    unit: CLV10_MEUR
+    s_adj: SCA
+    na_item: P7
+  unit: EUR
+  unit_mult: 6
+  sa_flag: SA
+  price_basis: chain_linked_volume
+  base_year: '2010'
+  flags:
+  - calendar_adjusted
+  - chain_linked_volumes_nonadditive
+metadata_evidence:
+  BIS_units: https://stats.bis.org/api/v1/dataflow/BIS/WS_EER/latest?references=all
+  BIS_property: https://stats.bis.org/api/v1/dataflow/BIS/WS_SPP/latest?references=all
+  IMF_fiscal: https://api.imf.org/external/sdmx/2.1/dataflow/IMF.RES/WEO/9.0.0?references=all
+  Eurostat_current_catalogue: https://ec.europa.eu/eurostat/api/dissemination/catalogue/toc/txt?lang=en
+remaining_limitations:
+- Source-wide terms are conditional or unverified; all outputs stay local and ignored.
+- No quarterly fiscal ratios or IMF current-account ratio fallback added; annual fiscal
+  and OECD current-account mappings retain native frequencies.
+- ECB M3 is the EA aggregate only, never assigned as national broad money.
+- EA source composition is visible; fixed-composition Eurostat fallback differs from
+  changing-composition ECB M3.
+- BIS seasonal-adjustment metadata is unavailable in these payloads and flagged UNKNOWN.

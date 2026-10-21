@@ -1,0 +1,52 @@
+schema_version: 1
+verified_utc: '2026-10-20T22:13:25.505035+00:00'
+dataset:
+  id: g11_cli
+  flow: OECD.SDD.STES,DSD_STES@DF_CLI,4.1
+  title: Composite leading indicators
+  agency: OECD.SDD.STES
+  dataflow: DSD_STES@DF_CLI
+  version: '4.1'
+  metadata_url: https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_CLI/latest?references=all
+  data_url: https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.STES,DSD_STES@DF_CLI,4.1/.M.LI......
+  dimensions:
+    - REF_AREA
+    - FREQ
+    - MEASURE
+    - UNIT_MEASURE
+    - ACTIVITY
+    - ADJUSTMENT
+    - TRANSFORMATION
+    - TIME_HORIZ
+    - METHODOLOGY
+mapping:
+  concept_id: cli
+  selector:
+    FREQ: M
+    MEASURE: LI
+    UNIT_MEASURE: IX
+    ACTIVITY: _Z
+    ADJUSTMENT: AA
+    TRANSFORMATION: IX
+    TIME_HORIZ: _Z
+    METHODOLOGY: H
+  price_basis: not_applicable
+  definition: OECD harmonised amplitude-adjusted composite leading indicator, published as an index.
+  priority: 0
+  flags:
+    - OECD_harmonised_index
+  verified_code_labels:
+    FREQ: {M: Monthly}
+    MEASURE: {LI: Composite leading indicator (CLI)}
+    UNIT_MEASURE: {IX: Index}
+    ACTIVITY: {_Z: Not applicable}
+    ADJUSTMENT: {AA: Amplitude adjusted}
+    TRANSFORMATION: {IX: Index}
+    TIME_HORIZ: {_Z: Not applicable}
+    METHODOLOGY: {H: OECD harmonised}
+evidence:
+  metadata_sha256: 1fe30ad75cdaf4fd83101b3839e77c3cc97dcdfb9c040f22ad3e2d64a8cb02f9
+  broad_history_sha256: 429f6a0d198130787889a8b06114468521c887bbc7bc20b02d7ee2a996377293
+  coverage_statement: CLIs are calculated for G20 countries plus Spain and 5 zone aggregates.
+  statement_scope: Current OECD dataflow description; not a claim about discontinued historical publication.
+  broad_query_scope: Monthly LI only; every geography, unit, adjustment, transformation, activity, horizon and methodology is unrestricted.

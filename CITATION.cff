@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "Please cite MacroLab when using this software."
+title: "MacroLab"
+type: software
+authors:
+  - family-names: "Gülmez"
+    given-names: "Hakan Zeki"
+version: "0.4.0"
+license: MIT
+abstract: "Local reproducible macroeconomic analysis with validated v0 methods and a browser interface."

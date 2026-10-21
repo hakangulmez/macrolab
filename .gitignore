@@ -1,0 +1,24 @@
+# Local-only datasets, snapshots, manifests and computed results.
+/data/
+/runs/
+/.cache/
+/.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+/dist/
+/build/
+/web/node_modules/
+/web/dist/
+/web/coverage/
+/web/playwright-report/
+/web/test-results/
+.DS_Store
+.env
+.env.*
+!.env.example

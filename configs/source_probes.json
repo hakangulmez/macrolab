@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "scope": "G0 access and parsing diagnostic; not a harmonised data mapping",
+  "probes": [
+    {
+      "id": "oecd_finmark",
+      "provider": "OECD",
+      "parser": "sdmx",
+      "dataset_candidate": "OECD.SDD.STES,DSD_STES@DF_FINMARK",
+      "series_candidate": "latest observations (metadata-discovery probe)",
+      "url": "https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.STES,DSD_STES@DF_FINMARK,/.?lastNObservations=1",
+      "accept": "text/csv"
+    },
+    {
+      "id": "bis_policy",
+      "provider": "BIS",
+      "parser": "sdmx",
+      "dataset_candidate": "WS_CBPOL",
+      "series_candidate": "M.US",
+      "url": "https://stats.bis.org/api/v1/data/WS_CBPOL/M.US?startPeriod=2024-01&endPeriod=2024-03",
+      "accept": "text/csv,application/vnd.sdmx.data+csv;q=0.9,application/xml;q=0.8"
+    },
+    {
+      "id": "imf_cpi",
+      "provider": "IMF",
+      "parser": "sdmx",
+      "dataset_candidate": "IMF.STA,CPI,5.0.0",
+      "series_candidate": "USA... (unverified discovery candidate)",
+      "url": "https://api.imf.org/external/sdmx/2.1/data/IMF.STA,CPI,5.0.0/USA...?startPeriod=2024-01&endPeriod=2024-03",
+      "accept": "text/csv,application/vnd.sdmx.data+csv;q=0.9,application/xml;q=0.8"
+    },
+    {
+      "id": "ecb_exchange",
+      "provider": "ECB",
+      "parser": "sdmx",
+      "dataset_candidate": "EXR",
+      "series_candidate": "M.USD.EUR.SP00.A",
+      "url": "https://data-api.ecb.europa.eu/service/data/EXR/M.USD.EUR.SP00.A?startPeriod=2024-01&endPeriod=2024-03&format=csvdata",
+      "accept": "text/csv"
+    },
+    {
+      "id": "eurostat_unemployment",
+      "provider": "Eurostat",
+      "parser": "jsonstat",
+      "dataset_candidate": "une_rt_m",
+      "series_candidate": "DE;T;all returned age categories;PC_ACT;SA",
+      "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_m?lang=EN&geo=DE&sex=T&unit=PC_ACT&s_adj=SA&sinceTimePeriod=2024-01&untilTimePeriod=2024-03",
+      "accept": "application/json"
+    },
+    {
+      "id": "worldbank_wdi",
+      "provider": "WorldBank",
+      "parser": "wdi",
+      "dataset_candidate": "WDI",
+      "series_candidate": "USA/SP.POP.TOTL",
+      "url": "https://api.worldbank.org/v2/country/USA/indicator/SP.POP.TOTL?date=2023:2024&format=json",
+      "accept": "application/json"
+    },
+    {
+      "id": "worldbank_pink",
+      "provider": "WorldBank",
+      "parser": "pink_sheet",
+      "dataset_candidate": "Pink Sheet monthly historical workbook",
+      "series_candidate": "Crude oil, Brent",
+      "url": "https://thedocs.worldbank.org/en/doc/5d903e848db1d1b83e0ec8f744e55570-0350012021/related/CMO-Historical-Data-Monthly.xlsx",
+      "accept": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    },
+    {
+      "id": "fred_csv",
+      "provider": "FRED",
+      "parser": "csv",
+      "dataset_candidate": "fredgraph CSV",
+      "series_candidate": "FEDFUNDS (access diagnostic only; not adopted)",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS&cosd=2024-01-01&coed=2024-03-31",
+      "accept": "text/csv"
+    }
+  ],
+  "terms": [
+    {
+      "id": "oecd_terms",
+      "provider": "OECD",
+      "url": "https://www.oecd.org/en/about/terms-conditions.html"
+    },
+    {
+      "id": "bis_terms",
+      "provider": "BIS",
+      "url": "https://www.bis.org/terms_conditions.htm"
+    },
+    {
+      "id": "imf_terms",
+      "provider": "IMF",
+      "url": "https://www.imf.org/external/terms.htm"
+    },
+    {
+      "id": "ecb_terms",
+      "provider": "ECB",
+      "url": "https://www.ecb.europa.eu/services/disclaimer/html/index.en.html"
+    },
+    {
+      "id": "eurostat_terms",
+      "provider": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/web/main/help/copyright-notice"
+    },
+    {
+      "id": "worldbank_terms",
+      "provider": "WorldBank",
+      "url": "https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets"
+    },
+    {
+      "id": "fred_terms",
+      "provider": "FRED",
+      "url": "https://fred.stlouisfed.org/legal/"
+    }
+  ]
+}

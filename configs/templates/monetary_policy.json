@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "20261021-0025",
+  "countries": [
+    "USA"
+  ],
+  "series": [
+    {
+      "concept_id": "policy_rate",
+      "role": "shock",
+      "transform": "level"
+    },
+    {
+      "concept_id": "gdp_real",
+      "role": "endogenous",
+      "transform": "qoq_saar"
+    },
+    {
+      "concept_id": "cpi",
+      "role": "endogenous",
+      "transform": "qoq_saar"
+    },
+    {
+      "concept_id": "unemp",
+      "role": "endogenous",
+      "transform": "level"
+    },
+    {
+      "concept_id": "oil_brent",
+      "role": "exogenous",
+      "transform": "log"
+    }
+  ],
+  "frequency": "Q",
+  "aggregation": {
+    "policy_rate": "mean",
+    "gdp_real": "mean",
+    "cpi": "mean",
+    "unemp": "mean",
+    "oil_brent": "mean"
+  },
+  "sample": {
+    "start": "1999-Q1",
+    "end": "latest"
+  },
+  "special_periods": {
+    "covid": "dummy",
+    "covid_window": {
+      "start": "2020-Q1",
+      "end": "2020-Q3"
+    }
+  },
+  "model": {
+    "id": "var.ols",
+    "params": {
+      "lags": 2,
+      "lag_selection": "fixed",
+      "trend": "c",
+      "maxlags": 4
+    }
+  },
+  "identification": {
+    "id": "recursive",
+    "params": {
+      "order": [
+        "gdp_real",
+        "cpi",
+        "unemp",
+        "policy_rate"
+      ]
+    }
+  },
+  "outputs": {
+    "confidence": 0.95,
+    "irf": {
+      "horizon": 12,
+      "bands": 0.68,
+      "shock_size": 1.0,
+      "method": "bootstrap",
+      "draws": 200,
+      "shock_mode": "one_sd"
+    }
+  },
+  "comparison": {
+    "enabled": true,
+    "methods": [],
+    "identifications": [],
+    "scenarios": [
+      "extended_var",
+      "lag_criteria",
+      "covid_include",
+      "end_2019"
+    ]
+  },
+  "seed": 20261021
+}

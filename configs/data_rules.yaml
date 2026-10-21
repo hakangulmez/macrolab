@@ -1,0 +1,31 @@
+schema_version: 1
+requested_sample_start: 1999-01-01
+start_inclusive: true
+staleness_months:
+  M: 6
+  Q: 9
+  A: 24
+commodity_staleness_months: 3
+missing_value_policy: preserve_gaps_no_interpolation
+duplicate_policy: reject_conflicting_values
+fallback_policy: prefer_current_then_first_eligible_source_with_adequate_history_else_longest_available
+adequate_history:
+  M: 120
+  Q: 40
+  A: 10
+elb_threshold_percent: 0.25
+covid_start: 2020-Q1
+covid_end: 2021-Q2
+plausibility:
+  policy_rate: [-20, 300]
+  us_policy_rate: [-20, 300]
+  rate_3m: [-20, 300]
+  rate_10y: [-20, 300]
+  unemp: [0, 100]
+  lfpr: [0, 100]
+  credit_pnfs: [0, 1000]
+  gov_debt: [0, 1000]
+  gov_balance: [-100, 100]
+  ca_gdp: [-100, 100]
+  oil_brent: [0, 1000]
+outlier_policy: flag_never_drop

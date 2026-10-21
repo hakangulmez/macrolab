@@ -1,0 +1,90 @@
+.analysis-checks {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+.analysis-checks .warning-tier {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  min-width: 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.analysis-checks .warning-blocking {
+  background: var(--red-tint);
+  border-color: var(--red);
+  color: var(--red);
+}
+.analysis-checks .warning-important {
+  background: var(--warning);
+  border-color: var(--warning-border);
+  color: var(--warning-text);
+}
+.analysis-checks .warning-notes {
+  background: var(--surface);
+  color: var(--text);
+}
+.analysis-checks h3 {
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+.analysis-checks p {
+  margin: 0 0 8px;
+}
+.analysis-checks .warning-items,
+.analysis-checks .source-note-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.analysis-checks .warning-items > li + li,
+.analysis-checks .source-note-links > li + li {
+  border-top: 1px solid var(--border);
+  margin-top: 9px;
+  padding-top: 9px;
+}
+.analysis-checks .warning-item-text {
+  display: grid;
+  gap: 2px;
+}
+.analysis-checks .warning-context {
+  font-weight: 600;
+}
+.analysis-checks .link {
+  font-size: 12px;
+  margin-right: 8px;
+  text-align: left;
+}
+.analysis-checks .warning-technical {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.analysis-checks .warning-technical summary {
+  font-weight: 400;
+}
+.analysis-checks .warning-technical pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 6px 0 0;
+  max-height: 200px;
+  overflow: auto;
+}
+.analysis-checks .warning-overflow {
+  margin-top: 12px;
+}
+.analysis-checks .warning-overflow[open] > summary,
+.analysis-checks .warning-notes[open] > summary {
+  margin-bottom: 12px;
+}
+
+.analysis-checks .warning-phase {
+  width: fit-content;
+  font-size: 10px;
+  font-weight: 600;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  padding: 0 5px;
+  margin: 2px 0;
+}

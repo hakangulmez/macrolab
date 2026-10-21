@@ -1,0 +1,1043 @@
+schema_version: 1
+verified_on: '2026-10-20'
+membership_url: https://sdmx.oecd.org/public/rest/v1/codelist/OECD/CL_AREA/latest?references=none
+membership_rule: OECD00 COMP_RULE, parsed at each snapshot; never all geographic codes
+sample_start: '1998'
+note: Source values are not transformed, rescaled, interpolated or combined across
+  seasonal adjustment/composition. Mappings are verified metadata; country coverage
+  is generated from observed data.
+datasets:
+- id: qna
+  flow: OECD.SDD.NAD,DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES,1.1
+  title: 'Quarterly GDP and components: volume and price indices'
+  metadata_url: https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.NAD/DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES/1.1?references=all
+  metadata_sha256_at_mapping: 91a887187894bd23bef7c181a72a1e48682fffb1f321ecc6fc29fb25f84ca75f
+  dimensions:
+  - FREQ
+  - ADJUSTMENT
+  - REF_AREA
+  - SECTOR
+  - COUNTERPART_SECTOR
+  - TRANSACTION
+  - INSTR_ASSET
+  - ACTIVITY
+  - EXPENDITURE
+  - UNIT_MEASURE
+  - PRICE_BASE
+  - TRANSFORMATION
+  - TABLE_IDENTIFIER
+  data_urls:
+  - https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.NAD,DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES,1.1/Q.Y..S1+S1M+S13.S1.B1GQ+P3+P51G+P6+P7._Z...IX.LR+DR.N.T0102?startPeriod=1998-Q1
+- id: kei
+  flow: OECD.SDD.STES,DSD_KEI@DF_KEI,4.0
+  title: Key short-term economic indicators
+  metadata_url: https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_KEI@DF_KEI/4.0?references=all
+  metadata_sha256_at_mapping: 69c14bb0d83f5726591d5735bafce8a8ecccf0f74a6a3eb5b8c8cc3bd26ba793
+  dimensions:
+  - REF_AREA
+  - FREQ
+  - MEASURE
+  - UNIT_MEASURE
+  - ACTIVITY
+  - ADJUSTMENT
+  - TRANSFORMATION
+  data_urls:
+  - https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/.M.BCICP+CA_GDP+CC+CCICP+EMP+IR3TIB+IRLT+LI+MABM+PP+PRVM+TOVM+ULC+UNEMP...._Z?startPeriod=1998
+  - https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/.Q.BCICP+CA_GDP+CC+CCICP+EMP+IR3TIB+IRLT+LI+MABM+PP+PRVM+TOVM+ULC+UNEMP...._Z?startPeriod=1998
+- id: cpi
+  flow: OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0
+  title: Consumer price indices, COICOP 1999
+  metadata_url: https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_PRICES@DF_PRICES_ALL/1.0?references=all
+  metadata_sha256_at_mapping: 62d0f7c2c55e33702f47e775e1419c1496bbf16e13c421e5c647eeea1c868789
+  dimensions:
+  - REF_AREA
+  - FREQ
+  - METHODOLOGY
+  - MEASURE
+  - UNIT_MEASURE
+  - EXPENDITURE
+  - ADJUSTMENT
+  - TRANSFORMATION
+  data_urls:
+  - https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/.M..CPI.IX._T+_TXCP01_NRG.._Z?startPeriod=1998-01
+  - https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/NZL.Q..CPI.IX._T+_TXCP01_NRG.._Z?startPeriod=1998-Q1
+- id: lfpr
+  flow: OECD.SDD.TPS,DSD_LFS@DF_IALFS_LF_WAP_Q,1.0
+  title: Labour force participation rate
+  metadata_url: https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_LFS@DF_IALFS_LF_WAP_Q/1.0?references=all
+  metadata_sha256_at_mapping: 4e7a5353d5fb8b8ea726b6b4348d21aa977def2190bfec13e6b693be25f542ea
+  dimensions:
+  - REF_AREA
+  - MEASURE
+  - UNIT_MEASURE
+  - TRANSFORMATION
+  - ADJUSTMENT
+  - SEX
+  - AGE
+  - ACTIVITY
+  - FREQ
+  data_urls:
+  - https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_LFS@DF_IALFS_LF_WAP_Q,1.0/.LF_WAP.PT_WAP_SUB._Z.._T.Y15T64._Z.Q?startPeriod=1998-Q1
+- id: finmark
+  flow: OECD.SDD.STES,DSD_STES@DF_FINMARK,4.0
+  title: Financial market indicators
+  metadata_url: https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_FINMARK/latest?references=all
+  metadata_sha256_at_mapping: 512f2a270b5c6e57ad0100b6a3bbc4cefae345ffc2ecd237698f20947293016a
+  dimensions:
+  - REF_AREA
+  - FREQ
+  - MEASURE
+  - UNIT_MEASURE
+  - ACTIVITY
+  - ADJUSTMENT
+  - TRANSFORMATION
+  - TIME_HORIZ
+  - METHODOLOGY
+  data_urls:
+  - https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.STES,DSD_STES@DF_FINMARK,4.0/.M.SHARE.IX._Z._Z._Z._Z.N?startPeriod=1998-01
+- id: cli
+  flow: OECD.SDD.STES,DSD_STES@DF_CLI,4.1
+  title: OECD harmonised composite leading and confidence indicators
+  metadata_url: https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_CLI/4.1?references=all
+  metadata_sha256_at_mapping: 8313b5419389764fc6f4c8b5c35293d80fb50f7597abb8ccf530603e91088bf5
+  dimensions:
+  - REF_AREA
+  - FREQ
+  - MEASURE
+  - UNIT_MEASURE
+  - ACTIVITY
+  - ADJUSTMENT
+  - TRANSFORMATION
+  - TIME_HORIZ
+  - METHODOLOGY
+  data_urls:
+  - https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.STES,DSD_STES@DF_CLI,4.1/.M.LI+BCICP+CCICP.IX._Z.AA.IX._Z.H?startPeriod=1998-01
+mappings:
+- concept_id: gdp_real
+  dataset: qna
+  selector:
+    FREQ: Q
+    ADJUSTMENT: Y
+    COUNTERPART_SECTOR: S1
+    INSTR_ASSET: _Z
+    UNIT_MEASURE: IX
+    TRANSFORMATION: N
+    TABLE_IDENTIFIER: T0102
+    SECTOR: S1
+    TRANSACTION: B1GQ
+    ACTIVITY: _Z
+    EXPENDITURE: _Z
+    PRICE_BASE: LR
+  price_basis: chain_linked_volume
+  definition: OECD quarterly, calendar and seasonally adjusted chain-linked volume
+    index; reference year from REF_YEAR_PRICE.
+  verified_code_labels:
+    FREQ:
+      Q: Quarterly
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    COUNTERPART_SECTOR:
+      S1: Total economy
+    INSTR_ASSET:
+      _Z: Not applicable
+    UNIT_MEASURE:
+      IX: Index
+    TRANSFORMATION:
+      N: Non transformed data
+    TABLE_IDENTIFIER:
+      T0102: Table 0102 - GDP identity from the expenditure side
+    SECTOR:
+      S1: Total economy
+    TRANSACTION:
+      B1GQ: Gross domestic product
+    ACTIVITY:
+      _Z: Not applicable
+    EXPENDITURE:
+      _Z: Not applicable
+    PRICE_BASE:
+      LR: Chain linked volume (rebased)
+- concept_id: cons_priv
+  dataset: qna
+  selector:
+    FREQ: Q
+    ADJUSTMENT: Y
+    COUNTERPART_SECTOR: S1
+    INSTR_ASSET: _Z
+    UNIT_MEASURE: IX
+    TRANSFORMATION: N
+    TABLE_IDENTIFIER: T0102
+    SECTOR: S1M
+    TRANSACTION: P3
+    ACTIVITY: _Z
+    EXPENDITURE: _T
+    PRICE_BASE: LR
+  price_basis: chain_linked_volume
+  definition: OECD quarterly, calendar and seasonally adjusted chain-linked volume
+    index; reference year from REF_YEAR_PRICE.
+  verified_code_labels:
+    FREQ:
+      Q: Quarterly
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    COUNTERPART_SECTOR:
+      S1: Total economy
+    INSTR_ASSET:
+      _Z: Not applicable
+    UNIT_MEASURE:
+      IX: Index
+    TRANSFORMATION:
+      N: Non transformed data
+    TABLE_IDENTIFIER:
+      T0102: Table 0102 - GDP identity from the expenditure side
+    SECTOR:
+      S1M: Households and non-profit institutions serving households (NPISH)
+    TRANSACTION:
+      P3: Final consumption expenditure
+    ACTIVITY:
+      _Z: Not applicable
+    EXPENDITURE:
+      _T: Total
+    PRICE_BASE:
+      LR: Chain linked volume (rebased)
+- concept_id: cons_gov
+  dataset: qna
+  selector:
+    FREQ: Q
+    ADJUSTMENT: Y
+    COUNTERPART_SECTOR: S1
+    INSTR_ASSET: _Z
+    UNIT_MEASURE: IX
+    TRANSFORMATION: N
+    TABLE_IDENTIFIER: T0102
+    SECTOR: S13
+    TRANSACTION: P3
+    ACTIVITY: _Z
+    EXPENDITURE: _T
+    PRICE_BASE: LR
+  price_basis: chain_linked_volume
+  definition: OECD quarterly, calendar and seasonally adjusted chain-linked volume
+    index; reference year from REF_YEAR_PRICE.
+  verified_code_labels:
+    FREQ:
+      Q: Quarterly
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    COUNTERPART_SECTOR:
+      S1: Total economy
+    INSTR_ASSET:
+      _Z: Not applicable
+    UNIT_MEASURE:
+      IX: Index
+    TRANSFORMATION:
+      N: Non transformed data
+    TABLE_IDENTIFIER:
+      T0102: Table 0102 - GDP identity from the expenditure side
+    SECTOR:
+      S13: General government
+    TRANSACTION:
+      P3: Final consumption expenditure
+    ACTIVITY:
+      _Z: Not applicable
+    EXPENDITURE:
+      _T: Total
+    PRICE_BASE:
+      LR: Chain linked volume (rebased)
+- concept_id: gfcf
+  dataset: qna
+  selector:
+    FREQ: Q
+    ADJUSTMENT: Y
+    COUNTERPART_SECTOR: S1
+    INSTR_ASSET: _Z
+    UNIT_MEASURE: IX
+    TRANSFORMATION: N
+    TABLE_IDENTIFIER: T0102
+    SECTOR: S1
+    TRANSACTION: P51G
+    ACTIVITY: _T
+    EXPENDITURE: _Z
+    PRICE_BASE: LR
+  price_basis: chain_linked_volume
+  definition: OECD quarterly, calendar and seasonally adjusted chain-linked volume
+    index; reference year from REF_YEAR_PRICE.
+  verified_code_labels:
+    FREQ:
+      Q: Quarterly
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    COUNTERPART_SECTOR:
+      S1: Total economy
+    INSTR_ASSET:
+      _Z: Not applicable
+    UNIT_MEASURE:
+      IX: Index
+    TRANSFORMATION:
+      N: Non transformed data
+    TABLE_IDENTIFIER:
+      T0102: Table 0102 - GDP identity from the expenditure side
+    SECTOR:
+      S1: Total economy
+    TRANSACTION:
+      P51G: Gross fixed capital formation
+    ACTIVITY:
+      _T: Total - all activities
+    EXPENDITURE:
+      _Z: Not applicable
+    PRICE_BASE:
+      LR: Chain linked volume (rebased)
+- concept_id: exports_real
+  dataset: qna
+  selector:
+    FREQ: Q
+    ADJUSTMENT: Y
+    COUNTERPART_SECTOR: S1
+    INSTR_ASSET: _Z
+    UNIT_MEASURE: IX
+    TRANSFORMATION: N
+    TABLE_IDENTIFIER: T0102
+    SECTOR: S1
+    TRANSACTION: P6
+    ACTIVITY: _Z
+    EXPENDITURE: _Z
+    PRICE_BASE: LR
+  price_basis: chain_linked_volume
+  definition: OECD quarterly, calendar and seasonally adjusted chain-linked volume
+    index; reference year from REF_YEAR_PRICE.
+  verified_code_labels:
+    FREQ:
+      Q: Quarterly
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    COUNTERPART_SECTOR:
+      S1: Total economy
+    INSTR_ASSET:
+      _Z: Not applicable
+    UNIT_MEASURE:
+      IX: Index
+    TRANSFORMATION:
+      N: Non transformed data
+    TABLE_IDENTIFIER:
+      T0102: Table 0102 - GDP identity from the expenditure side
+    SECTOR:
+      S1: Total economy
+    TRANSACTION:
+      P6: Exports of goods and services
+    ACTIVITY:
+      _Z: Not applicable
+    EXPENDITURE:
+      _Z: Not applicable
+    PRICE_BASE:
+      LR: Chain linked volume (rebased)
+- concept_id: imports_real
+  dataset: qna
+  selector:
+    FREQ: Q
+    ADJUSTMENT: Y
+    COUNTERPART_SECTOR: S1
+    INSTR_ASSET: _Z
+    UNIT_MEASURE: IX
+    TRANSFORMATION: N
+    TABLE_IDENTIFIER: T0102
+    SECTOR: S1
+    TRANSACTION: P7
+    ACTIVITY: _Z
+    EXPENDITURE: _Z
+    PRICE_BASE: LR
+  price_basis: chain_linked_volume
+  definition: OECD quarterly, calendar and seasonally adjusted chain-linked volume
+    index; reference year from REF_YEAR_PRICE.
+  verified_code_labels:
+    FREQ:
+      Q: Quarterly
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    COUNTERPART_SECTOR:
+      S1: Total economy
+    INSTR_ASSET:
+      _Z: Not applicable
+    UNIT_MEASURE:
+      IX: Index
+    TRANSFORMATION:
+      N: Non transformed data
+    TABLE_IDENTIFIER:
+      T0102: Table 0102 - GDP identity from the expenditure side
+    SECTOR:
+      S1: Total economy
+    TRANSACTION:
+      P7: Imports of goods and services
+    ACTIVITY:
+      _Z: Not applicable
+    EXPENDITURE:
+      _Z: Not applicable
+    PRICE_BASE:
+      LR: Chain linked volume (rebased)
+- concept_id: gdp_defl
+  dataset: qna
+  selector:
+    FREQ: Q
+    ADJUSTMENT: Y
+    COUNTERPART_SECTOR: S1
+    INSTR_ASSET: _Z
+    UNIT_MEASURE: IX
+    TRANSFORMATION: N
+    TABLE_IDENTIFIER: T0102
+    SECTOR: S1
+    TRANSACTION: B1GQ
+    ACTIVITY: _Z
+    EXPENDITURE: _Z
+    PRICE_BASE: DR
+  price_basis: deflator
+  definition: Quarterly GDP deflator index, calendar and seasonally adjusted; reference
+    year from REF_YEAR_PRICE.
+  verified_code_labels:
+    FREQ:
+      Q: Quarterly
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    COUNTERPART_SECTOR:
+      S1: Total economy
+    INSTR_ASSET:
+      _Z: Not applicable
+    UNIT_MEASURE:
+      IX: Index
+    TRANSFORMATION:
+      N: Non transformed data
+    TABLE_IDENTIFIER:
+      T0102: Table 0102 - GDP identity from the expenditure side
+    SECTOR:
+      S1: Total economy
+    TRANSACTION:
+      B1GQ: Gross domestic product
+    ACTIVITY:
+      _Z: Not applicable
+    EXPENDITURE:
+      _Z: Not applicable
+    PRICE_BASE:
+      DR: Deflator (rebased)
+- concept_id: ind_prod
+  dataset: kei
+  selector:
+    FREQ:
+    - M
+    - Q
+    MEASURE: PRVM
+    UNIT_MEASURE: IX
+    ACTIVITY: BTE
+    ADJUSTMENT: Y
+    TRANSFORMATION: _Z
+  price_basis: volume_index
+  definition: Industrial production volume, mining/manufacturing/utilities (ISIC B-E),
+    calendar and seasonally adjusted.
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+      Q: Quarterly
+    MEASURE:
+      PRVM: Production volume
+    UNIT_MEASURE:
+      IX: Index
+    ACTIVITY:
+      BTE: Industry (except construction)
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags: []
+  preferred_frequency: M
+- concept_id: retail_vol
+  dataset: kei
+  selector:
+    FREQ:
+    - M
+    - Q
+    MEASURE: TOVM
+    UNIT_MEASURE: IX
+    ACTIVITY: G47
+    ADJUSTMENT: Y
+    TRANSFORMATION: _Z
+  price_basis: volume_index
+  definition: Retail trade volume, ISIC G47, calendar and seasonally adjusted.
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+      Q: Quarterly
+    MEASURE:
+      TOVM: Retail trade volume
+    UNIT_MEASURE:
+      IX: Index
+    ACTIVITY:
+      G47: Retail trade, except of motor vehicles and motorcycles
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags: []
+  preferred_frequency: M
+- concept_id: cli
+  dataset: kei
+  selector:
+    FREQ: M
+    MEASURE: LI
+    UNIT_MEASURE: IX
+    ACTIVITY: _T
+    ADJUSTMENT: AA
+    TRANSFORMATION: _Z
+  price_basis: not_applicable
+  definition: OECD amplitude-adjusted composite leading indicator.
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+    MEASURE:
+      LI: Composite leading indicator (CLI)
+    UNIT_MEASURE:
+      IX: Index
+    ACTIVITY:
+      _T: Total - all activities
+    ADJUSTMENT:
+      AA: Amplitude adjusted
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags: []
+  priority: 10
+- concept_id: ppi
+  dataset: kei
+  selector:
+    FREQ:
+    - M
+    - Q
+    MEASURE: PP
+    UNIT_MEASURE: IX
+    ACTIVITY: C
+    ADJUSTMENT: _Z
+    TRANSFORMATION: _Z
+  price_basis: price_index
+  definition: Producer price index for manufacturing (ISIC C); source adjustment not
+    applicable.
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+      Q: Quarterly
+    MEASURE:
+      PP: Producer prices
+    UNIT_MEASURE:
+      IX: Index
+    ACTIVITY:
+      C: Manufacturing
+    ADJUSTMENT:
+      _Z: Not applicable
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags:
+  - seasonal_adjustment_not_reported
+  preferred_frequency: M
+- concept_id: ulc
+  dataset: kei
+  selector:
+    FREQ: Q
+    MEASURE: ULC
+    UNIT_MEASURE: IX
+    ACTIVITY: _T
+    ADJUSTMENT: Y
+    TRANSFORMATION: _Z
+  price_basis: nominal_unit_labour_cost
+  definition: Total-economy unit labour cost index, calendar and seasonally adjusted.
+  verified_code_labels:
+    FREQ:
+      Q: Quarterly
+    MEASURE:
+      ULC: Unit labour cost
+    UNIT_MEASURE:
+      IX: Index
+    ACTIVITY:
+      _T: Total - all activities
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags: []
+- concept_id: unemp
+  dataset: kei
+  selector:
+    FREQ:
+    - M
+    - Q
+    MEASURE: UNEMP
+    UNIT_MEASURE: PT_LF
+    ACTIVITY: _T
+    ADJUSTMENT: Y
+    TRANSFORMATION: _Z
+  price_basis: not_applicable
+  definition: Unemployment as percentage of labour force, calendar and seasonally
+    adjusted.
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+      Q: Quarterly
+    MEASURE:
+      UNEMP: Unemployment
+    UNIT_MEASURE:
+      PT_LF: Percentage of labour force
+    ACTIVITY:
+      _T: Total - all activities
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags: []
+  preferred_frequency: M
+- concept_id: employment
+  dataset: kei
+  selector:
+    FREQ: Q
+    MEASURE: EMP
+    UNIT_MEASURE: PS
+    ACTIVITY: _T
+    ADJUSTMENT: Y
+    TRANSFORMATION: _Z
+  price_basis: not_applicable
+  definition: Total employment persons, calendar and seasonally adjusted; source multiplier
+    retained.
+  verified_code_labels:
+    FREQ:
+      Q: Quarterly
+    MEASURE:
+      EMP: Employment
+    UNIT_MEASURE:
+      PS: Persons
+    ACTIVITY:
+      _T: Total - all activities
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags: []
+- concept_id: rate_3m
+  dataset: kei
+  selector:
+    FREQ: M
+    MEASURE: IR3TIB
+    UNIT_MEASURE: PA
+    ACTIVITY: _Z
+    ADJUSTMENT: _Z
+    TRANSFORMATION: _Z
+  price_basis: not_applicable
+  definition: 'Short-term interest rate, OECD indicator definition: three-month money-market
+    rate or comparable instrument.'
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+    MEASURE:
+      IR3TIB: Short-term interest rates
+    UNIT_MEASURE:
+      PA: Percent per annum
+    ACTIVITY:
+      _Z: Not applicable
+    ADJUSTMENT:
+      _Z: Not applicable
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags:
+  - source_instrument_may_be_comparable_three_month_instrument
+  definition_url: https://www.oecd.org/en/data/indicators/short-term-interest-rates.html
+- concept_id: rate_10y
+  dataset: kei
+  selector:
+    FREQ: M
+    MEASURE: IRLT
+    UNIT_MEASURE: PA
+    ACTIVITY: _Z
+    ADJUSTMENT: _Z
+    TRANSFORMATION: _Z
+  price_basis: not_applicable
+  definition: 'Long-term interest rate, OECD indicator definition: government bonds
+    with ten-year maturity.'
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+    MEASURE:
+      IRLT: Long-term interest rates
+    UNIT_MEASURE:
+      PA: Percent per annum
+    ACTIVITY:
+      _Z: Not applicable
+    ADJUSTMENT:
+      _Z: Not applicable
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags: []
+  definition_url: https://www.oecd.org/en/data/indicators/long-term-interest-rates.html
+- concept_id: money_broad
+  dataset: kei
+  selector:
+    FREQ: M
+    MEASURE: MABM
+    UNIT_MEASURE: IX
+    ACTIVITY: _Z
+    ADJUSTMENT: Y
+    TRANSFORMATION: _Z
+  price_basis: nominal
+  definition: Broad-money M3 index, calendar and seasonally adjusted; national monetary
+    aggregate definitions may differ.
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+    MEASURE:
+      MABM: M3
+    UNIT_MEASURE:
+      IX: Index
+    ACTIVITY:
+      _Z: Not applicable
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags:
+  - national_broad_money_definition
+- concept_id: fx_usd
+  dataset: kei
+  selector:
+    FREQ: M
+    MEASURE: CC
+    UNIT_MEASURE: XDC_USD
+    ACTIVITY: _Z
+    ADJUSTMENT: _Z
+    TRANSFORMATION: _Z
+  price_basis: nominal
+  definition: National currency units per US dollar; source exchange-rate series retained.
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+    MEASURE:
+      CC: Nominal exchange rates
+    UNIT_MEASURE:
+      XDC_USD: National currency per US dollar
+    ACTIVITY:
+      _Z: Not applicable
+    ADJUSTMENT:
+      _Z: Not applicable
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags: []
+- concept_id: ca_gdp
+  dataset: kei
+  selector:
+    FREQ: Q
+    MEASURE: CA_GDP
+    UNIT_MEASURE: PT_B1GQ
+    ACTIVITY: _T
+    ADJUSTMENT: Y
+    TRANSFORMATION: _Z
+  price_basis: nominal
+  definition: Current-account balance as percent of GDP, calendar and seasonally adjusted.
+  verified_code_labels:
+    FREQ:
+      Q: Quarterly
+    MEASURE:
+      CA_GDP: Current account balance as percentage of GDP
+    UNIT_MEASURE:
+      PT_B1GQ: Percentage of GDP
+    ACTIVITY:
+      _T: Total - all activities
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags: []
+- concept_id: conf_cons
+  dataset: kei
+  selector:
+    FREQ:
+    - M
+    - Q
+    MEASURE: CCICP
+    UNIT_MEASURE: PB
+    ACTIVITY: _Z
+    ADJUSTMENT: Y
+    TRANSFORMATION: _Z
+  price_basis: not_applicable
+  definition: Composite consumer confidence in percentage balance units, calendar
+    and seasonally adjusted.
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+      Q: Quarterly
+    MEASURE:
+      CCICP: Composite consumer confidence
+    UNIT_MEASURE:
+      PB: Percentage balance
+    ACTIVITY:
+      _Z: Not applicable
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags:
+  - confidence_percentage_balance_not_normalised_index
+  preferred_frequency: M
+  priority: 10
+- concept_id: conf_bus
+  dataset: kei
+  selector:
+    FREQ:
+    - M
+    - Q
+    MEASURE: BCICP
+    UNIT_MEASURE: PB
+    ACTIVITY: C
+    ADJUSTMENT: Y
+    TRANSFORMATION: _Z
+  price_basis: not_applicable
+  definition: Composite manufacturing business confidence in percentage balance units,
+    calendar and seasonally adjusted.
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+      Q: Quarterly
+    MEASURE:
+      BCICP: Composite business confidence
+    UNIT_MEASURE:
+      PB: Percentage balance
+    ACTIVITY:
+      C: Manufacturing
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+    TRANSFORMATION:
+      _Z: Not applicable
+  flags:
+  - confidence_percentage_balance_not_normalised_index
+  preferred_frequency: M
+  priority: 10
+- concept_id: cpi
+  dataset: cpi
+  selector:
+    FREQ:
+    - M
+    - Q
+    MEASURE: CPI
+    UNIT_MEASURE: IX
+    EXPENDITURE: _T
+    ADJUSTMENT:
+    - S
+    - N
+    TRANSFORMATION: _Z
+  price_basis: price_index
+  definition: HICP methodology required for current EU members/EA; national CPI otherwise.
+    Core excludes food and energy. SA preferred over NSA as a whole-series candidate.
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+      Q: Quarterly
+    MEASURE:
+      CPI: Consumer price index
+    UNIT_MEASURE:
+      IX: Index
+    EXPENDITURE:
+      _T: Total
+    ADJUSTMENT:
+      S: Seasonally adjusted, not calendar adjusted
+      N: Neither seasonally adjusted nor calendar adjusted
+    TRANSFORMATION:
+      _Z: Not applicable
+  methodology_by_eu: true
+  preferred_frequency: M
+- concept_id: cpi_core
+  dataset: cpi
+  selector:
+    FREQ:
+    - M
+    - Q
+    MEASURE: CPI
+    UNIT_MEASURE: IX
+    EXPENDITURE: _TXCP01_NRG
+    ADJUSTMENT:
+    - S
+    - N
+    TRANSFORMATION: _Z
+  price_basis: price_index
+  definition: HICP methodology required for current EU members/EA; national CPI otherwise.
+    Core excludes food and energy. SA preferred over NSA as a whole-series candidate.
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+      Q: Quarterly
+    MEASURE:
+      CPI: Consumer price index
+    UNIT_MEASURE:
+      IX: Index
+    EXPENDITURE:
+      _TXCP01_NRG: All items non-food non-energy
+    ADJUSTMENT:
+      S: Seasonally adjusted, not calendar adjusted
+      N: Neither seasonally adjusted nor calendar adjusted
+    TRANSFORMATION:
+      _Z: Not applicable
+  methodology_by_eu: true
+  preferred_frequency: M
+- concept_id: lfpr
+  dataset: lfpr
+  selector:
+    MEASURE: LF_WAP
+    UNIT_MEASURE: PT_WAP_SUB
+    TRANSFORMATION: _Z
+    ADJUSTMENT:
+    - Y
+    - N
+    SEX: _T
+    AGE: Y15T64
+    ACTIVITY: _Z
+    FREQ: Q
+  price_basis: not_applicable
+  definition: Labour-force participation, both sexes aged15–64, percent of the same
+    working-age subgroup. SA preferred over NSA as a whole-series candidate.
+  verified_code_labels:
+    MEASURE:
+      LF_WAP: Labour force participation rate
+    UNIT_MEASURE:
+      PT_WAP_SUB: Percentage of working age population in the same subgroup
+    TRANSFORMATION:
+      _Z: Not applicable
+    ADJUSTMENT:
+      Y: Calendar and seasonally adjusted
+      N: Neither seasonally adjusted nor calendar adjusted
+    SEX:
+      _T: Total
+    AGE:
+      Y15T64: From 15 to 64 years
+    ACTIVITY:
+      _Z: Not applicable
+    FREQ:
+      Q: Quarterly
+  flags:
+  - age_15_64
+- concept_id: equity_idx
+  dataset: finmark
+  selector:
+    FREQ: M
+    MEASURE: SHARE
+    UNIT_MEASURE: IX
+    ACTIVITY: _Z
+    ADJUSTMENT: _Z
+    TRANSFORMATION: _Z
+    TIME_HORIZ: _Z
+    METHODOLOGY: N
+  price_basis: nominal
+  definition: OECD national share-price index levels, source base year retained.
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+    MEASURE:
+      SHARE: Share prices
+    UNIT_MEASURE:
+      IX: Index
+    ACTIVITY:
+      _Z: Not applicable
+    ADJUSTMENT:
+      _Z: Not applicable
+    TRANSFORMATION:
+      _Z: Not applicable
+    TIME_HORIZ:
+      _Z: Not applicable
+    METHODOLOGY:
+      N: National
+- concept_id: cli
+  dataset: cli
+  selector:
+    FREQ: M
+    MEASURE: LI
+    UNIT_MEASURE: IX
+    ACTIVITY: _Z
+    ADJUSTMENT: AA
+    TRANSFORMATION: IX
+    TIME_HORIZ: _Z
+    METHODOLOGY: H
+  price_basis: not_applicable
+  definition: OECD harmonised amplitude-adjusted Composite leading indicator (CLI),
+    published as an index.
+  priority: 0
+  flags:
+  - OECD_harmonised_index
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+    MEASURE:
+      LI: Composite leading indicator (CLI)
+    UNIT_MEASURE:
+      IX: Index
+    ACTIVITY:
+      _Z: Not applicable
+    ADJUSTMENT:
+      AA: Amplitude adjusted
+    TRANSFORMATION:
+      IX: Index
+    TIME_HORIZ:
+      _Z: Not applicable
+    METHODOLOGY:
+      H: OECD harmonised
+- concept_id: conf_bus
+  dataset: cli
+  selector:
+    FREQ: M
+    MEASURE: BCICP
+    UNIT_MEASURE: IX
+    ACTIVITY: _Z
+    ADJUSTMENT: AA
+    TRANSFORMATION: IX
+    TIME_HORIZ: _Z
+    METHODOLOGY: H
+  price_basis: not_applicable
+  definition: OECD harmonised amplitude-adjusted Composite business confidence, published
+    as an index.
+  priority: 0
+  flags:
+  - OECD_harmonised_index
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+    MEASURE:
+      BCICP: Composite business confidence
+    UNIT_MEASURE:
+      IX: Index
+    ACTIVITY:
+      _Z: Not applicable
+    ADJUSTMENT:
+      AA: Amplitude adjusted
+    TRANSFORMATION:
+      IX: Index
+    TIME_HORIZ:
+      _Z: Not applicable
+    METHODOLOGY:
+      H: OECD harmonised
+- concept_id: conf_cons
+  dataset: cli
+  selector:
+    FREQ: M
+    MEASURE: CCICP
+    UNIT_MEASURE: IX
+    ACTIVITY: _Z
+    ADJUSTMENT: AA
+    TRANSFORMATION: IX
+    TIME_HORIZ: _Z
+    METHODOLOGY: H
+  price_basis: not_applicable
+  definition: OECD harmonised amplitude-adjusted Composite consumer confidence, published
+    as an index.
+  priority: 0
+  flags:
+  - OECD_harmonised_index
+  verified_code_labels:
+    FREQ:
+      M: Monthly
+    MEASURE:
+      CCICP: Composite consumer confidence
+    UNIT_MEASURE:
+      IX: Index
+    ACTIVITY:
+      _Z: Not applicable
+    ADJUSTMENT:
+      AA: Amplitude adjusted
+    TRANSFORMATION:
+      IX: Index
+    TIME_HORIZ:
+      _Z: Not applicable
+    METHODOLOGY:
+      H: OECD harmonised

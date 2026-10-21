@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "pyodide_version": "314.0.7",
+  "runtime_info": {
+    "abi_version": "2026_0",
+    "arch": "wasm32",
+    "platform": "emscripten_5_0_3",
+    "python": "3.14.2"
+  },
+  "runtime_registry_url": "https://registry.npmjs.org/pyodide/-/pyodide-314.0.7.tgz",
+  "runtime_npm_integrity": "sha512-0YvXxEhfEdpLfb/XkM2BFAeMROq0iMUX2bzzH9pOttyMcWkwq+HbE5uyuGD82LN7y2q+SNvi/6V5JEsOlD2R1A==",
+  "runtime_files": {
+    "pyodide.mjs": {
+      "bytes": 17931,
+      "sha256": "6f1d60f7bf529beb300f0f47983c921d3982363640ba20af0e38efdddbc66109"
+    },
+    "pyodide.asm.mjs": {
+      "bytes": 1250344,
+      "sha256": "f7cdc8ece80678ceb712f8e65ebe6d3a83203a180c399865f49612a051693635"
+    },
+    "pyodide.asm.wasm": {
+      "bytes": 9598218,
+      "sha256": "cc36e3cab04fdfc9a63ff13eb52eae2b911bf46c025cc7b281f394bd3de1d5e6"
+    },
+    "python_stdlib.zip": {
+      "bytes": 2545637,
+      "sha256": "fa1957e5777068fc4f7437f96d860ae2fbe9c19732ba06c84e004ec16dd7dd7a"
+    },
+    "pyodide-lock.json": {
+      "bytes": 119077,
+      "sha256": "5dc2fc119108bc148c7457dc86e7675b5c87e1cafd420b9c34c1eaef7b36c010"
+    }
+  },
+  "packages": {
+    "numpy": {
+      "version": "2.4.6",
+      "file_name": "numpy-2.4.6-cp314-cp314-pyemscripten_2026_0_wasm32.whl",
+      "sha256": "a292c1f5d7d8a2208cd5e94fc467604c131cabcd2fc14fed6eefde121e7fabdf",
+      "url": "https://cdn.jsdelivr.net/pyodide/v314.0.7/full/numpy-2.4.6-cp314-cp314-pyemscripten_2026_0_wasm32.whl",
+      "bytes": 2960568,
+      "depends": []
+    },
+    "packaging": {
+      "version": "26.1",
+      "file_name": "packaging-26.1-py3-none-any.whl",
+      "sha256": "565acbbea54da30348b6d68b6a54373e6f777987db9f1db6966b4b3a5060d303",
+      "url": "https://cdn.jsdelivr.net/pyodide/v314.0.7/full/packaging-26.1-py3-none-any.whl",
+      "bytes": 95852,
+      "depends": []
+    },
+    "pandas": {
+      "version": "3.0.2",
+      "file_name": "pandas-3.0.2-cp314-cp314-pyemscripten_2026_0_wasm32.whl",
+      "sha256": "45ff57772cc2f366a8582c7d3097cc4e6676342ecd5a3c08184a43462d5a02ae",
+      "url": "https://cdn.jsdelivr.net/pyodide/v314.0.7/full/pandas-3.0.2-cp314-cp314-pyemscripten_2026_0_wasm32.whl",
+      "bytes": 4177749,
+      "depends": ["numpy", "python-dateutil", "pytz"]
+    },
+    "patsy": {
+      "version": "1.0.2",
+      "file_name": "patsy-1.0.2-py2.py3-none-any.whl",
+      "sha256": "64e931013dc7c23d2661327531b04c4370605cd439cdee4bb1a55846c5f41771",
+      "url": "https://cdn.jsdelivr.net/pyodide/v314.0.7/full/patsy-1.0.2-py2.py3-none-any.whl",
+      "bytes": 121050,
+      "depends": ["numpy", "six"]
+    },
+    "python-dateutil": {
+      "version": "2.9.0.post0",
+      "file_name": "python_dateutil-2.9.0.post0-py2.py3-none-any.whl",
+      "sha256": "9b13365edf9c188f570baf9c540bbb3029ada2a2dacb9694b3659941693ee9e5",
+      "url": "https://cdn.jsdelivr.net/pyodide/v314.0.7/full/python_dateutil-2.9.0.post0-py2.py3-none-any.whl",
+      "bytes": 229892,
+      "depends": ["six"]
+    },
+    "pytz": {
+      "version": "2026.1.post1",
+      "file_name": "pytz-2026.1.post1-py2.py3-none-any.whl",
+      "sha256": "b8249d6450146e0b61e6d710dc02ebb35a904796c4c2f97fe87d4ac5872db36a",
+      "url": "https://cdn.jsdelivr.net/pyodide/v314.0.7/full/pytz-2026.1.post1-py2.py3-none-any.whl",
+      "bytes": 510489,
+      "depends": []
+    },
+    "scipy": {
+      "version": "1.18.0",
+      "file_name": "scipy-1.18.0-cp314-cp314-pyemscripten_2026_0_wasm32.whl",
+      "sha256": "17ee329a957863516d1bb6a6aaa0c60576fac027e9cd3d43de27f58b5b599b50",
+      "url": "https://cdn.jsdelivr.net/pyodide/v314.0.7/full/scipy-1.18.0-cp314-cp314-pyemscripten_2026_0_wasm32.whl",
+      "bytes": 14029750,
+      "depends": ["numpy"]
+    },
+    "six": {
+      "version": "1.17.0",
+      "file_name": "six-1.17.0-py2.py3-none-any.whl",
+      "sha256": "228c50f73aa7addf2c2ccf2979c256802a59ab69cad8152b31b9443cc8140f42",
+      "url": "https://cdn.jsdelivr.net/pyodide/v314.0.7/full/six-1.17.0-py2.py3-none-any.whl",
+      "bytes": 11050,
+      "depends": []
+    },
+    "statsmodels": {
+      "version": "0.14.6",
+      "file_name": "statsmodels-0.14.6-cp314-cp314-pyemscripten_2026_0_wasm32.whl",
+      "sha256": "8ee50091810f8ac540a4b94eeba777028cfe8200a78bc5367ea01ad2d6a3a951",
+      "url": "https://cdn.jsdelivr.net/pyodide/v314.0.7/full/statsmodels-0.14.6-cp314-cp314-pyemscripten_2026_0_wasm32.whl",
+      "bytes": 8162663,
+      "depends": ["numpy", "scipy", "pandas", "patsy", "packaging"]
+    }
+  },
+  "scientific_total_bytes": 30299063,
+  "size_note": "All nine approved artifacts were downloaded once to the project cache and SHA-256 verified against the official npm Pyodide lock. No additional CDN files are required."
+}

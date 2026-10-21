@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "20261021-0025",
+  "countries": [
+    "ESP"
+  ],
+  "series": [
+    {
+      "concept_id": "unemp",
+      "role": "dependent",
+      "transform": "yoy_diff"
+    },
+    {
+      "concept_id": "gdp_real",
+      "role": "regressor",
+      "transform": "yoy_pct"
+    }
+  ],
+  "frequency": "Q",
+  "aggregation": {
+    "unemp": "mean",
+    "gdp_real": "mean"
+  },
+  "sample": {
+    "start": "1999-Q1",
+    "end": "latest"
+  },
+  "special_periods": {
+    "covid": "include"
+  },
+  "model": {
+    "id": "sing.ols",
+    "params": {
+      "covariance": "HAC",
+      "hac_lags": 4
+    }
+  },
+  "identification": null,
+  "outputs": {
+    "confidence": 0.95
+  },
+  "comparison": {
+    "enabled": true,
+    "methods": [],
+    "identifications": [],
+    "scenarios": [
+      "quarterly_okun"
+    ]
+  },
+  "seed": 20261021
+}
