@@ -368,9 +368,7 @@ describe("Static candidate provenance", () => {
         }}
       />,
     );
-    expect(cleared).toContain("World Bank · Commodity Price Data (Pink Sheet)");
-    expect(cleared).toContain("are excluded under the source policy");
-    expect(cleared).not.toContain("All retrieved observations are retained");
+    expect(cleared).toBe("");
   });
   it("distinguishes withheld mapped sources from an unknown source mapping", () => {
     const withheld = {
@@ -485,14 +483,15 @@ describe("Static candidate provenance", () => {
     expect(html).toContain('href="https://data.bis.org/help/legal"');
     expect(html).toContain("Credit BIS; do not imply endorsement");
   });
-  it("shows source exclusions globally and keeps local-review notices unchanged", () => {
+  it("removes the candidate banner and puts the licensing note on About only", () => {
     const html = renderToStaticMarkup(
       <PublicationNotice manifest={candidate} openMethods={vi.fn()} />,
     );
-    expect(html).toContain('aria-label="Publication data scope"');
-    expect(html).toContain("World Bank");
-    expect(html).toContain("Country notes are withheld pending review");
-    expect(html).toContain("View source policy");
+    expect(html).toBe("");
+    const about = renderToStaticMarkup(<Methods manifest={candidate} />);
+    expect(about).toContain("Some sources are excluded for licensing reasons;");
+    expect(about).toContain('href="#source-terms">see the data policy</a>.');
+    expect(about).toContain("Country notes are withheld pending review");
     expect(
       renderToStaticMarkup(<PublicationNotice manifest={manifest} />),
     ).toBe("");
@@ -551,7 +550,7 @@ describe("Static candidate provenance", () => {
         ],
       },
     };
-    const html = renderToStaticMarkup(<PublicationNotice manifest={p2} />);
+    const html = renderToStaticMarkup(<Methods manifest={p2} />);
     expect(html).toContain('data-testid="excluded-concepts"');
     expect(html).toContain("Broad commodity index");
     expect(html).toContain(

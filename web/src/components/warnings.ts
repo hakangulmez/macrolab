@@ -41,24 +41,101 @@ export interface SourceNoteGroup {
   checks: Check[];
 }
 
-export function warningTiers(checks: Check[]) {
-  const blocking: Check[] = [];
-  const important: Check[] = [];
-  const notes: Check[] = [];
-  const sources = new Map<string, SourceNoteGroup>();
+/** Presentation only: never replace the original checks in results or exports. */
+export interface Finding extends Check {
+  instances: Check[];
+}
+
+export function distinctFindings(checks: Check[]): Finding[] {
+  const groups = new Map<string, Finding>();
+  const severity = (check: Check) =>
+    check.level === "block" ? 3 : check.level === "info" ? 1 : 2;
   for (const check of checks) {
+    if (check.level === "ok") continue;
+    const key = JSON.stringify([check.code, check.message]);
+    const group = groups.get(key);
+    if (!group) groups.set(key, { ...check, instances: [check] });
+    else {
+      group.instances.push(check);
+      // A shared message must never hide a more serious instance.
+      if (severity(check) > severity(group)) group.level = check.level;
+    }
+  }
+  return [...groups.values()];
+}
+
+export function findingContext(
+  finding: Finding,
+  countries: Country[] = [],
+  indicators: Indicator[] = [],
+): string {
+  const unique = (values: (string | undefined)[]) => [
+    ...new Set(values.filter((value): value is string => Boolean(value))),
+  ];
+  const names = unique(finding.instances.map((c) => c.country)).map(
+    (code) => countries.find((c) => c.iso3 === code)?.name ?? code,
+  );
+  const responses = unique(
+    finding.instances.map(
+      (c) =>
+        c.concept_id ??
+        (typeof c.response === "string" ? c.response : undefined),
+    ),
+  ).map(
+    (id) =>
+      indicators.find((i) => i.concept_id === id)?.title ??
+      id.replaceAll("_", " "),
+  );
+  const horizons = [
+    ...new Set(
+      finding.instances.flatMap((c) =>
+        typeof c.horizon === "number" && Number.isInteger(c.horizon)
+          ? [c.horizon]
+          : [],
+      ),
+    ),
+  ].sort((a, b) => a - b);
+  const ranges: string[] = [];
+  for (let i = 0; i < horizons.length; i++) {
+    const start = horizons[i];
+    while (horizons[i + 1] === horizons[i] + 1) i++;
+    ranges.push(
+      start === horizons[i] ? String(start) : `${start}–${horizons[i]}`,
+    );
+  }
+  return [
+    names.join(", "),
+    responses.join(", "),
+    ranges.length
+      ? `${horizons.length === 1 ? "horizon" : "horizons"} ${ranges.join(", ")}`
+      : "",
+  ]
+    .filter(Boolean)
+    .join(" · ");
+}
+
+export function warningTiers(checks: Check[]) {
+  const blocking: Finding[] = [];
+  const important: Finding[] = [];
+  const notes: Finding[] = [];
+  const sourceFindings: Finding[] = [];
+  const sources = new Map<string, SourceNoteGroup>();
+  for (const check of distinctFindings(checks)) {
     // Severity wins over every presentation grouping, including source notes.
     if (check.level === "block") blocking.push(check);
     else if (check.level === "ok") continue;
     else if (check.code === "source_warning") {
-      const key = `${check.country ?? ""}:${check.concept_id ?? ""}`;
-      const group = sources.get(key) ?? {
-        country: check.country,
-        concept_id: check.concept_id,
-        checks: [],
-      };
-      group.checks.push(check);
-      sources.set(key, group);
+      sourceFindings.push(check);
+      for (const instance of check.instances) {
+        const key = `${instance.country ?? ""}:${instance.concept_id ?? ""}`;
+        const group = sources.get(key) ?? {
+          country: instance.country,
+          concept_id: instance.concept_id,
+          checks: [],
+        };
+        group.checks.push(instance);
+        sources.set(key, group);
+      }
     } else if (check.level === "info") notes.push(check);
     else important.push(check); // Unknown/non-info severities must stay visible as important.
   }
@@ -76,6 +153,7 @@ export function warningTiers(checks: Check[]) {
     moreImportant: ordered.slice(IMPORTANT_VISIBLE_LIMIT),
     importantCount: ordered.length,
     notes,
+    sourceFindings,
     sourceNotes: [...sources.values()],
   };
 }

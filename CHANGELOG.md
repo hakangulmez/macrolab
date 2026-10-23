@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.0.1 — 23 October 2026, local hotfix candidate
+
+- Group identical checks across countries, responses and horizons; counts show
+  distinct findings. Technical details and exports retain every original instance.
+- Replace the static-candidate banner with a licensing note on About/Data.
+- Use full country names in result tables and the ranking chart, three significant
+  figures for table estimates, and one ranking-uncertainty caveat.
+- No changes to calculations, models, data, runtime assets or template defaults.
+
 ## v1.0 — 23 October 2026, local release candidate
 
 - Six templates: four accepted v0 examples plus common ECB shock and Türkiye

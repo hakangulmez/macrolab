@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
 import type { Check, Country, Indicator, JsonRecord } from "../types";
-import { number, statusText, text } from "../format";
+import { significant, statusText, text } from "../format";
 import {
   checkContext,
+  findingContext,
+  type Finding,
   readableCheckMessage,
   warningTiers,
   resultDisclosureChecks,
@@ -46,43 +48,65 @@ export function Checks({
 }) {
   const tiers = warningTiers(checks);
   const disclosed = resultDisclosureChecks(checks, previouslyDisplayedChecks);
-  const noteCount = tiers.notes.length + tiers.sourceNotes.length;
-  const list = (items: Check[]) => (
+  const noteCount = tiers.notes.length + tiers.sourceFindings.length;
+  const actions = (check: Check) => (
+    <>
+      {check.fix && onFix && (
+        <button
+          className="link"
+          onClick={() => onFix({ concept_id: check.concept_id, ...check.fix })}
+        >
+          Apply suggested change
+        </button>
+      )}
+      {check.country && check.concept_id && onSourceCard && (
+        <button
+          className="link"
+          onClick={() => onSourceCard(check.country!, check.concept_id!)}
+        >
+          View series card
+        </button>
+      )}
+    </>
+  );
+  const list = (items: Finding[]) => (
     <ul className="warning-items">
       {items.map((check, index) => (
         <li key={`${check.code}-${check.country}-${check.concept_id}-${index}`}>
           <div className="warning-item-text">
-            {checkContext(check, countries, indicators) && (
+            {findingContext(check, countries, indicators) && (
               <span className="warning-context">
-                {checkContext(check, countries, indicators)}
+                {findingContext(check, countries, indicators)}
               </span>
             )}
-            {showEstimationPhase && disclosed.has(check) && (
-              <span className="warning-phase">Found after estimation</span>
-            )}
+            {showEstimationPhase &&
+              check.instances.some((instance) => disclosed.has(instance)) && (
+                <span className="warning-phase">Found after estimation</span>
+              )}
             <span>{readableCheckMessage(check, indicators)}</span>
           </div>
-          {check.fix && onFix && (
-            <button
-              className="link"
-              onClick={() =>
-                onFix({ concept_id: check.concept_id, ...check.fix })
-              }
-            >
-              Apply suggested change
-            </button>
-          )}
-          {check.country && check.concept_id && onSourceCard && (
-            <button
-              className="link"
-              onClick={() => onSourceCard(check.country!, check.concept_id!)}
-            >
-              View series card
-            </button>
-          )}
+          {check.instances.length === 1 && actions(check.instances[0])}
           <details className="warning-technical">
             <summary>Technical details</summary>
-            <pre>{JSON.stringify(check, null, 2)}</pre>
+            {check.instances.length > 1 &&
+              [
+                ...new Map(
+                  check.instances.map((instance) => [
+                    JSON.stringify([
+                      instance.country,
+                      instance.concept_id,
+                      instance.fix,
+                    ]),
+                    instance,
+                  ]),
+                ).values(),
+              ].map((instance, i) => (
+                <div key={i}>
+                  {checkContext(instance, countries, indicators)}{" "}
+                  {actions(instance)}
+                </div>
+              ))}
+            <pre>{JSON.stringify(check.instances, null, 2)}</pre>
           </details>
         </li>
       ))}
@@ -129,8 +153,8 @@ export function Checks({
         <details className="warning-tier warning-notes">
           <summary>
             Notes ·{" "}
-            {tiers.sourceNotes.length > 0
-              ? `${tiers.sourceNotes.length} source notes`
+            {tiers.sourceFindings.length > 0
+              ? `${tiers.sourceFindings.length} source notes`
               : `${tiers.notes.length} analysis notes`}
             {tiers.sourceNotes.length > 0 && tiers.notes.length > 0
               ? ` · ${tiers.notes.length} analysis notes`
@@ -167,19 +191,10 @@ export function Checks({
                           "Source information"}
                       </span>
                     )}
-                    {showEstimationPhase &&
-                      note.checks.some((check) => disclosed.has(check)) && (
-                        <span className="warning-phase">
-                          Found after estimation
-                        </span>
-                      )}
-                    <details className="warning-technical">
-                      <summary>Technical details</summary>
-                      <pre>{JSON.stringify(note.checks, null, 2)}</pre>
-                    </details>
                   </li>
                 ))}
               </ul>
+              {list(tiers.sourceFindings)}
             </div>
           )}
           {tiers.notes.length > 0 && list(tiers.notes)}
@@ -196,9 +211,11 @@ export function Checks({
 export function DataTable({
   rows,
   columns,
+  countries = [],
 }: {
   rows: JsonRecord[];
   columns?: string[];
+  countries?: Country[];
 }) {
   const keys =
     columns ??
@@ -229,7 +246,16 @@ export function DataTable({
             <tr key={i}>
               {keys.map((k) => (
                 <td key={k}>
-                  {typeof r[k] === "number" ? number(r[k], 6) : text(r[k])}
+                  {typeof r[k] === "number"
+                    ? /^(horizon|quarter|months|lag|observations|nobs|count|rank|peak horizon)$/i.test(
+                        k,
+                      )
+                      ? text(r[k])
+                      : significant(r[k])
+                    : /country/i.test(k)
+                      ? (countries.find((c) => c.iso3 === r[k])?.name ??
+                        text(r[k]))
+                      : text(r[k])}
                 </td>
               ))}
             </tr>

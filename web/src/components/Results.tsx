@@ -11,6 +11,7 @@ import {
   csv,
   download,
   number,
+  significant,
   record,
   records,
   strings,
@@ -38,7 +39,13 @@ import { getTemplateSources, type AnalysisRuntime } from "../runtime";
 import { CountryComparison } from "./CountryComparison";
 import { MethodComparison } from "./MethodComparison";
 
-function TemplateCorrectionSummary({ result }: { result: AnalysisResult }) {
+function TemplateCorrectionSummary({
+  result,
+  manifest,
+}: {
+  result: AnalysisResult;
+  manifest: Manifest;
+}) {
   const template = result.config.model.params.template_id;
   if (template === "tur_pass_through") {
     const pass = record(result.results[0]?.pass_through);
@@ -50,13 +57,14 @@ function TemplateCorrectionSummary({ result }: { result: AnalysisResult }) {
           {text(pass.definition)}. {text(pass.sign_convention)}
         </p>
         <DataTable
+          countries={manifest.countries}
           rows={records(pass.horizons)
             .filter((r) => [6, 12, 24].includes(Number(r.horizon)))
             .map((r) => ({
               Months: r.horizon,
-              Ratio: number(r.ratio, 3),
-              "68% interval": `${number(record(record(r.bands)["0.68"]).lower, 3)} to ${number(record(record(r.bands)["0.68"]).upper, 3)}`,
-              "Cumulative FX (%)": number(r.fx_cumulative, 3),
+              Ratio: significant(r.ratio),
+              "68% interval": `${significant(record(record(r.bands)["0.68"]).lower)} to ${significant(record(record(r.bands)["0.68"]).upper)}`,
+              "Cumulative FX (%)": significant(r.fx_cumulative),
             }))}
         />
         <p>
@@ -102,6 +110,7 @@ function TemplateCorrectionSummary({ result }: { result: AnalysisResult }) {
       <details open>
         <summary>Peak responses: one standard deviation and +25 bp</summary>
         <DataTable
+          countries={manifest.countries}
           rows={records(result.scaled_peaks).map((r) => ({
             Country: r.country,
             Response:
@@ -111,8 +120,8 @@ function TemplateCorrectionSummary({ result }: { result: AnalysisResult }) {
                   ? "GDP"
                   : "Unemployment",
             Quarter: r.horizon,
-            "One SD": number(r.one_sd, 3),
-            "+25 bp": number(r.plus_25bp, 3),
+            "One SD": significant(r.one_sd),
+            "+25 bp": significant(r.plus_25bp),
           }))}
         />
         <p>
@@ -208,6 +217,7 @@ export function ResultsCountry({
   cards,
   compact = false,
   hideCharts = false,
+  hideChecks = false,
   analysisConfig,
   onSourceCard,
   previouslyDisplayedChecks,
@@ -219,6 +229,7 @@ export function ResultsCountry({
   cards: CountryBundle["cards"];
   compact?: boolean;
   hideCharts?: boolean;
+  hideChecks?: boolean;
   analysisConfig?: AnalysisConfig;
   onSourceCard?: (country: string, conceptId: string) => void;
   previouslyDisplayedChecks?: Check[];
@@ -396,14 +407,16 @@ export function ResultsCountry({
           {sample.nobs}
         </span>
       </div>
-      <Checks
-        showEstimationPhase
-        previouslyDisplayedChecks={previouslyDisplayedChecks}
-        checks={result.checks}
-        onSourceCard={onSourceCard}
-        indicators={indicators}
-        countries={manifest.countries}
-      />
+      {!hideChecks && (
+        <Checks
+          showEstimationPhase
+          previouslyDisplayedChecks={previouslyDisplayedChecks}
+          checks={result.checks}
+          onSourceCard={onSourceCard}
+          indicators={indicators}
+          countries={manifest.countries}
+        />
+      )}
       {result.status === "ok" && (
         <>
           {!hideCharts && (
@@ -587,7 +600,7 @@ export function ResultsCountry({
                         ))}
                       </div>
                     ) : (
-                      <DataTable rows={rows} />
+                      <DataTable countries={manifest.countries} rows={rows} />
                     )
                   ) : (
                     <p>
@@ -622,6 +635,7 @@ export function ResultsCountry({
                               <details>
                                 <summary>Variant estimates</summary>
                                 <DataTable
+                                  countries={manifest.countries}
                                   rows={records(
                                     record(v.metrics).responses ??
                                       record(v.metrics).coefficients,
@@ -659,6 +673,7 @@ export function ResultsCountry({
                     {text(record(lagCriteria.comparison_sample).nobs)}
                   </p>
                   <DataTable
+                    countries={manifest.countries}
                     rows={records(lagCriteria.candidates).map((candidate) => ({
                       Lag: candidate.lag,
                       AIC: candidate.aic,
@@ -687,7 +702,11 @@ export function ResultsCountry({
                   open={block.title.includes("Test") || !charts.length}
                 >
                   <summary>{block.title}</summary>
-                  <DataTable rows={block.rows} columns={block.columns} />
+                  <DataTable
+                    countries={manifest.countries}
+                    rows={block.rows}
+                    columns={block.columns}
+                  />
                 </details>
               ))}
               {Boolean(result.fevd) && (
@@ -698,6 +717,7 @@ export function ResultsCountry({
                     estimates only.
                   </p>
                   <DataTable
+                    countries={manifest.countries}
                     rows={(() => {
                       const f = record(result.fevd);
                       return ((f.values as number[][][]) ?? []).flatMap(
@@ -722,21 +742,27 @@ export function ResultsCountry({
                   {sample.common_nobs} complete common observations.{" "}
                   {sample.dropped_periods.length} requested periods dropped.
                 </p>
-                <DataTable rows={sample.dropped_periods} />
+                <DataTable
+                  countries={manifest.countries}
+                  rows={sample.dropped_periods}
+                />
                 <h3>Frequency conversions</h3>
                 <DataTable
+                  countries={manifest.countries}
                   rows={Object.entries(sample.frequency_conversion).map(
                     ([concept, value]) => ({ concept, ...record(value) }),
                   )}
                 />
                 <h3>Transformations</h3>
                 <DataTable
+                  countries={manifest.countries}
                   rows={Object.entries(sample.transforms).map(
                     ([concept, value]) => ({ concept, ...record(value) }),
                   )}
                 />
                 <h3>Diagnostics</h3>
                 <DataTable
+                  countries={manifest.countries}
                   rows={Object.entries(result.diagnostics ?? {})
                     .filter(([, value]) => typeof value !== "object")
                     .map(([diagnostic, value]) => ({ diagnostic, value }))}
@@ -933,7 +959,7 @@ export function Results({
           )}
         </section>
       )}
-      <TemplateCorrectionSummary result={result} />
+      <TemplateCorrectionSummary result={result} manifest={manifest} />
       <div className="result-heading">
         <div>
           <span className="overline">Results · {model?.title}</span>
@@ -1081,6 +1107,18 @@ export function Results({
         </strong>{" "}
         · {result.label}
       </div>
+      <Checks
+        checks={result.checks}
+        showEstimationPhase
+        previouslyDisplayedChecks={previouslyDisplayedChecks}
+        onSourceCard={onSourceCard}
+        indicators={
+          config.countries.length === 1
+            ? countryIndicators(manifest.indicators, config.countries[0])
+            : manifest.indicators
+        }
+        countries={manifest.countries}
+      />
       {shareUrl && (
         <Field label="Local share link">
           <input
@@ -1176,6 +1214,7 @@ export function Results({
               cards={bundles[r.country]?.cards ?? []}
               compact={compact}
               hideCharts={ecbTemplate}
+              hideChecks
               onSourceCard={onSourceCard}
               previouslyDisplayedChecks={previouslyDisplayedChecks}
             />

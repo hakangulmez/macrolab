@@ -2,7 +2,7 @@
 import { countryIndicators } from "./displayLabels";
 import type { AxisScale } from "./chartScale";
 import type { ChartPoint } from "./components/Chart";
-import { number, record, records, text, title } from "./format";
+import { number, significant, record, records, text, title } from "./format";
 import type {
   AnalysisConfig,
   AnalysisResult,
@@ -580,15 +580,27 @@ export function resultCsvRows(result: CountryResult): JsonRecord[] {
 
 /** Keep analysis-level provenance separate from each sensitivity configuration. */
 export function analysisCsvRows(
-  result: Pick<AnalysisResult, "results" | "snapshot_id" | "config_hash">,
+  result: Pick<AnalysisResult, "results" | "snapshot_id" | "config_hash"> &
+    Partial<Pick<AnalysisResult, "checks">>,
 ): JsonRecord[] {
-  return result.results.flatMap((item) =>
+  const rows = result.results.flatMap((item) =>
     resultCsvRows(item).map((row) => ({
       ...row,
       snapshot: result.snapshot_id,
       config_hash: result.config_hash,
     })),
   );
+  // Multi-response analyses also carry checks outside the first response's
+  // country record. Export those instances verbatim, never the display groups.
+  return [
+    ...rows,
+    ...(result.checks ?? []).map((check) => ({
+      record_type: "analysis_check",
+      ...check,
+      snapshot: result.snapshot_id,
+      config_hash: result.config_hash,
+    })),
+  ];
 }
 
 export const selectedPeakFootnote =
@@ -693,7 +705,7 @@ const yesNo = (value: unknown): string =>
   value === true ? "Yes" : value === false ? "No" : "Not reported";
 const displayRange = (value: unknown): string =>
   Array.isArray(value) && value.length === 2
-    ? value.map((item) => number(item, 3)).join(" to ")
+    ? value.map((item) => significant(item)).join(" to ")
     : "Not reported";
 const displayAgreement = (row: JsonRecord): string => {
   const share = row.sign_agreement_share;
@@ -709,10 +721,12 @@ export function sensitivityRows(
     result.irf
       ? {
           Response: title(text(row.variable), indicators),
-          "Baseline peak": number(row.baseline_peak_response, 3),
+          "Baseline peak": significant(row.baseline_peak_response),
           "Peak horizon": row.baseline_peak_horizon,
           "Signed peak range": displayRange(row.peak_response_range),
-          "Peak horizon range": displayRange(row.peak_horizon_range),
+          "Peak horizon range": Array.isArray(row.peak_horizon_range)
+            ? row.peak_horizon_range.join(" to ")
+            : "Not reported",
           "Same sign at baseline peak": displayAgreement(row),
           "Baseline band excludes zero": yesNo(
             row.baseline_band_excludes_zero_at_peak,
@@ -720,7 +734,7 @@ export function sensitivityRows(
         }
       : {
           Term: text(row.term),
-          "Baseline estimate": number(row.baseline_estimate, 3),
+          "Baseline estimate": significant(row.baseline_estimate),
           "Estimate range": displayRange(row.estimate_range),
           "Same sign": displayAgreement(row),
           "Baseline interval excludes zero": yesNo(

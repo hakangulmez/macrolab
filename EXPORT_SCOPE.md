@@ -186,4 +186,4 @@ This export excludes the following tracked review material. Ignored local datase
 - `DATA.md` — Links to omitted review records replaced by explicit omission text.
 - `docs/G5_DATA_SOURCES.md` — Links to omitted review records replaced by explicit omission text.
 
-One candidate commit follows the already-public main commit 0dfffd6. Only public ancestry is retained; private development history and remotes are excluded. This local candidate awaits separate P4 publication approval.
+The v1.0.1 hotfix candidate follows the already-public main commit 398ebf1. Only public ancestry is retained; private development history and remotes are excluded. This local candidate awaits separate publication approval. Hotfix screenshots, verification artifacts and the stop report remain private.

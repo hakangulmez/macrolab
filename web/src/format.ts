@@ -21,6 +21,15 @@ export const number = (value: unknown, digits = 3): string =>
           value,
         )
     : "—";
+/** Table display only. Calculation and export values retain full precision. */
+export const significant = (value: unknown): string =>
+  typeof value === "number" && Number.isFinite(value)
+    ? new Intl.NumberFormat("en", {
+        minimumSignificantDigits: 3,
+        maximumSignificantDigits: 3,
+        notation: "standard",
+      }).format(value)
+    : "—";
 export const title = (id: string, indicators: Indicator[]) =>
   indicators.find((i) => i.concept_id === id)?.title ?? id.replaceAll("_", " ");
 export function indicatorSummary(manifest: Manifest): string {

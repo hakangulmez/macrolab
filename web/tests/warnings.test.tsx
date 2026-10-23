@@ -3,6 +3,8 @@ import { describe, expect, it, vi } from "vitest";
 import { Checks } from "../src/components/Common";
 import {
   checkContext,
+  distinctFindings,
+  findingContext,
   readableCheckMessage,
   warningTiers,
 } from "../src/components/warnings";
@@ -20,6 +22,59 @@ const warning = (
 });
 
 describe("Warning tiers", () => {
+  it("groups identical findings across countries, responses and horizons without losing instances", () => {
+    const checks = ["DEU", "FRA", "ITA", "ESP"].flatMap((country) =>
+      ["gdp_real", "cpi", "unemp"].flatMap((response) =>
+        Array.from({ length: 13 }, (_, horizon) =>
+          warning("small_sample", "warn", {
+            country,
+            response,
+            horizon,
+            nobs: 90 - horizon,
+            message: "Fewer than five observations per parameter.",
+          }),
+        ),
+      ),
+    );
+    const snapshot = structuredClone(checks);
+    const groups = distinctFindings(checks);
+    expect(groups).toHaveLength(1);
+    expect(groups[0].instances).toEqual(snapshot);
+    expect(
+      findingContext(
+        groups[0],
+        [
+          { iso3: "DEU", name: "Germany" },
+          { iso3: "FRA", name: "France" },
+          { iso3: "ITA", name: "Italy" },
+          { iso3: "ESP", name: "Spain" },
+        ],
+        [{ concept_id: "cpi", title: "HICP" }],
+      ),
+    ).toBe(
+      "Germany, France, Italy, Spain · gdp real, HICP, unemp · horizons 0–12",
+    );
+    const html = renderToStaticMarkup(<Checks checks={checks} />);
+    expect(html).toContain("Important · 1");
+    expect(html.match(/&quot;nobs&quot;/g)).toHaveLength(156);
+    expect(checks).toEqual(snapshot);
+  });
+
+  it("keeps distinct messages separate, preserves sparse horizons, and promotes shared blockers", () => {
+    const checks = [
+      warning("a", "info", { horizon: 0 }),
+      warning("a", "warn", { horizon: 2 }),
+      warning("a", "block", { horizon: 3 }),
+      warning("a", "warn", { message: "Different finding" }),
+      warning("b", "info", { message: "Different finding" }),
+    ];
+    const tiers = warningTiers(checks);
+    expect(tiers.blocking).toHaveLength(1);
+    expect(tiers.blocking[0].instances).toEqual(checks.slice(0, 3));
+    expect(findingContext(tiers.blocking[0])).toBe("horizons 0, 2–3");
+    expect(tiers.importantCount).toBe(1);
+    expect(tiers.notes).toHaveLength(1);
+  });
   it("marks only new disclosures when Builder coverage expands into five Results warnings", () => {
     const before = ["cpi", "unemp"].map((concept_id) =>
       warning("limited_coverage", "warn", {
@@ -49,8 +104,8 @@ describe("Warning tiers", () => {
         previouslyDisplayedChecks={before}
       />,
     );
-    expect(html).toContain("Important · 5");
-    expect(html.match(/Found after estimation/g)).toHaveLength(3);
+    expect(html).toContain("Important · 2");
+    expect(html.match(/Found after estimation/g)).toHaveLength(1);
     expect(html).toContain("pre_estimation");
     const compatibilityKnown = renderToStaticMarkup(
       <Checks
@@ -60,7 +115,7 @@ describe("Warning tiers", () => {
       />,
     );
     expect(compatibilityKnown).not.toContain("Found after estimation");
-    expect(compatibilityKnown).toContain("Important · 5");
+    expect(compatibilityKnown).toContain("Important · 2");
   });
 
   it("matches disclosure identity by country and concept, while fitted checks always carry the label", () => {
@@ -84,7 +139,7 @@ describe("Warning tiers", () => {
         previouslyDisplayedChecks={[known, fitted]}
       />,
     );
-    expect(html.match(/Found after estimation/g)).toHaveLength(3);
+    expect(html.match(/Found after estimation/g)).toHaveLength(2);
   });
   it("labels fitted checks in Results without mislabelling prepared-data diagnostics", () => {
     const checks = [
@@ -116,8 +171,15 @@ describe("Warning tiers", () => {
       ...blockers,
       warning("source_warning", "warn", { country: "USA", concept_id: "cpi" }),
     ]);
-    expect(tiers.blocking).toEqual(blockers);
-    expect(tiers.sourceNotes).toHaveLength(1);
+    expect(
+      tiers.blocking.map((finding) => {
+        const check: Partial<typeof finding> = { ...finding };
+        delete check.instances;
+        return check;
+      }),
+    ).toEqual(blockers);
+    expect(tiers.blocking.at(-1)?.instances).toHaveLength(2);
+    expect(tiers.sourceNotes).toHaveLength(0);
     const html = renderToStaticMarkup(<Checks checks={blockers} />);
     expect(html).toContain('aria-label="Blocking checks"');
     expect(html).toContain("Blocking · 9");

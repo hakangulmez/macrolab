@@ -9,7 +9,16 @@ import type {
   Card,
   Check,
 } from "../types";
-import { csv, download, number, record, records, text, title } from "../format";
+import {
+  csv,
+  download,
+  number,
+  significant,
+  record,
+  records,
+  text,
+  title,
+} from "../format";
 import { countryIndicators } from "../displayLabels";
 import { chartData, type ResultChart } from "../resultData";
 import { exportPng } from "../pngExport";
@@ -109,8 +118,8 @@ export function MethodComparison({
   };
   const rows = records(comparison.horizons).map((r) => ({
     Horizon: r.horizon,
-    VAR: number(r.var, 3),
-    LP: number(r.lp, 3),
+    VAR: significant(r.var),
+    LP: significant(r.lp),
     "Same sign": r.sign_agreement ? "Yes" : "No",
     "Bands overlap": r.band_overlap ? "Yes" : "No",
   }));
@@ -118,7 +127,7 @@ export function MethodComparison({
     const peak = record(comparison[`${method}_peak`]);
     return {
       Method: method.toUpperCase(),
-      "Peak response": number(peak[method], 3),
+      "Peak response": significant(peak[method]),
       "Peak horizon": peak.horizon,
       Sample: `${sample.start}–${sample.end}`,
       Observations: sample.nobs,

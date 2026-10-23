@@ -39,7 +39,9 @@ export function CountryComparison({
     coefficient: true,
     intervalLabel: "68% pointwise interval at the selected peak",
     points: ranked.map((r) => ({
-      period: text(r.country),
+      period:
+        manifest.countries.find((c) => c.iso3 === r.country)?.name ??
+        text(r.country),
       value: Number(r.peak),
       lower: Number(r.lower),
       upper: Number(r.upper),
@@ -141,10 +143,10 @@ export function CountryComparison({
           ))}
       </div>
       <Chart {...ranking} title={ranking.name} />
-      <p className="small">overlapping intervals do not support a ranking</p>
       <details open={!compact}>
         <summary>Per-country estimation samples</summary>
         <DataTable
+          countries={manifest.countries}
           rows={summary.map((r) => {
             const sample = record(r.sample);
             return {
@@ -153,7 +155,7 @@ export function CountryComparison({
               End: sample.end,
               Observations: sample.nobs,
               "Peak horizon": r.horizon,
-              "Peak response": number(r.peak, 3),
+              "Peak response": r.peak,
             };
           })}
         />

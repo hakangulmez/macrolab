@@ -1,7 +1,7 @@
 # MacroLab
 
 MacroLab is a non-commercial research and teaching tool for exploring official
-macro data and testing how results depend on modelling assumptions. **v1.0**
+macro data and testing how results depend on modelling assumptions. **v1.0.1**
 provides 33 national indicators and three global factors across 38 OECD economies
 and the euro area. Six templates cover monetary policy, Taylor and Phillips
 relationships, Okun's law, a common ECB shock and Türkiye exchange-rate pass-through.

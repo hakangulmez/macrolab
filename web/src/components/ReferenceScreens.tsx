@@ -681,6 +681,10 @@ export function Methods({ manifest }: { manifest: Manifest }) {
         <h2 id="about-macrolab">About MacroLab</h2>
         <p>MacroLab is a non-commercial research and teaching tool.</p>
         <p>
+          Some sources are excluded for licensing reasons;{" "}
+          <a href="#source-terms">see the data policy</a>.
+        </p>
+        <p>
           {buildVersion} · Data snapshot {snapshotDate(manifest.as_of_date)}.
           This is a fixed snapshot bundled with the app; it does not refresh
           while you browse. Six templates include a common ECB shock across
@@ -875,6 +879,15 @@ export function Methods({ manifest }: { manifest: Manifest }) {
                 </li>
               ))}
             </ul>
+            {!localOnly && manifest.publication.excluded_concepts?.length ? (
+              <ul data-testid="excluded-concepts">
+                {manifest.publication.excluded_concepts.map((concept) => (
+                  <li key={concept.concept_id}>
+                    <strong>{concept.title}.</strong> {concept.reason}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
             {manifest.publication.notes_withheld && (
               <p>Country notes are withheld pending review.</p>
             )}
@@ -902,6 +915,12 @@ export function Methods({ manifest }: { manifest: Manifest }) {
       </section>
       <section className="card stack" aria-labelledby="diagnostic-rules">
         <h2 id="diagnostic-rules">How checks are presented</h2>
+        <p className="small">
+          Counts show distinct findings: identical codes and messages are
+          grouped across countries, responses and horizons. Technical details
+          and exports retain every original instance. If severities differ, the
+          most serious instance determines the group’s tier.
+        </p>
         <p className="small">
           Observations per estimated parameter are a rule of thumb, not a test
           of validity. Fewer than 5 produces an amber warning; 5 to below 10
