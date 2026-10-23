@@ -149,7 +149,11 @@
             "filter.hp",
             "filter.hamilton",
             "var.ols",
-            "ident.recursive"
+            "ident.recursive",
+            "lp.ols",
+            "out.hd",
+            "ident.external_series",
+            "cmp.common_shock"
           ]
         },
         "params": {
