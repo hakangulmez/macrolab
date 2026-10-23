@@ -210,3 +210,14 @@ variant are excluded; their catalogue metadata explains the absence. Country
 narratives remain withheld. All non-Brent series values, other than the
 explicitly removed commodity index, and all reviewed WDI profile values are
 checked against the frozen P1 full-data input.
+
+## G5 v1 data additions
+
+[G5 source review](G5_DATA_SOURCES.md) records the exact IMF PCPS index codes,
+base year, ECB DFR/MRO variants and independent-format audits. [Seasonality
+review](G5_SEASONALITY.md) identifies the current official SA euro-area HICP
+flow and the controls required for national NSA prices. The keyless IMF PCPS
+endpoint under `api.imf.org/external/sdmx/2.1/` is approved for G5. Existing
+approved official metadata and terms endpoints are used for source review.
+[Refresh instructions](DATA_REFRESH.md) describe the explicit, non-publishing
+procedure. Rights decisions are in [DATA.md](../DATA.md).

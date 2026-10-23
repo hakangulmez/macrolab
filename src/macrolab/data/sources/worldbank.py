@@ -256,7 +256,9 @@ def parse_wdi_profiles(
     return profiles, metadata
 
 
-def fetch_worldbank(client: SourceClient, countries: list[dict[str, Any]]) -> dict[str, Any]:
+def fetch_worldbank(
+    client: SourceClient, countries: list[dict[str, Any]], *, include_pink: bool = True
+) -> dict[str, Any]:
     """Fetch current Pink Sheet and annual profiles, leaving partial failures visible."""
     result: dict[str, Any] = {
         "rows": [],
@@ -265,36 +267,37 @@ def fetch_worldbank(client: SourceClient, countries: list[dict[str, Any]]) -> di
         "issues": [],
         "mapping_evidence": [],
     }
-    page = client.fetch("WorldBank", "pink-current-page", COMMODITY_PAGE, "text/html")
-    try:
-        if page.record.status != 200 or page.body is None:
-            raise ValueError(f"Commodity page unavailable: {page.record.error}")
-        url = discover_monthly_url(page.body, page.record.final_url or COMMODITY_PAGE)
-        workbook = client.fetch(
-            "WorldBank",
-            "pink-current-monthly",
-            url,
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        )
-        if workbook.record.status != 200 or workbook.body is None:
-            raise ValueError(f"Current monthly workbook unavailable: {workbook.record.error}")
-        parsed = parse_monthly_workbook(
-            workbook.body,
-            workbook.record.final_url or url,
-            workbook.record.raw_path,
-            _as_of(client),
-        )
-        for key in parsed:
-            result[key].extend(parsed[key])
-        result["download_resolution"] = {
-            "page_url": COMMODITY_PAGE,
-            "page_raw_path": page.record.raw_path,
-            "resolved_url": url,
-            "workbook_sha256": workbook.record.sha256,
-            "as_of_date": _as_of(client).isoformat(),
-        }
-    except (ValueError, KeyError, BadZipFile, OSError) as exc:
-        result["issues"].append(_issue("current_pink_sheet_unavailable", str(exc)))
+    if include_pink:
+        page = client.fetch("WorldBank", "pink-current-page", COMMODITY_PAGE, "text/html")
+        try:
+            if page.record.status != 200 or page.body is None:
+                raise ValueError(f"Commodity page unavailable: {page.record.error}")
+            url = discover_monthly_url(page.body, page.record.final_url or COMMODITY_PAGE)
+            workbook = client.fetch(
+                "WorldBank",
+                "pink-current-monthly",
+                url,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            )
+            if workbook.record.status != 200 or workbook.body is None:
+                raise ValueError(f"Current monthly workbook unavailable: {workbook.record.error}")
+            parsed = parse_monthly_workbook(
+                workbook.body,
+                workbook.record.final_url or url,
+                workbook.record.raw_path,
+                _as_of(client),
+            )
+            for key in parsed:
+                result[key].extend(parsed[key])
+            result["download_resolution"] = {
+                "page_url": COMMODITY_PAGE,
+                "page_raw_path": page.record.raw_path,
+                "resolved_url": url,
+                "workbook_sha256": workbook.record.sha256,
+                "as_of_date": _as_of(client).isoformat(),
+            }
+        except (ValueError, KeyError, BadZipFile, OSError) as exc:
+            result["issues"].append(_issue("current_pink_sheet_unavailable", str(exc)))
 
     codes = sorted({str(country["iso3"]) for country in countries})
     source_codes = ["EMU" if code == "EA" else code for code in codes]

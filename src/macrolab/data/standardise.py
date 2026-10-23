@@ -88,7 +88,9 @@ def standardise(rows: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[
             row["base_year"] = None if row["base_year"] is None else str(row["base_year"])
             row["obs_status"] = str(row["obs_status"] or "not_reported")
             row.setdefault("terms_status", "conditional; no publication approved")
-            if row["source"] in {"IMF", "WorldBank"}:
+            if row["source"] in {"IMF", "WorldBank"} and not row["terms_status"].startswith(
+                "allowed"
+            ):
                 row["terms_status"] = "unresolved – no redistribution of raw data"
             clean.append(row)
         except (TypeError, ValueError, OverflowError) as exc:

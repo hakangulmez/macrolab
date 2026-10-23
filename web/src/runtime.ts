@@ -57,6 +57,7 @@ export interface CountryBundle extends JsonRecord {
   publication_approved: false;
 }
 export interface AnalysisBundle {
+  variants?: JsonRecord;
   schema_version: number;
   snapshot_id: string;
   as_of_date: string;
@@ -173,7 +174,12 @@ export async function buildBundle(
     throw new Error(
       "This configuration requests a snapshot that is not installed locally.",
     );
-  const selected = await Promise.all(config.countries.map(getCountry));
+  const template = config.model?.params?.template_id;
+  const first = config.model?.params?.first_stage as AnalysisConfig | undefined;
+  const codes = new Set(config.countries);
+  if (template === "same_ecb_shock")
+    first?.countries.forEach((code) => codes.add(code));
+  const selected = await Promise.all([...codes].map(getCountry));
   const concepts = new Set(config.series.map((series) => series.concept_id));
   if (
     config.comparison?.enabled !== false &&
@@ -182,6 +188,11 @@ export async function buildBundle(
     concepts.add("reer");
     concepts.add("credit_pnfs");
   }
+  if (template === "same_ecb_shock") {
+    first?.series.forEach((series) => concepts.add(series.concept_id));
+    concepts.add("rate_3m");
+  }
+  if (template === "tur_pass_through") concepts.add("fx_usd");
   const bundle: AnalysisBundle = {
     schema_version: 1,
     snapshot_id: manifest.snapshot_id,
@@ -206,6 +217,12 @@ export async function buildBundle(
       ),
     };
   }
+  if (template === "same_ecb_shock") {
+    const data = await (
+      await localResponse(manifest.global_variants_url)
+    ).json();
+    bundle.variants = data.variants;
+  }
   return bundle;
 }
 
@@ -217,7 +234,11 @@ export class AnalysisRuntime {
   private activeOperation = false;
   private pending = new Map<
     number,
-    { resolve: (result: unknown) => void; reject: (error: Error) => void }
+    {
+      resolve: (result: unknown) => void;
+      reject: (error: Error) => void;
+      partial?: (result: JsonRecord) => void;
+    }
   >();
   private queue: Promise<unknown> = Promise.resolve();
   constructor(
@@ -241,13 +262,16 @@ export class AnalysisRuntime {
     if (this.activeOperation) this.onProgress(message);
   }
 
-  private request(message: JsonRecord): Promise<unknown> {
+  private request(
+    message: JsonRecord,
+    partial?: (result: JsonRecord) => void,
+  ): Promise<unknown> {
     const worker = this.worker;
     if (!worker)
       return Promise.reject(new Error("The analysis runtime is unavailable."));
     return new Promise((resolve, reject) => {
       const id = ++this.sequence;
-      this.pending.set(id, { resolve, reject });
+      this.pending.set(id, { resolve, reject, partial });
       try {
         worker.postMessage({ id, ...message });
       } catch (error) {
@@ -284,6 +308,10 @@ export class AnalysisRuntime {
           const pending =
             data.id === undefined ? undefined : this.pending.get(data.id);
           if (!pending || data.id === undefined) return;
+          if (data.type === "partial") {
+            pending.partial?.(data.result as JsonRecord);
+            return;
+          }
           this.pending.delete(data.id);
           if (data.type === "error")
             pending.reject(new Error(data.message ?? "Analysis failed."));
@@ -314,7 +342,10 @@ export class AnalysisRuntime {
     return this.ready;
   }
 
-  private async operation<T>(message: JsonRecord): Promise<T> {
+  private async operation<T>(
+    message: JsonRecord,
+    partial?: (result: JsonRecord) => void,
+  ): Promise<T> {
     const generation = this.generation;
     const operation = this.queue
       .catch(() => undefined)
@@ -324,7 +355,7 @@ export class AnalysisRuntime {
         try {
           await this.initialise();
           if (generation !== this.generation) throw new Error("Cancelled");
-          return (await this.request(message)) as T;
+          return (await this.request(message, partial)) as T;
         } finally {
           if (generation === this.generation) this.activeOperation = false;
         }
@@ -337,8 +368,40 @@ export class AnalysisRuntime {
     return this.initialise();
   }
 
-  run(config: AnalysisConfig, bundle: AnalysisBundle): Promise<JsonRecord> {
-    return this.operation({ type: "run", config, bundle });
+  run(
+    config: AnalysisConfig,
+    bundle: AnalysisBundle,
+    partial?: (result: JsonRecord) => void,
+  ): Promise<JsonRecord> {
+    return this.operation({ type: "run", config, bundle }, partial);
+  }
+  compareMethods(
+    config: AnalysisConfig,
+    bundle: AnalysisBundle,
+    response: string,
+    country: string,
+  ): Promise<JsonRecord> {
+    return this.operation({
+      type: "methods",
+      config,
+      bundle,
+      response,
+      country,
+    });
+  }
+  exportMethods(
+    config: AnalysisConfig,
+    bundle: AnalysisBundle,
+    response: string,
+    country: string,
+  ): Promise<string> {
+    return this.operation({
+      type: "export-methods",
+      config,
+      bundle,
+      response,
+      country,
+    });
   }
   compatibility(
     config: AnalysisConfig,
@@ -365,4 +428,25 @@ export class AnalysisRuntime {
   dispose(): void {
     this.reset(new Error("Runtime closed"));
   }
+}
+
+export async function getTemplateSources(
+  measure: string,
+): Promise<JsonRecord[]> {
+  const manifest = await getManifest();
+  const data = await (await localResponse(manifest.global_variants_url)).json();
+  const ea = await getCountry("EA");
+  const policy =
+    measure === "dfr"
+      ? data.variants.dfr.metadata
+      : ea.cards.find(
+          (card) =>
+            card.concept_id ===
+            (measure === "rate_3m" ? "rate_3m" : "policy_rate"),
+        );
+  const selectedPolicy =
+    policy && Array.isArray(policy.source_segments)
+      ? { ...policy, ...policy.source_segments[0] }
+      : policy;
+  return [selectedPolicy, data.variants.hicp_sa.metadata].filter(Boolean);
 }

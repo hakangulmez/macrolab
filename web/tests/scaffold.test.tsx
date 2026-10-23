@@ -1,3 +1,4 @@
+import { buildVersion } from "../src/version";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 import { App } from "../src/App";
@@ -21,7 +22,7 @@ describe("G3 application boot", () => {
         expect(markup).toContain(`data-testid="nav-${screen}"`);
       }
       expect(markup).toContain("Preparing your workspace");
-      expect(markup).toContain("v0.4 · Data snapshot 21 Oct 2026");
+      expect(markup).toContain(`${buildVersion} · Data snapshot …`);
       expect(markup).toContain('href="https://hakangulmez.github.io/"');
       expect(markup).not.toContain("Analysis complete");
       expect(markup).not.toContain("G0 tooling scaffold");

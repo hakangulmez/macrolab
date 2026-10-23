@@ -1,4 +1,27 @@
-# Data rights review — P2, 21 October 2026
+# Data rights — v1.0 candidate, 23 October 2026
+
+## Current G9 candidate
+
+The local v1.0 candidate uses audited snapshot `20261023-1634` (23 October 2026).
+All seven current provider reuse clauses quoted below remain present on their
+[official terms pages](docs/G9_LICENCE_REVIEW.json). No changed reuse clause or
+new dataset restriction was found. All seven selected OECD flow versions retain
+identical non-availability metadata and reuse-related text versus the P2 review;
+only response headers and availability constraints changed. All five WDI indicator
+pages still identify CC BY 4.0. PCPS selected-index rows still identify PUBLIC_OPEN,
+the reviewed IMF licence and empty additional sharing notes. The evidence record
+contains official URLs, metadata hashes and the scope of the comparison.
+
+The current catalogue includes **33 indicators + 3 global factors**: EIA Brent,
+BIS US policy and IMF PCPS non-fuel. It includes the reviewed PCPS all/energy
+variants, ECB DFR/MRO and official SA euro-area HICP documented below. Attribution
+uses the 23 October access date. National NSA prices retain seasonal controls;
+MacroLab does not seasonally adjust observations. Country narratives and Pink
+Sheet remain excluded. IMF use remains non-commercial. `make static-build`
+prepares `runs/g9/site/` from cleared inputs only. This is a local release
+candidate; P4 publication requires approval of the exact source and site artifacts.
+
+## Historical P2 scope and continuing source conditions
 
 **Source inclusion is authorised for the local P2 candidate; publication is not authorised.** MacroLab is a non-commercial research and teaching tool. The source policy below implements the owner’s P2 decisions of 21 October 2026. The accepted G1.1 snapshot remains `20261021-0025`, manifest SHA-256 `50919e1e009aa43704c7feb185b013e13c131f9fe5f0dcde84c6ae1a62660035`; a separately archived EIA monthly Brent overlay is the only observation change. No permission request was sent.
 
@@ -49,9 +72,41 @@ The [CC BY 4.0 licence](https://creativecommons.org/licenses/by/4.0/) and World 
 
 ## Build and publication boundary
 
-- `make static-build` prepares P2 in `runs/p2/site/` with browser-only estimation and same-origin runtime assets. It includes the reviewed OECD flows, non-commercial IMF data, BIS, Eurostat, the five WDI profile indicators and EIA Brent. ECB remains permitted but contributes no selected observations to this snapshot.
+- The accepted P2 candidate in `runs/p2/site/` uses browser-only estimation and same-origin runtime assets. It includes the reviewed OECD flows, non-commercial IMF data, BIS, Eurostat, the five WDI profile indicators and EIA Brent. ECB is permitted but contributes no selected observations to that frozen snapshot. G5 added the reviewed data below in `runs/g5/site/`. During G6, `make static-build` uses the same accepted inputs in `runs/g6/site/`, with the new local model runtime; it does not rebuild P2 or G5.
 - No Pink Sheet values, commodity-index variants or country narratives enter P2. Missing/excluded inputs carry visible notes. Other accepted values, model defaults and estimators are preserved; Brent’s source is the sole monetary-template input change.
 - Attribution, dataset/series URLs, terms and transformation records travel with retained series, profiles and exports. New or ambiguous provenance fails closed. Raw workbooks, processed archives, caches and runtime binaries remain ignored.
 - The P1 full-data folder remains a **local comparison only**, with uncleared Pink Sheet inputs. It is not the P2 publication candidate.
-- A separate sanitised source export has fresh history, the owner-specified identity, and no review screenshots or historical verification arrays. The source export and the generated static site are distinct review artifacts; neither has been uploaded.
-- FRED remains unavailable and unused. Hosting, repository creation, push and deployment still require the owner’s separate approval.
+- The accepted sanitised source export has fresh history, the owner-specified identity, and no review screenshots or historical verification arrays. P2/P3.1 were subsequently published with explicit approval. The new G5 development candidate remains local and is not covered by that approval.
+- FRED remains unavailable and unused. Any new remote push or deployment requires the owner’s separate approval of the exact artifact.
+
+
+## G5 additions — 21 October 2026 (local review only)
+
+The accepted P2/P3.1 licence decisions above remain in force. The v1 policy is
+`configs/publication_sources_v1.json`; the frozen P2 policy is unchanged.
+
+| Addition | Classification | Official terms / exact clause | Scope and attribution |
+|---|---|---|---|
+| IMF PCPS indices | **OK to redistribute processed data with attribution**, non-commercial only | [IMF statistical-data terms](https://www.imf.org/en/about/copyright-and-terms), the reuse clause quoted in the IMF row above. For material not attributed to IMF, the terms require “permission directly from the respective third-party copyright holder”. | Only PALLFNF (all), PNRG (energy), PNFUEL (non-fuel), INDEX, monthly, 2016=100. `Source: International Monetary Fund, Primary Commodity Prices, https://data.imf.org/en/datasets/IMF.RES:PCPS.` Identify transformations and communicate terms downstream. |
+| ECB DFR/MRO | **OK to redistribute processed data with attribution** | [ECB disclaimer and copyright](https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html), exact reuse clause in the ECB row above. | Cite ECB, dataset FM and the original daily series. MacroLab selects published calendar month-end values; no filling. MRO uses fixed/minimum-bid tender regimes in their published periods. |
+| ECB official SA HICP | **OK to redistribute processed data with attribution** | Same ECB statistical-data terms. | Cite ECB, `HICP.M.U2.Y.000000.4F0.INX`, 2025=100, working-day and seasonally adjusted by ECB. MacroLab growth and frequency calculations are separately identified. No in-app seasonal adjustment. |
+
+The [PCPS dataset page](https://data.imf.org/en/datasets/IMF.RES:PCPS) and official
+SDMX flow/series metadata were checked on 21 October 2026. They distinguish
+indices from individual commodity market prices. The selected index records
+identify IMF as author/publisher, access PUBLIC_OPEN and an empty additional
+sharing-notes field. No explicit extra restriction on these three indices was
+found; individual third-party commodity price series are **not included**.
+The special statistical-data terms explicitly cover Primary Commodity Prices.
+This applies the accepted non-commercial decision, not a new commercial licence.
+
+Direct IMF HTML requests returned 403; the official dataset and terms pages were
+read through the browsing tool instead. The API metadata and data responses were
+archived in full with hashes. No login, key or access-control bypass was used.
+ECB terms were retrieved directly (HTTP 200). Source metadata, audit URLs and
+hashes are recorded in [G5 source review](docs/G5_DATA_SOURCES.md) and
+G5 data evidence (local review record omitted from source export).
+
+Pink Sheet stays excluded. Existing EIA Brent and BIS US-policy-rate data remain
+unchanged. All country narratives remain withheld. Nothing in G5 authorises
+publication or a remote push.

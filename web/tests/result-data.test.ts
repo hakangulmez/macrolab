@@ -352,8 +352,8 @@ describe("substantive result projections", () => {
       },
     });
     expect(chartData(output, indicators).map((c) => c.name)).toEqual([
-      "y: equation coefficients",
-      "x: equation coefficients",
+      "Output: equation coefficients",
+      "Price index: equation coefficients",
     ]);
     expect(
       resultTableBlocks(output).find((b) => b.title === "Diagnostic tests")
@@ -433,4 +433,47 @@ describe("substantive result projections", () => {
     resultCsvRows(output);
     expect(output).toEqual(before);
   });
+});
+
+it("labels v1 log-level targets by the response estimand, not the stored log units", () => {
+  const r = result("cmp.common_shock", {
+    irf: {
+      variables: ["y", "x"],
+      periods: [0, 1],
+      values: [
+        [0.2, 0.1],
+        [0.3, 0.2],
+      ],
+      lower: [
+        [0, 0],
+        [0, 0],
+      ],
+      upper: [
+        [0.4, 0.3],
+        [0.5, 0.4],
+      ],
+      shock: "policy_rate",
+      shock_size: 0.2,
+      band_level: 0.68,
+      band_method: "HC1",
+    },
+    response_results: {
+      y: {
+        local_projection: {
+          response_mode: "cumulative_log",
+          response_definition: "cumulative % change in the level",
+        },
+      },
+      x: {
+        local_projection: {
+          response_mode: "change",
+          response_definition: "change from the pre-impulse level",
+        },
+      },
+    },
+  });
+  const charts = chartData(r, indicators);
+  expect(charts[0].unit).toBe("cumulative % change in the level");
+  expect(charts[0].transformation).toBe("cumulative % change in the level");
+  expect(charts[1].transformation).toBe("change from the pre-impulse level");
 });

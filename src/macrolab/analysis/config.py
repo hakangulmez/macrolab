@@ -22,6 +22,10 @@ MODEL_IDS = (
     "filter.hamilton",
     "var.ols",
     "ident.recursive",
+    "lp.ols",
+    "out.hd",
+    "ident.external_series",
+    "cmp.common_shock",
 )
 TRANSFORMS = (
     "level",
@@ -53,10 +57,18 @@ def config_hash(config: dict[str, Any]) -> str:
 def required_concepts(config: dict[str, Any]) -> list[str]:
     """Include source-only series needed by explicitly enabled comparisons."""
     concepts = [str(item["concept_id"]) for item in config["series"]]
+    first = config.get("model", {}).get("params", {}).get("first_stage")
+    if isinstance(first, dict):
+        concepts.extend(required_concepts(first))
     comparison = config.get("comparison", {})
     if comparison.get("enabled", True) and "extended_var" in comparison.get("scenarios", []):
         concepts.extend(["reer", "credit_pnfs"])
     return list(dict.fromkeys(concepts))
+
+
+def required_countries(config: dict[str, Any]) -> list[str]:
+    first = config.get("model", {}).get("params", {}).get("first_stage", {})
+    return list(dict.fromkeys([*config["countries"], *first.get("countries", [])]))
 
 
 def _fields(value: Any, allowed: set[str], required: set[str], name: str) -> dict[str, Any]:
@@ -209,7 +221,7 @@ def normalise_config(value: dict[str, Any]) -> dict[str, Any]:
         _fields(identification, {"id", "params"}, {"id", "params"}, "identification")
         if identification["id"] not in ("recursive", "ident.recursive"):
             raise ConfigError("Only recursive identification is released in v0")
-        if model["id"] not in ("var.ols", "ident.recursive"):
+        if model["id"] not in ("var.ols", "ident.recursive", "out.hd", "ident.external_series"):
             raise ConfigError("Identification requires a VAR model")
         _fields(identification["params"], {"order"}, {"order"}, "identification.params")
         endogenous = [
@@ -225,7 +237,10 @@ def normalise_config(value: dict[str, Any]) -> dict[str, Any]:
             raise ConfigError(
                 "Recursive order must contain each selected endogenous variable exactly once"
             )
-    if model["id"] == "ident.recursive" and identification is None:
+    if (
+        model["id"] in {"ident.recursive", "out.hd", "ident.external_series"}
+        and identification is None
+    ):
         raise ConfigError("Specify an explicit recursive ordering")
     outputs = c.setdefault("outputs", {})
     _fields(outputs, {"irf", "confidence"}, set(), "outputs")
@@ -349,6 +364,7 @@ def validated_config(value: dict[str, Any]) -> dict[str, Any]:
             or (kind == "number" and type(v) not in (int, float))
             or (kind == "string" and not isinstance(v, str))
             or (kind == "boolean" and not isinstance(v, bool))
+            or (kind == "object" and not isinstance(v, dict))
         ):
             raise ConfigError(f"Model parameter {key} has an invalid type")
         if "enum" in rule and v not in rule["enum"]:
@@ -357,6 +373,41 @@ def validated_config(value: dict[str, Any]) -> dict[str, Any]:
             raise ConfigError(f"{key} is below the minimum")
         if "maximum" in rule and v > rule["maximum"]:
             raise ConfigError(f"{key} exceeds the maximum")
+    if plugin.id == "cmp.common_shock":
+        first = params.get("first_stage")
+        if not isinstance(first, dict) or first.get("model", {}).get("id") not in {
+            "var.ols",
+            "ident.recursive",
+            "ident.external_series",
+        }:
+            raise ConfigError("Common-shock comparison requires a first-stage recursive VAR config")
+        first = validated_config(first)
+        if not first.get("identification") or len(first["countries"]) != 1:
+            raise ConfigError("First stage needs one country and explicit recursive identification")
+        if (
+            first["snapshot_id"] != config["snapshot_id"]
+            or first["frequency"] != config["frequency"]
+        ):
+            raise ConfigError("Both stages must use the same snapshot and frequency")
+        if roles := [s["concept_id"] for s in config["series"] if s["role"] == "shock"]:
+            if roles != ["identified_impulse"]:
+                raise ConfigError(
+                    "The common impulse must use the generated identified_impulse field"
+                )
+        params["first_stage"] = first
+    if plugin.id in {"lp.ols", "out.hd", "ident.external_series", "cmp.common_shock"}:
+        # JavaScript JSON has one numeric type. Normalize integral floats only
+        # for the new model contracts; accepted v0 config hashes stay intact.
+        def portable_numbers(value: Any) -> Any:
+            if isinstance(value, dict):
+                return {key: portable_numbers(item) for key, item in value.items()}
+            if isinstance(value, list):
+                return [portable_numbers(item) for item in value]
+            if isinstance(value, float) and value.is_integer():
+                return int(value)
+            return value
+
+        config = portable_numbers(config)
     canonical_json(config)
     return config
 

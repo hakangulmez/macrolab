@@ -76,6 +76,11 @@ class SourceAudit:
                         result.append(value)
         elif parser in {"jsonstat", "json-stat", "wdi-json", "json"}:
             result = json.loads(body)
+        elif parser == "xls":
+            import pandas as pd
+
+            frame = pd.read_excel(io.BytesIO(body), sheet_name="Data 1", header=None, engine="xlrd")
+            result = frame.values.tolist()
         elif parser == "xlsx":
             workbook = load_workbook(io.BytesIO(body), read_only=True, data_only=True)
             try:
@@ -101,7 +106,8 @@ class SourceAudit:
             raise ValueError("Missing independent audit parser")
         table = self.table(row["raw_path"], parser)
         source_period = str(audit["source_period"])
-        if normalise_period(source_period, row["freq"]) != row["date"]:
+        comparable_period = source_period.split("T")[0] if parser == "xls" else source_period
+        if normalise_period(comparable_period, row["freq"]) != row["date"]:
             raise ValueError("Source period does not match standardised date")
         if parser in {"csv", "sdmx_xml", "sdmx-xml"}:
             time_key, value_key = (
@@ -158,6 +164,16 @@ class SourceAudit:
                 )
             values = table["value"]
             return float(values[str(index)] if isinstance(values, dict) else values[int(index)])
+        if parser == "xls":
+            import re
+
+            cell = re.fullmatch(r"B(\d+)", audit["value_cell"])
+            if not cell or audit["source_key"] != "RBRTE" or table[1][1] != "RBRTE":
+                raise ValueError("Invalid EIA raw cell or source key")
+            item = table[int(cell[1]) - 1]
+            if item[0].strftime("%Y-%m") != row["date"]:
+                raise ValueError("EIA raw cell date mismatch")
+            return float(item[1])
         if parser == "xlsx":
             sheet = table[audit["sheet"]]
             source_row = sheet[int(audit["row"]) - 1]

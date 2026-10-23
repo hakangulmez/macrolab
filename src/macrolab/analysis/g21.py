@@ -26,11 +26,13 @@ def run_configured_plugin(
     Derived floats are output metadata, never inputs to portable config hashes.
     """
     plugin = plugin or get_plugin(config["model"]["id"])
+    if config["model"]["id"] in {"lp.ols", "out.hd", "ident.external_series", "cmp.common_shock"}:
+        return plugin.run(data, config)
     requested = config.get("outputs", {}).get("irf", {})
     one_sd = requested.get("shock_mode", "fixed") == "one_sd"
     execution = deepcopy(config)
     normalisation: dict[str, Any] | None = None
-    if one_sd:
+    if one_sd and config["model"]["id"] not in {"out.hd", "ident.external_series"}:
         if config["model"]["id"] not in {"var.ols", "ident.recursive"}:
             raise ValueError("One-SD normalisation requires an identified VAR")
         if fixed_shock_size is None:

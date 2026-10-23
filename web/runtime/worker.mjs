@@ -101,22 +101,54 @@ self.onmessage = async ({ data: message }) => {
     if (type === "init") {
       result = await initialise(message);
     } else if (
-      ["run", "compatibility", "export", "encode", "decode"].includes(type)
+      [
+        "run",
+        "compatibility",
+        "export",
+        "export-methods",
+        "methods",
+        "encode",
+        "decode",
+      ].includes(type)
     ) {
       if (!runtime) throw new Error("Initialise the analysis runtime first");
       runtime.globals.set("__ml_config_json", JSON.stringify(message.config));
       runtime.globals.set("__ml_bundle_json", JSON.stringify(message.bundle));
       runtime.globals.set("__ml_token", message.token ?? "");
       runtime.globals.set("__ml_operation", type);
+      runtime.globals.set("__ml_response", message.response ?? "");
+      runtime.globals.set("__ml_country", message.country ?? "");
       self.postMessage({
         type: "progress",
         text: {
           run: "Estimating the selected model…",
+          methods: "Estimating VAR and LP on the same dates and shock…",
+          "export-methods": "Preparing matched-comparison reproduction…",
           compatibility: "Checking the selection…",
           export: "Preparing the reproduction script…",
           encode: "Preparing the configuration link…",
           decode: "Reading the shared configuration…",
         }[type],
+      });
+      runtime.globals.set("__ml_progress", (raw) => {
+        const detail = JSON.parse(raw);
+        if (detail.phase === "template_result") {
+          self.postMessage({ id, type: "partial", result: detail.result });
+          return;
+        }
+        self.postMessage({
+          id,
+          type: "progress",
+          text:
+            detail.phase === "template_sensitivity"
+              ? `Sensitivity ${detail.completed + 1}/${detail.total}: ${detail.variant.replaceAll("_", " ")}…`
+              : detail.phase === "joint_bootstrap"
+                ? `Joint bootstrap: ${detail.completed}/${detail.total} draws`
+                : detail.phase === "country_comparison"
+                  ? `Country ${detail.completed}/${detail.total}: ${detail.country}`
+                  : "Identifying the common first-stage shock…",
+          detail,
+        });
       });
       result = JSON.parse(
         await runtime.runPythonAsync(`
@@ -127,12 +159,17 @@ if __ml_operation == "encode":
     __ml_result = encode_config(json.loads(__ml_config_json))
 elif __ml_operation == "decode":
     __ml_result = decode_config(__ml_token)
-elif __ml_operation == "export":
+elif __ml_operation == "methods":
+    from macrolab.compare.methods import matched_pair
+    __ml_result = matched_pair(json.loads(__ml_config_json), json.loads(__ml_bundle_json), __ml_response, __ml_country)
+elif __ml_operation in {"export", "export-methods"}:
     __ml_result = standalone(json.loads(__ml_config_json), json.loads(__ml_bundle_json),
-                             reproduction_environment=json.loads(__ml_reproduction_json))
+                             reproduction_environment=json.loads(__ml_reproduction_json),
+                             method_pair={"response": __ml_response, "country": __ml_country} if __ml_operation == "export-methods" else None)
 else:
     __ml_function = run_analysis if __ml_operation == "run" else compatibility
-    __ml_result = __ml_function(json.loads(__ml_config_json), bundle=json.loads(__ml_bundle_json))
+    __ml_options = {"progress": lambda detail: __ml_progress(json.dumps(detail))} if __ml_operation == "run" else {}
+    __ml_result = __ml_function(json.loads(__ml_config_json), bundle=json.loads(__ml_bundle_json), **__ml_options)
 json.dumps(__ml_result, sort_keys=True, allow_nan=False)
 `),
       );

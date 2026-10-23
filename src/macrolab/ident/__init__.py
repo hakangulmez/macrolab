@@ -1,0 +1,1 @@
+"""Reusable identified shock series."""

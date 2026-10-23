@@ -102,7 +102,7 @@ def test_snapshot_errors_and_loopback_boundary_are_explicit(
     assert capabilities["publication_approved"] is False
     assert capabilities["local_only"] is True
     models = client.get("/models").json()["models"]
-    assert len(models) == 12
+    assert len(models) == 16
     assert all(model["references"] and model["assumptions"] for model in models)
 
 

@@ -82,7 +82,7 @@ def test_one_missing_country_blocks_only_that_country():
 def test_compatibility_explains_unavailable_models():
     config, bundle = inputs()
     result = compatibility(config, bundle)
-    assert len(result["models"]) == 12
+    assert len(result["models"]) == 16
     assert next(m for m in result["models"] if m["id"] == "sing.ols")["available"]
     unavailable = next(m for m in result["models"] if m["id"] == "ident.recursive")
     assert not unavailable["available"] and unavailable["checks"]

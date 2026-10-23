@@ -1,3 +1,4 @@
+import { buildVersion, snapshotDate } from "./version";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import type { ValidateFunction } from "ajv/dist/2020.js";
 import {
@@ -187,6 +188,7 @@ export function App() {
     if (busy) {
       requestId.current += 1;
       runtime.cancel();
+      setResult(null);
       setRuntimeStatus("idle");
       setBusy(false);
       setProgress("");
@@ -254,10 +256,13 @@ export function App() {
         setCompatible(models);
         setChecks(models.find((m) => m.id === next.model.id)?.checks ?? []);
       } else {
-        const output = (await runtime.run(
-          next,
-          bundle,
-        )) as unknown as AnalysisResult;
+        const output = (await runtime.run(next, bundle, (partial) => {
+          if (id !== requestId.current) return;
+          setResult(partial as unknown as AnalysisResult);
+          setResultKnownChecks(knownChecks);
+          setShareUrl("");
+          navigate("results");
+        })) as unknown as AnalysisResult;
         if (id !== requestId.current) return;
         setRuntimeStatus("ready");
         setResult(output);
@@ -268,7 +273,10 @@ export function App() {
         navigate("results");
       }
     } catch (e: unknown) {
-      if (id === requestId.current) setError(String(e));
+      if (id === requestId.current) {
+        setResult((current) => (current?.sensitivity_pending ? null : current));
+        setError(String(e));
+      }
     } finally {
       if (id === requestId.current) {
         setBusy(false);
@@ -420,7 +428,9 @@ export function App() {
         <div className="snapshot">
           Data updated {manifest?.as_of_date ?? "…"}
           <br />
-          <span className="badge draft">v0.4 · Data snapshot 21 Oct 2026</span>
+          <span className="badge draft">
+            {buildVersion} · Data snapshot {snapshotDate(manifest?.as_of_date)}
+          </span>
         </div>
       </div>
     </header>
@@ -502,6 +512,7 @@ export function App() {
             />
           ) : screen === "results" ? (
             <Results
+              runtime={runtime}
               previouslyDisplayedChecks={resultKnownChecks}
               onSourceCard={openSource}
               bundles={bundles}
@@ -540,10 +551,11 @@ export function App() {
             onClick={() => {
               requestId.current++;
               runtime.cancel();
+              setResult(null);
               setRuntimeStatus("idle");
               setBusy(false);
               setError(
-                "Analysis cancelled. No partial estimate was returned. You can run again.",
+                "Analysis cancelled. Incomplete sensitivity results were cleared. You can run again.",
               );
             }}
           >
@@ -553,7 +565,7 @@ export function App() {
       )}
       <footer>
         <span>
-          MacroLab · Reproducible macroeconomic analysis ·{" "}
+          MacroLab {buildVersion} · Reproducible macroeconomic analysis ·{" "}
           <a
             href="https://hakangulmez.github.io/"
             target="_blank"

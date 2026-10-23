@@ -1,0 +1,117 @@
+{
+  "reviewed_on": "2026-10-23",
+  "passed": true,
+  "scope": "Reuse and redistribution clauses recorded in DATA.md; official terms read using browser search tool. Full HTML hashes are not asserted.",
+  "terms": [
+    {
+      "source": "OECD",
+      "url": "https://www.oecd.org/en/about/terms-conditions.html",
+      "recorded_reuse_clause": "unchanged"
+    },
+    {
+      "source": "BIS",
+      "url": "https://data.bis.org/help/legal",
+      "recorded_reuse_clause": "unchanged"
+    },
+    {
+      "source": "IMF",
+      "url": "https://www.imf.org/en/about/copyright-and-terms",
+      "recorded_reuse_clause": "unchanged"
+    },
+    {
+      "source": "ECB",
+      "url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+      "recorded_reuse_clause": "unchanged"
+    },
+    {
+      "source": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/web/main/help/copyright-notice",
+      "recorded_reuse_clause": "unchanged"
+    },
+    {
+      "source": "World Bank WDI",
+      "url": "https://data.worldbank.org/summary-terms-of-use",
+      "recorded_reuse_clause": "unchanged"
+    },
+    {
+      "source": "EIA",
+      "url": "https://www.eia.gov/about/copyrights_reuse.php",
+      "recorded_reuse_clause": "unchanged"
+    }
+  ],
+  "oecd_metadata": [
+    {
+      "flow": "OECD.SDD.NAD,DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES,1.1",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.NAD/DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES/1.1?references=all",
+      "sha256": "7a8dbe10584c884ec7bb38f7927808c675c3f17762631ee0972028c6e5d41e8a",
+      "previous_sha256": "dfe72de3daa9f37bc60bc6b3f13cdcd10dba77c717782e245f39a807be602a0e",
+      "structure_identical_excluding_response_header": false,
+      "non_constraint_metadata_identical": true,
+      "reuse_keyword_text_identical": true,
+      "explicit_restrictions": []
+    },
+    {
+      "flow": "OECD.SDD.STES,DSD_KEI@DF_KEI,4.0",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_KEI@DF_KEI/4.0?references=all",
+      "sha256": "164b4688cd5a7aeade39b5dc153e5117ffcb1d4a8b8ad307abfde0bc673a911b",
+      "previous_sha256": "cde7518f797b53a8c8247c644bd5bb655ab2a0543f85837cf7ad101b85d30e36",
+      "structure_identical_excluding_response_header": false,
+      "non_constraint_metadata_identical": true,
+      "reuse_keyword_text_identical": true,
+      "explicit_restrictions": []
+    },
+    {
+      "flow": "OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_PRICES@DF_PRICES_ALL/1.0?references=all",
+      "sha256": "1b5db9df13a0d5e5177670588778b4e8049d8b6979685021cdcb02bcdb761ac8",
+      "previous_sha256": "73b9c557dd8c638dab5b31b45a079de782f84967ddd0cd03d2c1ff0471defcd2",
+      "structure_identical_excluding_response_header": false,
+      "non_constraint_metadata_identical": true,
+      "reuse_keyword_text_identical": true,
+      "explicit_restrictions": []
+    },
+    {
+      "flow": "OECD.SDD.TPS,DSD_LFS@DF_IALFS_LF_WAP_Q,1.0",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_LFS@DF_IALFS_LF_WAP_Q/1.0?references=all",
+      "sha256": "266eb00205fdb8012ed309a0379211f7ca269a65faf77ac4342f43c36339c6fb",
+      "previous_sha256": "bc111ea592b2cc31a1c4713eb0552711b5828d2d06bbf2cfbc840aa5e4c5c603",
+      "structure_identical_excluding_response_header": false,
+      "non_constraint_metadata_identical": true,
+      "reuse_keyword_text_identical": true,
+      "explicit_restrictions": []
+    },
+    {
+      "flow": "OECD.SDD.STES,DSD_STES@DF_FINMARK,4.0",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_FINMARK/latest?references=all",
+      "sha256": "02d04988e17e958bc2abc7757770b184ce0f03ccac3b8b48f8272fbeff23cc83",
+      "previous_sha256": "a8c8fadb37c753851f5f198b98df5ee510f55062d83d6c8094711ccb6cc4e066",
+      "structure_identical_excluding_response_header": false,
+      "non_constraint_metadata_identical": true,
+      "reuse_keyword_text_identical": true,
+      "explicit_restrictions": []
+    },
+    {
+      "flow": "OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/1.0?references=all",
+      "sha256": "f4dd1dd4f93b8199c00edb019763b8be245a70c10536b2c84215b8da62e9f085",
+      "previous_sha256": "ab1894e88f74f2d1847bebe6cfb8f77456513c23042185783fdc3d14d8466fcc",
+      "structure_identical_excluding_response_header": false,
+      "non_constraint_metadata_identical": true,
+      "reuse_keyword_text_identical": true,
+      "explicit_restrictions": []
+    },
+    {
+      "flow": "OECD.SDD.STES,DSD_STES@DF_CLI,4.1",
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_CLI/latest?references=all",
+      "sha256": "e941d0dded077464e3b691b5008fedf5f9605193b94cdd13eff27311b62da85e",
+      "previous_sha256": "9eb680c63cc7377d5e2c85ccab4aaf0c3bfd27acf6b8554c5904ac5de1492ecc",
+      "structure_identical_excluding_response_header": true,
+      "non_constraint_metadata_identical": true,
+      "reuse_keyword_text_identical": true,
+      "explicit_restrictions": []
+    }
+  ],
+  "imf_pcps": "All selected index rows passed exact LICENSE, PUBLIC_OPEN and empty sharing-notes checks; no individual quotes. Official dataset page has no additional restriction.",
+  "wdi": "All five previously reviewed indicator pages still explicitly display CC BY-4.0.",
+  "pink_sheet": "Excluded; not fetched or re-cleared."
+}

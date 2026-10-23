@@ -1,65 +1,82 @@
 # MacroLab
 
-Explore, model and stress-test macroeconomic relationships across countries.
-MacroLab provides 33 national indicators, two included P2 global factors, twelve v0 methods,
-four template configurations, visible data checks, sensitivity comparisons and
-reproducible exports. Models include single-equation regressions, VARs, recursive
-identification, filters, stationarity tests and descriptive comparisons.
-The commodity index remains visibly excluded; Brent uses EIA and the US policy
-factor uses BIS.
+MacroLab is a non-commercial research and teaching tool for exploring official
+macro data and testing how results depend on modelling assumptions. **v1.0**
+provides 33 national indicators and three global factors across 38 OECD economies
+and the euro area. Six templates cover monetary policy, Taylor and Phillips
+relationships, Okun's law, a common ECB shock and Türkiye exchange-rate pass-through.
 
-This is a **source-only local export** with a new Git history. It contains no
-full input datasets, review screenshots, generated result arrays, compiled site,
-runtime binaries, dependency cache or country narratives. Synthetic test fixtures
-and three public-domain EIA audit observations remain documented. No push,
-deployment or publication is performed by this export.
+The app runs entirely in the browser, including estimation in a pinned Pyodide
+worker. A published build contains a fixed, audited data snapshot; visiting the
+app does not fetch new observations from providers. Results record the actual
+sample, transformations, dropped periods, source notes and sensitivity variants.
+They are **not forecasts**. Conditional associations and recursively identified
+scenarios carry their respective limitations; inference is pointwise.
+
+v1 adds matched VAR/LP comparisons, country-response panels with shared axes,
+peak intervals and the cumulative pass-through ratio. Country narratives,
+historical-decomposition UI and additional Türkiye crisis options remain deferred.
+The underlying historical-decomposition method is available through Python.
+Forecasting, BVAR, panel methods and other v2/v3 features are planned.
 
 ## Install and check
 
-Use an existing Python 3.11 and a Node version satisfying `web/package.json`, plus
-`uv` on PATH. Dependencies are pinned by `uv.lock` and `web/package-lock.json`.
+Use Python 3.11, a Node version satisfying `web/package.json`, and `uv` on PATH.
+Dependencies are pinned in `uv.lock` and `web/package-lock.json`.
 
 ```sh
 make setup
 make quick
 make test lint typecheck
-# Compile the interface source; this does not prepare a data-bearing site:
+# Compile the interface source without preparing data or runtime assets:
 cd web && npm run build
 ```
 
-Setup retrieves dependencies from PyPI/npm; Python auto-downloads and npm lifecycle
-scripts are disabled. `make quick` uses seeded synthetic data without network.
-Tests use local fixtures/mocks; checks that require an accepted private snapshot
-are skipped when it is absent. No data is fetched by these checking commands.
+Setup retrieves dependencies from PyPI/npm. Automatic Python downloads and npm
+lifecycle scripts are disabled. `make quick` uses seeded synthetic data without
+network. Tests use fixtures/mocks; private-snapshot checks skip when inputs are
+absent. No raw data, generated results, environments or scientific runtime
+binaries are included in the public source repository.
 
-## Data and a runnable local site
+## Data and a runnable static site
 
-Real-data operation additionally needs an independently obtained, verified snapshot
-and the exact scientific runtime assets listed in `web/runtime/assets.lock.json`.
-Those assets and full input datasets are deliberately absent here. Review [data terms and
-publication policy](DATA.md) before preparing any data-bearing artifact. Source
-retrieval is an explicit operation; `make data` fetches from the configured official
-providers. Local preparation commands do not silently retrieve missing runtime files.
+Sources are OECD, BIS, IMF WEO/ER/PCPS, ECB, Eurostat, World Bank WDI and EIA.
+Global factors are EIA Brent, BIS US policy and the IMF non-fuel commodity index;
+all/energy commodity variants are also available. Pink Sheet remains excluded.
+Country narratives are withheld. Data rights and attribution are in [DATA.md](DATA.md).
 
-The original gate-specific seeding/report commands refer to private review evidence
-that this source export omits. They are retained as development utilities, not as a
-claim that the original local review can be reconstructed from code alone. Public
-country metadata retains adoption/currency/source fields while narrative notes are
-empty; candidate preparation also withholds generated narratives.
+Preparing a full local app additionally requires an audited snapshot and the
+exact cached runtime files listed in `web/runtime/assets.lock.json`. Preparation
+never silently downloads runtime files. Original review evidence is private and
+absent from the public source export; code alone cannot recreate that evidence.
 
-## Documentation
+```sh
+# Explicit live data operation; PREVIOUS is an existing audited static data folder:
+make refresh PREVIOUS=runs/g8/public/data
+# Build the local candidate using the selected, successfully audited snapshot:
+make static-build SNAPSHOT=20261023-1634
+# Serve runs/g9/site under /macrolab/ with a static server (no local API).
+```
+
+Follow [refresh instructions](docs/DATA_REFRESH.md) and the
+[release-candidate procedure](docs/RELEASE_CANDIDATE.md). A refresh never changes
+the published site or the accepted old snapshot. Source failures and changed
+licence clauses stop the release. No push or deployment is part of these commands.
+
+The first browser run prepares the cached scientific runtime, taking about 8–9 s
+on the review machine. ECB baseline results appear before background sensitivity;
+joint uncertainty is available on demand. Finite-sample coverage limits,
+identification caveats and data warnings remain visible.
+
+## Documentation and licences
 
 - [Model methods](docs/models/README.md)
-- [Source mappings and transformations](docs/SOURCES.md)
-- [Data attribution and redistribution policy](DATA.md)
+- [Source mappings](docs/SOURCES.md)
+- [Data rights and attribution](DATA.md)
 - [Software notices](docs/P1_SOFTWARE_NOTICES.md)
-- [Pinned runtime notices and source availability](third_party/runtime/SOURCE_AVAILABILITY.md)
-- [Explicit export omissions and modifications](EXPORT_SCOPE.md)
+- [Pinned runtime notices](third_party/runtime/SOURCE_AVAILABILITY.md)
+- [Changelog](CHANGELOG.md)
 
-## Licence
-
-MacroLab's original code is licensed under the [MIT License](LICENSE).
-**Data and data-derived outputs are not covered by the MIT licence**; see
-[DATA.md](DATA.md) for source-specific terms, attribution and restrictions.
-Third-party software, fonts and runtime components retain their own licences
-and notices. A shared configuration does not grant data reuse rights.
+MacroLab code is MIT licensed. **Data and data-derived outputs are not covered by
+the MIT licence; see [DATA.md](DATA.md).** Third-party software and fonts retain
+their own terms. A shared configuration is not a data licence or publication approval.

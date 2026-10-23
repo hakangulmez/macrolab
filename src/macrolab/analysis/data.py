@@ -445,7 +445,8 @@ def prepare_country(
             if period in covid:
                 valid.iloc[position] = False
                 reasons.setdefault(period, []).append("covid_excluded")
-    chosen = _longest_run(valid)
+    disjoint_lp = config.get("model", {}).get("id") == "lp.ols"
+    chosen = list(grid[valid.to_numpy()]) if disjoint_lp else _longest_run(valid)
     chosen_set = set(chosen)
     excluded_valid = [
         period
@@ -504,8 +505,9 @@ def prepare_country(
         "dropped_periods": dropped,
         "frequency_conversion": conversions,
         "transforms": transforms,
-        "rule": "longest contiguous complete common sample; "
-        "later window wins ties; no interpolation",
+        "rule": "All complete LP dates, with calendar gaps preserved in lag/horizon construction"
+        if disjoint_lp
+        else "longest contiguous complete common sample; later window wins ties; no interpolation",
     }
     selected.index = pd.Index(sample["periods"], name="period")
     exog = None

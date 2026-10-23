@@ -103,4 +103,42 @@ p2-prepare:
 p2-build:
 	$(PYTHON) scripts/p1_prepare.py --candidate p2 --base-path $(P1_BASE_PATH) --build
 
-static-build: p2-build
+static-build: g9-build
+
+# Explicit v1 preparation; never changes the frozen P2/P3.1 artifacts or current pointer.
+.PHONY: refresh g5-prepare g5-build g6-build regress-v0 test-v1
+refresh:
+	$(PYTHON) scripts/refresh.py $(if $(filter 1,$(DRY_RUN)),--dry-run,) $(if $(filter 1,$(RESUME_COMPARISON)),--resume-comparison,) $(if $(SNAPSHOT),--snapshot $(SNAPSHOT),) $(if $(PREVIOUS),--previous $(PREVIOUS),)
+
+g5-prepare:
+	$(PYTHON) scripts/g5_prepare.py
+
+g5-build:
+	$(PYTHON) scripts/g5_prepare.py --build
+
+g6-build:
+	$(PYTHON) scripts/g6_prepare.py --build
+
+regress-v0:
+	$(PYTHON) scripts/regress_v0.py --output runs/g9 --allow-version-change
+	node web/scripts/g9-v0.mjs
+
+test-v1:
+	$(PYTHON) -m pytest tests/data/test_v1_sources.py tests/data/test_refresh.py tests/v1
+	cd web && npm test -- tests/png-export.test.ts
+
+# G7 writes a separate local candidate and never changes the frozen releases.
+g7-build:
+	$(PYTHON) scripts/g7_prepare.py --build
+
+.PHONY: g71-build
+g71-build:
+	$(PYTHON) scripts/g71_prepare.py --build
+
+.PHONY: g8-build
+g8-build:
+	$(PYTHON) scripts/g8_prepare.py --build
+
+.PHONY: g9-build
+g9-build:
+	$(PYTHON) scripts/g9_prepare.py --build $(if $(SNAPSHOT),--snapshot $(SNAPSHOT),)

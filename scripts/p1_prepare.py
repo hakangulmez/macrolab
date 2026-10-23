@@ -444,22 +444,33 @@ def prepare(
     mode: str = "cleared",
     base_path: str = "/macrolab/",
     candidate: str = "p1",
+    snapshot_id: str | None = None,
 ) -> dict[str, Any]:
     if mode not in {"cleared", "all"} or not re.fullmatch(r"/(?:[A-Za-z0-9_-]+/)*", base_path):
         raise ValueError("Choose cleared/all sources and a simple absolute project base path")
-    if candidate not in {"p1", "p2"} or (candidate == "p2" and mode != "cleared"):
+    if candidate not in {"p1", "p2", "g9"} or (candidate in {"p2", "g9"} and mode != "cleared"):
         raise ValueError("P2 always applies the reviewed source policy; P1 all remains separate")
-    policy_path = root / "configs/publication_sources.json"
+    policy_path = root / (
+        "configs/publication_sources_v1.json"
+        if candidate == "g9"
+        else "configs/publication_sources.json"
+    )
     policy_data = read_policy(policy_path)
     policy = Policy(policy_data)
-    directory = root / "data/processed/current"
+    if candidate == "g9" and (not snapshot_id or not re.fullmatch(r"\d{8}-\d{4}", snapshot_id)):
+        raise ValueError("G9 needs an explicit audited snapshot identifier")
+    directory = (
+        root / "data/processed/snapshots" / snapshot_id
+        if candidate == "g9" and snapshot_id
+        else root / "data/processed/current"
+    )
     snapshot_bytes = (directory / "processed_manifest.json").read_bytes()
     snapshot = json.loads(snapshot_bytes)
     if not snapshot.get("validation_passed") or not snapshot.get("audit_summary", {}).get("passed"):
         raise ValueError("P1 only reads an accepted, audited local snapshot")
     target = (
-        root / "runs/p2"
-        if candidate == "p2"
+        root / "runs" / candidate
+        if candidate in {"p2", "g9"}
         else root / "runs/p1" / ("cleared" if mode == "cleared" else "all-local-only")
     )
     public = target / "public"
@@ -515,10 +526,19 @@ def prepare(
         read_rows(verified_file(directory, snapshot, "variant_series.parquet")), policy, mode
     )
     definitions = yaml.safe_load((root / "configs/indicators.yaml").read_text())
-    if candidate == "p2":
+    if candidate in {"p2", "g9"}:
         brent = next(item for item in definitions["concepts"] if item["concept_id"] == "oil_brent")
         brent["source_priority"] = ["EIA"]
         brent["title"] = "Europe Brent spot price (EIA), USD/bbl"
+    if candidate == "g9":
+        commodity = next(
+            item for item in definitions["concepts"] if item["concept_id"] == "commod_idx"
+        )
+        commodity.update(
+            source_priority=["IMF"],
+            title="Primary commodity price index (IMF, non-fuel)",
+            default_transform="yoy_pct",
+        )
     rules = yaml.safe_load((root / "configs/data_rules.yaml").read_text())
     coverage, cards = build_coverage(
         rows,
@@ -663,7 +683,7 @@ def prepare(
     templates = []
     for key, (title, description) in common["TEMPLATES"].items():
         config = json.loads((root / f"configs/templates/{key}.json").read_text())
-        if candidate == "p2":
+        if candidate in {"p2", "g9"}:
             config["snapshot_id"] = candidate_snapshot
         missing = [
             {"country": country, "concept_id": spec["concept_id"]}
@@ -703,7 +723,7 @@ def prepare(
     shutil.copyfile(root / "web/runtime/worker.mjs", runtime / "worker.mjs")
     shutil.copyfile(root / "web/runtime/assets.lock.json", runtime / "assets.lock.json")
     software_notices = copy_software_notices(root, public, lock)
-    if candidate == "p2":
+    if candidate in {"p2", "g9"}:
         from runtime_notices import copy_runtime_notices
 
         notice_update = copy_runtime_notices(root, public)

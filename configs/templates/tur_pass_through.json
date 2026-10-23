@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "20261021-1446",
+  "countries": [
+    "TUR"
+  ],
+  "frequency": "M",
+  "series": [
+    {
+      "concept_id": "cpi",
+      "role": "response",
+      "transform": "log",
+      "transform_params": {}
+    },
+    {
+      "concept_id": "neer",
+      "role": "shock",
+      "transform": "log_diff",
+      "transform_params": {}
+    },
+    {
+      "concept_id": "oil_brent",
+      "role": "exogenous",
+      "transform": "log_diff",
+      "transform_params": {}
+    },
+    {
+      "concept_id": "commod_idx",
+      "role": "exogenous",
+      "transform": "log_diff",
+      "transform_params": {}
+    }
+  ],
+  "sample": {
+    "start": "1999-01",
+    "end": "latest"
+  },
+  "aggregation": {
+    "cpi": "mean",
+    "neer": "mean",
+    "oil_brent": "mean",
+    "commod_idx": "mean"
+  },
+  "special_periods": {
+    "covid": "include",
+    "covid_window": {
+      "start": "2020-01",
+      "end": "2021-06"
+    },
+    "elb_threshold": 0.25
+  },
+  "model": {
+    "id": "lp.ols",
+    "params": {
+      "template_id": "tur_pass_through",
+      "lags": 12,
+      "horizon": 24,
+      "lag_augmented": true,
+      "covariance": "HC1",
+      "response_mode": "cumulative_log",
+      "lag_difference_scales": {
+        "cpi": 100
+      },
+      "shock_size": -1,
+      "policy_measure": "dfr",
+      "country_window": "own",
+      "displayed_band": "conditional",
+      "shared_controls": {},
+      "sample_mode": "common",
+      "seasonal": false,
+      "growth_scale": 1
+    }
+  },
+  "comparison": {
+    "enabled": true,
+    "identifications": [],
+    "methods": [],
+    "scenarios": []
+  },
+  "seed": 20261023,
+  "identification": null,
+  "outputs": {
+    "confidence": 0.95
+  }
+}

@@ -1,3 +1,4 @@
+import { countryIndicators } from "../displayLabels";
 import { useState } from "react";
 import type {
   AnalysisConfig,
@@ -20,6 +21,7 @@ import {
 } from "../format";
 import { Checks, Field, Status } from "./Common";
 import "./builder.css";
+import { TemplateControls } from "./TemplateControls";
 interface Props {
   manifest: Manifest;
   config: AnalysisConfig;
@@ -61,6 +63,7 @@ export function Builder({
   const vars = config.series.filter((s) =>
     ["endogenous", "response", "shock"].includes(s.role),
   );
+  const isTemplate = Boolean(config.model.params.template_id);
   const isVar = ["var.ols", "ident.recursive"].includes(model.id);
   const selected = new Set(config.series.map((s) => s.concept_id));
   const categories = [
@@ -190,6 +193,8 @@ export function Builder({
                     .filter(
                       (c) =>
                         !config.countries.includes(c.iso3) &&
+                        (config.model.params.template_id !== "same_ecb_shock" ||
+                          (c.monetary_union === "EA" && c.iso3 !== "EA")) &&
                         `${c.name} ${c.iso3}`
                           .toLowerCase()
                           .includes(countrySearch.toLowerCase()),
@@ -224,7 +229,15 @@ export function Builder({
                 >
                   <div className="compact-series-name">
                     <h3 id={`selected-${s.concept_id}`}>
-                      {title(s.concept_id, manifest.indicators)}
+                      {s.concept_id === "identified_impulse"
+                        ? "Identified EA policy shock"
+                        : title(
+                            s.concept_id,
+                            countryIndicators(
+                              manifest.indicators,
+                              config.countries[0],
+                            ),
+                          )}
                     </h3>
                     <span className="small muted">
                       {manifest.indicators.find(
@@ -234,8 +247,9 @@ export function Builder({
                   </div>
                   <Field label="Role">
                     <select
-                      aria-label={`Role for ${title(s.concept_id, manifest.indicators)}`}
+                      aria-label={`Role for ${title(s.concept_id, countryIndicators(manifest.indicators, config.countries[0]))}`}
                       value={s.role}
+                      disabled={s.concept_id === "identified_impulse"}
                       onChange={(e) => setSeries(i, { role: e.target.value })}
                     >
                       {[
@@ -252,8 +266,9 @@ export function Builder({
                   </Field>
                   <Field label="Transform">
                     <select
-                      aria-label={`Transform for ${title(s.concept_id, manifest.indicators)}`}
+                      aria-label={`Transform for ${title(s.concept_id, countryIndicators(manifest.indicators, config.countries[0]))}`}
                       value={s.transform}
+                      disabled={s.concept_id === "identified_impulse"}
                       onChange={(e) =>
                         setSeries(i, { transform: e.target.value })
                       }
@@ -272,7 +287,17 @@ export function Builder({
                   </Field>
                   <div className="compact-series-coverage">
                     <span className="compact-field-label">Coverage</span>
-                    {config.countries.map((iso) => {
+                    {(s.concept_id === "identified_impulse"
+                      ? ["EA"]
+                      : config.countries
+                    ).map((iso) => {
+                      if (s.concept_id === "identified_impulse")
+                        return (
+                          <span key={iso} className="small">
+                            Computed in EA stage 1; dates verified at
+                            estimation.
+                          </span>
+                        );
                       const info = card(iso, s.concept_id);
                       const content = (
                         <>
@@ -299,7 +324,8 @@ export function Builder({
                   </div>
                   <button
                     className="compact-series-remove"
-                    aria-label={`Remove ${title(s.concept_id, manifest.indicators)}`}
+                    disabled={s.concept_id === "identified_impulse"}
+                    aria-label={`Remove ${title(s.concept_id, countryIndicators(manifest.indicators, config.countries[0]))}`}
                     onClick={() =>
                       update((c) => {
                         c.series = c.series.filter(
@@ -323,7 +349,7 @@ export function Builder({
                       {s.transform === "index_to_base" && (
                         <Field label="Index base">
                           <input
-                            aria-label={`Index base for ${title(s.concept_id, manifest.indicators)}`}
+                            aria-label={`Index base for ${title(s.concept_id, countryIndicators(manifest.indicators, config.countries[0]))}`}
                             value={text(s.transform_params?.base_period, "")}
                             onChange={(e) =>
                               setSeries(i, {
@@ -338,7 +364,7 @@ export function Builder({
                       )}
                       <Field label="Aggregation">
                         <select
-                          aria-label={`Aggregation for ${title(s.concept_id, manifest.indicators)}`}
+                          aria-label={`Aggregation for ${title(s.concept_id, countryIndicators(manifest.indicators, config.countries[0]))}`}
                           value={config.aggregation[s.concept_id] ?? "mean"}
                           onChange={(e) =>
                             update((c) => {
@@ -429,6 +455,7 @@ export function Builder({
             <Field label="Method">
               <select
                 value={config.model.id}
+                disabled={isTemplate}
                 onChange={(e) => selectModel(e.target.value)}
               >
                 {manifest.models.map((m) => (
@@ -449,6 +476,7 @@ export function Builder({
               <Field label="Frequency">
                 <select
                   value={config.frequency}
+                  disabled={isTemplate}
                   onChange={(e) =>
                     update((c) => {
                       c.frequency = e.target.value;
@@ -526,11 +554,27 @@ export function Builder({
                 : "2020 Q1–2021 Q2"}
               .
             </p>
+            <TemplateControls config={config} update={update} />
             <details>
               <summary>Model parameters</summary>
               <div className="stack">
-                {Object.entries(model.params.properties ?? {}).map(
-                  ([key, rule]) => (
+                {Object.entries(model.params.properties ?? {})
+                  .filter(
+                    ([key, rule]) =>
+                      ["integer", "number", "string"].includes(
+                        String(rule.type),
+                      ) &&
+                      ![
+                        "template_id",
+                        "policy_measure",
+                        "country_window",
+                        "displayed_band",
+                        "response_mode",
+                        "covariance",
+                      ].includes(key) &&
+                      (!isTemplate || ["lags", "horizon"].includes(key)),
+                  )
+                  .map(([key, rule]) => (
                     <Field key={key} label={key.replaceAll("_", " ")}>
                       {Array.isArray(rule.enum) ? (
                         <select
@@ -572,6 +616,13 @@ export function Builder({
                           onChange={(e) =>
                             update((c) => {
                               c.model.params[key] = Number(e.target.value);
+                              if (
+                                key === "lags" &&
+                                c.model.params.template_id === "same_ecb_shock"
+                              )
+                                (
+                                  c.model.params.first_stage as AnalysisConfig
+                                ).model.params.lags = Number(e.target.value);
                               if (key === "confidence")
                                 c.outputs.confidence = Number(e.target.value);
                             })
@@ -579,8 +630,7 @@ export function Builder({
                         />
                       )}
                     </Field>
-                  ),
-                )}
+                  ))}
               </div>
             </details>
             {isVar && (
@@ -700,7 +750,14 @@ export function Builder({
                       {config.identification.params.order.map((v, i) => (
                         <div className="order-row" key={v}>
                           <span className="small">
-                            {i + 1}. {title(v, manifest.indicators)}
+                            {i + 1}.{" "}
+                            {title(
+                              v,
+                              countryIndicators(
+                                manifest.indicators,
+                                config.countries[0],
+                              ),
+                            )}
                           </span>
                           <button
                             aria-label={`Move ${v} earlier`}

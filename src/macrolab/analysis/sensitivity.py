@@ -434,6 +434,10 @@ def build_sensitivity(
             "variants": [],
         }
     model_id = config["model"]["id"]
+    if model_id == "lp.ols":
+        from macrolab.analysis.v1 import lp_sensitivity
+
+        return lp_sensitivity(data, config, baseline, bundle)
     requested = list(dict.fromkeys(comparison.get("methods", [])))
     if model_id not in LINEAR | VAR:
         return {

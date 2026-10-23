@@ -80,6 +80,35 @@ afterEach(() => {
 });
 
 describe("worker lifecycle", () => {
+  it("streams partial results without completing the request and ignores cancelled-generation updates", async () => {
+    const { AnalysisRuntime } = await import("../src/runtime");
+    const runtime = new AnalysisRuntime();
+    const partial = vi.fn();
+    const run = runtime.run(config, bundle, partial);
+    const completed = vi.fn();
+    const rejected = expect(run).rejects.toThrow("Cancelled");
+    void run.then(completed, () => undefined);
+    await vi.waitFor(() =>
+      expect(ControlledWorker.instances[0]?.requests).toHaveLength(2),
+    );
+    const worker = ControlledWorker.instances[0];
+    const id = worker.requests[1].id;
+    worker.onmessage?.({
+      data: { id, type: "partial", result: { sensitivity_pending: true } },
+    } as MessageEvent);
+    expect(partial).toHaveBeenCalledExactlyOnceWith({
+      sensitivity_pending: true,
+    });
+    await Promise.resolve();
+    expect(completed).not.toHaveBeenCalled();
+    runtime.cancel();
+    await rejected;
+    worker.onmessage?.({
+      data: { id, type: "partial", result: { late: true } },
+    } as MessageEvent);
+    expect(partial).toHaveBeenCalledTimes(1);
+    runtime.dispose();
+  });
   it("initializes all scientific assets under a static project subpath", async () => {
     vi.stubEnv("BASE_URL", "/macrolab/");
     const { AnalysisRuntime } = await import("../src/runtime");

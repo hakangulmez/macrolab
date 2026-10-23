@@ -20,6 +20,7 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/G3_1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G3_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G4_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/G5_DATA_EVIDENCE.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/LOCAL_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/P1_OECD_RIGHTS_EVIDENCE.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/P1_REPOSITORY_AUDIT.md` — Review report/evidence omitted, including all verification and result reports.
@@ -28,6 +29,8 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/P2_REPOSITORY_EXPORT.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/P2_REPOSITORY_EXPORT_FILES.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/P2_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/REFRESH_20261021-1446.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/REFRESH_20261023-1634.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G0.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
@@ -35,6 +38,11 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/STOP_REPORT_G3.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G3_1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G4.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G5.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G6.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G7.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G7_1.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G8.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_P1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_P2.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/probe_evidence.json` — Review report/evidence omitted, including all verification and result reports.
@@ -69,6 +77,86 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/screenshots/g4/methods-mobile.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g4/results-desktop.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g4/results-mobile.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g5/catalogue-variants-desktop.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g5/catalogue-variants-mobile.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g5/monetary_policy-desktop.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g5/monetary_policy-mobile.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g5/okuns_law-desktop.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g5/okuns_law-mobile.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g5/phillips_curve-desktop.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g5/phillips_curve-mobile.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g5/taylor_rule-desktop.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g5/taylor_rule-mobile.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g7/same_ecb_shock-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g7/same_ecb_shock-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g7/tur_pass_through-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g7/tur_pass_through-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g71/same_ecb_shock-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g71/same_ecb_shock-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g71/tur_pass_through-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g71/tur_pass_through-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/README.md` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/country-comparison-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/country-comparison-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/exports/monetary_policy.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/exports/okuns_law.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/exports/phillips_curve.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/exports/same_ecb_shock.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/exports/taylor_rule.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/exports/tur_pass_through.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/library-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/library-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/methods-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/methods-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/monetary_policy-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/monetary_policy-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/monetary_policy-methods-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/monetary_policy-methods-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/okuns_law-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/okuns_law-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/phillips_curve-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/phillips_curve-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/same_ecb_shock-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/same_ecb_shock-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/taylor_rule-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/taylor_rule-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/tur_pass_through-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/tur_pass_through-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/tur_pass_through-methods-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g8/tur_pass_through-methods-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/README.md` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/country-comparison-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/country-comparison-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/exports/monetary_policy.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/exports/okuns_law.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/exports/phillips_curve.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/exports/same_ecb_shock.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/exports/taylor_rule.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/exports/tur_pass_through.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/library-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/library-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/methods-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/methods-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/monetary_policy-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/monetary_policy-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/monetary_policy-methods-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/monetary_policy-methods-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/okuns_law-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/okuns_law-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/phillips_curve-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/phillips_curve-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/same_ecb_shock-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/same_ecb_shock-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/taylor_rule-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/taylor_rule-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/tur_pass_through-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/tur_pass_through-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/tur_pass_through-methods-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g9/tur_pass_through-methods-375.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/home-desktop.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/home-mobile.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/library-desktop.png` — All review screenshots and their indexes are omitted.
@@ -95,5 +183,7 @@ This export excludes the following tracked review material. Ignored local datase
 
 - `README.md` — Dedicated source-export instructions replace local review links.
 - `configs/country_notes.yaml` — Narrative notes removed; adoption, currency and source metadata preserved.
+- `DATA.md` — Links to omitted review records replaced by explicit omission text.
+- `docs/G5_DATA_SOURCES.md` — Links to omitted review records replaced by explicit omission text.
 
-One new initial commit records this source tree. No original commits, remotes or author history were copied. Publication remains unapproved.
+One candidate commit follows the already-public main commit 0dfffd6. Only public ancestry is retained; private development history and remotes are excluded. This local candidate awaits separate P4 publication approval.

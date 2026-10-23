@@ -19,7 +19,7 @@ def source_archive() -> bytes:
     """Archive only the portable analysis package; no dataset, API or credential files."""
     package = Path(__file__).resolve().parents[1]
     files = [package / "__init__.py"]
-    for folder in ("analysis", "models", "checks", "export"):
+    for folder in ("analysis", "models", "checks", "export", "outputs", "ident", "compare"):
         files.extend((package / folder).rglob("*.py"))
     output = io.BytesIO()
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
@@ -36,13 +36,13 @@ def source_archive() -> bytes:
 
 def config_script(config: dict[str, Any]) -> str:
     """Resolve the named local vintage and export a fully self-contained analysis."""
-    from macrolab.analysis.config import normalise_config, required_concepts
+    from macrolab.analysis.config import normalise_config, required_concepts, required_countries
     from macrolab.analysis.data import snapshot_bundle
 
     normalised = normalise_config(config)
     bundle = snapshot_bundle(
         normalised["snapshot_id"],
-        normalised["countries"],
+        required_countries(normalised),
         required_concepts(normalised),
     )
     return standalone(normalised, bundle)
@@ -52,6 +52,7 @@ def standalone(
     config: dict[str, Any],
     bundle: dict[str, Any],
     reproduction_environment: dict[str, Any] | None = None,
+    method_pair: dict[str, str] | None = None,
 ) -> str:
     """Embed inputs, exact source and expected sample; dependencies must already be installed."""
     from macrolab.analysis.config import canonical_json
@@ -60,6 +61,11 @@ def standalone(
     reference = run_analysis(config, bundle=bundle)
     if reference.get("status") != "ok":
         raise ValueError("Resolve blocking compatibility checks before exporting an analysis")
+    if method_pair:
+        from macrolab.compare.methods import matched_pair
+
+        if matched_pair(config, bundle, **method_pair)["status"] != "ok":
+            raise ValueError("Resolve matched-comparison checks before exporting")
     archive = source_archive()
     inputs = canonical_json({"config": reference["config"], "bundle": bundle}).encode()
     generated_with = {
@@ -92,6 +98,8 @@ def standalone(
         "actual_samples": reference["actual_samples"],
         "publication_approved": False,
     }
+    if method_pair:
+        metadata["method_pair"] = method_pair
     return (
         _TEMPLATE.replace("__METADATA_LITERAL__", repr(canonical_json(metadata)))
         .replace("__SOURCE_LITERAL__", repr(base64.b64encode(archive).decode()))
@@ -180,6 +188,11 @@ def main():
             raise SystemExit("Reproduced configuration hash differs")
         if not same_sample(METADATA["actual_samples"], result["actual_samples"]):
             raise SystemExit("Reproduced actual sample or transformation metadata differs")
+        if METADATA.get("method_pair"):
+            from macrolab.compare.methods import matched_pair
+            result["method_pair"] = matched_pair(
+                data["config"], data["bundle"], **METADATA["method_pair"]
+            )
         result["export_metadata"] = METADATA
         print(json.dumps(result, sort_keys=True, allow_nan=False))
 

@@ -108,3 +108,41 @@ It freezes the accepted G3 configuration from commit
 runs both configurations on the same snapshot, verifies twelve reference
 methods, and writes `runs/g31/validation.json` and `runs/g31/REPORT.md`.
 Historical G2/G2.1/G3 gate reports are not overwritten.
+
+## G7 local v1 templates
+
+The four v0 files and P2/P3.1 snapshot remain unchanged. The two additions use
+accepted G5 snapshot `20261021-1446`, EIA Brent and IMF non-fuel commodities.
+
+**Same ECB shock:** DEU/FRA/ITA/ESP; stage 1 EA VAR(2), order real GDP,
+prices, unemployment, ECB DFR. GDP and official SA EA HICP use q/q annualised
+growth; Brent log level and commodity growth are exogenous. The policy series
+uses last-month quarterly observations. Default +1 identified SD; +25bp option.
+COVID dummies cover 2020 Q1–Q3. National LPs use the same dated EA innovation,
+base lag 2 plus the HC1 augmentation lag, H=12, and national NSA HICP seasonal
+dummies. GDP/prices are cumulative percentages from log levels, unemployment
+is a percentage-point change. Growth-rate response is an alternative display.
+Each result records input and horizon-specific anchor windows; no interpolation.
+
+Sensitivity includes EA 3-month, BIS (MRO→DFR on 18 September 2024), end-2019,
+2014–2022 exclusion, a common window, lag 4, HAC and y/y inflation. An unstable
+first stage blocks its row, including when this prevents a requested comparison.
+National VARs use the LP anchor window, cumulate each bootstrap draw before
+forming bounds, and are labelled **different method and different identification**;
+they never enter same-estimand agreement counts. AIC/BIC/HQIC are descriptive,
+not a rule that overwrites the pre-specified lag. The 2014–2022 lower-bound era,
+no-shadow-rate limitation and output/price puzzles are disclosed.
+
+**Türkiye pass-through:** monthly, requested 1999–latest, H=24, base lag 12 plus
+the HC1 augmentation lag. CPI cumulative log-level response to −1% NEER growth
+(depreciation), lagged inflation/NEER and current Brent/commodity growth, monthly
+seasonal dummies. This is a conditional association, not an identified causal
+shock. Basic sensitivities: start in 2003, lag 6, +1% TRY/USD, HAC. A separately
+identified national VAR is retained only for the economic method review.
+The 2018 and 2021–2023 currency-crisis caveat remains; crisis options are v1.1.
+
+Local reproduction: `scripts/g7_fixture.py` (both native template defaults),
+`scripts/g7_coverage.py` (paired fixed coverage protocol), `make static-build`
+(separate `runs/g7/site`), and `web/scripts/g7-browser.mjs` (local Chrome).
+No command publishes or refreshes data. The candidate contains six templates;
+G8 owns the two comparison views and PNG polish. Narratives/HD UI are v1.1.

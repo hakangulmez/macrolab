@@ -611,6 +611,8 @@ tr:last-child td {
   gap: 14px;
 }
 .source-list li {
+  overflow-wrap: anywhere;
+  min-width: 0;
   border-top: 1px solid var(--border);
   padding-top: 12px;
 }

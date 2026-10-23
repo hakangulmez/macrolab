@@ -101,10 +101,22 @@ def write_parquet(path: Path, rows: list[dict[str, Any]]) -> None:
     frame.to_parquet(path, index=False, engine="pyarrow", compression="zstd")
 
 
-def collect(client: SnapshotClient, *, include_g11: bool = False) -> dict[str, Any]:
+def collect(
+    client: SnapshotClient,
+    *,
+    include_g11: bool = False,
+    cleared_only: bool = False,
+    fail_on_source_error: bool = False,
+) -> dict[str, Any]:
     countries = enrich_country_metadata(fetch_countries(client), client)
     if not countries or len({country["iso3"] for country in countries}) != len(countries):
         raise SnapshotError("Official membership list is empty or duplicated")
+    if fail_on_source_error:
+        metadata_issues = [
+            issue for country in countries for issue in country.get("metadata_issues", [])
+        ]
+        if metadata_issues:
+            raise SnapshotError(f"Country metadata failed: {metadata_issues}")
     result: dict[str, Any] = {
         "countries": countries,
         "rows": [],
@@ -119,17 +131,21 @@ def collect(client: SnapshotClient, *, include_g11: bool = False) -> dict[str, A
         ("IMF", fetch_imf),
         ("ECB", fetch_ecb),
         ("Eurostat", fetch_eurostat),
-        ("WorldBank", fetch_worldbank),
+        ("WorldBank", lambda c, units: fetch_worldbank(c, units, include_pink=not cleared_only)),
     ):
         started = time.perf_counter()
         print(json.dumps({"phase": "fetch", "source": name, "offline": client.offline}), flush=True)
         try:
             response = fetch(client, countries)
         except (ValueError, KeyError, TypeError, OSError) as exc:
+            if fail_on_source_error:
+                raise SnapshotError(f"Source adapter failed: {name}: {exc}") from exc
             response = {
                 "rows": [],
                 "issues": [{"source": name, "code": "adapter_failed", "detail": str(exc)}],
             }
+        if fail_on_source_error:
+            check_source_issues(name, response.get("issues", []))
         for key in ("rows", "variant_rows", "profiles", "issues"):
             result[key].extend(response.get(key, []))
         details = {
@@ -155,6 +171,8 @@ def collect(client: SnapshotClient, *, include_g11: bool = False) -> dict[str, A
         # replays do not request responses absent from their immutable archive.
         for name, correction in (("G1_1_prices", fetch_prices), ("G1_1_cli", fetch_cli)):
             response = correction(client, countries)
+            if fail_on_source_error:
+                check_source_issues(name, response.get("issues", []))
             if name == "G1_1_cli":
                 result["rows"] = [r for r in result["rows"] if r["concept_id"] != "cli"]
                 result["issues"] = [i for i in result["issues"] if i.get("concept_id") != "cli"]
@@ -164,6 +182,18 @@ def collect(client: SnapshotClient, *, include_g11: bool = False) -> dict[str, A
                 key: value for key, value in response.items() if key != "rows"
             }
     return result
+
+
+def check_source_issues(name: str, issues: list[dict[str, Any]]) -> None:
+    """Separate genuine provider/parser failures from expected coverage caveats."""
+    failures = [
+        issue
+        for issue in issues
+        if "failed" in issue.get("code", "")
+        or issue.get("code") in {"source_request_unavailable", "dataset_unavailable"}
+    ]
+    if failures:
+        raise SnapshotError(f"Source failed: {name}: {failures}")
 
 
 def mapping_summary(
@@ -206,6 +236,7 @@ def publish(
     as_of: date,
     *,
     offline: bool,
+    promote: bool = True,
 ) -> dict[str, Any]:
     rows, schema_issues = standardise(collected["rows"])
     variants, variant_issues = standardise(collected["variant_rows"])
@@ -435,6 +466,8 @@ def publish(
         raise SnapshotError(
             f"Validation failed; diagnostics retained at {destination}; current not promoted"
         )
+    if not promote:
+        return manifest
     # Only the mutable local pointer changes. Snapshot directories are never replaced.
     pointer = root / "data/processed/current"
     temporary = root / "data/processed/.next-current"

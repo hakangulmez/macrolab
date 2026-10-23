@@ -1,4 +1,4 @@
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import type {
   AnalysisConfig,
   AnalysisResult,
@@ -20,6 +20,7 @@ import { Checks, DataTable, Field } from "./Common";
 import { Chart } from "./Chart";
 import {
   chartData,
+  coefficientInterval,
   resultTableBlocks,
   analysisCsvRows,
   readingBullets,
@@ -30,8 +31,154 @@ import {
   specificationLabel,
 } from "../resultData";
 import "../results.css";
+import { exportPng } from "../pngExport";
+import { TemplateSources } from "./TemplateSources";
+import { countryIndicators } from "../displayLabels";
+import { getTemplateSources, type AnalysisRuntime } from "../runtime";
+import { CountryComparison } from "./CountryComparison";
+import { MethodComparison } from "./MethodComparison";
+
+function TemplateCorrectionSummary({ result }: { result: AnalysisResult }) {
+  const template = result.config.model.params.template_id;
+  if (template === "tur_pass_through") {
+    const pass = record(result.results[0]?.pass_through);
+    if (pass.status !== "ok") return <p>{text(pass.reason)}</p>;
+    return (
+      <section className="card stack" data-testid="pass-through-headline">
+        <h2>Cumulative pass-through ratio</h2>
+        <p>
+          {text(pass.definition)}. {text(pass.sign_convention)}
+        </p>
+        <DataTable
+          rows={records(pass.horizons)
+            .filter((r) => [6, 12, 24].includes(Number(r.horizon)))
+            .map((r) => ({
+              Months: r.horizon,
+              Ratio: number(r.ratio, 3),
+              "68% interval": `${number(record(record(r.bands)["0.68"]).lower, 3)} to ${number(record(record(r.bands)["0.68"]).upper, 3)}`,
+              "Cumulative FX (%)": number(r.fx_cumulative, 3),
+            }))}
+        />
+        <p>
+          {text(pass.interval_method)}. {text(pass.denominator_note)}
+        </p>
+        {records(pass.horizons).some((r) => r.denominator_weak) && (
+          <p role="alert">
+            Important: at least one exchange-rate denominator is weak; its ratio
+            interval may be unreliable.
+          </p>
+        )}
+        <p>Secondary CPI display: {text(pass.secondary_label)}.</p>
+      </section>
+    );
+  }
+  if (template !== "same_ecb_shock") return null;
+  const rows = records(result.template_sensitivity);
+  const names = [
+    "rate_3m",
+    "bis",
+    "end_2019",
+    "exclude_2014_2022",
+    "common_window",
+    "lags_4",
+    "hac",
+    "year_on_year_inflation",
+    "national_var",
+  ];
+  return (
+    <section className="card stack" data-testid="ecb-progressive-summary">
+      <p>{text(result.magnitude_note)}</p>
+      {Number(result.first_stage_largest_root) >= 0.98 && (
+        <p role="alert" className="warning-box">
+          Warning: the first-stage VAR is{" "}
+          {Number(result.first_stage_largest_root) >= 1
+            ? "unstable"
+            : "near a unit root"}{" "}
+          (largest companion root {number(result.first_stage_largest_root, 4)}).
+          Its orthogonalised residuals remain usable; persistence and
+          identification warrant caution.
+        </p>
+      )}
+      <details open>
+        <summary>Peak responses: one standard deviation and +25 bp</summary>
+        <DataTable
+          rows={records(result.scaled_peaks).map((r) => ({
+            Country: r.country,
+            Response:
+              r.response === "cpi"
+                ? "HICP"
+                : r.response === "gdp_real"
+                  ? "GDP"
+                  : "Unemployment",
+            Quarter: r.horizon,
+            "One SD": number(r.one_sd, 3),
+            "+25 bp": number(r.plus_25bp, 3),
+          }))}
+        />
+        <p>
+          GDP/HICP: cumulative % change in the level; unemployment: percentage
+          points. Linear rescaling of the same response.
+        </p>
+      </details>
+      {result.config.comparison?.enabled !== false && (
+        <div aria-live="polite" data-testid="sensitivity-progress">
+          <strong>
+            {result.sensitivity_pending
+              ? "Baseline ready · sensitivity computing in the background"
+              : "Sensitivity complete"}
+          </strong>
+          <ul>
+            {names.map((name) => {
+              const row = rows.find((r) => r.variant_id === name);
+              return (
+                <li key={name}>
+                  {
+                    (
+                      {
+                        rate_3m: "EA 3-month rate",
+                        bis: "BIS policy rate",
+                        end_2019: "End sample in 2019",
+                        exclude_2014_2022: "Exclude 2014–2022",
+                        common_window: "Common window",
+                        lags_4: "Four lags",
+                        hac: "HAC inference",
+                        year_on_year_inflation: "Year-on-year inflation",
+                        national_var: "National VAR",
+                      } as Record<string, string>
+                    )[name]
+                  }
+                  :{" "}
+                  {row
+                    ? row.status === "ok"
+                      ? "Ready"
+                      : text(row.status)
+                    : result.sensitivity_pending
+                      ? "Pending"
+                      : "Not run"}
+                  {row && Number(row.first_stage_largest_root) >= 0.98 && (
+                    <span>
+                      {" "}
+                      · Warning:{" "}
+                      {Number(row.first_stage_largest_root) >= 1
+                        ? "unstable"
+                        : "near-unit-root"}{" "}
+                      first stage, root{" "}
+                      {number(row.first_stage_largest_root, 4)}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+          <p>Joint bootstrap is on demand.</p>
+        </div>
+      )}
+    </section>
+  );
+}
 
 interface Props {
+  runtime?: AnalysisRuntime;
   result: AnalysisResult | null;
   manifest: Manifest;
   bundles: Record<string, CountryBundle>;
@@ -60,6 +207,8 @@ export function ResultsCountry({
   first,
   cards,
   compact = false,
+  hideCharts = false,
+  analysisConfig,
   onSourceCard,
   previouslyDisplayedChecks,
 }: {
@@ -69,13 +218,18 @@ export function ResultsCountry({
   first: boolean;
   cards: CountryBundle["cards"];
   compact?: boolean;
+  hideCharts?: boolean;
+  analysisConfig?: AnalysisConfig;
   onSourceCard?: (country: string, conceptId: string) => void;
   previouslyDisplayedChecks?: Check[];
 }) {
-  const indicators = manifest.indicators.map((indicator) => ({
-    ...indicator,
-    ...cards.find((card) => card.concept_id === indicator.concept_id),
-  }));
+  const indicators = countryIndicators(
+    manifest.indicators.map((indicator) => ({
+      ...indicator,
+      ...cards.find((card) => card.concept_id === indicator.concept_id),
+    })),
+    result.country,
+  );
   const charts = chartData(result, indicators);
   const [variantId, setVariantId] = useState("");
   const [chartName, setChartName] = useState("");
@@ -91,6 +245,8 @@ export function ResultsCountry({
     alternatives.find((item) => item.variant_id === variantId) ??
     alternatives[0];
   const comparisonLabel = specificationLabel(variant ?? {});
+  const comparisonCurveVisible =
+    !result.pass_through || !compact || Boolean(selectedChart?.variable);
   const sensitivity = result.sensitivity;
   const lagCriteria = record(record(sensitivity).lag_criteria);
   const selectedLags = record(lagCriteria.selected_lags);
@@ -99,8 +255,140 @@ export function ResultsCountry({
   const name =
     manifest.countries.find((c) => c.iso3 === result.country)?.name ??
     result.country;
+  const [exportError, setExportError] = useState("");
+  useEffect(() => {
+    const handler = (event: Event) => {
+      if (!first || !charts.length || result.status !== "ok") return;
+      const panel =
+        (event as CustomEvent<{ mode?: string }>).detail?.mode === "panel";
+      const selected = panel ? charts : [selectedChart];
+      const rendered = selected.map((chart) => {
+        const index = charts.indexOf(chart);
+        const response = records(record(variant?.metrics).responses).find(
+          (item) => item.variable === charts[index]?.variable,
+        );
+        return {
+          ...chart,
+          pngNote:
+            result.pass_through && chart.variable === "cpi"
+              ? text(record(result.pass_through).secondary_label)
+              : undefined,
+          pngComparisonLabel:
+            result.pass_through && chart.variable === "cpi"
+              ? comparisonLabel
+              : undefined,
+          points: chart.points.map((point) => {
+            if (!result.irf) return point;
+            const position =
+              (response?.periods as number[] | undefined)?.indexOf(
+                Number(point.period),
+              ) ?? -1;
+            return {
+              ...point,
+              comparison:
+                comparison && position >= 0
+                  ? (response?.values as number[])[position]
+                  : undefined,
+            };
+          }),
+        };
+      });
+      const template = manifest.templates.find(
+        (t) =>
+          analysisConfig &&
+          t.config.model.id === analysisConfig.model.id &&
+          t.config.series.map((s) => s.concept_id).join() ===
+            analysisConfig.series.map((s) => s.concept_id).join(),
+      );
+      const modelTitle =
+        manifest.models.find((m) => m.id === result.model_id)?.title ??
+        "MacroLab analysis";
+      const sources = [
+        ...new Set(
+          cards
+            .filter(
+              (c) =>
+                !analysisConfig ||
+                (analysisConfig.series.some(
+                  (s) => s.concept_id === c.concept_id,
+                ) &&
+                  !(
+                    analysisConfig.model.params.template_id ===
+                      "same_ecb_shock" && c.concept_id === "policy_rate"
+                  )),
+            )
+            .flatMap((c) =>
+              records(c.source_segments).map((s) => text(s.source)),
+            ),
+        ),
+      ]
+        .filter(Boolean)
+        .sort();
+      setExportError("");
+      const stageSources =
+        analysisConfig?.model.params.template_id === "same_ecb_shock"
+          ? getTemplateSources(
+              String(analysisConfig.model.params.policy_measure),
+            )
+          : Promise.resolve([]);
+      void stageSources
+        .then((extra) =>
+          exportPng(rendered, {
+            analysis: result.pass_through
+              ? "Exchange-rate pass-through"
+              : (template?.title ?? modelTitle),
+            scenario:
+              result.irf && analysisConfig
+                ? shockHeading(result.irf, analysisConfig, indicators)
+                : undefined,
+            country: name,
+            sample: `Actual sample: ${sample.start}–${sample.end} · n = ${sample.nobs}`,
+            frequency: analysisConfig?.frequency ?? "Q",
+            horizon: Boolean(result.irf),
+            sources: [
+              ...new Set([
+                ...sources,
+                ...extra.map((card) => text(card.source)),
+              ]),
+            ],
+            bandLevel:
+              result.irf?.band_level ??
+              analysisConfig?.outputs.confidence ??
+              0.95,
+            comparisonLabel: result.pass_through
+              ? `${comparisonLabel} · secondary CPI only`
+              : result.irf
+                ? comparisonLabel
+                : "Fitted / trend",
+            note: result.pass_through
+              ? undefined
+              : result.irf
+                ? selectedPeakFootnote
+                : undefined,
+          }),
+        )
+        .catch((error) => setExportError(String(error)));
+    };
+    window.addEventListener("macrolab-export-png", handler);
+    return () => window.removeEventListener("macrolab-export-png", handler);
+  }, [
+    analysisConfig,
+    cards,
+    charts,
+    comparison,
+    comparisonLabel,
+    first,
+    indicators,
+    manifest,
+    name,
+    result,
+    sample,
+    selectedChart,
+    variant,
+  ]);
   return (
     <section className="stack result-country">
+      {exportError && <p role="alert">PNG export failed: {exportError}</p>}
       <div className="row between country-result-heading">
         <h2>{name}</h2>
         <span className="mono">
@@ -118,106 +406,139 @@ export function ResultsCountry({
       />
       {result.status === "ok" && (
         <>
-          {compact && charts.length > 1 && (
-            <Field label="Response chart">
-              <select
-                data-testid="mobile-chart-selector"
-                value={selectedChart?.name}
-                onChange={(event) => setChartName(event.target.value)}
-              >
-                {charts.map((chart) => (
-                  <option key={chart.name} value={chart.name}>
-                    {chart.name}
-                  </option>
-                ))}
-              </select>
-            </Field>
-          )}
-          {comparison && alternatives.length > 0 && (
-            <Field label="Compare response curves with">
-              <select
-                value={text(variant?.variant_id)}
-                onChange={(event) => setVariantId(event.target.value)}
-              >
-                {alternatives.map((item) => (
-                  <option
-                    key={text(item.variant_id)}
-                    value={text(item.variant_id)}
-                  >
-                    {specificationLabel(item)}
-                  </option>
-                ))}
-              </select>
-            </Field>
-          )}
-          <div className="legend">
-            <span>
-              <i className="legend-line" />
-              Estimate
-            </span>
-            {charts.some((chart) =>
-              chart.points.some((point) => point.lower !== undefined),
-            ) && (
-              <span>
-                <i className="legend-band" />
-                {result.irf
-                  ? `${Math.round(result.irf.band_level * 100)}% pointwise interval`
-                  : "Coefficient interval"}
-              </span>
-            )}
-            {comparison && variant && (
-              <span>
-                <i className="legend-line comparison" />
-                {comparisonLabel} · point estimate
-              </span>
-            )}
-          </div>
-          <div className="charts-grid">
-            {charts
-              .filter((chart) => !compact || chart.name === selectedChart?.name)
-              .map((chart) => {
-                const index = charts.indexOf(chart);
-                return (
-                  <Chart
-                    key={chart.name}
-                    {...chart}
-                    title={chart.name}
-                    comparisonLabel={
-                      result.irf ? comparisonLabel : "Fitted / trend"
+          {!hideCharts && (
+            <>
+              {charts.length > 1 && (
+                <Field
+                  label={
+                    compact ? "Response chart" : "Chart for selected PNG export"
+                  }
+                >
+                  <select
+                    data-testid={
+                      compact
+                        ? "mobile-chart-selector"
+                        : "export-chart-selector"
                     }
-                    points={chart.points.map((point) => {
-                      if (!result.irf) return point;
-                      const response = records(
-                        record(variant?.metrics).responses,
-                      ).find(
-                        (item) =>
-                          item.variable === result.irf?.variables[index],
-                      );
-                      const position =
-                        (response?.periods as number[] | undefined)?.indexOf(
-                          Number(point.period),
-                        ) ?? -1;
-                      return {
-                        ...point,
-                        comparison:
-                          comparison && position >= 0
-                            ? (response?.values as number[])[position]
-                            : undefined,
-                      };
-                    })}
-                    first={first && (compact || index === 0)}
-                  />
-                );
-              })}
-          </div>
-          {!charts.length && (
-            <div className="info-box">
-              This method returns tables. No continuous response curve is
-              defined.
-            </div>
-          )}
-          {result.irf && (
-            <p className="small muted peak-footnote">{selectedPeakFootnote}</p>
+                    value={selectedChart?.name}
+                    onChange={(event) => setChartName(event.target.value)}
+                  >
+                    {charts.map((chart) => (
+                      <option key={chart.name} value={chart.name}>
+                        {chart.name}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+              )}
+              {comparison &&
+                comparisonCurveVisible &&
+                alternatives.length > 0 && (
+                  <Field
+                    label={
+                      result.pass_through
+                        ? "Compare secondary CPI response with"
+                        : "Compare response curves with"
+                    }
+                  >
+                    <select
+                      value={text(variant?.variant_id)}
+                      onChange={(event) => setVariantId(event.target.value)}
+                    >
+                      {alternatives.map((item) => (
+                        <option
+                          key={text(item.variant_id)}
+                          value={text(item.variant_id)}
+                        >
+                          {specificationLabel(item)}
+                        </option>
+                      ))}
+                    </select>
+                  </Field>
+                )}
+              <div className="legend">
+                <span>
+                  <i className={result.irf ? "legend-line" : "legend-dot"} />
+                  Estimate
+                </span>
+                {charts.some((chart) =>
+                  chart.points.some((point) => point.lower !== undefined),
+                ) && (
+                  <span>
+                    <i
+                      className={result.irf ? "legend-band" : "legend-whisker"}
+                    />
+                    {result.irf
+                      ? `${Math.round(result.irf.band_level * 100)}% pointwise interval`
+                      : coefficientInterval(result)}
+                  </span>
+                )}
+                {comparison && comparisonCurveVisible && variant && (
+                  <span>
+                    <i className="legend-line comparison" />
+                    {comparisonLabel} · point estimate
+                  </span>
+                )}
+              </div>
+              {Boolean(result.pass_through) && comparison && (
+                <p className="small muted">
+                  Specification comparisons below refer to the secondary CPI
+                  response.
+                </p>
+              )}
+              <div
+                className={`charts-grid ${result.pass_through ? "pass-through-charts" : ""}`}
+              >
+                {charts
+                  .filter(
+                    (chart) => !compact || chart.name === selectedChart?.name,
+                  )
+                  .map((chart) => {
+                    const index = charts.indexOf(chart);
+                    return (
+                      <Chart
+                        key={chart.name}
+                        {...chart}
+                        title={chart.name}
+                        comparisonLabel={
+                          result.irf ? comparisonLabel : "Fitted / trend"
+                        }
+                        points={chart.points.map((point) => {
+                          if (!result.irf) return point;
+                          const response = records(
+                            record(variant?.metrics).responses,
+                          ).find(
+                            (item) => item.variable === charts[index]?.variable,
+                          );
+                          const position =
+                            (
+                              response?.periods as number[] | undefined
+                            )?.indexOf(Number(point.period)) ?? -1;
+                          return {
+                            ...point,
+                            comparison:
+                              comparison && position >= 0
+                                ? (response?.values as number[])[position]
+                                : undefined,
+                          };
+                        })}
+                        first={first && (compact || index === 0)}
+                      />
+                    );
+                  })}
+              </div>
+              {!charts.length && (
+                <div className="info-box">
+                  This method returns tables. No continuous response curve is
+                  defined.
+                </div>
+              )}
+              {result.irf && (
+                <p className="small muted peak-footnote">
+                  {selectedPeakFootnote}
+                </p>
+              )}
+            </>
           )}
           <div className="result-grid">
             <section className="card stack sensitivity-section">
@@ -440,6 +761,7 @@ export function ResultsCountry({
 }
 
 export function Results({
+  runtime,
   result,
   manifest,
   bundles,
@@ -453,6 +775,8 @@ export function Results({
   previouslyDisplayedChecks,
 }: Props) {
   const [comparison, setComparison] = useState(true);
+  const [selectedCountry, setSelectedCountry] = useState("DEU");
+  const [pngMode, setPngMode] = useState("selected");
   const compact = useSyncExternalStore(
     subscribeViewport,
     compactViewport,
@@ -471,6 +795,8 @@ export function Results({
   const irf = result.results.find((r) => r.irf)?.irf;
   const config = result.config;
   const model = manifest.models.find((m) => m.id === config.model.id);
+  const template = config.model.params.template_id;
+  const ecbTemplate = template === "same_ecb_shock";
   const policyShock =
     irf && ["policy_rate", "us_policy_rate"].includes(irf.shock);
   const shockUnits = policyShock ? "pp" : "transformed units";
@@ -520,20 +846,40 @@ export function Results({
           ← Edit this analysis
         </button>
         <div className="results-toolbar">
+          <label className="small">
+            PNG scope{" "}
+            <select
+              aria-label="PNG scope"
+              value={pngMode}
+              onChange={(event) => setPngMode(event.target.value)}
+            >
+              <option value="selected">Selected chart</option>
+              <option value="panel">All response charts</option>
+            </select>
+          </label>
           <button
             data-testid="export-png"
             disabled={
+              Boolean(result.sensitivity_pending) ||
               !result.results.some((r) =>
                 chartData(r, manifest.indicators).some((c) => c.points.length),
               )
             }
             onClick={() =>
-              window.dispatchEvent(new Event("macrolab-export-png"))
+              window.dispatchEvent(
+                new CustomEvent("macrolab-export-png", {
+                  detail: { mode: pngMode },
+                }),
+              )
             }
           >
             Export PNG
           </button>
-          <button data-testid="export-csv" onClick={exportCsv}>
+          <button
+            data-testid="export-csv"
+            disabled={Boolean(result.sensitivity_pending)}
+            onClick={exportCsv}
+          >
             Download CSV
           </button>
           <button
@@ -548,13 +894,57 @@ export function Results({
           </button>
         </div>
       </div>
+      {Boolean(template) && (
+        <section className="card stack" data-testid="v1-band-disclosure">
+          {ecbTemplate && <TemplateSources config={config} />}
+          <strong>
+            Displayed band:{" "}
+            {ecbTemplate && config.model.params.displayed_band === "joint"
+              ? "joint bootstrap (both stages)"
+              : `conditional (${config.model.params.lag_augmented ? "lag-augmented HC1" : "HAC"})`}{" "}
+            · 68% pointwise
+          </strong>
+          <p>
+            {ecbTemplate
+              ? config.model.params.displayed_band === "joint"
+                ? "Both stages are re-estimated on the common window. These bands rely on the auxiliary model and are not simultaneous across horizons."
+                : "Conditional bands understate uncertainty: they ignore estimation of the first-stage EA shock."
+              : "This is a conditional association, not an identified exchange-rate shock."}
+          </p>
+          <p>
+            Prices and output: cumulative % change in the level by default.
+            Unemployment: percentage-point change. Actual windows and
+            transformations are recorded below.
+          </p>
+          {ecbTemplate && config.model.params.displayed_band !== "joint" && (
+            <button
+              className="primary"
+              data-testid="compute-joint"
+              disabled={busy}
+              onClick={() => {
+                const next = structuredClone(config);
+                next.model.params.displayed_band = "joint";
+                next.model.params.country_window = "common";
+                rerun(next);
+              }}
+            >
+              Compute full uncertainty (joint bootstrap)
+            </button>
+          )}
+        </section>
+      )}
+      <TemplateCorrectionSummary result={result} />
       <div className="result-heading">
         <div>
           <span className="overline">Results · {model?.title}</span>
           <h1>
-            {irf
-              ? shockHeading(irf, config, manifest.indicators)
-              : `${model?.title ?? config.model.id}: the estimated relationship`}
+            {ecbTemplate
+              ? `ECB ${config.model.params.policy_measure === "dfr" ? "DFR" : config.model.params.policy_measure === "bis" ? "BIS policy-rate" : "3-month rate"} shock: +${number(record(record(records(record(result.first_stage).results)[0]).identified_shock).requested_physical_size, 2)} pp`
+              : template === "tur_pass_through"
+                ? "Türkiye: cumulative pass-through ratio"
+                : irf
+                  ? shockHeading(irf, config, manifest.indicators)
+                  : `${model?.title ?? config.model.id}: the estimated relationship`}
           </h1>
           <p className="muted">
             {config.countries
@@ -576,6 +966,12 @@ export function Results({
                 : "Descriptive output; see method assumptions"}
           </p>
           <div className="result-meta">
+            {ecbTemplate && (
+              <span data-testid="first-stage-root">
+                First-stage largest companion root:{" "}
+                {number(result.first_stage_largest_root, 4)}
+              </span>
+            )}
             <span>Snapshot {result.snapshot_id}</span>
             <span>Code {result.code_version}</span>
             <span>{number(result.runtime_ms, 0)} ms</span>
@@ -584,7 +980,7 @@ export function Results({
             </span>
           </div>
         </div>
-        {irf && (
+        {irf && !template && (
           <details className="card result-controls" open={!compact}>
             <summary>Shock size and interval precision</summary>
             <div className="stack">
@@ -708,28 +1104,83 @@ export function Results({
           Exact samples and assumptions remain available below.
         </span>
       </div>
-      {result.results.map((r, index) => (
-        <ResultsCountry
-          key={r.country}
-          result={r}
+      {ecbTemplate && (
+        <CountryComparison
+          result={result}
           manifest={manifest}
-          comparison={comparison}
-          first={
-            index ===
-            result.results.findIndex(
-              (item) =>
-                item.status === "ok" &&
-                chartData(item, manifest.indicators).some(
-                  (chart) => chart.points.length,
-                ),
-            )
-          }
-          cards={bundles[r.country]?.cards ?? []}
+          bundles={bundles}
           compact={compact}
-          onSourceCard={onSourceCard}
-          previouslyDisplayedChecks={previouslyDisplayedChecks}
+          country={
+            result.results.some((r) => r.country === selectedCountry)
+              ? selectedCountry
+              : result.results[0].country
+          }
+          selectCountry={setSelectedCountry}
         />
-      ))}
+      )}
+      {runtime &&
+        !ecbTemplate &&
+        ["var.ols", "ident.recursive", "lp.ols"].includes(config.model.id) &&
+        result.results
+          .filter((r) => r.status === "ok" && r.irf)
+          .map((r) => (
+            <MethodComparison
+              key={`${result.config_hash}-${r.country}`}
+              config={config}
+              result={r}
+              manifest={manifest}
+              runtime={runtime}
+              compact={compact}
+              cards={bundles[r.country]?.cards ?? []}
+              busy={busy}
+            />
+          ))}
+      {result.results
+        .filter(
+          (r) =>
+            !ecbTemplate ||
+            !compact ||
+            r.country ===
+              (result.results.some((c) => c.country === selectedCountry)
+                ? selectedCountry
+                : result.results[0].country),
+        )
+        .map((r, index) => (
+          <details
+            key={r.country}
+            open={!ecbTemplate}
+            className={ecbTemplate ? "card country-details" : "result-wrapper"}
+          >
+            <summary>
+              {manifest.countries.find((c) => c.iso3 === r.country)?.name ??
+                r.country}{" "}
+              · checks, sensitivity and technical details
+            </summary>
+            <ResultsCountry
+              key={r.country}
+              result={r}
+              analysisConfig={config}
+              manifest={manifest}
+              comparison={comparison}
+              first={
+                !ecbTemplate &&
+                index ===
+                  result.results.findIndex(
+                    (item) =>
+                      item.status === "ok" &&
+                      chartData(item, manifest.indicators).some(
+                        (chart) => chart.points.length,
+                      ),
+                  )
+              }
+              cards={bundles[r.country]?.cards ?? []}
+              compact={compact}
+              hideCharts={ecbTemplate}
+              onSourceCard={onSourceCard}
+              previouslyDisplayedChecks={previouslyDisplayedChecks}
+            />
+          </details>
+        ))}
     </section>
   );
 }

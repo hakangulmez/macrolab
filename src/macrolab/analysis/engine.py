@@ -5,6 +5,7 @@ from __future__ import annotations
 import copy
 import os
 import time
+from collections.abc import Callable
 from typing import Any
 
 import numpy as np
@@ -14,6 +15,7 @@ from macrolab.analysis.config import (
     canonical_json,
     config_hash,
     required_concepts,
+    required_countries,
     validated_config,
 )
 from macrolab.analysis.data import prepare_country, snapshot_bundle
@@ -25,7 +27,7 @@ from macrolab.models.registry import PLUGINS, catalogue, get_plugin
 def _inputs(config: dict[str, Any], bundle: dict[str, Any] | None) -> dict[str, Any]:
     if bundle is None:
         bundle = snapshot_bundle(
-            config["snapshot_id"], config["countries"], required_concepts(config)
+            config["snapshot_id"], required_countries(config), required_concepts(config)
         )
     if bundle.get("snapshot_id") != config["snapshot_id"]:
         raise ValueError("The input bundle does not match the requested snapshot")
@@ -78,19 +80,35 @@ def actual_sample(data: AnalysisData, payload: dict[str, Any]) -> dict[str, Any]
             "end": estimated[-1] if estimated else None,
         }
     )
+    if "local_projection" in payload:
+        sample["horizon_sample_mode"] = payload["local_projection"]["sample_mode"]
+        sample["nobs_by_horizon"] = payload["diagnostics"]["nobs_by_horizon"]
     sample.setdefault("frequency", data.frequency)
     sample.setdefault("frequency_conversion", {})
     sample.setdefault("transforms", {})
     sample.setdefault("dropped_periods", [])
     sample["dropped_periods"].extend(
-        {"period": period, "reason": "model_initialisation"}
+        {
+            "period": period,
+            "reason": (
+                "horizon_holdback"
+                if "local_projection" in payload and estimated and period > estimated[-1]
+                else "model_initialisation"
+            ),
+        }
         for period in common
         if period not in set(estimated)
     )
     return sample
 
 
-def run_analysis(config: dict[str, Any], bundle: dict[str, Any] | None = None) -> dict[str, Any]:
+def run_analysis(
+    config: dict[str, Any],
+    bundle: dict[str, Any] | None = None,
+    *,
+    progress: Callable[[dict[str, Any]], None] | None = None,
+    cancelled: Callable[[], bool] | None = None,
+) -> dict[str, Any]:
     """Return checks even when a country is blocked; never estimate a blocked selection."""
     from macrolab.analysis.sensitivity import build_sensitivity
     from macrolab.checks.core import postfit_checks
@@ -98,6 +116,14 @@ def run_analysis(config: dict[str, Any], bundle: dict[str, Any] | None = None) -
     started = time.perf_counter()
     config = validated_config(config)
     bundle = _inputs(config, bundle)
+    if config["model"]["params"].get("template_id"):
+        from macrolab.analysis.templates_v1 import run_template
+
+        return run_template(config, bundle, progress=progress, cancelled=cancelled)
+    if config["model"]["id"] == "cmp.common_shock":
+        from macrolab.analysis.v1 import run_common
+
+        return run_common(config, bundle, progress=progress, cancelled=cancelled)
     plugin = get_plugin(config["model"]["id"])
     prepared = {country: _prepare(config, bundle, country) for country in config["countries"]}
     # Comparative statistics require the same dates in every eligible country.
@@ -216,6 +242,36 @@ def compatibility(config: dict[str, Any], bundle: dict[str, Any] | None = None) 
     """List all v0 choices, preserving the reasons for unavailable alternatives."""
     config = validated_config(config)
     bundle = _inputs(config, bundle)
+    if config["model"]["params"].get("template_id"):
+        from macrolab.analysis.templates_v1 import base_run
+
+        candidate = copy.deepcopy(config)
+        candidate["model"]["params"]["displayed_band"] = "conditional"
+        result = base_run(candidate, bundle)
+        return {
+            "schema_version": 1,
+            "snapshot_id": config["snapshot_id"],
+            "config_hash": config_hash(config),
+            "models": [
+                {
+                    **m,
+                    "available": result["status"] == "ok"
+                    if m["id"] == config["model"]["id"]
+                    else False,
+                    "checks": result["checks"]
+                    if m["id"] == config["model"]["id"]
+                    else [
+                        check(
+                            "block",
+                            "template_method",
+                            "Select another template to change the method",
+                        )
+                    ],
+                }
+                for m in catalogue()
+            ],
+            "released_models": list(PLUGINS),
+        }
     choices = []
     for metadata in catalogue():
         candidate = copy.deepcopy(config)

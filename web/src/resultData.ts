@@ -1,4 +1,6 @@
 /** Pure projections of the twelve v0 output contracts; no statistical calculations. */
+import { countryIndicators } from "./displayLabels";
+import type { AxisScale } from "./chartScale";
 import type { ChartPoint } from "./components/Chart";
 import { number, record, records, text, title } from "./format";
 import type {
@@ -11,11 +13,18 @@ import type {
 } from "./types";
 
 export interface ResultChart {
+  variable?: string;
   name: string;
   unit: string;
   points: ChartPoint[];
   summary: string;
   bar?: boolean;
+  coefficient?: boolean;
+  transformation?: string;
+  axis?: AxisScale;
+  intervalLabel?: string;
+  pngNote?: string;
+  pngComparisonLabel?: string;
 }
 export interface ResultTableBlock {
   title: string;
@@ -92,25 +101,100 @@ export function resultUnit(
     ? `${unit}${typeof multiplier === "number" && multiplier !== 0 ? ` ×10^${multiplier}` : ""}`
     : "source units (see catalogue)";
 }
-function coefficientCharts(result: CountryResult): ResultChart[] {
+function projection(result: CountryResult, concept: string): JsonRecord {
+  return record(
+    record(record(result.response_results)[concept]).local_projection ??
+      result.local_projection,
+  );
+}
+function transformLabel(result: CountryResult, concept: string): string {
+  const lp = projection(result, concept);
+  if (lp.response_definition)
+    return (
+      String(lp.response_definition) +
+      (lp.response_mode === "growth_log" && Number(lp.growth_scale) > 1
+        ? " · annualised"
+        : "")
+    );
+  const spec = record(result.actual_sample.transforms[concept]);
+  const kind = text(spec.transform, "level");
+  const labels: Record<string, string> = {
+    qoq_saar: "quarter-on-quarter annualised growth",
+    yoy_pct: "year-on-year percentage growth",
+    yoy_diff: "year-on-year change",
+    log_diff: "log change (%)",
+    diff: "period-to-period change",
+    log: "log level",
+    level: "level",
+  };
+  if (kind === "hp_cycle")
+    return record(spec.params).log === true
+      ? "HP gap (100 × log deviation)"
+      : "HP cycle";
+  return labels[kind] ?? kind.replaceAll("_", " ");
+}
+
+export function termLabel(term: string, indicators: Indicator[]): string {
+  let label = term === "const" ? "Intercept" : term;
+  for (const indicator of [...indicators].sort(
+    (a, b) => b.concept_id.length - a.concept_id.length,
+  )) {
+    label = label.replaceAll(indicator.concept_id, indicator.title);
+  }
+  return label
+    .replace(/^L(\d+)\./, "Lag $1 · ")
+    .replace(/^trend$/, "Time trend")
+    .replace(/^(.*)\.L(\d+)$/, "$1 (lag $2)")
+    .replaceAll("_", " ");
+}
+
+export function coefficientInterval(
+  result: Pick<CountryResult, "diagnostics" | "coefficients_table">,
+): string {
+  const rows = records(result.coefficients_table);
+  const level = Number(
+    rows[0]?.confidence_level ?? record(result.diagnostics).confidence ?? 0.95,
+  );
+  const covariance = text(
+    rows[0]?.covariance ?? record(result.diagnostics).covariance,
+    "OLS",
+  );
+  return `${Math.round(level * 100)}% confidence interval (${covariance})`;
+}
+
+function coefficientCharts(
+  result: CountryResult,
+  indicators: Indicator[],
+): ResultChart[] {
   return group(records(result.coefficients_table), (r) =>
     text(r.equation, ""),
   ).map(([equation, rows]) => ({
     name: equation
-      ? `${equation}: equation coefficients`
+      ? `${termLabel(equation, indicators)}: equation coefficients`
       : "Estimated coefficients",
     unit: "coefficient units vary by term",
-    bar: true,
+    coefficient: true,
+    intervalLabel: coefficientInterval(result),
     points: rows
       .filter((r) => r.term !== "const")
       .map((r) => ({
-        period: text(r.term),
+        period: (() => {
+          const term = text(r.term);
+          const indicator = [...indicators]
+            .sort((a, b) => b.concept_id.length - a.concept_id.length)
+            .find(
+              (i) =>
+                term === i.concept_id ||
+                term.endsWith(`.${i.concept_id}`) ||
+                term.startsWith(`${i.concept_id}.`),
+            );
+          return `${termLabel(term, indicators)}${indicator ? ` · ${transformLabel(result, indicator.concept_id)}` : ""}`;
+        })(),
         value: finite(r.estimate),
         lower: optional(r.lower),
         upper: optional(r.upper),
       })),
-    summary:
-      "Coefficients with pointwise intervals; magnitudes across different regressor units are not directly comparable. Intercept and full numerical results are in the table.",
+    summary: `${coefficientInterval(result)}; magnitudes across different regressor units are not directly comparable. Intercept and full numerical results are in the table.`,
   }));
 }
 
@@ -119,6 +203,7 @@ export function chartData(
   indicators: Indicator[],
 ): ResultChart[] {
   if (result.status !== "ok") return [];
+  indicators = countryIndicators(indicators, result.country);
   let charts: ResultChart[] = [];
   if (result.irf) {
     const irf = result.irf;
@@ -133,12 +218,55 @@ export function chartData(
         Math.abs(b.value) > Math.abs(a.value) ? b : a,
       );
       return {
+        variable,
         name: title(variable, indicators),
-        unit: resultUnit(result, variable, indicators, true),
+        transformation: transformLabel(result, variable),
+        unit: ["cumulative_log", "growth_log"].includes(
+          String(projection(result, variable).response_mode),
+        )
+          ? String(projection(result, variable).response_definition)
+          : resultUnit(result, variable, indicators, true),
         points,
         summary: `Largest absolute response: ${number(peak.value, 3)} at horizon ${peak.period}; ${Math.round(irf.band_level * 100)}% pointwise band ${peak.lower > 0 || peak.upper < 0 ? "excludes" : "includes"} zero there.`,
       };
     });
+    const pass = record(result.pass_through);
+    if (pass.status === "ok") {
+      charts[0].summary = text(pass.secondary_label) + ". " + charts[0].summary;
+      charts[0].name = "CPI response (secondary)";
+      charts.unshift({
+        name: "Cumulative pass-through ratio",
+        unit: "% CPI per 1% cumulative depreciation",
+        points: records(pass.horizons).map((r) => ({
+          period: Number(r.horizon),
+          value: finite(r.ratio),
+          lower: optional(record(record(r.bands)["0.68"]).lower),
+          upper: optional(record(record(r.bands)["0.68"]).upper),
+        })),
+        summary:
+          text(pass.sign_convention) +
+          " " +
+          text(pass.interval_method) +
+          "; 68% shown.",
+      });
+      charts.push({
+        name: `${text(pass.exchange_rate).toUpperCase()} cumulative response`,
+        unit: "cumulative % change in the level",
+        points: records(pass.horizons).map((r) => ({
+          period: Number(r.horizon),
+          value: finite(r.fx_cumulative),
+          // Same normal 68% interval and joint HC1/HAC marginal SE as the ratio fit.
+          lower:
+            Number(r.fx_cumulative) -
+            0.994457883209753 * Number(r.fx_std_error),
+          upper:
+            Number(r.fx_cumulative) +
+            0.994457883209753 * Number(r.fx_std_error),
+        })),
+        summary:
+          "Exchange rate's subsequent path after the same initial impulse, with a 68% pointwise band; negative NEER means depreciation.",
+      });
+    }
   } else if (result.model_id === "desc.corr") {
     charts = group(
       records(result.filtered_series),
@@ -187,7 +315,7 @@ export function chartData(
         result.model_id,
       )
     )
-      charts.push(...coefficientCharts(result));
+      charts.push(...coefficientCharts(result, indicators));
     const filtered = records(result.filtered_series).filter(
       (r) =>
         result.model_id !== "desc.plot" ||
@@ -396,6 +524,22 @@ export function resultCsvRows(result: CountryResult): JsonRecord[] {
   const output: JsonRecord[] = [
     { ...base, record_type: "actual_sample", ...sample },
   ];
+  if (result.pass_through) {
+    const pass = record(result.pass_through);
+    const metadata = { ...pass };
+    delete metadata.horizons;
+    output.push({
+      ...base,
+      record_type: "Pass-through definition",
+      ...metadata,
+    });
+    for (const row of records(pass.horizons))
+      output.push({
+        ...base,
+        record_type: "Cumulative pass-through ratio",
+        ...row,
+      });
+  }
   for (const block of resultTableBlocks(result))
     for (const row of block.rows)
       output.push({ ...base, record_type: block.title, ...row });
@@ -478,10 +622,14 @@ export function shockHeading(
   config: AnalysisConfig,
   indicators: Indicator[],
 ): string {
+  if (config.model.params.template_id === "tur_pass_through")
+    return "Türkiye: cumulative pass-through ratio";
   const policy = ["policy_rate", "us_policy_rate"].includes(irf.shock);
   const amount = `${irf.shock_size > 0 ? "+" : ""}${number(irf.shock_size, 2)}`;
   const mode =
-    config.outputs.irf?.shock_mode === "one_sd"
+    (config.outputs.irf?.shock_mode ??
+      (config.model.params.first_stage as AnalysisConfig | undefined)?.outputs
+        .irf?.shock_mode) === "one_sd"
       ? " (one standard deviation)"
       : "";
   return `${policy ? "Policy-rate" : title(irf.shock, indicators)} shock: ${amount} ${policy ? "pp" : "transformed units"}${mode}`;
@@ -493,10 +641,14 @@ export function readingBullets(
   indicators: Indicator[],
 ): string[] {
   const charts = chartData(result, indicators);
+  const v1 =
+    result.model_id === "lp.ols" || result.model_id === "cmp.common_shock";
   const bullets = [
-    result.irf
-      ? "A conditional model scenario: responses depend on the recursive ordering and included variables."
-      : "These estimates describe association in the actual sample; they do not establish causation.",
+    v1
+      ? result.label
+      : result.irf
+        ? "A conditional model scenario: responses depend on the recursive ordering and included variables."
+        : "These estimates describe association in the actual sample; they do not establish causation.",
   ];
   const responses = result.irf
     ? charts.filter((_, i) => result.irf?.variables[i] !== result.irf?.shock)
@@ -515,6 +667,10 @@ export function readingBullets(
     result.irf &&
     ["policy_rate", "us_policy_rate"].includes(result.irf.shock) &&
     result.irf.shock_size > 0;
+  const v1Puzzle = notes.find((note) =>
+    note.startsWith("An output/price puzzle appears"),
+  );
+  if (v1Puzzle) bullets.push(v1Puzzle);
   if (tightening && (output || price))
     bullets.push(
       `${output && price ? "Output and prices rise" : output ? "Output rises" : "Prices rise"} at some horizons after tightening. This output/price puzzle can reflect omitted information, ordering or sample choices; it is not evidence that tightening reliably raises activity or prices.`,

@@ -1,3 +1,5 @@
+import { buildVersion, snapshotDate } from "../version";
+import { countryIndicators } from "../displayLabels";
 import { useEffect, useMemo, useState } from "react";
 import type { CountryBundle, JsonRecord, Manifest } from "../types";
 import {
@@ -93,7 +95,7 @@ export function Catalogue({
         .filter((s): s is string => Boolean(s)),
     ),
   ];
-  const filtered = manifest.indicators.filter(
+  const filtered = countryIndicators(manifest.indicators, country).filter(
     (i) =>
       (category === "all" || i.category === category) &&
       `${i.title} ${i.concept_id} ${i.definition ?? ""}`
@@ -416,6 +418,37 @@ export function Catalogue({
               )}
               <details>
                 <summary>Sources, definitions & limitations</summary>
+                {records(card?.variant_options).length > 0 && (
+                  <section
+                    aria-label="Additional data variants"
+                    className="stack"
+                  >
+                    <h3>Additional data variants</h3>
+                    <ul className="source-list">
+                      {records(card?.variant_options).map((variant) => (
+                        <li key={text(variant.label)}>
+                          <strong>{text(variant.label)}</strong>
+                          <p className="small">
+                            {text(variant.start)}–{text(variant.end)} ·{" "}
+                            {text(variant.unit)}
+                            {variant.base_year
+                              ? ` (${text(variant.base_year)} = 100)`
+                              : ""}
+                            {variant.country === "EA" &&
+                            indicator.concept_id === "policy_rate"
+                              ? ". Shared euro-area rate; national samples respect euro adoption."
+                              : ""}
+                          </p>
+                          <p className="small">{text(variant.attribution)}</p>
+                          <SourceLink
+                            url={text(variant.source_url)}
+                            children="Official series"
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
                 {segments.length ? (
                   <ul className="source-list">
                     {segments.map((segment, index) => (
@@ -648,6 +681,25 @@ export function Methods({ manifest }: { manifest: Manifest }) {
         <h2 id="about-macrolab">About MacroLab</h2>
         <p>MacroLab is a non-commercial research and teaching tool.</p>
         <p>
+          {buildVersion} · Data snapshot {snapshotDate(manifest.as_of_date)}.
+          This is a fixed snapshot bundled with the app; it does not refresh
+          while you browse. Six templates include a common ECB shock across
+          countries and Türkiye exchange-rate pass-through, with matched VAR/LP
+          comparisons available where supported. Country narratives are
+          withheld.
+        </p>
+        {manifest.publication?.included_global_factors?.includes(
+          "commod_idx",
+        ) && (
+          <p>
+            Commodity indices: Source: International Monetary Fund, Primary
+            Commodity Prices (PCPS). ECB data supply deposit-facility and
+            main-refinancing rates and the official seasonally adjusted
+            euro-area HICP variant. Source-specific attribution and terms appear
+            below and on each series card.
+          </p>
+        )}
+        <p>
           MacroLab is an interactive macroeconomics laboratory by{" "}
           <SourceLink
             url="https://hakangulmez.github.io/"
@@ -871,6 +923,89 @@ export function Methods({ manifest }: { manifest: Manifest }) {
           check was computed.
         </p>
       </section>
+      <section className="card stack" aria-labelledby="v1-inference">
+        <h2 id="v1-inference">V1 template inference</h2>
+        <p>
+          Lag-augmented HC1 is the new template default after a fixed synthetic
+          coverage comparison; HAC remains a sensitivity option. This does not
+          guarantee nominal coverage in real data.
+        </p>
+        <p>
+          ECB conditional bands ignore first-stage shock estimation. The joint
+          action re-estimates both stages on an explicit common window. Both are
+          pointwise intervals. National VARs use different method and different
+          identification and are excluded from same-estimand agreement counts.
+        </p>
+        <p>
+          Cumulative responses are 100 × (log Y at the horizon − log Y before
+          the impulse), without annualisation. Growth is an alternative display.
+          NSA prices use calendar dummies; the app never seasonally adjusts
+          source observations.
+        </p>
+      </section>
+      <section className="card stack" aria-labelledby="response-methods">
+        <h2 id="response-methods">LP, VAR and two-step shocks</h2>
+        <p>
+          A VAR estimates a dynamic system and iterates its coefficients to
+          trace a response. Local projections (LP) fit a separate regression at
+          each horizon. Different lag restrictions can produce different paths
+          even with the same sample and shock. MacroLab never averages them.
+        </p>
+        <p>
+          The matched method view refits a common anchor window and gives both
+          methods the same dated recursive innovation and physical
+          normalization. LP future outcomes extend beyond that window. Its
+          horizon-by-horizon sign and interval-overlap counts apply only inside
+          the pair; a raw-impulse baseline or a separately identified national
+          VAR is a different estimand.
+        </p>
+        <ol>
+          <li>
+            Estimate the EA first-stage VAR and recover its orthogonalised DFR
+            residuals.
+          </li>
+          <li>
+            Use that same dated shock in each national LP, with each actual
+            sample displayed.
+          </li>
+          <li>
+            Show conditional HC1 bands or compute the on-demand joint bootstrap
+            on its common window.
+          </li>
+        </ol>
+        <p>
+          The estimated shock is a generated regressor. Conditional bands treat
+          it as known and understate total uncertainty; the joint bootstrap
+          re-estimates both stages under its stated window and stability limits.
+          Overlapping country peak intervals do not support a ranking. Peak
+          selection is descriptive, not an equality test.
+        </p>
+        <h3>Pass-through ratios</h3>
+        <p>
+          The headline ratio is cumulative CPI response divided by cumulative
+          depreciation from the same impulse. For NEER, depreciation is the
+          negative of its cumulative response. The HC1 delta-method interval
+          uses the joint CPI/NEER coefficient covariance. Near-zero or weak
+          denominators make ratios unreliable; warnings and undefined points
+          stay visible. The secondary CPI path is the response to an initial 1%
+          depreciation, followed by the exchange rate’s own subsequent path.
+        </p>
+        <h3>Stability rule</h3>
+        <p>
+          First-stage shock extraction uses orthogonalised residuals and does
+          not require stable dynamics. A largest companion root of 0.98 or above
+          warns; 1 or above indicates instability. Unstable v1 VAR IRFs, FEVD,
+          historical decompositions and simulation-based joint bands remain
+          blocked. The accepted v0 extended-VAR sensitivity retains its
+          historical warning and numerical baseline.
+        </p>
+        <p className="small muted">
+          Historical-decomposition views, country narratives and further Türkiye
+          crisis options are deferred to v1.1. Forecasting, BVAR, panels and
+          cointegration are planned for v2; sign restrictions, proxy
+          instruments, state dependence and TVP-VAR are planned for v3.
+        </p>
+      </section>
       <section className="card stack" aria-labelledby="limits">
         <h2 id="limits">Limits to keep in view</h2>
         <ul className="stack small">
@@ -880,8 +1015,9 @@ export function Methods({ manifest }: { manifest: Manifest }) {
             estimates.
           </li>
           <li>
-            Models use a contiguous common sample, without interpolation.
-            Transformations, missing data and model lags can shorten the
+            V0 models use a contiguous common sample, without interpolation. V1
+            LP exclusions preserve calendar gaps and drop affected lag/target
+            rows. Transformations, missing data and model lags can shorten the
             requested window.
           </li>
           <li>

@@ -4,11 +4,25 @@ from __future__ import annotations
 
 from typing import Any
 
+from macrolab.compare.common_shock import CommonShockPlugin
+from macrolab.ident.external_series import ExternalSeriesPlugin
 from macrolab.models.base import ModelPlugin
 from macrolab.models.linear import PLUGINS as LINEAR
+from macrolab.models.lp import LPPlugin
 from macrolab.models.var import PLUGINS as VAR
+from macrolab.outputs.hd import HistoricalDecompositionPlugin
 
-PLUGINS: dict[str, ModelPlugin] = {plugin.id: plugin for plugin in [*LINEAR, *VAR]}
+PLUGINS: dict[str, ModelPlugin] = {
+    plugin.id: plugin
+    for plugin in [
+        *LINEAR,
+        *VAR,
+        LPPlugin(),
+        HistoricalDecompositionPlugin(),
+        ExternalSeriesPlugin(),
+        CommonShockPlugin(),
+    ]
+}
 
 
 def get_plugin(model_id: str) -> ModelPlugin:

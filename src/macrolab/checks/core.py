@@ -27,9 +27,28 @@ DEFAULTS: dict[str, Any] = {
     "shock_quantile_low": 0.05,
     "shock_quantile_high": 0.95,
 }
-REGRESSION_MODELS = {"sing.ols", "sing.ardl", "sing.rolling", "var.ols", "ident.recursive"}
-DYNAMIC_MODELS = {"sing.ardl", "test.granger", "var.ols", "ident.recursive"}
-VAR_MODELS = {"var.ols", "ident.recursive"}
+REGRESSION_MODELS = {
+    "sing.ols",
+    "sing.ardl",
+    "sing.rolling",
+    "var.ols",
+    "ident.recursive",
+    "lp.ols",
+    "out.hd",
+    "ident.external_series",
+    "cmp.common_shock",
+}
+DYNAMIC_MODELS = {
+    "sing.ardl",
+    "test.granger",
+    "var.ols",
+    "ident.recursive",
+    "lp.ols",
+    "out.hd",
+    "ident.external_series",
+    "cmp.common_shock",
+}
+VAR_MODELS = {"var.ols", "ident.recursive", "out.hd", "ident.external_series"}
 ENDOGENOUS_ROLES = {"shock", "endogenous", "response"}
 
 
@@ -478,9 +497,15 @@ def _nsa_checks(data: AnalysisData, config: AnalysisConfig) -> list[dict[str, An
         if "NSA" in adjustments:
             output.append(
                 check(
-                    "warn",
+                    "info"
+                    if _model_id(config)
+                    in {"lp.ols", "cmp.common_shock", "out.hd", "ident.external_series"}
+                    else "warn",
                     "nsa_series",
-                    "Not seasonally adjusted; year-on-year changes or seasonal dummies "
+                    "Calendar seasonal dummies are included for this unadjusted input."
+                    if _model_id(config)
+                    in {"lp.ols", "cmp.common_shock", "out.hd", "ident.external_series"}
+                    else "Not seasonally adjusted; year-on-year changes or seasonal dummies "
                     "can address recurring seasonal patterns.",
                     concept_id=cid,
                     fix={"concept_id": cid, "transform": "yoy_diff"},
@@ -528,7 +553,9 @@ def _postfit_checks(
         if sample is not None and (sample["level"] == "block" or automatic):
             output.append(sample)
     stable, radius = diagnostics.get("stable"), diagnostics.get("companion_spectral_radius")
-    if stable is False or (radius is not None and float(radius) >= 1):
+    if _model_id(config) != "ident.external_series" and (
+        stable is False or (radius is not None and float(radius) >= 1)
+    ):
         output.append(
             check(
                 "warn",

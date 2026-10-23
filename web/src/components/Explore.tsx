@@ -96,11 +96,13 @@ export function Home({
               onClick={() => select(t)}
             >
               <span className="badge mono">
-                {t.config.model.id === "var.ols"
-                  ? "VAR · recursive"
-                  : t.id === "phillips_curve"
-                    ? "OLS · rolling"
-                    : "OLS · HAC"}
+                {t.new_in_v1
+                  ? "NEW · LP · HC1"
+                  : t.config.model.id === "var.ols"
+                    ? "VAR · recursive"
+                    : t.id === "phillips_curve"
+                      ? "OLS · rolling"
+                      : "OLS · HAC"}
               </span>
               <h3>{t.title}</h3>
               <p>{t.description}</p>
@@ -197,7 +199,7 @@ export function Library({
   return (
     <section data-testid="screen-library" className="stack">
       <div className="page-heading">
-        <span className="overline">Model library · validated v0</span>
+        <span className="overline">Model library · validated methods</span>
         <h1>A method for the question you’re asking.</h1>
         <p>
           Inspect assumptions before choosing. Compatibility is checked against
@@ -272,9 +274,13 @@ export function Library({
                   <p className="small">
                     {m.id.includes("var") || m.id === "ident.recursive"
                       ? "Pointwise bootstrap or asymptotic response intervals, conditional on the stated identification."
-                      : m.id.startsWith("sing.")
-                        ? "HAC or HC1 coefficient intervals describe sampling uncertainty; they do not establish causality."
-                        : "Descriptive/test/filter output; uncertainty is shown where the method defines it."}
+                      : ["lp.ols", "cmp.common_shock"].includes(m.id)
+                        ? "Pointwise HC1 or HAC response bands; generated-shock uncertainty requires the on-demand joint bootstrap."
+                        : m.id === "ident.external_series"
+                          ? "Orthogonalised residuals from a first-stage VAR. Instability warns for shock extraction; unstable VAR responses remain blocked."
+                          : m.id.startsWith("sing.")
+                            ? "HAC or HC1 coefficient intervals describe sampling uncertainty; they do not establish causality."
+                            : "Descriptive/test/filter output; uncertainty is shown where the method defines it."}
                   </p>
                   <ul>
                     {m.references.map((r) => (
@@ -310,9 +316,22 @@ export function Library({
             );
           })}
       </div>
+      <section className="card stack" aria-label="Planned methods">
+        <h2>Planned · outside this release</h2>
+        <p>
+          <strong>v2 · planned:</strong> ARIMA / VAR forecasting and forecast
+          evaluation, Bayesian VAR (Minnesota prior), panel fixed effects and
+          panel LP, VECM / cointegration, structural-break tools.
+        </p>
+        <p>
+          <strong>v3 · planned:</strong> sign restrictions, proxy SVAR / LP-IV,
+          state-dependent LP, time-varying parameter VAR.
+        </p>
+      </section>
       <div className="info-box">
-        Only the {manifest.models.length} validated v0 plug-ins are enabled.
-        Later methods are outside this release.
+        The {manifest.models.length} validated plug-ins are enabled. Reference
+        validation is method-specific; finite-sample coverage limits remain
+        visible.
       </div>
     </section>
   );

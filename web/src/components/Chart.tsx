@@ -3,6 +3,7 @@ import * as echarts from "echarts/core";
 import {
   LineChart,
   BarChart,
+  ScatterChart,
   CustomChart,
   type CustomSeriesOption,
 } from "echarts/charts";
@@ -13,11 +14,12 @@ import {
   MarkLineComponent,
 } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
-import { download, number } from "../format";
+import { niceScale, tickLabel, type AxisScale } from "../chartScale";
 import { DataTable } from "./Common";
 echarts.use([
   LineChart,
   BarChart,
+  ScatterChart,
   CustomChart,
   GridComponent,
   TooltipComponent,
@@ -31,15 +33,19 @@ export interface ChartPoint {
   lower?: number;
   upper?: number;
   comparison?: number | null;
+  comparisonLower?: number;
+  comparisonUpper?: number;
 }
 export function Chart({
   title,
   unit,
   points,
   summary,
-  first = false,
   bar = false,
+  coefficient = false,
   comparisonLabel = "Comparison",
+  axis,
+  intervalLabel = "Pointwise interval",
 }: {
   title: string;
   unit: string;
@@ -47,7 +53,10 @@ export function Chart({
   summary: string;
   first?: boolean;
   bar?: boolean;
+  coefficient?: boolean;
   comparisonLabel?: string;
+  axis?: AxisScale;
+  intervalLabel?: string;
 }) {
   const element = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -64,65 +73,76 @@ export function Chart({
       (p) => p.lower !== undefined && p.upper !== undefined,
     );
     const extent = points
-      .flatMap((p) => [p.value, p.lower, p.upper, p.comparison])
+      .flatMap((p) => [
+        p.value,
+        p.lower,
+        p.upper,
+        p.comparison,
+        p.comparisonLower,
+        p.comparisonUpper,
+      ])
       .filter((v): v is number => typeof v === "number" && Number.isFinite(v));
-    const low = Math.min(0, ...extent),
-      high = Math.max(0, ...extent);
-    const padding = (high - low || 1) * 0.08;
-    const render: NonNullable<CustomSeriesOption["renderItem"]> = (
-      _params,
-      api,
-    ) => {
-      if (bar)
+    const scale = axis ?? niceScale(extent);
+    const renderBand =
+      (secondary = false): NonNullable<CustomSeriesOption["renderItem"]> =>
+      (_params, api) => {
+        if (bar || coefficient)
+          return {
+            type: "group",
+            children: points.flatMap((p, i) => {
+              if (p.lower === undefined || p.upper === undefined) return [];
+              const a = api.coord([i, p.lower]),
+                b = api.coord([i, p.upper]);
+              return [
+                {
+                  type: "line" as const,
+                  shape: { x1: a[0], y1: a[1], x2: b[0], y2: b[1] },
+                  style: { stroke: blue, lineWidth: 1.5 },
+                },
+                ...[a, b].map((c) => ({
+                  type: "line" as const,
+                  shape: { x1: c[0] - 5, y1: c[1], x2: c[0] + 5, y2: c[1] },
+                  style: { stroke: blue, lineWidth: 1.5 },
+                })),
+              ];
+            }),
+          };
+        const segments: { point: ChartPoint; index: number }[][] = [];
+        let active: { point: ChartPoint; index: number }[] = [];
+        points.forEach((source, index) => {
+          const point = secondary
+            ? {
+                ...source,
+                lower: source.comparisonLower,
+                upper: source.comparisonUpper,
+              }
+            : source;
+          if (point.lower !== undefined && point.upper !== undefined)
+            active.push({ point, index });
+          else if (active.length) {
+            segments.push(active);
+            active = [];
+          }
+        });
+        if (active.length) segments.push(active);
         return {
           type: "group",
-          children: points.flatMap((p, i) => {
-            if (p.lower === undefined || p.upper === undefined) return [];
-            const a = api.coord([i, p.lower]),
-              b = api.coord([i, p.upper]);
-            return [
-              {
-                type: "line" as const,
-                shape: { x1: a[0], y1: a[1], x2: b[0], y2: b[1] },
-                style: { stroke: blue, lineWidth: 1.5 },
-              },
-              ...[a, b].map((c) => ({
-                type: "line" as const,
-                shape: { x1: c[0] - 5, y1: c[1], x2: c[0] + 5, y2: c[1] },
-                style: { stroke: blue, lineWidth: 1.5 },
-              })),
-            ];
-          }),
+          children: segments.map((segment) => ({
+            type: "polygon" as const,
+            shape: {
+              points: [
+                ...segment.map(({ point, index }) =>
+                  api.coord([index, point.upper!]),
+                ),
+                ...segment
+                  .map(({ point, index }) => api.coord([index, point.lower!]))
+                  .reverse(),
+              ],
+            },
+            style: { fill: secondary ? orange : blue, opacity: 0.14 },
+          })),
         };
-      const segments: { point: ChartPoint; index: number }[][] = [];
-      let active: { point: ChartPoint; index: number }[] = [];
-      points.forEach((point, index) => {
-        if (point.lower !== undefined && point.upper !== undefined)
-          active.push({ point, index });
-        else if (active.length) {
-          segments.push(active);
-          active = [];
-        }
-      });
-      if (active.length) segments.push(active);
-      return {
-        type: "group",
-        children: segments.map((segment) => ({
-          type: "polygon" as const,
-          shape: {
-            points: [
-              ...segment.map(({ point, index }) =>
-                api.coord([index, point.upper!]),
-              ),
-              ...segment
-                .map(({ point, index }) => api.coord([index, point.lower!]))
-                .reverse(),
-            ],
-          },
-          style: { fill: blue, opacity: 0.14 },
-        })),
       };
-    };
     chart.setOption({
       animation: false,
       aria: { enabled: true, description: summary },
@@ -132,7 +152,7 @@ export function Chart({
       xAxis: {
         type: "category",
         data: points.map((p) => p.period),
-        boundaryGap: bar,
+        boundaryGap: bar || coefficient,
         axisLabel: { color: muted, hideOverlap: true, fontSize: 10 },
         axisLine: { lineStyle: { color: border } },
         axisTick: { show: false },
@@ -140,33 +160,47 @@ export function Chart({
       yAxis: {
         type: "value",
         scale: bar,
-        min: low - padding,
-        max: high + padding,
+        min: scale.min,
+        max: scale.max,
+        interval: scale.step,
         axisLabel: {
           color: muted,
           fontSize: 10,
-          formatter: (v: number) => number(v, 2),
+          formatter: (v: number) => tickLabel(v, scale.step),
         },
         splitLine: { lineStyle: { color: border, type: "dashed" } },
       },
       series: [
+        ...(points.some((p) => p.comparisonLower !== undefined)
+          ? [
+              {
+                type: "custom",
+                name: `${comparisonLabel} interval`,
+                renderItem: renderBand(true),
+                data: [0],
+                silent: true,
+                z: 0,
+              },
+            ]
+          : []),
         ...(bands
           ? [
               {
                 type: "custom",
-                name: "Pointwise interval",
-                renderItem: render,
+                name: intervalLabel,
+                renderItem: renderBand(),
                 data: [0],
                 silent: true,
-                z: bar ? 4 : 0,
+                z: bar || coefficient ? 4 : 0,
               },
             ]
           : []),
         {
           name: title,
-          type: bar ? "bar" : "line",
+          type: coefficient ? "scatter" : bar ? "bar" : "line",
           data: points.map((p) => p.value),
-          showSymbol: false,
+          symbolSize: 8,
+          showSymbol: coefficient,
           connectNulls: false,
           lineStyle: { width: 2.5, color: blue },
           itemStyle: { color: blue },
@@ -194,24 +228,20 @@ export function Chart({
     });
     const observer = new ResizeObserver(() => chart.resize());
     observer.observe(element.current);
-    const exportPNG = () => {
-      if (!first) return;
-      const url = chart.getDataURL({
-        type: "png",
-        pixelRatio: 2,
-        backgroundColor: css.getPropertyValue("--surface").trim(),
-      });
-      fetch(url)
-        .then((r) => r.blob())
-        .then((blob) => download(blob, "macrolab-chart.png"));
-    };
-    window.addEventListener("macrolab-export-png", exportPNG);
     return () => {
       observer.disconnect();
-      window.removeEventListener("macrolab-export-png", exportPNG);
       chart.dispose();
     };
-  }, [title, points, summary, first, bar, comparisonLabel]);
+  }, [
+    title,
+    points,
+    summary,
+    bar,
+    coefficient,
+    comparisonLabel,
+    axis,
+    intervalLabel,
+  ]);
   return (
     <figure className="card chart-card" data-testid="result-chart">
       <figcaption>
