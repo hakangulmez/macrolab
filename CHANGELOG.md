@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.1 — 24 October 2026, local technical candidate
+
+- Historical decomposition for recursive VARs, accounting identity and full exports.
+- On-demand Türkiye crisis dummies and exclusions; the existing 2003 row is reused.
+- Per-chart PNG actions, split chart bundles; accepted baseline results unchanged.
+- Same October 23 data bytes; bounded stale-source review is separate from release.
+- Country narratives withheld. Awaiting exact-artifact approval at P5.
+
 ## v1.0.1 — 23 October 2026, local hotfix candidate
 
 - Group identical checks across countries, responses and horizons; counts show

@@ -13,6 +13,7 @@ import type {
 } from "./types";
 
 export interface ResultChart {
+  stack?: { name: string; color: string; values: number[] }[];
   variable?: string;
   name: string;
   unit: string;

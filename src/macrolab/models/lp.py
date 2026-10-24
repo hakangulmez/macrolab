@@ -102,12 +102,21 @@ def design(data: AnalysisData, config: dict[str, Any]) -> dict[str, Any]:
     if s["sample_mode"] == "common":
         common = np.logical_and.reduce(masks)
         masks = [pd.Series(common, index=x.index) for _ in masks]
-    return {"x": x, "y": yy, "masks": masks, "settings": s, "data": data}
+    result = {"x": x, "y": yy, "masks": masks, "settings": s, "data": data}
+    if parameters(config).get("crisis_mode"):
+        from macrolab.analysis.crisis import apply_design
+
+        result = apply_design(result, config)
+    return result
 
 
 def _active(x: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]:
     # A generated indicator outside this horizon's sample is identically zero.
-    omitted = [str(c) for c in x if (str(c).startswith(("covid_", "season_"))) and not np.any(x[c])]
+    omitted = [
+        str(c)
+        for c in x
+        if (str(c).startswith(("covid_", "season_", "crisis_"))) and not np.any(x[c])
+    ]
     return x.drop(columns=omitted), omitted
 
 
@@ -161,7 +170,11 @@ def _point_fit(data: AnalysisData, config: dict[str, Any]) -> dict[str, Any]:
 
 
 def fit(data: AnalysisData, config: dict[str, Any], *, point_only: bool = False) -> dict[str, Any]:
-    if point_only and parameters(config).get("sample_mode", "common") == "common":
+    if (
+        point_only
+        and parameters(config).get("sample_mode", "common") == "common"
+        and not parameters(config).get("crisis_mode")
+    ):
         return _point_fit(data, config)
     d = design(data, config)
     s = d["settings"]
@@ -265,6 +278,7 @@ def fit(data: AnalysisData, config: dict[str, Any], *, point_only: bool = False)
         "label": label,
         "irf": irf,
         "local_projection": {
+            **({"crisis": d["crisis"]} if "crisis" in d else {}),
             "response_definition": labels[s["response_mode"]],
             "response_mode": s["response_mode"],
             "sample_mode": s["sample_mode"],
@@ -305,6 +319,8 @@ class LPPlugin(BasePlugin):
         "HAC inference is asymptotic; intervals are pointwise.",
     ]
     params = schema(
+        crisis_extension={"type": "boolean"},
+        crisis_mode={"type": "string", "enum": ["dummies", "exclude"]},
         template_id=choice("", "", "same_ecb_shock", "tur_pass_through"),
         policy_measure=choice("dfr", "dfr", "rate_3m", "bis"),
         country_window=choice("own", "own", "common"),

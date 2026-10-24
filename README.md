@@ -1,7 +1,7 @@
 # MacroLab
 
 MacroLab is a non-commercial research and teaching tool for exploring official
-macro data and testing how results depend on modelling assumptions. **v1.0.1**
+macro data and testing how results depend on modelling assumptions. **v1.1**
 provides 33 national indicators and three global factors across 38 OECD economies
 and the euro area. Six templates cover monetary policy, Taylor and Phillips
 relationships, Okun's law, a common ECB shock and Türkiye exchange-rate pass-through.
@@ -14,9 +14,9 @@ They are **not forecasts**. Conditional associations and recursively identified
 scenarios carry their respective limitations; inference is pointwise.
 
 v1 adds matched VAR/LP comparisons, country-response panels with shared axes,
-peak intervals and the cumulative pass-through ratio. Country narratives,
-historical-decomposition UI and additional Türkiye crisis options remain deferred.
-The underlying historical-decomposition method is available through Python.
+peak intervals and the cumulative pass-through ratio. v1.1 adds historical
+decomposition, optional Türkiye crisis sensitivities and per-chart PNG exports.
+Country narratives remain withheld. The October 23 snapshot is unchanged.
 Forecasting, BVAR, panel methods and other v2/v3 features are planned.
 
 ## Install and check
@@ -53,9 +53,10 @@ absent from the public source export; code alone cannot recreate that evidence.
 ```sh
 # Explicit live data operation; PREVIOUS is an existing audited static data folder:
 make refresh PREVIOUS=runs/g8/public/data
-# Build the local candidate using the selected, successfully audited snapshot:
-make static-build SNAPSHOT=20261023-1634
-# Serve runs/g9/site under /macrolab/ with a static server (no local API).
+# Technical v1.1: provide the accepted v1.0.1 site at runs/v101/site first.
+# Preparation copies its cleared data bytes and builds only current source/UI:
+make g10-build
+# Serve runs/g10/site under /macrolab/ with a static server (no local API).
 ```
 
 Follow [refresh instructions](docs/DATA_REFRESH.md) and the

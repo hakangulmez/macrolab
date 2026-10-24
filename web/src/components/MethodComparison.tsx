@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { ChartExportContext } from "../chartExportContext";
 import { AnalysisRuntime, buildBundle } from "../runtime";
 import type {
   AnalysisConfig,
@@ -42,6 +43,7 @@ export function MethodComparison({
   cards: Card[];
   compact: boolean;
 }) {
+  const exportContext = useContext(ChartExportContext);
   const responses = (result.irf?.variables ?? []).filter(
     (v) => v !== result.irf?.shock,
   );
@@ -217,7 +219,22 @@ export function MethodComparison({
               </span>
             )}
           </div>
-          <Chart {...chart} title={chart.name} comparisonLabel="LP" />
+          <Chart
+            {...chart}
+            title={chart.name}
+            comparisonLabel="LP"
+            exportContext={
+              exportContext && {
+                ...exportContext,
+                analysis: "Matched VAR / LP",
+                country:
+                  manifest.countries.find((c) => c.iso3 === result.country)
+                    ?.name ?? result.country,
+                sample: `Actual common sample: ${sample.start}–${sample.end} · n = ${sample.nobs} · Snapshot ${config.snapshot_id}`,
+                estimateLabel: mode === "LP" ? "LP" : "VAR",
+              }
+            }
+          />
           <h3>Sensitivity · method comparison only</h3>
           {compact ? (
             <div className="sensitivity-cards">
@@ -321,6 +338,7 @@ export function MethodComparison({
             <button
               onClick={() =>
                 void exportPng([chart], {
+                  snapshot: config.snapshot_id,
                   analysis: "Matched VAR / LP",
                   country: result.country,
                   sample: `Actual common sample: ${sample.start}–${sample.end} · n = ${sample.nobs}`,

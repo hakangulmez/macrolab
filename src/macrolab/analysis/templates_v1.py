@@ -374,6 +374,12 @@ def run_template(
     cancelled: Callable[[], bool] | None = None,
 ) -> dict[str, Any]:
     started = time.perf_counter()
+    if config["model"]["params"].get("crisis_extension"):
+        if config["model"]["params"]["template_id"] != "tur_pass_through":
+            raise ValueError("Crisis extension requires the Türkiye pass-through template")
+        from macrolab.analysis.crisis import extension
+
+        return extension(config, bundle, progress=progress, cancelled=cancelled)
     result = base_run(config, bundle, progress=progress, cancelled=cancelled)
     template = config["model"]["params"]["template_id"]
     ecb = template == "same_ecb_shock"

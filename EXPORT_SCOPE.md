@@ -6,6 +6,7 @@ This export excludes the following tracked review material. Ignored local datase
 
 - `DECISIONS.md` — Private gate review/decision record.
 - `OPEN_ISSUES.md` — Private gate review/decision record.
+- `configs/g16_stale_candidates.json` — Inactive future-refresh proposal; not part of v1.1 inputs.
 - `docs/COUNTRY_NOTES_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/COVERAGE_G1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/COVERAGE_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
@@ -13,6 +14,7 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/DATA_AUDIT_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/FALLBACKS_G1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G0_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/G10_STALE_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G1_1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G2_1_RESULTS.md` — Review report/evidence omitted, including all verification and result reports.
@@ -21,6 +23,7 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/G3_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G4_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G5_DATA_EVIDENCE.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/G9_CANDIDATE_INVENTORY.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/LOCAL_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/P1_OECD_RIGHTS_EVIDENCE.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/P1_REPOSITORY_AUDIT.md` — Review report/evidence omitted, including all verification and result reports.
@@ -33,6 +36,7 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/REFRESH_20261023-1634.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G0.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G1.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G10.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G2.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G3.md` — Review report/evidence omitted, including all verification and result reports.
@@ -43,14 +47,24 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/STOP_REPORT_G7.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G7_1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G8.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G9.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_P1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_P2.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_V1_0_1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/probe_evidence.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/screenshots/README.md` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/builder-desktop.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/builder-mobile.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/catalogue-desktop.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/catalogue-mobile.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g10/crisis-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g10/crisis-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g10/hd-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g10/hd-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g10_1/crisis-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g10_1/crisis-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g10_1/hd-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g10_1/hd-375.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g3_1/README.md` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g3_1/builder-desktop.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g3_1/builder-mobile.png` — All review screenshots and their indexes are omitted.
@@ -186,4 +200,4 @@ This export excludes the following tracked review material. Ignored local datase
 - `DATA.md` — Links to omitted review records replaced by explicit omission text.
 - `docs/G5_DATA_SOURCES.md` — Links to omitted review records replaced by explicit omission text.
 
-The v1.0.1 hotfix candidate follows the already-public main commit 398ebf1. Only public ancestry is retained; private development history and remotes are excluded. This local candidate awaits separate publication approval. Hotfix screenshots, verification artifacts and the stop report remain private.
+One v1.1 candidate commit follows public main d5ce053. Only public ancestry is retained; private development history and remotes are excluded. Exact-artifact P5 approval is required before publication.

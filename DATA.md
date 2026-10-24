@@ -1,6 +1,17 @@
-# Data rights — v1.0 candidate, 23 October 2026
+# Data rights — v1.1 technical candidate, 24 October 2026
 
-## Current G9 candidate
+The v1.1 candidate retains snapshot `20261023-1634` and the accepted source
+policy below. Country observations, global variants, profile data, source cards
+and rights metadata are byte-identical to v1.0.1. The manifest changes only
+software and candidate metadata. `make static-build` prepares `runs/g10/site/`;
+P5 requires approval of the exact source and site artifacts. Country narratives
+and World Bank Pink Sheet remain withheld. No new runtime dependency is added.
+
+The inactive G16 PPI proposals use the already-cleared Eurostat STS dataset;
+their observations do not enter v1.1. G10 did not refresh the release data or
+repeat the legal review; the accepted dated evidence follows.
+
+## Accepted G9 source-policy review
 
 The local v1.0 candidate uses audited snapshot `20261023-1634` (23 October 2026).
 All seven current provider reuse clauses quoted below remain present on their
@@ -17,9 +28,9 @@ BIS US policy and IMF PCPS non-fuel. It includes the reviewed PCPS all/energy
 variants, ECB DFR/MRO and official SA euro-area HICP documented below. Attribution
 uses the 23 October access date. National NSA prices retain seasonal controls;
 MacroLab does not seasonally adjust observations. Country narratives and Pink
-Sheet remain excluded. IMF use remains non-commercial. `make static-build`
-prepares `runs/g9/site/` from cleared inputs only. This is a local release
-candidate; P4 publication requires approval of the exact source and site artifacts.
+Sheet remain excluded. IMF use remains non-commercial. The G9 build and its
+subsequent P4 publication were separately approved; that approval does not cover
+the new v1.1 candidate.
 
 ## Historical P2 scope and continuing source conditions
 

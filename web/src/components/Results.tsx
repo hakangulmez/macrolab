@@ -1,4 +1,12 @@
-import { useEffect, useState, useSyncExternalStore } from "react";
+import {
+  lazy,
+  Suspense,
+  useContext,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+} from "react";
+import { ChartExportContext } from "../chartExportContext";
 import type {
   AnalysisConfig,
   AnalysisResult,
@@ -38,6 +46,11 @@ import { countryIndicators } from "../displayLabels";
 import { getTemplateSources, type AnalysisRuntime } from "../runtime";
 import { CountryComparison } from "./CountryComparison";
 import { MethodComparison } from "./MethodComparison";
+const TechnicalExtensions = lazy(() =>
+  import("./TechnicalExtensions").then((m) => ({
+    default: m.TechnicalExtensions,
+  })),
+);
 
 function TemplateCorrectionSummary({
   result,
@@ -234,6 +247,7 @@ export function ResultsCountry({
   onSourceCard?: (country: string, conceptId: string) => void;
   previouslyDisplayedChecks?: Check[];
 }) {
+  const exportContext = useContext(ChartExportContext);
   const indicators = countryIndicators(
     manifest.indicators.map((indicator) => ({
       ...indicator,
@@ -345,6 +359,7 @@ export function ResultsCountry({
       void stageSources
         .then((extra) =>
           exportPng(rendered, {
+            snapshot: analysisConfig?.snapshot_id,
             analysis: result.pass_through
               ? "Exchange-rate pass-through"
               : (template?.title ?? modelTitle),
@@ -513,6 +528,19 @@ export function ResultsCountry({
                         key={chart.name}
                         {...chart}
                         title={chart.name}
+                        pngNote={
+                          result.pass_through && chart.variable === "cpi"
+                            ? text(record(result.pass_through).secondary_label)
+                            : undefined
+                        }
+                        exportContext={
+                          exportContext && {
+                            ...exportContext,
+                            country: name,
+                            sample: `Actual sample: ${sample.start}–${sample.end} · n = ${sample.nobs} · Snapshot ${analysisConfig?.snapshot_id}`,
+                            horizon: Boolean(result.irf),
+                          }
+                        }
                         comparisonLabel={
                           result.irf ? comparisonLabel : "Fitted / trend"
                         }
@@ -855,371 +883,423 @@ export function Results({
     );
   };
   return (
-    <section data-testid="screen-results" className="stack results-screen">
-      {compact && (
-        <div
-          className="mobile-result-summary"
-          data-testid="mobile-result-summary"
-          aria-label="Result summary"
-        >
-          {mobileSummaryLines(result).map((line, index) => (
-            <p key={index}>{line}</p>
-          ))}
-        </div>
-      )}
-      <div className="row between result-actions">
-        <button className="link" onClick={edit}>
-          ← Edit this analysis
-        </button>
-        <div className="results-toolbar">
-          <label className="small">
-            PNG scope{" "}
-            <select
-              aria-label="PNG scope"
-              value={pngMode}
-              onChange={(event) => setPngMode(event.target.value)}
-            >
-              <option value="selected">Selected chart</option>
-              <option value="panel">All response charts</option>
-            </select>
-          </label>
-          <button
-            data-testid="export-png"
-            disabled={
-              Boolean(result.sensitivity_pending) ||
-              !result.results.some((r) =>
-                chartData(r, manifest.indicators).some((c) => c.points.length),
-              )
-            }
-            onClick={() =>
-              window.dispatchEvent(
-                new CustomEvent("macrolab-export-png", {
-                  detail: { mode: pngMode },
-                }),
-              )
-            }
+    <ChartExportContext.Provider
+      value={{
+        snapshot: result.snapshot_id,
+        analysis:
+          manifest.templates.find((t) => t.id === template)?.title ??
+          model?.title ??
+          "MacroLab analysis",
+        country: config.countries
+          .map(
+            (code) =>
+              manifest.countries.find((c) => c.iso3 === code)?.name ?? code,
+          )
+          .join(" / "),
+        sample: `Snapshot ${result.snapshot_id} · ${result.results.map((r) => `${r.country}: ${r.actual_sample.start}–${r.actual_sample.end}, n=${r.actual_sample.nobs}`).join("; ")}`,
+        sources: [
+          ...new Set(
+            Object.values(bundles).flatMap((b) =>
+              b.cards
+                .filter((c) =>
+                  config.series.some((s) => s.concept_id === c.concept_id),
+                )
+                .flatMap((c) =>
+                  records(c.source_segments).map((s) => text(s.source)),
+                ),
+            ),
+          ),
+        ],
+        frequency: config.frequency,
+        horizon: Boolean(irf),
+        bandLevel: irf?.band_level ?? config.outputs.confidence ?? 0.95,
+        comparisonLabel: "Comparison",
+      }}
+    >
+      <section data-testid="screen-results" className="stack results-screen">
+        {compact && (
+          <div
+            className="mobile-result-summary"
+            data-testid="mobile-result-summary"
+            aria-label="Result summary"
           >
-            Export PNG
+            {mobileSummaryLines(result).map((line, index) => (
+              <p key={index}>{line}</p>
+            ))}
+          </div>
+        )}
+        <div className="row between result-actions">
+          <button className="link" onClick={edit}>
+            ← Edit this analysis
           </button>
-          <button
-            data-testid="export-csv"
-            disabled={Boolean(result.sensitivity_pending)}
-            onClick={exportCsv}
-          >
-            Download CSV
-          </button>
-          <button
-            data-testid="export-python"
-            disabled={busy || result.status !== "ok"}
-            onClick={exportPython}
-          >
-            Python script
-          </button>
-          <button data-testid="share-link" disabled={busy} onClick={share}>
-            Share link
-          </button>
-        </div>
-      </div>
-      {Boolean(template) && (
-        <section className="card stack" data-testid="v1-band-disclosure">
-          {ecbTemplate && <TemplateSources config={config} />}
-          <strong>
-            Displayed band:{" "}
-            {ecbTemplate && config.model.params.displayed_band === "joint"
-              ? "joint bootstrap (both stages)"
-              : `conditional (${config.model.params.lag_augmented ? "lag-augmented HC1" : "HAC"})`}{" "}
-            · 68% pointwise
-          </strong>
-          <p>
-            {ecbTemplate
-              ? config.model.params.displayed_band === "joint"
-                ? "Both stages are re-estimated on the common window. These bands rely on the auxiliary model and are not simultaneous across horizons."
-                : "Conditional bands understate uncertainty: they ignore estimation of the first-stage EA shock."
-              : "This is a conditional association, not an identified exchange-rate shock."}
-          </p>
-          <p>
-            Prices and output: cumulative % change in the level by default.
-            Unemployment: percentage-point change. Actual windows and
-            transformations are recorded below.
-          </p>
-          {ecbTemplate && config.model.params.displayed_band !== "joint" && (
+          <div className="results-toolbar">
+            <label className="small">
+              PNG scope{" "}
+              <select
+                aria-label="PNG scope"
+                value={pngMode}
+                onChange={(event) => setPngMode(event.target.value)}
+              >
+                <option value="selected">Selected chart</option>
+                <option value="panel">All response charts</option>
+              </select>
+            </label>
             <button
-              className="primary"
-              data-testid="compute-joint"
-              disabled={busy}
-              onClick={() => {
-                const next = structuredClone(config);
-                next.model.params.displayed_band = "joint";
-                next.model.params.country_window = "common";
-                rerun(next);
-              }}
+              data-testid="export-png"
+              disabled={
+                Boolean(result.sensitivity_pending) ||
+                !result.results.some((r) =>
+                  chartData(r, manifest.indicators).some(
+                    (c) => c.points.length,
+                  ),
+                )
+              }
+              onClick={() =>
+                window.dispatchEvent(
+                  new CustomEvent("macrolab-export-png", {
+                    detail: { mode: pngMode },
+                  }),
+                )
+              }
             >
-              Compute full uncertainty (joint bootstrap)
+              Export PNG
             </button>
-          )}
-        </section>
-      )}
-      <TemplateCorrectionSummary result={result} manifest={manifest} />
-      <div className="result-heading">
-        <div>
-          <span className="overline">Results · {model?.title}</span>
-          <h1>
-            {ecbTemplate
-              ? `ECB ${config.model.params.policy_measure === "dfr" ? "DFR" : config.model.params.policy_measure === "bis" ? "BIS policy-rate" : "3-month rate"} shock: +${number(record(record(records(record(result.first_stage).results)[0]).identified_shock).requested_physical_size, 2)} pp`
-              : template === "tur_pass_through"
-                ? "Türkiye: cumulative pass-through ratio"
-                : irf
-                  ? shockHeading(irf, config, manifest.indicators)
-                  : `${model?.title ?? config.model.id}: the estimated relationship`}
-          </h1>
-          <p className="muted">
-            {config.countries
-              .map(
-                (c) => manifest.countries.find((x) => x.iso3 === c)?.name ?? c,
-              )
-              .join(" · ")}{" "}
-            ·{" "}
-            {config.frequency === "Q"
-              ? "Quarterly"
-              : config.frequency === "M"
-                ? "Monthly"
-                : "Annual"}{" "}
-            ·{" "}
-            {irf
-              ? `${Math.round(irf.band_level * 100)}% pointwise bands`
-              : config.model.id.startsWith("sing.")
-                ? `${Math.round((config.outputs.confidence ?? 0.95) * 100)}% coefficient intervals`
-                : "Descriptive output; see method assumptions"}
-          </p>
-          <div className="result-meta">
-            {ecbTemplate && (
-              <span data-testid="first-stage-root">
-                First-stage largest companion root:{" "}
-                {number(result.first_stage_largest_root, 4)}
-              </span>
-            )}
-            <span>Snapshot {result.snapshot_id}</span>
-            <span>Code {result.code_version}</span>
-            <span>{number(result.runtime_ms, 0)} ms</span>
-            <span title={result.config_hash}>
-              Config {result.config_hash.slice(0, 12)}
-            </span>
+            <button
+              data-testid="export-csv"
+              disabled={Boolean(result.sensitivity_pending)}
+              onClick={exportCsv}
+            >
+              Download CSV
+            </button>
+            <button
+              data-testid="export-python"
+              disabled={busy || result.status !== "ok"}
+              onClick={exportPython}
+            >
+              Python script
+            </button>
+            <button data-testid="share-link" disabled={busy} onClick={share}>
+              Share link
+            </button>
           </div>
         </div>
-        {irf && !template && (
-          <details className="card result-controls" open={!compact}>
-            <summary>Shock size and interval precision</summary>
-            <div className="stack">
-              <Field label={policyShock ? "Policy shock" : "Shock size"}>
-                <select
-                  disabled={busy}
-                  value={
-                    config.outputs.irf?.shock_mode === "one_sd"
-                      ? "sd"
-                      : String(config.outputs.irf?.shock_size)
-                  }
-                  onChange={(e) =>
-                    shock(
-                      e.target.value === "sd" ? "one_sd" : "fixed",
-                      e.target.value === "sd" ? 1 : Number(e.target.value),
-                    )
-                  }
-                >
-                  <option value="sd">One identified standard deviation</option>
-                  <option value="0.25">
-                    {policyShock ? "+25 bp" : "+0.25 transformed units"}
-                  </option>
-                  <option value="1">
-                    {policyShock ? "+1 pp" : "+1 transformed unit"}
-                  </option>
-                  {!["sd", "0.25", "1"].includes(
-                    config.outputs.irf?.shock_mode === "one_sd"
-                      ? "sd"
-                      : String(config.outputs.irf?.shock_size),
-                  ) && (
-                    <option value={String(config.outputs.irf?.shock_size)}>
-                      Custom shock
-                    </option>
-                  )}
-                </select>
-              </Field>
-              <Field label={`Custom shock (${shockUnits}; release to rerun)`}>
-                <input
-                  disabled={busy}
-                  type="range"
-                  min="-2"
-                  max="2"
-                  step="0.25"
-                  key={irf.shock_size}
-                  defaultValue={irf.shock_size}
-                  onPointerUp={(e) => {
-                    const value = Number(e.currentTarget.value);
-                    if (value !== 0) shock("fixed", value);
-                  }}
-                  onKeyUp={(e) => {
-                    if (
-                      ["ArrowLeft", "ArrowRight", "Home", "End"].includes(
-                        e.key,
-                      ) &&
-                      Number(e.currentTarget.value) !== 0
-                    )
-                      shock("fixed", Number(e.currentTarget.value));
-                  }}
-                />
-              </Field>
-              <Field label="Bootstrap precision">
-                <select
-                  data-testid="bootstrap-precision"
-                  disabled={busy}
-                  value={String(config.outputs.irf?.draws)}
-                  onChange={(event) => precision(Number(event.target.value))}
-                >
-                  <option value="200">Interactive · 200 draws</option>
-                  <option value="1000">Precise · 1,000 draws</option>
-                  {![200, 1000].includes(config.outputs.irf?.draws ?? 0) && (
-                    <option value={config.outputs.irf?.draws}>
-                      Current · {number(config.outputs.irf?.draws, 0)} draws
-                    </option>
-                  )}
-                </select>
-              </Field>
-              <p className="small muted">
-                Precision changes rerun the seeded bootstrap. Slider limits do
-                not establish historical support.
-              </p>
-            </div>
-          </details>
+        {Boolean(template) && (
+          <section className="card stack" data-testid="v1-band-disclosure">
+            {ecbTemplate && <TemplateSources config={config} />}
+            <strong>
+              Displayed band:{" "}
+              {ecbTemplate && config.model.params.displayed_band === "joint"
+                ? "joint bootstrap (both stages)"
+                : `conditional (${config.model.params.lag_augmented ? "lag-augmented HC1" : "HAC"})`}{" "}
+              · 68% pointwise
+            </strong>
+            <p>
+              {ecbTemplate
+                ? config.model.params.displayed_band === "joint"
+                  ? "Both stages are re-estimated on the common window. These bands rely on the auxiliary model and are not simultaneous across horizons."
+                  : "Conditional bands understate uncertainty: they ignore estimation of the first-stage EA shock."
+                : "This is a conditional association, not an identified exchange-rate shock."}
+            </p>
+            <p>
+              Prices and output: cumulative % change in the level by default.
+              Unemployment: percentage-point change. Actual windows and
+              transformations are recorded below.
+            </p>
+            {ecbTemplate && config.model.params.displayed_band !== "joint" && (
+              <button
+                className="primary"
+                data-testid="compute-joint"
+                disabled={busy}
+                onClick={() => {
+                  const next = structuredClone(config);
+                  next.model.params.displayed_band = "joint";
+                  next.model.params.country_window = "common";
+                  rerun(next);
+                }}
+              >
+                Compute full uncertainty (joint bootstrap)
+              </button>
+            )}
+          </section>
         )}
-      </div>
-      <div
-        role="status"
-        data-testid="result-status"
-        data-config-hash={result.config_hash}
-        data-snapshot-id={result.snapshot_id}
-        data-model-id={config.model.id}
-        data-result-status={result.status}
-        className={result.status === "ok" ? "info-box" : "error-box"}
-      >
-        <strong>
-          {result.status === "ok"
-            ? "Analysis complete"
-            : "Analysis blocked or partly unavailable"}
-        </strong>{" "}
-        · {result.label}
-      </div>
-      <Checks
-        checks={result.checks}
-        showEstimationPhase
-        previouslyDisplayedChecks={previouslyDisplayedChecks}
-        onSourceCard={onSourceCard}
-        indicators={
-          config.countries.length === 1
-            ? countryIndicators(manifest.indicators, config.countries[0])
-            : manifest.indicators
-        }
-        countries={manifest.countries}
-      />
-      {shareUrl && (
-        <Field label="Local share link">
-          <input
-            data-testid="share-url"
-            readOnly
-            value={shareUrl}
-            onFocus={(e) => e.currentTarget.select()}
-          />
-        </Field>
-      )}
-      <div className="row comparison-control">
-        <label className="row">
-          <input
-            type="checkbox"
-            checked={comparison}
-            onChange={(e) => setComparison(e.target.checked)}
-          />
-          Compare specifications
-        </label>
-        <span className="small muted">
-          Exact samples and assumptions remain available below.
-        </span>
-      </div>
-      {ecbTemplate && (
-        <CountryComparison
-          result={result}
-          manifest={manifest}
-          bundles={bundles}
-          compact={compact}
-          country={
-            result.results.some((r) => r.country === selectedCountry)
-              ? selectedCountry
-              : result.results[0].country
-          }
-          selectCountry={setSelectedCountry}
-        />
-      )}
-      {runtime &&
-        !ecbTemplate &&
-        ["var.ols", "ident.recursive", "lp.ols"].includes(config.model.id) &&
-        result.results
-          .filter((r) => r.status === "ok" && r.irf)
-          .map((r) => (
-            <MethodComparison
-              key={`${result.config_hash}-${r.country}`}
+        <TemplateCorrectionSummary result={result} manifest={manifest} />
+        {runtime && (
+          <Suspense fallback={<p>Loading technical view…</p>}>
+            <TechnicalExtensions
+              key={result.config_hash}
               config={config}
-              result={r}
-              manifest={manifest}
               runtime={runtime}
-              compact={compact}
-              cards={bundles[r.country]?.cards ?? []}
               busy={busy}
-            />
-          ))}
-      {result.results
-        .filter(
-          (r) =>
-            !ecbTemplate ||
-            !compact ||
-            r.country ===
-              (result.results.some((c) => c.country === selectedCountry)
-                ? selectedCountry
-                : result.results[0].country),
-        )
-        .map((r, index) => (
-          <details
-            key={r.country}
-            open={!ecbTemplate}
-            className={ecbTemplate ? "card country-details" : "result-wrapper"}
-          >
-            <summary>
-              {manifest.countries.find((c) => c.iso3 === r.country)?.name ??
-                r.country}{" "}
-              · checks, sensitivity and technical details
-            </summary>
-            <ResultsCountry
-              key={r.country}
-              result={r}
-              analysisConfig={config}
               manifest={manifest}
-              comparison={comparison}
-              first={
-                !ecbTemplate &&
-                index ===
-                  result.results.findIndex(
-                    (item) =>
-                      item.status === "ok" &&
-                      chartData(item, manifest.indicators).some(
-                        (chart) => chart.points.length,
-                      ),
-                  )
-              }
-              cards={bundles[r.country]?.cards ?? []}
-              compact={compact}
-              hideCharts={ecbTemplate}
-              hideChecks
-              onSourceCard={onSourceCard}
-              previouslyDisplayedChecks={previouslyDisplayedChecks}
             />
-          </details>
-        ))}
-    </section>
+          </Suspense>
+        )}
+        <div className="result-heading">
+          <div>
+            <span className="overline">Results · {model?.title}</span>
+            <h1>
+              {ecbTemplate
+                ? `ECB ${config.model.params.policy_measure === "dfr" ? "DFR" : config.model.params.policy_measure === "bis" ? "BIS policy-rate" : "3-month rate"} shock: +${number(record(record(records(record(result.first_stage).results)[0]).identified_shock).requested_physical_size, 2)} pp`
+                : template === "tur_pass_through"
+                  ? "Türkiye: cumulative pass-through ratio"
+                  : irf
+                    ? shockHeading(irf, config, manifest.indicators)
+                    : `${model?.title ?? config.model.id}: the estimated relationship`}
+            </h1>
+            <p className="muted">
+              {config.countries
+                .map(
+                  (c) =>
+                    manifest.countries.find((x) => x.iso3 === c)?.name ?? c,
+                )
+                .join(" · ")}{" "}
+              ·{" "}
+              {config.frequency === "Q"
+                ? "Quarterly"
+                : config.frequency === "M"
+                  ? "Monthly"
+                  : "Annual"}{" "}
+              ·{" "}
+              {irf
+                ? `${Math.round(irf.band_level * 100)}% pointwise bands`
+                : config.model.id.startsWith("sing.")
+                  ? `${Math.round((config.outputs.confidence ?? 0.95) * 100)}% coefficient intervals`
+                  : "Descriptive output; see method assumptions"}
+            </p>
+            <div className="result-meta">
+              {ecbTemplate && (
+                <span data-testid="first-stage-root">
+                  First-stage largest companion root:{" "}
+                  {number(result.first_stage_largest_root, 4)}
+                </span>
+              )}
+              <span>Snapshot {result.snapshot_id}</span>
+              <span>Code {result.code_version}</span>
+              <span>{number(result.runtime_ms, 0)} ms</span>
+              <span title={result.config_hash}>
+                Config {result.config_hash.slice(0, 12)}
+              </span>
+            </div>
+          </div>
+          {irf && !template && (
+            <details className="card result-controls" open={!compact}>
+              <summary>Shock size and interval precision</summary>
+              <div className="stack">
+                <Field label={policyShock ? "Policy shock" : "Shock size"}>
+                  <select
+                    disabled={busy}
+                    value={
+                      config.outputs.irf?.shock_mode === "one_sd"
+                        ? "sd"
+                        : String(config.outputs.irf?.shock_size)
+                    }
+                    onChange={(e) =>
+                      shock(
+                        e.target.value === "sd" ? "one_sd" : "fixed",
+                        e.target.value === "sd" ? 1 : Number(e.target.value),
+                      )
+                    }
+                  >
+                    <option value="sd">
+                      One identified standard deviation
+                    </option>
+                    <option value="0.25">
+                      {policyShock ? "+25 bp" : "+0.25 transformed units"}
+                    </option>
+                    <option value="1">
+                      {policyShock ? "+1 pp" : "+1 transformed unit"}
+                    </option>
+                    {!["sd", "0.25", "1"].includes(
+                      config.outputs.irf?.shock_mode === "one_sd"
+                        ? "sd"
+                        : String(config.outputs.irf?.shock_size),
+                    ) && (
+                      <option value={String(config.outputs.irf?.shock_size)}>
+                        Custom shock
+                      </option>
+                    )}
+                  </select>
+                </Field>
+                <Field label={`Custom shock (${shockUnits}; release to rerun)`}>
+                  <input
+                    disabled={busy}
+                    type="range"
+                    min="-2"
+                    max="2"
+                    step="0.25"
+                    key={irf.shock_size}
+                    defaultValue={irf.shock_size}
+                    onPointerUp={(e) => {
+                      const value = Number(e.currentTarget.value);
+                      if (value !== 0) shock("fixed", value);
+                    }}
+                    onKeyUp={(e) => {
+                      if (
+                        ["ArrowLeft", "ArrowRight", "Home", "End"].includes(
+                          e.key,
+                        ) &&
+                        Number(e.currentTarget.value) !== 0
+                      )
+                        shock("fixed", Number(e.currentTarget.value));
+                    }}
+                  />
+                </Field>
+                <Field label="Bootstrap precision">
+                  <select
+                    data-testid="bootstrap-precision"
+                    disabled={busy}
+                    value={String(config.outputs.irf?.draws)}
+                    onChange={(event) => precision(Number(event.target.value))}
+                  >
+                    <option value="200">Interactive · 200 draws</option>
+                    <option value="1000">Precise · 1,000 draws</option>
+                    {![200, 1000].includes(config.outputs.irf?.draws ?? 0) && (
+                      <option value={config.outputs.irf?.draws}>
+                        Current · {number(config.outputs.irf?.draws, 0)} draws
+                      </option>
+                    )}
+                  </select>
+                </Field>
+                <p className="small muted">
+                  Precision changes rerun the seeded bootstrap. Slider limits do
+                  not establish historical support.
+                </p>
+              </div>
+            </details>
+          )}
+        </div>
+        <div
+          role="status"
+          data-testid="result-status"
+          data-config-hash={result.config_hash}
+          data-snapshot-id={result.snapshot_id}
+          data-model-id={config.model.id}
+          data-result-status={result.status}
+          className={result.status === "ok" ? "info-box" : "error-box"}
+        >
+          <strong>
+            {result.status === "ok"
+              ? "Analysis complete"
+              : "Analysis blocked or partly unavailable"}
+          </strong>{" "}
+          · {result.label}
+        </div>
+        <Checks
+          checks={result.checks}
+          showEstimationPhase
+          previouslyDisplayedChecks={previouslyDisplayedChecks}
+          onSourceCard={onSourceCard}
+          indicators={
+            config.countries.length === 1
+              ? countryIndicators(manifest.indicators, config.countries[0])
+              : manifest.indicators
+          }
+          countries={manifest.countries}
+        />
+        {shareUrl && (
+          <Field label="Local share link">
+            <input
+              data-testid="share-url"
+              readOnly
+              value={shareUrl}
+              onFocus={(e) => e.currentTarget.select()}
+            />
+          </Field>
+        )}
+        <div className="row comparison-control">
+          <label className="row">
+            <input
+              type="checkbox"
+              checked={comparison}
+              onChange={(e) => setComparison(e.target.checked)}
+            />
+            Compare specifications
+          </label>
+          <span className="small muted">
+            Exact samples and assumptions remain available below.
+          </span>
+        </div>
+        {ecbTemplate && (
+          <CountryComparison
+            result={result}
+            manifest={manifest}
+            bundles={bundles}
+            compact={compact}
+            country={
+              result.results.some((r) => r.country === selectedCountry)
+                ? selectedCountry
+                : result.results[0].country
+            }
+            selectCountry={setSelectedCountry}
+          />
+        )}
+        {runtime &&
+          !ecbTemplate &&
+          ["var.ols", "ident.recursive", "lp.ols"].includes(config.model.id) &&
+          result.results
+            .filter((r) => r.status === "ok" && r.irf)
+            .map((r) => (
+              <MethodComparison
+                key={`${result.config_hash}-${r.country}`}
+                config={config}
+                result={r}
+                manifest={manifest}
+                runtime={runtime}
+                compact={compact}
+                cards={bundles[r.country]?.cards ?? []}
+                busy={busy}
+              />
+            ))}
+        {result.results
+          .filter(
+            (r) =>
+              !ecbTemplate ||
+              !compact ||
+              r.country ===
+                (result.results.some((c) => c.country === selectedCountry)
+                  ? selectedCountry
+                  : result.results[0].country),
+          )
+          .map((r, index) => (
+            <details
+              key={r.country}
+              open={!ecbTemplate}
+              className={
+                ecbTemplate ? "card country-details" : "result-wrapper"
+              }
+            >
+              <summary>
+                {manifest.countries.find((c) => c.iso3 === r.country)?.name ??
+                  r.country}{" "}
+                · checks, sensitivity and technical details
+              </summary>
+              <ResultsCountry
+                key={r.country}
+                result={r}
+                analysisConfig={config}
+                manifest={manifest}
+                comparison={comparison}
+                first={
+                  !ecbTemplate &&
+                  index ===
+                    result.results.findIndex(
+                      (item) =>
+                        item.status === "ok" &&
+                        chartData(item, manifest.indicators).some(
+                          (chart) => chart.points.length,
+                        ),
+                    )
+                }
+                cards={bundles[r.country]?.cards ?? []}
+                compact={compact}
+                hideCharts={ecbTemplate}
+                hideChecks
+                onSourceCard={onSourceCard}
+                previouslyDisplayedChecks={previouslyDisplayedChecks}
+              />
+            </details>
+          ))}
+      </section>
+    </ChartExportContext.Provider>
   );
 }

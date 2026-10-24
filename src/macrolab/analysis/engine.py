@@ -99,6 +99,13 @@ def actual_sample(data: AnalysisData, payload: dict[str, Any]) -> dict[str, Any]
         for period in common
         if period not in set(estimated)
     )
+    crisis = payload.get("local_projection", {}).get("crisis")
+    if crisis:
+        excluded = {p for dates in crisis["excluded_anchors_by_horizon"].values() for p in dates}
+        for item in sample["dropped_periods"]:
+            if item["period"] in excluded:
+                item["reason"] = "crisis_footprint"
+        sample["crisis"] = copy.deepcopy(crisis)
     return sample
 
 

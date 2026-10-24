@@ -5,6 +5,7 @@ import { niceScale, tickLabel } from "./chartScale";
 import type { ResultChart } from "./resultData";
 
 export interface PngContext {
+  snapshot?: string;
   analysis: string;
   scenario?: string;
   country: string;
@@ -28,7 +29,7 @@ export function exportText(charts: ResultChart[], context: PngContext) {
     title: `${context.analysis} · ${context.country}`,
     sample: context.sample,
     legend: `${context.estimateLabel ?? "Estimate"} · ${context.intervalLabel ?? charts[0]?.intervalLabel ?? `${Math.round(context.bandLevel * 100)}% pointwise interval`}${charts.some((c) => !c.pngComparisonLabel && c.points.some((p) => p.comparison != null)) ? ` · ${context.comparisonLabel} (point estimate)` : ""}`,
-    footer: `MacroLab ${buildVersion} · Data: ${context.sources.join(", ") || "see source cards"} · Model scenario, not a forecast · hakangulmez.github.io/macrolab`,
+    footer: `MacroLab ${buildVersion} · Data: ${context.sources.join(", ") || "see source cards"}${context.snapshot ? ` · Snapshot ${context.snapshot}` : ""} · Model scenario, not a forecast · hakangulmez.github.io/macrolab`,
   };
 }
 
@@ -120,6 +121,13 @@ function plot(
       p.comparisonUpper,
     ])
     .filter((v): v is number => typeof v === "number" && Number.isFinite(v));
+  if (chart.stack)
+    chart.points.forEach((_, i) =>
+      values.push(
+        chart.stack!.reduce((s, c) => s + Math.max(0, c.values[i]), 0),
+        chart.stack!.reduce((s, c) => s + Math.min(0, c.values[i]), 0),
+      ),
+    );
   const scale = chart.axis ?? niceScale(values);
   const { min, max } = scale;
   const valueX = (v: number) =>
@@ -196,6 +204,27 @@ function plot(
       }
     });
   } else {
+    if (chart.stack) {
+      chart.points.forEach((_, i) => {
+        let positive = 0,
+          negative = 0;
+        for (const s of chart.stack!) {
+          const v = s.values[i],
+            from = v >= 0 ? positive : negative;
+          const to = from + v;
+          ctx.fillStyle = s.color;
+          ctx.fillRect(
+            periodX(i) -
+              Math.max(1, ((right - left) / chart.points.length) * 0.4),
+            Math.min(valueY(from), valueY(to)),
+            Math.max(2, ((right - left) / chart.points.length) * 0.8),
+            Math.abs(valueY(to) - valueY(from)),
+          );
+          if (v >= 0) positive = to;
+          else negative = to;
+        }
+      });
+    }
     // A missing interval or estimate breaks a segment; exports never bridge a data gap.
     for (const secondary of [false, true]) {
       const lower = secondary ? "comparisonLower" : "lower",
@@ -325,7 +354,7 @@ export async function exportPng(
   const titleEnd = wrapped(ctx, text.title, 40, 45, width - 80, 32);
   ctx.font = "15px Inter, sans-serif";
   ctx.fillStyle = muted;
-  ctx.fillText(text.sample, 40, titleEnd + 8);
+  wrapped(ctx, text.sample, 40, titleEnd + 8, width - 80, 18);
   if (context.scenario) ctx.fillText(context.scenario, 40, titleEnd + 33);
   const legendY = titleEnd + 67;
   ctx.strokeStyle = blue;
@@ -394,6 +423,18 @@ export async function exportPng(
     ctx.fillStyle = muted;
     ctx.font = "14px Inter, sans-serif";
     wrapped(ctx, context.note, 40, 191, width - 80, 18);
+  }
+  if (charts[0]?.stack) {
+    ctx.fillStyle = ink;
+    ctx.font = "14px Inter, sans-serif";
+    wrapped(
+      ctx,
+      charts[0].stack.map((s) => s.name).join(" · ") + " · Actual: blue line",
+      40,
+      191,
+      width - 80,
+      18,
+    );
   }
   charts.forEach((chart, i) =>
     plot(

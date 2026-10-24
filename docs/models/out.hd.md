@@ -27,3 +27,9 @@ calendar rejection, browser/native parity, and offline Python reproduction.
 Reconstruction must be within 1e-8. Final differences are in the G6 report.
 
 Reference: [Lütkepohl (2005), New Introduction to Multiple Time Series Analysis](https://doi.org/10.1007/978-3-540-27752-1).
+
+G10 UI: an HD request attached to an existing VAR sets the optional
+`hd_match_var` flag, retaining exactly that VAR’s existing controls. It does not
+automatically add seasonal controls and silently fit another model. Standalone
+HD retains its G6 seasonal-control contract. Warn at root >=0.98 and block at
+root >=1. The accepted legacy v0 extended-VAR output remains unchanged.

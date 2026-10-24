@@ -30,7 +30,15 @@ def inventory(directory: Path) -> dict:
     }
 
 
-def local_commit(source: Path, target: Path, branch: str, base: str, files: dict) -> str:
+def local_commit(
+    source: Path,
+    target: Path,
+    branch: str,
+    base: str,
+    files: dict,
+    *,
+    message: str = "MacroLab v1.0: reviewed release candidate, 23 October snapshot",
+) -> str:
     if target.exists():
         raise ValueError("Never overwrite an existing reviewed candidate")
     if git(source, "rev-parse", "HEAD", isolated=True).decode().strip() != base:
@@ -62,7 +70,7 @@ def local_commit(source: Path, target: Path, branch: str, base: str, files: dict
         "commit.gpgsign=false",
         "commit",
         "-m",
-        "MacroLab v1.0: reviewed release candidate, 23 October snapshot",
+        message,
         isolated=True,
     )
     assert git(target, "rev-parse", "HEAD^", isolated=True).decode().strip() == base

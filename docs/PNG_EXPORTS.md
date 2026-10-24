@@ -1,5 +1,9 @@
 # Self-contained PNG exports
 
+v1.1 adds an individual Export PNG action to every chart, including country
+rankings and HD. Each export identifies the snapshot. HD uses signed stacked
+shock contributions with initial/deterministic accounting and an actual line.
+
 Results offers Selected chart or All response charts. The chart selector chooses
 the selected PNG on desktop; at 375 px it also selects the one visible chart.
 Panel export includes every response even when mobile hides the other charts.

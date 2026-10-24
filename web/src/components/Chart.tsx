@@ -1,4 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { ChartExportContext } from "../chartExportContext";
+import { exportPng, type PngContext } from "../pngExport";
+import type { ResultChart } from "../resultData";
 import * as echarts from "echarts/core";
 import {
   LineChart,
@@ -46,6 +49,9 @@ export function Chart({
   comparisonLabel = "Comparison",
   axis,
   intervalLabel = "Pointwise interval",
+  exportContext,
+  stack,
+  pngNote,
 }: {
   title: string;
   unit: string;
@@ -57,7 +63,13 @@ export function Chart({
   comparisonLabel?: string;
   axis?: AxisScale;
   intervalLabel?: string;
+  exportContext?: PngContext;
+  stack?: ResultChart["stack"];
+  pngNote?: string;
 }) {
+  const inherited = useContext(ChartExportContext);
+  const context = exportContext ?? inherited;
+  const [exportError, setExportError] = useState("");
   const element = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!element.current || !points.length) return;
@@ -82,6 +94,13 @@ export function Chart({
         p.comparisonUpper,
       ])
       .filter((v): v is number => typeof v === "number" && Number.isFinite(v));
+    if (stack)
+      points.forEach((_, i) =>
+        extent.push(
+          stack.reduce((s, c) => s + Math.max(0, c.values[i]), 0),
+          stack.reduce((s, c) => s + Math.min(0, c.values[i]), 0),
+        ),
+      );
     const scale = axis ?? niceScale(extent);
     const renderBand =
       (secondary = false): NonNullable<CustomSeriesOption["renderItem"]> =>
@@ -171,6 +190,14 @@ export function Chart({
         splitLine: { lineStyle: { color: border, type: "dashed" } },
       },
       series: [
+        ...(stack ?? []).map((s) => ({
+          name: s.name,
+          type: "bar",
+          stack: "contributions",
+          data: s.values,
+          itemStyle: { color: s.color },
+          barMaxWidth: 18,
+        })),
         ...(points.some((p) => p.comparisonLower !== undefined)
           ? [
               {
@@ -241,6 +268,7 @@ export function Chart({
     comparisonLabel,
     axis,
     intervalLabel,
+    stack,
   ]);
   return (
     <figure className="card chart-card" data-testid="result-chart">
@@ -255,6 +283,45 @@ export function Chart({
         aria-label={summary}
       />
       <p className="chart-summary">{summary}</p>
+      {stack && (
+        <p className="small">
+          {stack.map((s) => (
+            <span key={s.name} style={{ marginRight: 14 }}>
+              <span style={{ color: s.color }}>■</span> {s.name}
+            </span>
+          ))}{" "}
+          · Blue line: actual
+        </p>
+      )}
+      {context && (
+        <button
+          className="link"
+          aria-label={`Export PNG: ${title}`}
+          onClick={() => {
+            setExportError("");
+            void exportPng(
+              [
+                {
+                  name: title,
+                  unit,
+                  points,
+                  summary,
+                  bar,
+                  coefficient,
+                  axis,
+                  intervalLabel,
+                  stack,
+                  pngNote,
+                },
+              ],
+              { ...context, comparisonLabel },
+            ).catch((e) => setExportError(String(e)));
+          }}
+        >
+          Export PNG
+        </button>
+      )}
+      {exportError && <p role="alert">{exportError}</p>}
       <details>
         <summary>Show chart data</summary>
         <DataTable rows={points.map((p) => ({ ...p }))} />

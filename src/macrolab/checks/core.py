@@ -338,7 +338,7 @@ def _policy_checks(
                     "warn",
                     "elb_period",
                     "Rates were near or below zero; consider a shorter sample. Shadow "
-                    "rates are not available in v0.",
+                    "rates are not available in MacroLab.",
                     concept_id=cid,
                     threshold=threshold,
                     threshold_units="percentage points",

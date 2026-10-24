@@ -65,16 +65,25 @@ class HistoricalDecompositionPlugin(VAROLSPlugin):
     id, family, title = "out.hd", "output", "Historical decomposition"
     summary = "Account for past movements under an explicitly ordered stable recursive VAR."
     label = LABEL
+    params = {
+        **VAROLSPlugin.params,
+        "properties": {
+            **VAROLSPlugin.params["properties"],
+            "hd_match_var": {"type": "boolean"},
+        },
+    }
 
     def check(self, data: AnalysisData, config: dict[str, Any]) -> list[dict[str, Any]]:
         try:
-            data = with_seasonal_controls(data, config)
+            if not config["model"]["params"].get("hd_match_var"):
+                data = with_seasonal_controls(data, config)
             require_regular_calendar(data)
             checks = super().check(data, config)
             if any(c["level"] == "block" for c in checks):
                 return checks
             fitted = _estimate(data, config, _settings(config, recursive=True))
-            if not _stable(np.asarray(fitted.coefs))[0]:
+            stable, radius = _stable(np.asarray(fitted.coefs))
+            if not stable:
                 checks.append(
                     check(
                         "block",
@@ -83,12 +92,26 @@ class HistoricalDecompositionPlugin(VAROLSPlugin):
                         phase="post_estimation",
                     )
                 )
+            elif radius >= 0.98:
+                checks.append(
+                    check(
+                        "warn",
+                        "hd_persistent",
+                        (
+                            "The VAR is near a unit root; historical contributions "
+                            "are sensitive to persistence."
+                        ),
+                        phase="post_estimation",
+                        largest_root=radius,
+                    )
+                )
             return checks
         except (ValueError, np.linalg.LinAlgError) as exc:
             return [check("block", "hd_inputs", str(exc))]
 
     def run(self, data: AnalysisData, config: dict[str, Any]) -> dict[str, Any]:
-        data = with_seasonal_controls(data, config)
+        if not config["model"]["params"].get("hd_match_var"):
+            data = with_seasonal_controls(data, config)
         require_regular_calendar(data)
         fitted = _estimate(data, config, _settings(config, recursive=True))
         return {

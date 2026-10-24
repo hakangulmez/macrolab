@@ -11,7 +11,19 @@ if (!/^\/(?:[A-Za-z0-9_-]+\/)*$/.test(base)) {
 export default defineConfig({
   base,
   publicDir: process.env.MACROLAB_PUBLIC_DIR ?? "public",
-  build: { outDir: process.env.MACROLAB_BUILD_DIR ?? "dist" },
+  build: {
+    outDir: process.env.MACROLAB_BUILD_DIR ?? "dist",
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("/zrender/")) return "chart-renderer";
+          if (id.includes("/echarts/lib/chart/")) return "chart-series";
+          if (id.includes("/echarts/lib/component/")) return "chart-components";
+          if (id.includes("/echarts/")) return "chart-core";
+        },
+      },
+    },
+  },
   plugins: [react()],
   server: { host: "127.0.0.1" },
   preview: { host: "127.0.0.1" },

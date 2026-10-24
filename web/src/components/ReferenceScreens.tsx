@@ -1019,9 +1019,13 @@ export function Methods({ manifest }: { manifest: Manifest }) {
           historical warning and numerical baseline.
         </p>
         <p className="small muted">
-          Historical-decomposition views, country narratives and further Türkiye
-          crisis options are deferred to v1.1. Forecasting, BVAR, panels and
-          cointegration are planned for v2; sign restrictions, proxy
+          Historical decomposition accounts for transformed observations using
+          shock, deterministic and initial-condition contributions. The optional
+          Türkiye crisis analysis adds monthly impulse dummies or excludes
+          entire lag and cumulative-response footprints touching the approved
+          crisis windows. It has a separate agreement summary and preserves the
+          baseline. Country narratives remain withheld. Forecasting, BVAR,
+          panels and cointegration are planned for v2; sign restrictions, proxy
           instruments, state dependence and TVP-VAR are planned for v3.
         </p>
       </section>

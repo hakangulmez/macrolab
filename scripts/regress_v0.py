@@ -14,10 +14,21 @@ from macrolab.analysis.engine import run_analysis
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def approved_shadow_copy(change: dict) -> bool:
+    return change.get("before") == (
+        "Rates were near or below zero; consider a shorter sample. Shadow "
+        "rates are not available in v0."
+    ) and change.get("after") == (
+        "Rates were near or below zero; consider a shorter sample. Shadow "
+        "rates are not available in MacroLab."
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT / "runs/g6")
     parser.add_argument("--allow-version-change", action="store_true")
+    parser.add_argument("--allow-shadow-copy-change", action="store_true")
     args = parser.parse_args()
     directory = args.output.resolve()
     if not directory.is_relative_to((ROOT / "runs").resolve()):
@@ -41,6 +52,10 @@ def main() -> None:
         start = time.perf_counter()
         after = run_analysis(config, bundle(config))
         delta, structural, count = differences(before, after)
+        approved = [
+            d for d in structural if args.allow_shadow_copy_change and approved_shadow_copy(d)
+        ]
+        structural = [d for d in structural if d not in approved]
         maximum = max((abs(d["difference"]) for d in delta), default=0)
         report["templates"].append(
             {
@@ -51,6 +66,7 @@ def main() -> None:
                 "changed_fields": len(delta),
                 "maximum_absolute_difference": maximum,
                 "structural_changes": structural,
+                "approved_text_changes": approved,
                 "seconds": time.perf_counter() - start,
             }
         )

@@ -68,6 +68,7 @@ export function CountryComparison({
       void getTemplateSources(String(result.config.model.params.policy_measure))
         .then((extra) =>
           exportPng(all, {
+            snapshot: result.snapshot_id,
             analysis: "Same ECB shock · country comparison",
             country: result.config.countries.join(" / "),
             sample:
