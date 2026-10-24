@@ -1,0 +1,555 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://macrolab.local/schemas/model_result.schema.json",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "config_hash",
+    "snapshot_id",
+    "code_version",
+    "runtime_ms",
+    "label",
+    "config",
+    "checks",
+    "results",
+    "actual_samples"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "partial",
+        "blocked"
+      ]
+    },
+    "config_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "snapshot_id": {
+      "type": "string"
+    },
+    "code_version": {
+      "type": "string"
+    },
+    "runtime_ms": {
+      "type": "number",
+      "minimum": 0
+    },
+    "config": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "snapshot_id": {
+          "type": "string"
+        },
+        "countries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 50
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "concept_id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]{0,60}$"
+              },
+              "role": {
+                "enum": [
+                  "shock",
+                  "response",
+                  "endogenous",
+                  "exogenous",
+                  "dependent",
+                  "regressor"
+                ]
+              },
+              "transform": {
+                "enum": [
+                  "level",
+                  "log",
+                  "diff",
+                  "log_diff",
+                  "yoy_pct",
+                  "yoy_diff",
+                  "qoq_saar",
+                  "index_to_base",
+                  "hp_cycle",
+                  "hamilton_cycle"
+                ]
+              },
+              "transform_params": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "concept_id",
+              "role",
+              "transform"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 20
+        },
+        "frequency": {
+          "enum": [
+            "M",
+            "Q",
+            "A"
+          ]
+        },
+        "aggregation": {
+          "type": "object",
+          "additionalProperties": {
+            "enum": [
+              "mean",
+              "last",
+              "sum"
+            ]
+          }
+        },
+        "sample": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "string"
+            },
+            "end": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "start",
+            "end"
+          ],
+          "additionalProperties": false
+        },
+        "special_periods": {
+          "type": "object",
+          "properties": {
+            "covid": {
+              "enum": [
+                "include",
+                "dummy",
+                "exclude"
+              ]
+            },
+            "elb_threshold": {
+              "type": "number"
+            },
+            "covid_window": {
+              "type": "object",
+              "properties": {
+                "start": {
+                  "type": "string"
+                },
+                "end": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "start",
+                "end"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "covid"
+          ],
+          "additionalProperties": false
+        },
+        "model": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "enum": [
+                "desc.plot",
+                "desc.corr",
+                "desc.compare",
+                "test.adf_kpss_pp",
+                "sing.ols",
+                "sing.ardl",
+                "sing.rolling",
+                "test.granger",
+                "filter.hp",
+                "filter.hamilton",
+                "var.ols",
+                "ident.recursive",
+                "lp.ols",
+                "out.hd",
+                "ident.external_series",
+                "cmp.common_shock",
+                "panel.fe",
+                "panel.lp"
+              ]
+            },
+            "params": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "identification": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "outputs": {
+          "type": "object",
+          "properties": {
+            "confidence": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "exclusiveMaximum": 1
+            },
+            "irf": {
+              "type": "object",
+              "properties": {
+                "horizon": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 80
+                },
+                "bands": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "exclusiveMaximum": 1
+                },
+                "shock_mode": {
+                  "enum": [
+                    "fixed",
+                    "one_sd"
+                  ]
+                },
+                "shock_size": {
+                  "type": "number"
+                },
+                "method": {
+                  "enum": [
+                    "bootstrap",
+                    "asymptotic"
+                  ]
+                },
+                "draws": {
+                  "type": "integer",
+                  "minimum": 20,
+                  "maximum": 10000
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "comparison": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "methods": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            },
+            "identifications": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            },
+            "scenarios": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "covid_include",
+                  "end_2019",
+                  "full_sample",
+                  "recent_half_full_sample",
+                  "quarterly_okun",
+                  "extended_var",
+                  "lag_criteria"
+                ]
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        }
+      },
+      "required": [
+        "schema_version",
+        "snapshot_id",
+        "countries",
+        "series",
+        "frequency",
+        "model"
+      ],
+      "additionalProperties": false
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "level",
+          "code",
+          "message",
+          "phase"
+        ],
+        "properties": {
+          "level": {
+            "enum": [
+              "ok",
+              "info",
+              "warn",
+              "block"
+            ]
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "phase": {
+            "enum": [
+              "preflight",
+              "pre_estimation",
+              "post_estimation"
+            ]
+          }
+        }
+      }
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "country",
+          "model_id",
+          "status",
+          "label",
+          "checks",
+          "actual_sample",
+          "sensitivity"
+        ],
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "model_id": {
+            "enum": [
+              "desc.plot",
+              "desc.corr",
+              "desc.compare",
+              "test.adf_kpss_pp",
+              "sing.ols",
+              "sing.ardl",
+              "sing.rolling",
+              "test.granger",
+              "filter.hp",
+              "filter.hamilton",
+              "var.ols",
+              "ident.recursive",
+              "lp.ols",
+              "out.hd",
+              "ident.external_series",
+              "cmp.common_shock",
+              "panel.fe",
+              "panel.lp"
+            ]
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "blocked"
+            ]
+          },
+          "checks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "level",
+                "code",
+                "message",
+                "phase"
+              ],
+              "properties": {
+                "level": {
+                  "enum": [
+                    "ok",
+                    "info",
+                    "warn",
+                    "block"
+                  ]
+                },
+                "code": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "phase": {
+                  "enum": [
+                    "preflight",
+                    "pre_estimation",
+                    "post_estimation"
+                  ]
+                }
+              }
+            }
+          },
+          "actual_sample": {
+            "type": "object",
+            "required": [
+              "start",
+              "end",
+              "nobs",
+              "common_nobs",
+              "periods",
+              "dropped_periods",
+              "frequency_conversion",
+              "transforms"
+            ],
+            "properties": {
+              "start": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "end": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "nobs": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "common_nobs": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "periods": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "dropped_periods": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "frequency_conversion": {
+                "type": "object"
+              },
+              "transforms": {
+                "type": "object"
+              }
+            }
+          },
+          "sensitivity": {
+            "type": "object",
+            "required": [
+              "status",
+              "variants"
+            ]
+          }
+        }
+      }
+    },
+    "actual_samples": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "start",
+          "end",
+          "nobs",
+          "common_nobs",
+          "periods",
+          "dropped_periods",
+          "frequency_conversion",
+          "transforms"
+        ],
+        "properties": {
+          "start": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "end": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nobs": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "common_nobs": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "periods": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dropped_periods": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "frequency_conversion": {
+            "type": "object"
+          },
+          "transforms": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

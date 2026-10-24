@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MacroLab validation card</title><main><a href="../">MacroLab</a><pre style="white-space:pre-wrap;overflow-wrap:anywhere"># Minnesota BVAR — G12 validation card
+
+`bvar.minn` uses the existing NumPy/SciPy runtime. It estimates a constant,
+selected fixed exogenous controls, and p lags in the explicitly chosen recursive
+order. Missing periods are never compressed. The output records actual dates,
+frequency conversion, omitted inactive COVID dummies and seasonal controls.
+
+For Y = XB + E, the prior is B|Σ ~ MN(M₀,V₀,Σ), Σ ~ IW(S₀,ν₀).
+Default λ = 0.2; lag **variance** decays as l⁻². Each lag-l predictor has
+V₀[j,j] = λ²/(l² σⱼ²). Thus coefficient variance in equation i is proportional
+to Σᵢᵢ/σⱼ²: **the conjugate prior treats own and cross-variable lags symmetrically**.
+There is no independent cross-lag shrinkage parameter. The own first-lag mean
+is 1 for level/log/index-to-base and 0 for growth, differences and cycles;
+all other lag means are zero. These transform-derived choices appear in Results.
+
+σⱼ is the residual standard deviation from a univariate AR(p) with an intercept:
+sqrt(SSE/(N_raw−p−rank)), using the selected transformed observations and the same
+lag window. It excludes multivariate/exogenous regressors. Deterministic terms,
+including the constant, have diffuse conditional row variance 10⁸. This is a
+finite proper prior, not an improper constant prior.
+
+The dummy design stacks diag(sqrt(V₀⁻¹)), n+2 zero-X rows, and corresponding
+Y rows diag(sqrt(V₀⁻¹))M₀, diag(σ), and two zero rows. This defines ν₀=n+2 and
+S₀=diag(σ²), so E[Σ]=diag(σ²). The zero rows specify the covariance-prior kernel;
+they are **not** real observations. Optional sum-of-coefficients and
+co-persistence rows use the mean of the first p observations and tightness 1
+by default. Both are off, and impose additional no-change restrictions even
+when the variables are growth rates. Their added rows/degrees of freedom are
+reported. No dummy observations count toward the actual sample.
+
+Posterior Vₙ=(V₀⁻¹+X′X)⁻¹, Mₙ=Vₙ(V₀⁻¹M₀+X′Y), νₙ=ν₀+T.
+The implementation uses augmented least squares for Mₙ and its residual cross
+product for Sₙ. An independent closed-form implementation validates all moments.
+The optional empirical-Bayes grid evaluates the normalized NIW marginal density
+of actual Y **conditional on the complete dummy prior**, including optional rows.
+It reports every grid point, its log marginal likelihood and selected λ;
+it does not integrate hyperparameter uncertainty. Default grid:
+0.05, 0.1, 0.2, 0.3, 0.5, 1, 2, 5. Ties choose the first supplied point.
+
+Posterior simulation uses PCG64, 1,000 draws by default (5,000 optional).
+A Bartlett inverse-Wishart draw is followed by matrix-normal coefficient draws.
+The documented random order is: diagonal chi-squares and lower-triangular normals,
+row by row, each of length draws; then all coefficient normals in C array order.
+A fixed seed **and draw count** reproduce the result. Recursive responses are
+normalized to a common physical impact, including across draws and matched OLS.
+“One SD” means the Cholesky own impact of posterior-mean Σ; it is held fixed.
+The IRF center is the draw median, with 68% and 90% pointwise **posterior credible**
+bands. FEVD reports the posterior mean of per-draw variance shares at horizons
+1…H. Coefficient intervals are marginal matrix-t 95% credible intervals.
+
+All draws remain by default, including largest companion roots ≥1. Their count,
+share and full root list are exported. A share &gt;10% warns. The explicit filter
+reports excluded/retained counts and conditions displayed bands on stability;
+it never replaces rejected draws. Fewer than 20 retained draws or non-finite
+simulation output blocks with a reason. The matched OLS IRF obeys the existing
+OLS stability/rank rules and is blocked if ineligible. No legacy VAR rule changes.
+
+Validation covers the λ=10⁸ OLS limit (1e−6), independent posterior moments,
+optional-prior/grid normalization, NIW simulation moments, seed reproducibility,
+known-DGP recovery and explicit unstable-draw handling. Native/browser/export
+comparisons allow **absolute 1e−8 for deterministic and seeded-draw fields**;
+same-runtime repeats are exact. Repeated-sample coverage is diagnostic, not a
+promise of nominal frequentist coverage. Evidence and timings are linked from
+[the G12 stop report](../STOP_REPORT_G12.md).
+
+References: [Bańbura, Giannone &amp; Reichlin, Large Bayesian VARs](https://www.ecb.europa.eu/pub/pdf/scpwps/ecbwp966.pdf);
+[Giannone, Lenza &amp; Primiceri, Prior selection for VARs, appendices A–B](https://www.ecb.europa.eu/pub/pdf/scpwps/ecbwp1494.pdf).
+The second source supplies the NIW parameterization and conditional marginal
+likelihood conventions; this release implements the optional **grid** version.
+</pre></main></html>

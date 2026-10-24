@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MacroLab validation card</title><main><a href="../">MacroLab</a><pre style="white-space:pre-wrap;overflow-wrap:anywhere"># Cointegration and VECM — G14 validation card
+
+`test.coint` calls pinned statsmodels 0.14.6 `coint_johansen`. Inputs must be
+levels or log levels, 2–12 variables, with a regular common calendar. Differences,
+growth rates, separately selected exogenous controls and automatic COVID dummies
+block with an explanation: the exposed Johansen interface cannot match those
+controls. No observations are interpolated. The user must explicitly choose a
+compatible sample and COVID treatment. These are diagnostics, not forecasts.
+
+The displayed deterministic choices map to both procedures:
+
+| Words shown | Johansen det_order | VECM deterministic |
+|---|---:|---|
+| No deterministic terms (case I) | −1 | n |
+| Unrestricted constant, no linear trend (case III) | 0 | co |
+| Unrestricted constant and linear trend (case V) | 1 | colo |
+
+The number of lagged differences is the chosen VAR lag order minus one.
+Trace and maximum-eigenvalue statistics include 90/95/99% asymptotic critical
+values. Suggested rank is the first non-rejection in the sequential 95% trace
+test (full rank if every null is rejected). Rank remains a user choice for VECM.
+The tests presume I(1), not I(2), inputs; sample size, deterministic terms and lag
+choices affect conclusions. There is no automatic rank-based model selection.
+
+With two inputs, Engle–Granger is run in both normalisations using
+`statsmodels.tsa.stattools.coint`, MacKinnon p-values, a displayed trend choice
+(none/constant/linear/quadratic) and fixed ADF lags (default 4, `autolag=None`).
+Perfect collinearity blocks. The no-trend case has no tabulated critical values;
+its p-value is retained. Finite-sample conclusions can depend on normalisation.
+
+`vecm` fits statsmodels `VECM` with that same deterministic case and a user-chosen
+rank (default 1, including explicit 0 and full-rank options). It returns normalised
+β, α and their asymptotic standard errors, Γ and deterministic coefficients, the
+VAR representation, covariance and ordering. The first rank rows of β form the
+identity. Orthogonal responses recurse through the VAR representation, starting
+with the covariance Cholesky factor: one structural standard deviation in the
+selected variable, in the listed recursive ordering. Units remain the selected
+level/log units. **Responses can be permanent; they need not return to zero.**
+
+Default bands use 200 seeded residual-bootstrap draws (PCG64). Keep the first p
+observations fixed, centre the fitted residual vectors, sample vectors with
+replacement, simulate the fitted VAR representation with its fixed deterministic
+path, then re-estimate VECM at the same rank. All shocks share the same generated
+draw. Equal-tail 68/90% pointwise bands include coefficient re-estimation but
+condition on rank, lag order, deterministic case and recursive identification.
+No explosive or inconvenient draws are silently dropped; a non-finite or failed
+draw blocks. A draw count of zero is an explicit point-only diagnostic option.
+
+Validation: known rank-one DGP recovers β ≈ (1, −0.497, 0.000942) against
+(1, −0.5, 0), with rank 1. Johansen and VECM α/β match native statsmodels exactly;
+VAR conversion and IRF recursion differ by at most 8.89e−16 on the fixture.
+Seeds repeat exactly. Browser/native/offline absolute tolerance is 1e−8 for all
+fields including bootstrap bands. See [G14 report](../STOP_REPORT_G14.md) and
+`runs/g14/reference-validation.json` for final measured parity and timings.
+
+References: [coint](https://www.statsmodels.org/v0.14.6/generated/statsmodels.tsa.stattools.coint.html),
+[Johansen](https://www.statsmodels.org/v0.14.6/generated/statsmodels.tsa.vector_ar.vecm.coint_johansen.html),
+[VECM](https://www.statsmodels.org/v0.14.6/generated/statsmodels.tsa.vector_ar.vecm.VECM.html).
+</pre></main></html>
