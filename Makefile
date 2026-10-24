@@ -103,7 +103,7 @@ p2-prepare:
 p2-build:
 	$(PYTHON) scripts/p1_prepare.py --candidate p2 --base-path $(P1_BASE_PATH) --build
 
-static-build: g10-build
+static-build: g16-build
 
 # Explicit v1 preparation; never changes the frozen P2/P3.1 artifacts or current pointer.
 .PHONY: refresh g5-prepare g5-build g6-build regress-v0 test-v1
@@ -146,3 +146,32 @@ g9-build:
 .PHONY: g10-build
 g10-build:
 	$(PYTHON) scripts/g10_prepare.py --build
+
+# Local model gate; uses accepted bytes and never publishes or refreshes data.
+.PHONY: g11-build test-panels
+g11-build:
+	$(PYTHON) scripts/g11_prepare.py --build
+
+test-panels:
+	$(PYTHON) -m pytest tests/v2/test_panel.py
+	cd web && npm test -- tests/panel.test.tsx
+
+.PHONY: g12-build
+g12-build:
+	$(PYTHON) scripts/g12_prepare.py --build
+
+.PHONY: g13-build
+g13-build:
+	$(PYTHON) scripts/g13_prepare.py --build
+
+.PHONY: g14-build
+g14-build:
+	$(PYTHON) scripts/g14_prepare.py --build
+
+.PHONY: g15-build
+g15-build:
+	$(PYTHON) scripts/g15_prepare.py
+
+.PHONY: g16-build
+g16-build:
+	$(PYTHON) scripts/g16_prepare.py --build $(if $(SNAPSHOT),--snapshot $(SNAPSHOT),)

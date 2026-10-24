@@ -6,9 +6,16 @@ from typing import Any
 
 from macrolab.compare.common_shock import CommonShockPlugin
 from macrolab.ident.external_series import ExternalSeriesPlugin
+from macrolab.models.arima import ARIMAPlugin
 from macrolab.models.base import ModelPlugin
+from macrolab.models.break_tests import BreakTestsPlugin
+from macrolab.models.bvar import BVARPlugin
+from macrolab.models.cointegration import CointegrationPlugin, VECMPlugin
+from macrolab.models.forecast_eval import ForecastEvaluationPlugin
+from macrolab.models.forecast_var import VARForecastPlugin
 from macrolab.models.linear import PLUGINS as LINEAR
 from macrolab.models.lp import LPPlugin
+from macrolab.models.panel import PanelFEPlugin, PanelLPPlugin
 from macrolab.models.var import PLUGINS as VAR
 from macrolab.outputs.hd import HistoricalDecompositionPlugin
 
@@ -21,6 +28,15 @@ PLUGINS: dict[str, ModelPlugin] = {
         HistoricalDecompositionPlugin(),
         ExternalSeriesPlugin(),
         CommonShockPlugin(),
+        PanelFEPlugin(),
+        PanelLPPlugin(),
+        BVARPlugin(),
+        ARIMAPlugin(),
+        VARForecastPlugin(),
+        ForecastEvaluationPlugin(),
+        CointegrationPlugin(),
+        VECMPlugin(),
+        BreakTestsPlugin(),
     ]
 }
 

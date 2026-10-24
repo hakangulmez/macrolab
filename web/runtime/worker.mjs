@@ -139,14 +139,19 @@ self.onmessage = async ({ data: message }) => {
         self.postMessage({
           id,
           type: "progress",
-          text:
-            detail.phase === "template_sensitivity"
-              ? `Sensitivity ${detail.completed + 1}/${detail.total}: ${detail.variant.replaceAll("_", " ")}…`
-              : detail.phase === "joint_bootstrap"
-                ? `Joint bootstrap: ${detail.completed}/${detail.total} draws`
-                : detail.phase === "country_comparison"
-                  ? `Country ${detail.completed}/${detail.total}: ${detail.country}`
-                  : "Identifying the common first-stage shock…",
+          text: detail.phase.startsWith("forecast_")
+            ? `${detail.phase === "forecast_evaluation" ? "Forecast origins" : detail.phase === "forecast_order_search" ? "ARIMA order search" : "Forecast bootstrap"}: ${detail.completed}/${detail.total}…`
+            : detail.phase === "bvar_draws"
+              ? `BVAR posterior: ${detail.completed}/${detail.total} draws…`
+              : detail.phase === "panel_horizon"
+                ? `Panel horizon ${detail.completed}/${detail.total}…`
+                : detail.phase === "template_sensitivity"
+                  ? `Sensitivity ${detail.completed + 1}/${detail.total}: ${detail.variant.replaceAll("_", " ")}…`
+                  : detail.phase === "joint_bootstrap"
+                    ? `Joint bootstrap: ${detail.completed}/${detail.total} draws`
+                    : detail.phase === "country_comparison"
+                      ? `Country ${detail.completed}/${detail.total}: ${detail.country}`
+                      : "Identifying the common first-stage shock…",
           detail,
         });
       });

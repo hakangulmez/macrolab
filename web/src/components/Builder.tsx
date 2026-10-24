@@ -1,3 +1,8 @@
+import { ForecastControls } from "./ForecastControls";
+import { DiagnosticControls } from "./DiagnosticControls";
+import { diagnosticModel } from "../diagnosticModels";
+import { forecastModel } from "../forecast";
+import { BvarControls } from "./BvarControls";
 import { countryIndicators } from "../displayLabels";
 import { useState } from "react";
 import type {
@@ -21,6 +26,7 @@ import {
 } from "../format";
 import { Checks, Field, Status } from "./Common";
 import "./builder.css";
+import { PanelControls } from "./PanelControls";
 import { TemplateControls } from "./TemplateControls";
 interface Props {
   manifest: Manifest;
@@ -64,7 +70,8 @@ export function Builder({
     ["endogenous", "response", "shock"].includes(s.role),
   );
   const isTemplate = Boolean(config.model.params.template_id);
-  const isVar = ["var.ols", "ident.recursive"].includes(model.id);
+  const isBvar = model.id === "bvar.minn";
+  const isVar = ["var.ols", "ident.recursive", "bvar.minn"].includes(model.id);
   const selected = new Set(config.series.map((s) => s.concept_id));
   const categories = [
     "All",
@@ -96,10 +103,10 @@ export function Builder({
   function selectModel(id: string) {
     update((c) => {
       c.model = { id, params: {} };
-      if (!["var.ols", "ident.recursive"].includes(id)) {
+      if (!["var.ols", "ident.recursive", "bvar.minn"].includes(id)) {
         c.identification = null;
         delete c.outputs.irf;
-      } else if (id === "ident.recursive") {
+      } else if (["ident.recursive", "bvar.minn"].includes(id)) {
         c.identification = {
           id: "recursive",
           params: { order: vars.map((s) => s.concept_id) },
@@ -463,6 +470,10 @@ export function Builder({
                     key={m.id}
                     value={m.id}
                     disabled={
+                      !m.id.startsWith("panel.") &&
+                      !forecastModel(m.id) &&
+                      m.id !== "bvar.minn" &&
+                      !diagnosticModel(m.id) &&
                       models?.find((x) => x.id === m.id)?.available === false
                     }
                   >
@@ -555,12 +566,30 @@ export function Builder({
               .
             </p>
             <TemplateControls config={config} update={update} />
+            <PanelControls
+              config={config}
+              manifest={manifest}
+              update={update}
+            />
+            <BvarControls config={config} manifest={manifest} update={update} />
+            <DiagnosticControls
+              config={config}
+              manifest={manifest}
+              update={update}
+            />
+            <ForecastControls
+              config={config}
+              manifest={manifest}
+              update={update}
+            />
             <details>
               <summary>Model parameters</summary>
               <div className="stack">
                 {Object.entries(model.params.properties ?? {})
                   .filter(
                     ([key, rule]) =>
+                      !forecastModel(model.id) &&
+                      !diagnosticModel(model.id) &&
                       ["integer", "number", "string"].includes(
                         String(rule.type),
                       ) &&
@@ -571,8 +600,12 @@ export function Builder({
                         "displayed_band",
                         "response_mode",
                         "covariance",
+                        "effects",
+                        "shock_type",
+                        "first_stage_source",
                       ].includes(key) &&
-                      (!isTemplate || ["lags", "horizon"].includes(key)),
+                      (!isTemplate || ["lags", "horizon"].includes(key)) &&
+                      (!isBvar || !["draws", "lambda_selection"].includes(key)),
                   )
                   .map(([key, rule]) => (
                     <Field key={key} label={key.replaceAll("_", " ")}>
@@ -661,7 +694,9 @@ export function Builder({
                       })
                     }
                   >
-                    <option value="none">Reduced form only</option>
+                    <option value="none" disabled={isBvar}>
+                      Reduced form only
+                    </option>
                     <option value="recursive">Recursive (Cholesky)</option>
                   </select>
                 </Field>
@@ -719,27 +754,31 @@ export function Builder({
                           }
                         />
                       </Field>
-                      <Field label="Bootstrap precision">
-                        <select
-                          value={config.outputs.irf?.draws ?? 200}
-                          onChange={(e) =>
-                            update((c) => {
-                              c.outputs.irf!.draws = Number(e.target.value);
-                            })
-                          }
-                        >
-                          <option value={200}>Interactive · 200 draws</option>
-                          <option value={1000}>Precise · 1,000 draws</option>
-                          {config.outputs.irf?.draws !== undefined &&
-                            ![200, 1000].includes(config.outputs.irf.draws) && (
-                              <option value={config.outputs.irf.draws}>
-                                Current ·{" "}
-                                {config.outputs.irf.draws.toLocaleString()}{" "}
-                                draws
-                              </option>
-                            )}
-                        </select>
-                      </Field>
+                      {!isBvar && (
+                        <Field label="Bootstrap precision">
+                          <select
+                            value={config.outputs.irf?.draws ?? 200}
+                            onChange={(e) =>
+                              update((c) => {
+                                c.outputs.irf!.draws = Number(e.target.value);
+                              })
+                            }
+                          >
+                            <option value={200}>Interactive · 200 draws</option>
+                            <option value={1000}>Precise · 1,000 draws</option>
+                            {config.outputs.irf?.draws !== undefined &&
+                              ![200, 1000].includes(
+                                config.outputs.irf.draws,
+                              ) && (
+                                <option value={config.outputs.irf.draws}>
+                                  Current ·{" "}
+                                  {config.outputs.irf.draws.toLocaleString()}{" "}
+                                  draws
+                                </option>
+                              )}
+                          </select>
+                        </Field>
+                      )}
                     </div>
                     <details>
                       <summary>Recursive ordering</summary>

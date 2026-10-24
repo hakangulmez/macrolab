@@ -1,0 +1,51 @@
+# Panel fixed effects — G11 validation card
+
+`panel.fe` estimates y_it = alpha_i + tau_t + x_it beta + e_it with country
+fixed effects by default and optional time effects. All observations have unit
+weight. Longer country histories therefore contribute more observations; this
+is not an equal-country-weight average of national coefficients.
+
+The within estimator removes country means. Two-way effects use alternating
+country/time projections to tolerance 1e-13 on unbalanced panels. The effect
+rank accounts for disconnected country/time components. Selected regressors
+absorbed by fixed effects block with an explanation; generated calendar
+indicators spanned by time effects are explicitly recorded as omitted.
+
+Each country retains its complete observed dates. Calendar lags never bridge a
+missing period. Actual N, T_min, T_max, total observations, dropped dates,
+transformations, frequency conversions and input fingerprints are exported.
+Country OLS columns use the identical country-specific regression dates, with
+separate intercepts/slopes and Newey–West HAC(4) covariance by default; conventional
+covariance remains selectable. Bartlett weights, no small-sample multiplier and
+residual-df Student t intervals match the v0 single-equation rule. Calendar gaps
+receive zero scores, preserving calendar lag distance. They do not impose the
+pooled time effects. Within R² uses country-demeaned y and x, including in the
+two-way case. The FE summary reports mean fitted effect by country, not a
+uniquely identified causal country effect.
+
+Inference matches **linearmodels 7.0 PanelOLS**, native test dependency only:
+
+- Driscoll–Kraay: Bartlett kernel, bandwidth floor(4(T/100)^(2/9)), with T the
+  number of observed panel periods; aggregate score vectors by calendar date.
+  Entirely absent dates contribute zero scores, preserving calendar lag distance.
+  Coefficient/FE residual degrees of freedom provide the debiased scaling.
+- Country-clustered: PanelOLS's default `group_debias=False`, `auto_df=True`.
+  One-way country effects are nested in country clusters and do not consume
+  covariance-scaling degrees of freedom; two-way effects do. Fewer than ten
+  clusters warns on the selected covariance or its sensitivity row.
+- Conventional: homoskedastic residual variance, counting estimated FE degrees
+  of freedom. All three matrices and point estimates use the same design.
+
+Displayed coefficient intervals use Student t with model residual degrees of
+freedom. A lagged dependent variable with T_min below 40 triggers the Nickell
+bias warning; robust errors do not correct this bias. Results describe
+conditional association; fixed effects do not establish exogeneity.
+
+Reference fixtures include balanced/unbalanced and one-/two-way panels,
+matching every coefficient and all three covariance matrices to 1e-8.
+Synthetic slope recovery, calendar gaps, missing-input blocking, warnings,
+browser/native parity, CSV/PNG/Python reproduction and actual browser timings
+are reported in the G11 stop report (local review record omitted from source export).
+
+Reference: [linearmodels 7.0](https://pypi.org/project/linearmodels/7.0/).
+No linearmodels import or new package enters the portable runtime.

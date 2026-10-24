@@ -1,0 +1,435 @@
+{
+  "reviewed_on": "2026-10-24",
+  "scope": "Official reuse clauses compared with accepted DATA.md; seven OECD full metadata responses compared with G9 excluding response headers and availability constraints. No changed reuse clause or explicit new restriction found in reviewed material. PCPS series-level access fields are additionally enforced during refresh.",
+  "terms": [
+    {
+      "source": "OECD",
+      "url": "https://www.oecd.org/en/about/terms-conditions.html",
+      "recorded_reuse_clause": "unchanged"
+    },
+    {
+      "source": "BIS",
+      "url": "https://data.bis.org/help/legal",
+      "recorded_reuse_clause": "unchanged"
+    },
+    {
+      "source": "IMF",
+      "url": "https://www.imf.org/en/about/copyright-and-terms",
+      "recorded_reuse_clause": "unchanged"
+    },
+    {
+      "source": "ECB",
+      "url": "https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html",
+      "recorded_reuse_clause": "unchanged"
+    },
+    {
+      "source": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/web/main/help/copyright-notice",
+      "recorded_reuse_clause": "unchanged"
+    },
+    {
+      "source": "World Bank WDI",
+      "url": "https://data.worldbank.org/summary-terms-of-use",
+      "recorded_reuse_clause": "unchanged"
+    },
+    {
+      "source": "EIA",
+      "url": "https://www.eia.gov/about/copyrights_reuse.php",
+      "recorded_reuse_clause": "unchanged"
+    }
+  ],
+  "oecd_metadata": [
+    {
+      "flow": "OECD.SDD.NAD,DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES,1.1",
+      "source": "OECD",
+      "probe_id": "rights-DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES",
+      "snapshot_id": "g16-metadata-20261024-2037",
+      "attempt": 1,
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.NAD/DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES/1.1?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.NAD/DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES/1.1?references=all",
+      "retrieved_utc": "2026-10-24T20:37:49.669765+00:00",
+      "status": 200,
+      "mime_type": "application/vnd.sdmx.structure+xml; charset=utf-8; version=2.1",
+      "sha256": "81d0ecc74c1ab63f3b99e9cae6bd590877bc21db10d092304b942d07c3c35bd3",
+      "size_bytes": 3745004,
+      "raw_path": "data/raw/OECD/g16-metadata-20261024-2037/rights-DSD_NAMAIN1@DF_QNA_EXPENDITURE_INDICES-attempt-1.bin",
+      "body_complete": true,
+      "elapsed_seconds": 1.641342,
+      "error": null,
+      "non_constraint_metadata_identical": true,
+      "keyword_matches": [
+        {
+          "tag": "Name",
+          "text": "Leasing of intellectual property and similar products, except copyrighted works"
+        },
+        {
+          "tag": "Name",
+          "text": "Leasing of intellectual property and similar products, except copyrighted works"
+        },
+        {
+          "tag": "Name",
+          "text": "Other preserved or processed fish and seafood and fish and seafood preparations"
+        },
+        {
+          "tag": "Name",
+          "text": "Preserved milk"
+        },
+        {
+          "tag": "Name",
+          "text": "Preserved fruit and fruit-based products"
+        },
+        {
+          "tag": "Name",
+          "text": "Dried vegetables, other preserved or processed vegetables"
+        },
+        {
+          "tag": "Name",
+          "text": "Driving lessons, tests, licences and road worthiness tests"
+        },
+        {
+          "tag": "Name",
+          "text": "Television and radio licence fees, subscriptions"
+        },
+        {
+          "tag": "Name",
+          "text": "Preserved meat and meat products"
+        },
+        {
+          "tag": "Name",
+          "text": "Processed and preserved fish, crustaceans and molluscs"
+        },
+        {
+          "tag": "Name",
+          "text": "Processed and preserved fruit and vegetables"
+        },
+        {
+          "tag": "Name",
+          "text": "Services de licence pour l’utilisation de logiciels informatiques"
+        },
+        {
+          "tag": "Name",
+          "text": "Motor vehicle insurance services, third party liability"
+        },
+        {
+          "tag": "Name",
+          "text": "Legal services concerning patents; copyrights and other intellectual property rights"
+        },
+        {
+          "tag": "Name",
+          "text": "Licensing services for the right to use intellectual property and similar products, except copyrighted works"
+        },
+        {
+          "tag": "Name",
+          "text": "Services de licence pour l’utilisation de produits de la propriété intellectuelle et similaires, à l’exclusion des œuvres protégées par des droits d’auteur"
+        },
+        {
+          "tag": "Name",
+          "text": "Contracts, leases and licences, gross"
+        },
+        {
+          "tag": "Name",
+          "text": "Contrats, baux et licences, brut"
+        },
+        {
+          "tag": "Name",
+          "text": "Contracts, leases and licences, net"
+        },
+        {
+          "tag": "Name",
+          "text": "Contrats, baux et licences, net"
+        },
+        {
+          "tag": "Name",
+          "text": "Business and professional licences"
+        },
+        {
+          "tag": "Name",
+          "text": "Payments by households for licences"
+        },
+        {
+          "tag": "Name",
+          "text": "Paiements effectués par les ménages en vue de l’obtention de licences"
+        }
+      ]
+    },
+    {
+      "flow": "OECD.SDD.STES,DSD_KEI@DF_KEI,4.0",
+      "source": "OECD",
+      "probe_id": "rights-DSD_KEI@DF_KEI",
+      "snapshot_id": "g16-metadata-20261024-2037",
+      "attempt": 1,
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_KEI@DF_KEI/4.0?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_KEI@DF_KEI/4.0?references=all",
+      "retrieved_utc": "2026-10-24T20:37:51.901449+00:00",
+      "status": 200,
+      "mime_type": "application/vnd.sdmx.structure+xml; charset=utf-8; version=2.1",
+      "sha256": "e54fc2354b9777ac99106af934f492da5f830bdde514ea65045cf653a4ea3dcc",
+      "size_bytes": 1875521,
+      "raw_path": "data/raw/OECD/g16-metadata-20261024-2037/rights-DSD_KEI@DF_KEI-attempt-1.bin",
+      "body_complete": true,
+      "elapsed_seconds": 0.608664,
+      "error": null,
+      "non_constraint_metadata_identical": true,
+      "keyword_matches": [
+        {
+          "tag": "Name",
+          "text": "Leasing of intellectual property and similar products, except copyrighted works"
+        },
+        {
+          "tag": "Name",
+          "text": "Leasing of intellectual property and similar products, except copyrighted works"
+        }
+      ]
+    },
+    {
+      "flow": "OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0",
+      "source": "OECD",
+      "probe_id": "rights-DSD_PRICES@DF_PRICES_ALL",
+      "snapshot_id": "g16-metadata-20261024-2037",
+      "attempt": 1,
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_PRICES@DF_PRICES_ALL/1.0?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_PRICES@DF_PRICES_ALL/1.0?references=all",
+      "retrieved_utc": "2026-10-24T20:37:52.824184+00:00",
+      "status": 200,
+      "mime_type": "application/vnd.sdmx.structure+xml; charset=utf-8; version=2.1",
+      "sha256": "fd2b38f6eee5bf841952e7160addab96e6037930cdff5d2bd26722ea9bb45cc5",
+      "size_bytes": 1489565,
+      "raw_path": "data/raw/OECD/g16-metadata-20261024-2037/rights-DSD_PRICES@DF_PRICES_ALL-attempt-1.bin",
+      "body_complete": true,
+      "elapsed_seconds": 0.745766,
+      "error": null,
+      "non_constraint_metadata_identical": true,
+      "keyword_matches": [
+        {
+          "tag": "Name",
+          "text": "Other preserved or processed fish and seafood and fish and seafood preparations"
+        },
+        {
+          "tag": "Name",
+          "text": "Preserved milk"
+        },
+        {
+          "tag": "Name",
+          "text": "Preserved fruit and fruit-based products"
+        },
+        {
+          "tag": "Name",
+          "text": "Dried vegetables, other preserved or processed vegetables"
+        },
+        {
+          "tag": "Name",
+          "text": "Driving lessons, tests, licences and road worthiness tests"
+        },
+        {
+          "tag": "Name",
+          "text": "Television and radio licence fees, subscriptions"
+        }
+      ]
+    },
+    {
+      "flow": "OECD.SDD.TPS,DSD_LFS@DF_IALFS_LF_WAP_Q,1.0",
+      "source": "OECD",
+      "probe_id": "rights-DSD_LFS@DF_IALFS_LF_WAP_Q",
+      "snapshot_id": "g16-metadata-20261024-2037",
+      "attempt": 1,
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_LFS@DF_IALFS_LF_WAP_Q/1.0?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_LFS@DF_IALFS_LF_WAP_Q/1.0?references=all",
+      "retrieved_utc": "2026-10-24T20:37:53.782671+00:00",
+      "status": 200,
+      "mime_type": "application/vnd.sdmx.structure+xml; charset=utf-8; version=2.1",
+      "sha256": "4c6f8a9b4395d3b093cd1ca605bb47bf64c8ca2fc6c0ef68e86ae87c88fb3a5d",
+      "size_bytes": 2182611,
+      "raw_path": "data/raw/OECD/g16-metadata-20261024-2037/rights-DSD_LFS@DF_IALFS_LF_WAP_Q-attempt-1.bin",
+      "body_complete": true,
+      "elapsed_seconds": 1.394923,
+      "error": null,
+      "non_constraint_metadata_identical": true,
+      "keyword_matches": [
+        {
+          "tag": "Name",
+          "text": "Leasing of intellectual property and similar products, except copyrighted works"
+        },
+        {
+          "tag": "Name",
+          "text": "Leasing of intellectual property and similar products, except copyrighted works"
+        }
+      ]
+    },
+    {
+      "flow": "OECD.SDD.STES,DSD_STES@DF_FINMARK,4.0",
+      "source": "OECD",
+      "probe_id": "rights-DSD_STES@DF_FINMARK",
+      "snapshot_id": "g16-metadata-20261024-2037",
+      "attempt": 1,
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_FINMARK/latest?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_FINMARK/latest?references=all",
+      "retrieved_utc": "2026-10-24T20:37:55.486753+00:00",
+      "status": 200,
+      "mime_type": "application/vnd.sdmx.structure+xml; charset=utf-8; version=2.1",
+      "sha256": "28e7136ab6b52611c563739b8a1ac34c03a1ed21683239521c011626f8c11734",
+      "size_bytes": 1872511,
+      "raw_path": "data/raw/OECD/g16-metadata-20261024-2037/rights-DSD_STES@DF_FINMARK-attempt-1.bin",
+      "body_complete": true,
+      "elapsed_seconds": 0.909645,
+      "error": null,
+      "non_constraint_metadata_identical": true,
+      "keyword_matches": [
+        {
+          "tag": "Name",
+          "text": "Leasing of intellectual property and similar products, except copyrighted works"
+        },
+        {
+          "tag": "Name",
+          "text": "Leasing of intellectual property and similar products, except copyrighted works"
+        }
+      ]
+    },
+    {
+      "flow": "OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0",
+      "source": "OECD",
+      "probe_id": "rights-DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL",
+      "snapshot_id": "g16-metadata-20261024-2037",
+      "attempt": 1,
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/1.0?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.TPS/DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/1.0?references=all",
+      "retrieved_utc": "2026-10-24T20:37:56.700634+00:00",
+      "status": 200,
+      "mime_type": "application/vnd.sdmx.structure+xml; charset=utf-8; version=2.1",
+      "sha256": "7ad46da74027c8b86ef298891ae6b717bf96fe58e473bdde62d1e4eb44d4f246",
+      "size_bytes": 1997123,
+      "raw_path": "data/raw/OECD/g16-metadata-20261024-2037/rights-DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL-attempt-1.bin",
+      "body_complete": true,
+      "elapsed_seconds": 1.276704,
+      "error": null,
+      "non_constraint_metadata_identical": true,
+      "keyword_matches": [
+        {
+          "tag": "Name",
+          "text": "Tunas, skipjack or stripe-bellied bonito, prepared or preserved"
+        },
+        {
+          "tag": "Name",
+          "text": "Other pelagic fish, prepared or preserved"
+        },
+        {
+          "tag": "Name",
+          "text": "Other fish, prepared or preserved"
+        },
+        {
+          "tag": "Name",
+          "text": "Shrimps and prawns, prepared or preserved"
+        },
+        {
+          "tag": "Name",
+          "text": "Other crustaceans, prepared or preserved"
+        },
+        {
+          "tag": "Name",
+          "text": "Bivalves, prepared or preserved"
+        },
+        {
+          "tag": "Name",
+          "text": "Cephalopods, prepared or preserved"
+        },
+        {
+          "tag": "Name",
+          "text": "Other molluscs, prepared or preserved"
+        },
+        {
+          "tag": "Name",
+          "text": "Other aquatic invertebrates, prepared or preserved"
+        },
+        {
+          "tag": "Name",
+          "text": "Preserved olives"
+        },
+        {
+          "tag": "Name",
+          "text": "Other vegetables, pulses and tubers preserved or processed"
+        },
+        {
+          "tag": "Name",
+          "text": "Vegetables, fruits, nuts, fruit-peel and other parts of plants, preserved by sugar"
+        },
+        {
+          "tag": "Name",
+          "text": "Driving lessons, tests, licences, and road worthiness tests"
+        },
+        {
+          "tag": "Name",
+          "text": "Tv and radio licences and fees"
+        },
+        {
+          "tag": "Name",
+          "text": "Other preserved or processed fish and seafood and fish and seafood preparations"
+        },
+        {
+          "tag": "Name",
+          "text": "Preserved milk"
+        },
+        {
+          "tag": "Name",
+          "text": "Preserved fruit and fruit-based products"
+        },
+        {
+          "tag": "Name",
+          "text": "Dried vegetables, other preserved or processed vegetables"
+        },
+        {
+          "tag": "Name",
+          "text": "Driving lessons, tests, licences and road worthiness tests"
+        },
+        {
+          "tag": "Name",
+          "text": "Television and radio licence fees, subscriptions"
+        }
+      ]
+    },
+    {
+      "flow": "OECD.SDD.STES,DSD_STES@DF_CLI,4.1",
+      "source": "OECD",
+      "probe_id": "rights-DSD_STES@DF_CLI",
+      "snapshot_id": "g16-metadata-20261024-2037",
+      "attempt": 1,
+      "url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_CLI/latest?references=all",
+      "final_url": "https://sdmx.oecd.org/public/rest/v1/dataflow/OECD.SDD.STES/DSD_STES@DF_CLI/latest?references=all",
+      "retrieved_utc": "2026-10-24T20:37:58.357575+00:00",
+      "status": 200,
+      "mime_type": "application/vnd.sdmx.structure+xml; charset=utf-8; version=2.1",
+      "sha256": "3964314f16bd8b1466b2be509bfcb568e69b95a1386fa8b052205df5a11994d8",
+      "size_bytes": 1924357,
+      "raw_path": "data/raw/OECD/g16-metadata-20261024-2037/rights-DSD_STES@DF_CLI-attempt-1.bin",
+      "body_complete": true,
+      "elapsed_seconds": 1.688416,
+      "error": null,
+      "non_constraint_metadata_identical": true,
+      "keyword_matches": [
+        {
+          "tag": "Name",
+          "text": "Leasing of intellectual property and similar products, except copyrighted works"
+        },
+        {
+          "tag": "Name",
+          "text": "Leasing of intellectual property and similar products, except copyrighted works"
+        }
+      ]
+    }
+  ],
+  "wdi": {
+    "indicators": [
+      "SP.POP.TOTL",
+      "NY.GDP.PCAP.PP.KD",
+      "NE.TRD.GNFS.ZS",
+      "GB.XPD.RSDV.GD.ZS",
+      "SP.POP.DPND"
+    ],
+    "licence": "CC BY-4.0 on each current official indicator page"
+  },
+  "eurostat_ppi_scope": "Existing cleared STS domestic-manufacturing dataset; Norway and Switzerland are EFTA, Türkiye is an EU candidate. No trade-data exception applies. Non-commercial use, attribution and modification disclaimer retained.",
+  "imf_pcps": "Official dataset page reviewed; licence, PUBLIC_OPEN and empty sharing notes require exact checks on new observation response. Maintenance announced 24–26 October; no fallback authorised.",
+  "pink_sheet": "Excluded, not fetched",
+  "observation_access_checks_complete": true,
+  "passed": true,
+  "source_requests": 62,
+  "source_failures": 0
+}

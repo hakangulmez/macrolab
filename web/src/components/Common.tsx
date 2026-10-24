@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
+import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import type { Check, Country, Indicator, JsonRecord } from "../types";
-import { significant, statusText, text } from "../format";
+import { tableValue, statusText, text } from "../format";
 import {
   checkContext,
   findingContext,
@@ -212,56 +212,112 @@ export function DataTable({
   rows,
   columns,
   countries = [],
+  caption,
+  renderCell,
+  groups = [],
+  stickyFirst = false,
 }: {
   rows: JsonRecord[];
   columns?: string[];
   countries?: Country[];
+  caption?: string;
+  renderCell?: (row: JsonRecord, column: string) => ReactNode;
+  groups?: { label: string; rows: JsonRecord[] }[];
+  stickyFirst?: boolean;
 }) {
+  const wrap = useRef<HTMLDivElement>(null);
+  const [overflow, setOverflow] = useState(false);
+  const [expanded, setExpanded] = useState<string[]>([]);
+  useEffect(() => {
+    const element = wrap.current;
+    if (!element) return;
+    const observer = new ResizeObserver(() =>
+      setOverflow(element.scrollWidth > element.clientWidth + 1),
+    );
+    observer.observe(element);
+    if (element.firstElementChild) observer.observe(element.firstElementChild);
+    return () => observer.disconnect();
+  }, []);
   const keys =
     columns ??
-    Array.from(new Set(rows.flatMap(Object.keys)))
-      .filter((k) =>
-        rows.some((r) => ["string", "number", "boolean"].includes(typeof r[k])),
-      )
-      .slice(0, 8);
+    Array.from(
+      new Set([...rows, ...groups.flatMap((g) => g.rows)].flatMap(Object.keys)),
+    ).filter((k) =>
+      rows.some((r) => ["string", "number", "boolean"].includes(typeof r[k])),
+    );
+  const sticky = stickyFirst || /^country$/i.test(keys[0] ?? "");
+  const body = (data: JsonRecord[]) =>
+    data.map((r, i) => (
+      <tr key={i}>
+        {keys.map((k) => (
+          <td key={k}>
+            {renderCell
+              ? renderCell(r, k)
+              : /country/i.test(k) && typeof r[k] === "string"
+                ? (countries.find((c) => c.iso3 === r[k])?.name ?? text(r[k]))
+                : tableValue(
+                    k === "value" && typeof r.diagnostic === "string"
+                      ? r.diagnostic
+                      : k,
+                    r[k],
+                  )}
+          </td>
+        ))}
+      </tr>
+    ));
   return (
-    <div
-      className="table-wrap"
-      tabIndex={0}
-      role="region"
-      aria-label="Scrollable data table"
-    >
-      <table>
-        <thead>
-          <tr>
-            {keys.map((k) => (
-              <th scope="col" key={k}>
-                {k.replaceAll("_", " ")}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r, i) => (
-            <tr key={i}>
+    <div className="data-table">
+      {(overflow || stickyFirst) && (
+        <p className="small muted table-scroll-cue">
+          ↔ Scroll horizontally to see all columns.
+          {sticky && " The first column stays fixed."}
+        </p>
+      )}
+      <div
+        ref={wrap}
+        className={`table-wrap${sticky ? " sticky-first" : ""}${stickyFirst ? " wide-country-table" : ""}`}
+        tabIndex={0}
+        role="region"
+        aria-label={caption ?? "Scrollable data table"}
+      >
+        <table>
+          {caption && <caption>{caption}</caption>}
+          <thead>
+            <tr>
               {keys.map((k) => (
-                <td key={k}>
-                  {typeof r[k] === "number"
-                    ? /^(horizon|quarter|months|lag|observations|nobs|count|rank|peak horizon)$/i.test(
-                        k,
-                      )
-                      ? text(r[k])
-                      : significant(r[k])
-                    : /country/i.test(k)
-                      ? (countries.find((c) => c.iso3 === r[k])?.name ??
-                        text(r[k]))
-                      : text(r[k])}
-                </td>
+                <th scope="col" key={k}>
+                  {k.replaceAll("_", " ")}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {body(rows)}
+            {groups.map((g) => (
+              <Fragment key={g.label}>
+                <tr className="table-group">
+                  <td colSpan={keys.length}>
+                    <button
+                      className="link"
+                      aria-expanded={expanded.includes(g.label)}
+                      onClick={() =>
+                        setExpanded((current) =>
+                          current.includes(g.label)
+                            ? current.filter((v) => v !== g.label)
+                            : [...current, g.label],
+                        )
+                      }
+                    >
+                      {expanded.includes(g.label) ? "▾" : "▸"} {g.label}
+                    </button>
+                  </td>
+                </tr>
+                {expanded.includes(g.label) && body(g.rows)}
+              </Fragment>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

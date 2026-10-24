@@ -558,6 +558,51 @@ details ul {
   border-radius: 8px;
   background: var(--surface);
 }
+.data-table {
+  min-width: 0;
+  max-width: 100%;
+}
+.table-scroll-cue {
+  margin: 0 0 8px;
+}
+caption {
+  text-align: left;
+  padding: 10px 12px;
+  color: var(--muted);
+  max-width: min(75ch, calc(100vw - 90px));
+}
+.wide-country-table th,
+.wide-country-table td {
+  min-width: 110px;
+}
+.sticky-first th:first-child,
+.sticky-first td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--surface);
+  box-shadow: 1px 0 var(--border);
+}
+.wide-country-table th:first-child,
+.wide-country-table td:first-child {
+  min-width: 150px;
+  max-width: 190px;
+}
+.sticky-first th:first-child {
+  background: var(--ground);
+}
+.sticky-first .table-group td {
+  position: static;
+}
+.table-group button {
+  position: sticky;
+  left: 12px;
+}
+.coefficient-se {
+  display: block;
+  color: var(--muted);
+  margin-top: 4px;
+}
 table {
   border-collapse: collapse;
   width: 100%;

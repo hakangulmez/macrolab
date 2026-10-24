@@ -193,7 +193,9 @@
                 "lp.ols",
                 "out.hd",
                 "ident.external_series",
-                "cmp.common_shock"
+                "cmp.common_shock",
+                "panel.fe",
+                "panel.lp"
               ]
             },
             "params": {
@@ -384,7 +386,9 @@
               "lp.ols",
               "out.hd",
               "ident.external_series",
-              "cmp.common_shock"
+              "cmp.common_shock",
+              "panel.fe",
+              "panel.lp"
             ]
           },
           "status": {

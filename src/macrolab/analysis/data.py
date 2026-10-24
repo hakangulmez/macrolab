@@ -445,7 +445,7 @@ def prepare_country(
             if period in covid:
                 valid.iloc[position] = False
                 reasons.setdefault(period, []).append("covid_excluded")
-    disjoint_lp = config.get("model", {}).get("id") == "lp.ols"
+    disjoint_lp = config.get("model", {}).get("id") in {"lp.ols", "panel.fe", "panel.lp"}
     chosen = list(grid[valid.to_numpy()]) if disjoint_lp else _longest_run(valid)
     chosen_set = set(chosen)
     excluded_valid = [

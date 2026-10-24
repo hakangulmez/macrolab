@@ -1,12 +1,35 @@
 # Changelog
 
-## v1.1 — 24 October 2026, local technical candidate
+## v2.0 — 24 October 2026, local release candidate
+
+- Panel fixed effects and lag-augmented local projections, Minnesota BVAR,
+  univariate and multivariate forecasting, and expanding-window evaluation.
+- Cointegration, VECM and structural-break diagnostics with explicit calibration
+  limits and validation cards. Nine templates, including the three preregistered
+  euro-area pooled/forecast comparisons; established defaults are unchanged.
+- Cleared-source refresh with audited Eurostat PPI replacements for Norway,
+  Switzerland and Türkiye. Old snapshots remain immutable for exact regression.
+- All country narratives withheld. Source/site candidates await exact-artifact
+  P6 approval; no push or deployment.
+
+## G14 — 24 October 2026, local review only
+
+- Engle–Granger in both normalisations, Johansen rank tests, and rank-fixed
+  VECM with seeded recursive-response bands and parameter tables.
+- Equation-attached Chow, sup-F and recursive CUSUM diagnostics, with explicit
+  covariance, calibration and finite-sample warnings.
+- Forecast loss attribution, separate COVID-origin exclusion and selectable
+  error-by-target-date charts/exports. Existing numerical fields remain frozen.
+- Accepted snapshot, scientific runtime and template defaults unchanged.
+  No publication or G15 template additions.
+
+## v1.1 — 24 October 2026, published after P5 approval
 
 - Historical decomposition for recursive VARs, accounting identity and full exports.
 - On-demand Türkiye crisis dummies and exclusions; the existing 2003 row is reused.
 - Per-chart PNG actions, split chart bundles; accepted baseline results unchanged.
 - Same October 23 data bytes; bounded stale-source review is separate from release.
-- Country narratives withheld. Awaiting exact-artifact approval at P5.
+- Country narratives withheld. P5 published the exact approved source/site artifacts.
 
 ## v1.0.1 — 23 October 2026, local hotfix candidate
 

@@ -1,0 +1,60 @@
+{
+  "active": true,
+  "candidates": [
+    {
+      "country": "NOR",
+      "concept_id": "ppi",
+      "source": "Eurostat",
+      "dataset": "sts_inppd_m",
+      "geo": "NO",
+      "freq": "M",
+      "unit": "I21",
+      "sa_flag": "NSA",
+      "activity": "C",
+      "market": "domestic",
+      "indic_bt": "PRC_PRR_DOM",
+      "start": "1999-12",
+      "end": "2026-09",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sts_inppd_m?lang=EN&freq=M&unit=I21&s_adj=NSA&indic_bt=PRC_PRR_DOM&nace_r2=C&geo=NO&sinceTimePeriod=1998-01",
+      "apply_at": "G16 approved refresh only",
+      "definition_note": "Domestic manufacturing producer prices, 2021=100, NSA. Replace the history as a separate source series; never splice index bases."
+    },
+    {
+      "country": "CHE",
+      "concept_id": "ppi",
+      "source": "Eurostat",
+      "dataset": "sts_inppd_m",
+      "geo": "CH",
+      "freq": "M",
+      "unit": "I21",
+      "sa_flag": "NSA",
+      "activity": "C",
+      "market": "domestic",
+      "indic_bt": "PRC_PRR_DOM",
+      "start": "2003-05",
+      "end": "2026-09",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sts_inppd_m?lang=EN&freq=M&unit=I21&s_adj=NSA&indic_bt=PRC_PRR_DOM&nace_r2=C&geo=CH&sinceTimePeriod=1998-01",
+      "apply_at": "G16 approved refresh only",
+      "definition_note": "Domestic manufacturing producer prices, 2021=100, NSA. Replace the history as a separate source series; never splice index bases."
+    },
+    {
+      "country": "TUR",
+      "concept_id": "ppi",
+      "source": "Eurostat",
+      "dataset": "sts_inppd_m",
+      "geo": "TR",
+      "freq": "M",
+      "unit": "I21",
+      "sa_flag": "NSA",
+      "activity": "C",
+      "market": "domestic",
+      "indic_bt": "PRC_PRR_DOM",
+      "start": "2000-01",
+      "end": "2026-09",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sts_inppd_m?lang=EN&freq=M&unit=I21&s_adj=NSA&indic_bt=PRC_PRR_DOM&nace_r2=C&geo=TR&sinceTimePeriod=1998-01",
+      "apply_at": "G16 approved refresh only",
+      "definition_note": "Domestic manufacturing producer prices, 2021=100, NSA. Replace the history as a separate source series; never splice index bases."
+    }
+  ],
+  "audit": "DATA.md"
+}

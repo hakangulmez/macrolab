@@ -22,7 +22,7 @@ URLs must match reviewed versioned source prefixes before any download. A new
 flow/version requires a separate metadata/licence check. EIA and the three
 IMF indices fail closed if required source/audit responses are missing. All live source failures (non-200, empty/incomplete response or provider/parser
 failure) stop the refresh. Expected country coverage gaps remain explicit.
-All six default templates must complete. A changed reuse clause stops release
+All nine default templates must complete. A changed reuse clause stops release
 preparation until a new decision is recorded.
 
 Outputs are `data/processed/snapshots/<id>/` and `docs/REFRESH_<id>.md`. Detailed
@@ -37,8 +37,8 @@ snapshot ID is rejected. Neither a successful nor a failed refresh changes
 The old raw responses, processed snapshots and P2/P3.1 comparisons remain available.
 A release uses a chosen audited snapshot only at a separately approved gate.
 
-G5 rehearses the procedure without fetching the full panel. G9 is the authorised
-gate for the full live refresh. The data-bearing report and review screenshots
+G5 rehearses the procedure without fetching the full panel. G9 and G16 are the authorised
+gates for their respective full live refreshes. The data-bearing report and review screenshots
 are omitted from sanitised source exports.
 
 ## G9 refresh and recovery
@@ -57,3 +57,17 @@ Recovery requires passed data validation and audit, matching immutable file
 hashes, and only successful, complete archived source responses. It cannot
 resume a source failure or reopen a successful refresh. The G9 preparation also
 requires a licence review covering the selected snapshot date.
+
+## G16 refresh
+
+The new immutable snapshot is `20261024-2040`. G16 enables only the three audited
+Eurostat PPI replacements in the ordinary price mapping. Each full history has
+an additional first/middle/latest audit against an independent country query.
+The other 32 stale flags remain. The new snapshot is compared with
+`runs/g15/site/data`, using all nine registered defaults and sensitivity rows.
+Elapsed runtime metadata is excluded from numerical comparisons. The HP
+complete-quarter endpoint and paired failed-origin rules are unchanged.
+
+Prepare with `make g16-build SNAPSHOT=20261024-2040` only after the refresh and
+dated licence review pass. `make static-build` aliases this preparation. This
+build uses cached, pinned runtime assets, with no new package or automatic fetch.

@@ -1,23 +1,32 @@
 # MacroLab
 
 MacroLab is a non-commercial research and teaching tool for exploring official
-macro data and testing how results depend on modelling assumptions. **v1.1**
-provides 33 national indicators and three global factors across 38 OECD economies
-and the euro area. Six templates cover monetary policy, Taylor and Phillips
-relationships, Okun's law, a common ECB shock and Türkiye exchange-rate pass-through.
+macro data and testing how results depend on modelling assumptions. The **v2.0
+release candidate** provides 33 national indicators and three global factors
+across 38 OECD economies and the euro area, with nine templates.
 
-The app runs entirely in the browser, including estimation in a pinned Pyodide
-worker. A published build contains a fixed, audited data snapshot; visiting the
-app does not fetch new observations from providers. Results record the actual
-sample, transformations, dropped periods, source notes and sensitivity variants.
-They are **not forecasts**. Conditional associations and recursively identified
-scenarios carry their respective limitations; inference is pointwise.
+Estimation runs entirely in the browser in a pinned Pyodide worker. A published
+build bundles a fixed, audited snapshot; browsing never fetches new observations
+from providers. Every result records its actual sample, transformations, dropped
+periods, source notes and sensitivity. Country narratives remain withheld.
 
-v1 adds matched VAR/LP comparisons, country-response panels with shared axes,
-peak intervals and the cumulative pass-through ratio. v1.1 adds historical
-decomposition, optional Türkiye crisis sensitivities and per-chart PNG exports.
-Country narratives remain withheld. The October 23 snapshot is unchanged.
-Forecasting, BVAR, panel methods and other v2/v3 features are planned.
+The six established templates cover monetary policy, Taylor and Phillips
+relationships, Okun's law, a common ECB shock and Türkiye exchange-rate
+pass-through. v2.0 adds a pooled euro-area Phillips curve, pooled responses to
+the same ECB shock, and an EA inflation forecast horse race. Panel FE and LP,
+Minnesota BVAR, SARIMAX, VAR/BVAR forecasts, expanding-window evaluation,
+cointegration, VECM and structural-break diagnostics have linked validation cards.
+Historical decomposition and optional crisis analysis remain available.
+
+Only forecasting outputs are forecasts. Other outputs are conditional
+associations or identified scenarios, not forecasts. Evaluation uses final-vintage
+data and is pseudo-out-of-sample; real-time performance may be worse. Two-sided
+HP gaps use later observations. Pooled shock bands omit first-stage uncertainty;
+ECB break-test size remains unreliable. Sensitivities are descriptive and do not
+remove identification or model uncertainty. Further v3 methods remain planned.
+
+The local candidate requires separate approval of its exact source and site
+artifacts at P6. No preparation command publishes or deploys the application.
 
 ## Install and check
 
@@ -46,17 +55,18 @@ all/energy commodity variants are also available. Pink Sheet remains excluded.
 Country narratives are withheld. Data rights and attribution are in [DATA.md](DATA.md).
 
 Preparing a full local app additionally requires an audited snapshot and the
-exact cached runtime files listed in `web/runtime/assets.lock.json`. Preparation
+exact cached runtime files listed in `web/runtime/assets.lock.json`, their pinned
+notices, and the accepted native reference-validation summary at
+`runs/g4/model-validation.json`. Preparation
 never silently downloads runtime files. Original review evidence is private and
 absent from the public source export; code alone cannot recreate that evidence.
 
 ```sh
 # Explicit live data operation; PREVIOUS is an existing audited static data folder:
-make refresh PREVIOUS=runs/g8/public/data
-# Technical v1.1: provide the accepted v1.0.1 site at runs/v101/site first.
-# Preparation copies its cleared data bytes and builds only current source/UI:
-make g10-build
-# Serve runs/g10/site under /macrolab/ with a static server (no local API).
+make refresh PREVIOUS=runs/g15/site/data
+# Use a passed refresh plus its completed dated licence review:
+make g16-build SNAPSHOT=<audited-snapshot-id>
+# Serve runs/g16/site under /macrolab/ with a static server (no local API).
 ```
 
 Follow [refresh instructions](docs/DATA_REFRESH.md) and the

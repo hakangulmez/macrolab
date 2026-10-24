@@ -60,7 +60,7 @@ def test_invalid_share_payload(token):
 
 
 def test_release_registry_complete_and_explicit():
-    assert len(PLUGINS) == 16
+    assert len(PLUGINS) == 25
     for plugin in catalogue():
         assert all(
             plugin[k] for k in ["id", "family", "title", "summary", "assumptions", "references"]

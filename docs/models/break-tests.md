@@ -1,0 +1,99 @@
+# Structural breaks — G14 validation card
+
+`test.break` attaches to the actual `sing.ols`, `sing.ardl` or ECB first-stage
+policy-rate equation. It preserves the host's transformed sample, lag order,
+constant, selected DFR/BIS/three-month source variant, COVID and seasonal controls.
+The attachment creates a separate diagnostic configuration; it never changes
+the accepted host estimate. A noncontiguous first-stage implementation without
+an identified equation design blocks explicitly.
+
+For candidate split s (the first observation in the second regime), augment X
+with the post-s interactions of tested coefficients. Calendar dummies are fixed
+nuisance coefficients, not split coefficients. Test the added q coefficients
+using W = δ′Var(δ)⁻¹δ and F = W/q. The fixed-date Wald retains the host covariance. Sup-F calibration is
+selected independently from the four visible variants described below. Sup-F maximises F over
+ceil(.15T)…floor(.85T). Singular designs, nonpositive residual degrees of freedom
+or too few observations on a side are omitted with an explicit list and warning;
+the reference line still represents the nominal full 15%-trimmed window.
+
+A user-date Chow test additionally reports the classical SSE F statistic and
+F(q,T−k−q) p-value, labelled homoskedastic. Its accompanying fixed-date Wald uses
+the selected covariance. Invalid or unidentifiable user dates block.
+Invertible QR basis changes within the tested block condition the Wald calculation;
+a fixed QR basis conditions RecursiveLS. These preserve fitted values and prefix
+regression spaces, without rounding results or changing host coefficients.
+
+## Published calibration and its limits
+
+Hansen's 1997 response surface approximates the sup-Wald tail probability by
+`chi2.sf(max(0, a + b * W), df)`. For fixed 15% trimming, use the published
+coefficient row for pi0=.15 (18th row, zero-based 17) and q=1…40. These are
+numeric calibration constants, transcribed into a new Python implementation.
+No third-party executable code or new package is added to the browser runtime.
+
+For q=1…20, displayed 90/95/99% critical values come from **Andrews (2003),
+corrected Table I**, divided by q to match F. Sixty entries were independently
+extracted from the paper and visually checked: maximum relative difference
+2.23e−16, below 1%. For q=21…40 use explicitly labelled Hansen-implied values.
+The original Hansen approximation and corrected Andrews quantiles differ by
+up to **1.91%** on this table; p-values and critical values can disagree near a
+threshold. They are shown as distinct calibrations, never silently equated.
+
+## G14.1 bootstrap, scale and default selection
+
+The existing scale was correct. Independent asymptotic-null simulation (20,000
+replications, 4,000 grid intervals) gives raw-Wald 95% quantiles 8.73174 (q=1)
+and 28.89225 (q=11), versus Andrews 8.68 and 28.81. Monte Carlo 99% quantile
+intervals [8.54009,8.91646] and [28.61312,29.19418] contain the table values.
+The ECB displayed asymptotic 95% critical value is 28.81/11=2.61909.
+This checks the asymptotic scale; it is not a finite-sample calibration claim.
+
+Hansen (2000), sections 2 and 5.1: find the unrestricted minimum-SSE break fit,
+retain its residuals, multiply each by an independent standard normal draw,
+and re-estimate all candidate regressions with X held fixed. Use 499 seeded
+draws and p=(1+exceedances)/(499+1). The original heteroskedastic (HC) bootstrap
+uses conventional Wald studentisation; the HAC(4)-studentised version is an
+explicitly labelled extension. Both use the same multipliers. Neither bootstrap
+preserves serial correlation. Bootstrap critical values are empirical quantiles
+on Wald/q scale; all draws are retained. Their interpolation and the discrete
+plus-one p-value can differ at a threshold; the bootstrap decision uses p≤.05.
+Asymptotic decisions use the separately tabulated Andrews critical value.
+
+Before simulation, `docs/G14_1_PROTOCOL.md` fixed 500 replications per null,
+T=110, q=2 (matching the earlier G14 size benchmark), 5% nominal size and a
+minimax selection rule. Percent rejection:
+
+| Variant | IID | Heteroskedastic | AR(1), rho=.5 | Maximum error (pp) |
+|---|---:|---:|---:|---:|
+| Conventional asymptotic | 4.6 | 29.8 | 37.0 | 32.0 |
+| HAC(4) asymptotic | 29.0 | 28.8 | 42.2 | 37.2 |
+| HC bootstrap | 6.4 | 12.4 | 37.8 | 32.8 |
+| HAC(4)-studentised bootstrap | 9.6 | 9.6 | 17.2 | 12.2 |
+
+The last row is the default by the predeclared rule. **It remains oversized**,
+especially for serially correlated errors. This is one design, not evidence of
+uniform calibration or of good size in the q=11 ECB equation. All four rows stay
+visible. Wilson intervals and every replication are saved in `runs/g14_1`.
+The host regression and its covariance remain unchanged. Warn if the selected
+sup-F peak lies within two observations of either nominal trimming boundary.
+
+CUSUM and CUSUM-of-squares use statsmodels `RecursiveLS` recursive residuals and
+its 95% bounds; these are OLS-based, not HAC-robust tests. Report the diffuse burn
+and remaining recursive sample. Sparse COVID dummies can delay identification
+until the last dummy is observed: the ECB workload has only 23 recursive residuals
+after 85 initial rows, and visibly warns. Fewer than five remaining rows block.
+
+Native parity checks include independent fixed-date statsmodels Wald and
+RecursiveLS calculations. Native/browser/offline absolute tolerance is 1e−8;
+see G14 report (local review record omitted from source export) for measured values and median/p90 timings.
+
+References and audit provenance:
+
+- [Hansen (1997), Approximate Asymptotic P Values for Structural-Change Tests](https://users.ssc.wisc.edu/~behansen/progs/jbes_97.html).
+  Author's `jbes_97m.zip`, `pv_sup.m` numeric table; archive and hashes are recorded
+  in `runs/g14/references/provenance.json`. The archive is review material only.
+- [Andrews (2003), Tests for Parameter Instability and Structural Change With Unknown Change Point: A Corrigendum](https://doi.org/10.1111/1468-0262.00405).
+  Table I, p.397, 15% trim, retained locally as `runs/g14/references/Andrews2003.pdf`.
+- [statsmodels RecursiveLS](https://www.statsmodels.org/v0.14.6/generated/statsmodels.regression.recursive_ls.RecursiveLS.html).
+
+- [Hansen (2000), Testing for structural change in conditional models](https://users.ssc.wisc.edu/~bhansen/papers/joe_00.pdf), sections 2 and 5.1, equations and residual definition.

@@ -1,6 +1,19 @@
+import { diagnosticModel } from "../diagnosticModels";
+import { forecastModel } from "../forecast";
 import { useState } from "react";
 import type { AnalysisConfig, Manifest, Model, Template } from "../types";
 import { indicatorSummary, record, records, text } from "../format";
+const validationCards: Record<string, string> = {
+  "panel.fe": "panel_fe",
+  "panel.lp": "panel_lp",
+  "bvar.minn": "bvar_minn",
+  "uni.arima": "forecasting",
+  "fc.var": "forecasting",
+  "fc.eval": "forecasting",
+  "test.coint": "cointegration",
+  vecm: "cointegration",
+  "test.break": "break-tests",
+};
 export function Home({
   manifest,
   select,
@@ -245,6 +258,15 @@ export function Library({
                 </div>
                 <h2>{m.title}</h2>
                 <p>{m.summary}</p>
+                {validationCards[m.id] && (
+                  <a
+                    href={`${import.meta.env.BASE_URL}validation/${validationCards[m.id]}.html`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Validation card
+                  </a>
+                )}
                 <span className="small">
                   <strong>{m.label}</strong>
                 </span>
@@ -272,15 +294,17 @@ export function Library({
                     {text(m.inputs.required_roles, "any")}.
                   </p>
                   <p className="small">
-                    {m.id.includes("var") || m.id === "ident.recursive"
-                      ? "Pointwise bootstrap or asymptotic response intervals, conditional on the stated identification."
-                      : ["lp.ols", "cmp.common_shock"].includes(m.id)
-                        ? "Pointwise HC1 or HAC response bands; generated-shock uncertainty requires the on-demand joint bootstrap."
-                        : m.id === "ident.external_series"
-                          ? "Orthogonalised residuals from a first-stage VAR. Instability warns for shock extraction; unstable VAR responses remain blocked."
-                          : m.id.startsWith("sing.")
-                            ? "HAC or HC1 coefficient intervals describe sampling uncertainty; they do not establish causality."
-                            : "Descriptive/test/filter output; uncertainty is shown where the method defines it."}
+                    {forecastModel(m.id)
+                      ? "Predictive uncertainty in original units, explicit future controls and final-vintage evaluation."
+                      : m.id.includes("var") || m.id === "ident.recursive"
+                        ? "Pointwise bootstrap or asymptotic response intervals, conditional on the stated identification."
+                        : ["lp.ols", "cmp.common_shock"].includes(m.id)
+                          ? "Pointwise HC1 or HAC response bands; generated-shock uncertainty requires the on-demand joint bootstrap."
+                          : m.id === "ident.external_series"
+                            ? "Orthogonalised residuals from a first-stage VAR. Instability warns for shock extraction; unstable VAR responses remain blocked."
+                            : m.id.startsWith("sing.")
+                              ? "HAC or HC1 coefficient intervals describe sampling uncertainty; they do not establish causality."
+                              : "Descriptive/test/filter output; uncertainty is shown where the method defines it."}
                   </p>
                   <ul>
                     {m.references.map((r) => (
@@ -305,7 +329,14 @@ export function Library({
                 )}
                 <button
                   className={m.id === config.model.id ? "primary" : ""}
-                  disabled={blocked || busy}
+                  disabled={
+                    (blocked &&
+                      !m.id.startsWith("panel.") &&
+                      m.id !== "bvar.minn" &&
+                      !forecastModel(m.id) &&
+                      !diagnosticModel(m.id)) ||
+                    busy
+                  }
                   onClick={() => selectModel(m)}
                 >
                   {m.id === config.model.id
@@ -318,11 +349,14 @@ export function Library({
       </div>
       <section className="card stack" aria-label="Planned methods">
         <h2>Planned · outside this release</h2>
-        <p>
-          <strong>v2 · planned:</strong> ARIMA / VAR forecasting and forecast
-          evaluation, Bayesian VAR (Minnesota prior), panel fixed effects and
-          panel LP, VECM / cointegration, structural-break tools.
-        </p>
+        {!manifest.templates.some(
+          (t) => t.id === "ea_inflation_horse_race",
+        ) && (
+          <p>
+            <strong>v2 · planned:</strong> panel and forecasting horse-race
+            templates.
+          </p>
+        )}
         <p>
           <strong>v3 · planned:</strong> sign restrictions, proxy SVAR / LP-IV,
           state-dependent LP, time-varying parameter VAR.

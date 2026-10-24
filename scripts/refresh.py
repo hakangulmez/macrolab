@@ -17,6 +17,7 @@ from p1_prepare import Policy, filter_rows, read_policy, verified_file
 from p2_eia import load as load_eia
 from p2_validate import differences, summary
 
+from macrolab.analysis.config import required_countries
 from macrolab.analysis.engine import run_analysis
 from macrolab.data.correction import read_rows
 from macrolab.data.pipeline import collect, publish, write_json
@@ -103,6 +104,57 @@ def fresh_eia(client: SnapshotClient, countries: list[dict[str, Any]]) -> dict[s
     return {"rows": output, "audit": audit}
 
 
+def fresh_ppi_audit(client: SnapshotClient, rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """Three approved full-history replacements, independently indexed at three dates."""
+    mapping = json.loads((client.root / "configs/g16_stale_candidates.json").read_text())
+    if not mapping["active"]:
+        return {"active": False, "checks": []}
+    checks = []
+    for candidate in mapping["candidates"]:
+        country = candidate["country"]
+        values = sorted(
+            [
+                r
+                for r in rows
+                if r["country"] == country
+                and r["concept_id"] == "ppi"
+                and r["source"] == "Eurostat"
+            ],
+            key=lambda r: r["date"],
+        )
+        if len(values) < 3:
+            raise SnapshotError(f"Required approved PPI replacement missing: {country}")
+        response = client.fetch(
+            "Eurostat", "g16-ppi-audit-" + country, candidate["source_url"], "application/json"
+        )
+        payload = json.loads(response.body)
+        if payload["id"][-1] != "time" or any(n != 1 for n in payload["size"][:-1]):
+            raise SnapshotError("PPI independent audit requires singleton non-time dimensions")
+        times = payload["dimension"]["time"]["category"]["index"]
+        for row in [values[0], values[len(values) // 2], values[-1]]:
+            offset = times[row["date"]]
+            raw = payload["value"]
+            reference = float(raw[str(offset)] if isinstance(raw, dict) else raw[offset])
+            check = {
+                "country": country,
+                "date": row["date"],
+                "value": row["value"],
+                "reference": reference,
+                "difference": row["value"] - reference,
+                "passed": row["value"] == reference,
+                "audit_raw_path": response.record.raw_path,
+            }
+            checks.append(check)
+            if not check["passed"]:
+                raise SnapshotError(f"PPI replacement audit mismatch: {country}/{row['date']}")
+    return {
+        "active": True,
+        "passed": True,
+        "checks": checks,
+        "scope": "NOR/CHE/TUR; first, middle and latest; entire series, no index splicing",
+    }
+
+
 class ClearedClient(SnapshotClient):
     """Reject unchecked source flows before requesting their observation payloads."""
 
@@ -159,8 +211,8 @@ def changes(before: dict[str, list[Any]], after: dict[str, list[Any]]) -> list[d
 
 
 def comparison_bundle(source: Path, config: dict[str, Any]) -> dict[str, Any]:
-    """Include the EA first stage and explicit variants for the two v1 templates."""
-    countries = set(config["countries"])
+    """Include first-stage inputs and countries used by registered sensitivity rows."""
+    countries = set(required_countries({**config, "model": {"params": {}, **config["model"]}}))
     if config["model"]["id"] == "cmp.common_shock":
         countries.add("EA")
     bundle: dict[str, Any] = {"countries": {}}
@@ -191,6 +243,19 @@ def comparison_bundle(source: Path, config: dict[str, Any]) -> dict[str, Any]:
 
 
 def refresh_summary(result: dict[str, Any]) -> dict[str, Any]:
+    if result["config"]["model"]["id"] in {"panel.fe", "panel.lp", "fc.eval"}:
+        countries = result.get("results", [])
+        return {
+            "status": result["status"],
+            "sample": countries[0].get("actual_sample", {}) if countries else {},
+            "samples": {
+                r.get("outcome", r["country"]): r.get("actual_sample", {}) for r in countries
+            },
+            "checks": result.get("checks", []),
+            "sensitivity": result.get("template_sensitivity", []),
+            "coefficients": countries[0].get("coefficients_table", []) if countries else [],
+            "metrics": countries[0].get("evaluation", {}).get("metrics", []) if countries else [],
+        }
     if result["config"]["model"]["id"] not in {"lp.ols", "cmp.common_shock"}:
         return summary(result)
     countries = result.get("results", [])
@@ -216,7 +281,7 @@ def template_comparison(
             selected = deepcopy(config)
             bundle = comparison_bundle(source, selected)
             selected["snapshot_id"] = sid or bundle["snapshot_id"]
-            if selected["model"]["id"] == "cmp.common_shock":
+            if "first_stage" in selected["model"]["params"]:
                 selected["model"]["params"]["first_stage"]["snapshot_id"] = selected["snapshot_id"]
             result = run_analysis(selected, bundle)
             results.append(result)
@@ -228,7 +293,9 @@ def template_comparison(
                 / f"{file.stem}-{'after' if sid else 'before'}.json",
                 result,
             )
-        delta, structural, count = differences(*results)
+        delta, structural, count = differences(
+            *[{k: v for k, v in r.items() if k != "template_timing"} for r in results]
+        )
         output[file.stem] = {
             "before": refresh_summary(results[0]),
             "after": refresh_summary(results[1]),
@@ -303,6 +370,7 @@ def run(
                 collected = collect(
                     client, include_g11=True, cleared_only=True, fail_on_source_error=True
                 )
+                collected["source_details"]["G16_PPI"] = fresh_ppi_audit(client, collected["rows"])
                 brent = fresh_eia(client, collected["countries"])
                 collected["rows"].extend(brent["rows"])
                 collected["source_details"]["EIA"] = brent["audit"]
@@ -452,10 +520,10 @@ def run(
                 f"Previous accepted snapshot: `{baseline['snapshot_id']}`. "
                 f"Requested as-of date: {as_of}.\n\n"
                 f"**Failed:** {exc}\n\n"
-                "Stopped under the G9 source-failure rule. No incomplete snapshot was "
+                "Stopped under the source-failure rule. No incomplete snapshot was "
                 "promoted or used for a release candidate. Raw attempt evidence and the "
                 "failed marker are retained; the accepted snapshot is unchanged.\n\n"
-                "Changed series, material revisions, new stale flags and all six template "
+                "Changed series, material revisions, new stale flags and all nine template "
                 "comparisons are not available because collection did not complete. "
                 "No conclusion about unchanged licences can be drawn from this failed run.\n"
             )

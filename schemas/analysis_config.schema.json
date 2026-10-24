@@ -153,7 +153,16 @@
             "lp.ols",
             "out.hd",
             "ident.external_series",
-            "cmp.common_shock"
+            "cmp.common_shock",
+            "panel.fe",
+            "panel.lp",
+            "bvar.minn",
+            "uni.arima",
+            "fc.var",
+            "fc.eval",
+            "test.coint",
+            "vecm",
+            "test.break"
           ]
         },
         "params": {

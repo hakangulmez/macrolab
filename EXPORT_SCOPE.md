@@ -6,7 +6,6 @@ This export excludes the following tracked review material. Ignored local datase
 
 - `DECISIONS.md` — Private gate review/decision record.
 - `OPEN_ISSUES.md` — Private gate review/decision record.
-- `configs/g16_stale_candidates.json` — Inactive future-refresh proposal; not part of v1.1 inputs.
 - `docs/COUNTRY_NOTES_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/COVERAGE_G1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/COVERAGE_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
@@ -15,6 +14,10 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/FALLBACKS_G1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G0_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G10_STALE_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/G13_LOSS_ATTRIBUTION.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/G14_1_BREAK_CHANGES.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/G14_1_PROTOCOL.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/G15_OPEN_NOTES.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G1_1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G2_1_RESULTS.md` — Review report/evidence omitted, including all verification and result reports.
@@ -34,9 +37,15 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/P2_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/REFRESH_20261021-1446.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/REFRESH_20261023-1634.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/REFRESH_20261024-2040.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G0.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G10.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G11.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G12.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G13.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G14.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G15.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G2.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G3.md` — Review report/evidence omitted, including all verification and result reports.
@@ -52,6 +61,9 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/STOP_REPORT_P2.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_V1_0_1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/probe_evidence.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/reviews/G15_EA_PHILLIPS.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/reviews/G15_ECB_POOLED.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/reviews/G15_INFLATION_FORECAST.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/screenshots/README.md` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/builder-desktop.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/builder-mobile.png` — All review screenshots and their indexes are omitted.
@@ -65,6 +77,200 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/screenshots/g10_1/crisis-375.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g10_1/hd-1440.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g10_1/hd-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g11/panel-lp-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g11/panel-lp-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g11/panel_fe_11-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g11/panel_fe_11-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g11/panel_lp_4-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g11/panel_lp_4-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g11_1/panel_fe_11-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g11_1/panel_fe_11-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g11_1/panel_lp_4-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g11_1/panel_lp_4-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g12/bvar-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g12/bvar-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g12/bvar_fixed-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g12/bvar_fixed-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g12/bvar_grid-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g12/bvar_grid-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g12/panel-lp-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g12/panel-lp-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g12/panel_fe_11-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g12/panel_fe_11-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g12/panel_lp_4-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g12/panel_lp_4-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/arima_monthly-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/arima_monthly-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/arima_search-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/arima_search-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/bvar_fixed-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/bvar_fixed-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/bvar_grid-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/bvar_grid-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/forecast-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/forecast-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/forecast_bvar-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/forecast_bvar-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/forecast_evaluation-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/forecast_evaluation-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/forecast_exogenous-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/forecast_exogenous-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/forecast_ols-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g13/forecast_ols-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/break-ecb-source-cards-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/break-ecb-source-cards-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/break_ardl-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/break_ardl-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/break_ecb-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/break_ecb-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/break_ols-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/break_ols-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/cointegration_three-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/cointegration_three-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/cointegration_two-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/cointegration_two-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/diagnostic-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/diagnostic-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/forecast_evaluation-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/forecast_evaluation-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/vecm_bootstrap-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/vecm_bootstrap-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/vecm_point-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14/vecm_point-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/break-ecb-source-cards-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/break-ecb-source-cards-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/break_ardl-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/break_ardl-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/break_ecb-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/break_ecb-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/break_ols-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/break_ols-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/diagnostic-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/diagnostic-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/vecm_bootstrap-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/vecm_bootstrap-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/vecm_point-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g14_1/vecm_point-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/break-ecb-source-cards-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/break-ecb-source-cards-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/break_ecb-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/break_ecb-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/ea_inflation_horse_race-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/ea_inflation_horse_race-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/ea_inflation_horse_race-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/ea_inflation_horse_race-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/ea_phillips_pooled-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/ea_phillips_pooled-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/ea_phillips_pooled-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/ea_phillips_pooled-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/home-nine-templates-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/home-nine-templates-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/library-template-availability-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/library-template-availability-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/methods-template-availability-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/methods-template-availability-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/same_ecb_shock_pooled-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/same_ecb_shock_pooled-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/same_ecb_shock_pooled-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/same_ecb_shock_pooled-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/same_ecb_shock_pooled-gdp-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g15/same_ecb_shock_pooled-gdp-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/break-ecb-source-cards-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/break-ecb-source-cards-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/break_ecb-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/break_ecb-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/crisis-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/crisis-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/ea_inflation_horse_race-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/ea_inflation_horse_race-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/ea_inflation_horse_race-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/ea_inflation_horse_race-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/ea_phillips_pooled-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/ea_phillips_pooled-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/ea_phillips_pooled-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/ea_phillips_pooled-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/hd-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/hd-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/home-nine-templates-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/home-nine-templates-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/library-template-availability-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/library-template-availability-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/methods-template-availability-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/methods-template-availability-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/same_ecb_shock_pooled-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/same_ecb_shock_pooled-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/same_ecb_shock_pooled-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/same_ecb_shock_pooled-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/same_ecb_shock_pooled-gdp-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16-old/same_ecb_shock_pooled-gdp-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/arima_monthly-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/arima_monthly-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/arima_search-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/arima_search-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/break-ecb-source-cards-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/break-ecb-source-cards-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/break_ardl-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/break_ardl-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/break_ecb-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/break_ecb-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/break_ols-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/break_ols-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/bvar-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/bvar-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/bvar_fixed-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/bvar_fixed-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/bvar_grid-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/bvar_grid-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/cointegration_three-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/cointegration_three-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/cointegration_two-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/cointegration_two-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/crisis-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/crisis-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/diagnostic-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/diagnostic-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/ea_inflation_horse_race-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/ea_inflation_horse_race-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/ea_inflation_horse_race-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/ea_inflation_horse_race-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/ea_phillips_pooled-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/ea_phillips_pooled-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/ea_phillips_pooled-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/ea_phillips_pooled-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/forecast-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/forecast-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/forecast_bvar-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/forecast_bvar-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/forecast_evaluation-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/forecast_evaluation-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/forecast_exogenous-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/forecast_exogenous-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/forecast_ols-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/forecast_ols-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/hd-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/hd-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/home-nine-templates-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/home-nine-templates-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/library-template-availability-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/library-template-availability-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/methods-template-availability-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/methods-template-availability-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/panel-lp-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/panel-lp-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/panel_fe_11-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/panel_fe_11-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/panel_lp_4-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/panel_lp_4-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/same_ecb_shock_pooled-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/same_ecb_shock_pooled-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/same_ecb_shock_pooled-builder-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/same_ecb_shock_pooled-builder-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/same_ecb_shock_pooled-gdp-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/same_ecb_shock_pooled-gdp-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/vecm_bootstrap-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/vecm_bootstrap-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/vecm_point-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g16/vecm_point-375.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g3_1/README.md` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g3_1/builder-desktop.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g3_1/builder-mobile.png` — All review screenshots and their indexes are omitted.
@@ -197,7 +403,14 @@ This export excludes the following tracked review material. Ignored local datase
 
 - `README.md` — Dedicated source-export instructions replace local review links.
 - `configs/country_notes.yaml` — Narrative notes removed; adoption, currency and source metadata preserved.
+- `configs/g16_stale_candidates.json` — Public data-rights record replaces private gate-audit link.
 - `DATA.md` — Links to omitted review records replaced by explicit omission text.
 - `docs/G5_DATA_SOURCES.md` — Links to omitted review records replaced by explicit omission text.
+- `docs/models/break-tests.md` — Links to omitted review records replaced by explicit omission text.
+- `docs/models/bvar_minn.md` — Links to omitted review records replaced by explicit omission text.
+- `docs/models/cointegration.md` — Links to omitted review records replaced by explicit omission text.
+- `docs/models/forecasting.md` — Links to omitted review records replaced by explicit omission text.
+- `docs/models/panel_fe.md` — Links to omitted review records replaced by explicit omission text.
+- `docs/models/panel_lp.md` — Links to omitted review records replaced by explicit omission text.
 
-One v1.1 candidate commit follows public main d5ce053. Only public ancestry is retained; private development history and remotes are excluded. Exact-artifact P5 approval is required before publication.
+One v2.0 candidate commit follows public main 23969e8. Public ancestry only; private development history and remotes excluded. Exact-artifact P6 approval is required.

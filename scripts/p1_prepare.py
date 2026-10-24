@@ -448,20 +448,24 @@ def prepare(
 ) -> dict[str, Any]:
     if mode not in {"cleared", "all"} or not re.fullmatch(r"/(?:[A-Za-z0-9_-]+/)*", base_path):
         raise ValueError("Choose cleared/all sources and a simple absolute project base path")
-    if candidate not in {"p1", "p2", "g9"} or (candidate in {"p2", "g9"} and mode != "cleared"):
+    if candidate not in {"p1", "p2", "g9", "g16"} or (
+        candidate in {"p2", "g9", "g16"} and mode != "cleared"
+    ):
         raise ValueError("P2 always applies the reviewed source policy; P1 all remains separate")
     policy_path = root / (
         "configs/publication_sources_v1.json"
-        if candidate == "g9"
+        if candidate in {"g9", "g16"}
         else "configs/publication_sources.json"
     )
     policy_data = read_policy(policy_path)
     policy = Policy(policy_data)
-    if candidate == "g9" and (not snapshot_id or not re.fullmatch(r"\d{8}-\d{4}", snapshot_id)):
+    if candidate in {"g9", "g16"} and (
+        not snapshot_id or not re.fullmatch(r"\d{8}-\d{4}", snapshot_id)
+    ):
         raise ValueError("G9 needs an explicit audited snapshot identifier")
     directory = (
         root / "data/processed/snapshots" / snapshot_id
-        if candidate == "g9" and snapshot_id
+        if candidate in {"g9", "g16"} and snapshot_id
         else root / "data/processed/current"
     )
     snapshot_bytes = (directory / "processed_manifest.json").read_bytes()
@@ -470,7 +474,7 @@ def prepare(
         raise ValueError("P1 only reads an accepted, audited local snapshot")
     target = (
         root / "runs" / candidate
-        if candidate in {"p2", "g9"}
+        if candidate in {"p2", "g9", "g16"}
         else root / "runs/p1" / ("cleared" if mode == "cleared" else "all-local-only")
     )
     public = target / "public"
@@ -526,11 +530,11 @@ def prepare(
         read_rows(verified_file(directory, snapshot, "variant_series.parquet")), policy, mode
     )
     definitions = yaml.safe_load((root / "configs/indicators.yaml").read_text())
-    if candidate in {"p2", "g9"}:
+    if candidate in {"p2", "g9", "g16"}:
         brent = next(item for item in definitions["concepts"] if item["concept_id"] == "oil_brent")
         brent["source_priority"] = ["EIA"]
         brent["title"] = "Europe Brent spot price (EIA), USD/bbl"
-    if candidate == "g9":
+    if candidate in {"g9", "g16"}:
         commodity = next(
             item for item in definitions["concepts"] if item["concept_id"] == "commod_idx"
         )
@@ -683,7 +687,7 @@ def prepare(
     templates = []
     for key, (title, description) in common["TEMPLATES"].items():
         config = json.loads((root / f"configs/templates/{key}.json").read_text())
-        if candidate in {"p2", "g9"}:
+        if candidate in {"p2", "g9", "g16"}:
             config["snapshot_id"] = candidate_snapshot
         missing = [
             {"country": country, "concept_id": spec["concept_id"]}
@@ -723,7 +727,7 @@ def prepare(
     shutil.copyfile(root / "web/runtime/worker.mjs", runtime / "worker.mjs")
     shutil.copyfile(root / "web/runtime/assets.lock.json", runtime / "assets.lock.json")
     software_notices = copy_software_notices(root, public, lock)
-    if candidate in {"p2", "g9"}:
+    if candidate in {"p2", "g9", "g16"}:
         from runtime_notices import copy_runtime_notices
 
         notice_update = copy_runtime_notices(root, public)

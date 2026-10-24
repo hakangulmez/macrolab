@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "20261023-1634",
+  "countries": [
+    "EA"
+  ],
+  "frequency": "Q",
+  "series": [
+    {
+      "concept_id": "cpi",
+      "role": "endogenous",
+      "transform": "yoy_pct",
+      "transform_params": {}
+    },
+    {
+      "concept_id": "unemp",
+      "role": "endogenous",
+      "transform": "level",
+      "transform_params": {}
+    },
+    {
+      "concept_id": "rate_3m",
+      "role": "endogenous",
+      "transform": "level",
+      "transform_params": {}
+    },
+    {
+      "concept_id": "gdp_real",
+      "role": "endogenous",
+      "transform": "qoq_saar",
+      "transform_params": {}
+    }
+  ],
+  "aggregation": {
+    "cpi": "mean",
+    "unemp": "mean",
+    "rate_3m": "mean",
+    "gdp_real": "mean"
+  },
+  "sample": {
+    "start": "1999-Q1",
+    "end": "latest"
+  },
+  "special_periods": {
+    "covid": "include",
+    "covid_window": {
+      "start": "2020-Q1",
+      "end": "2021-Q2"
+    },
+    "elb_threshold": 0.25
+  },
+  "model": {
+    "id": "fc.eval",
+    "params": {
+      "template_id": "ea_inflation_horse_race",
+      "evaluation_scale": "transformed",
+      "lags": 2,
+      "draws": 500,
+      "lambda": 0.2,
+      "reselect": false,
+      "horizon": 8,
+      "future_exog": "unspecified",
+      "order_selection": "aicc",
+      "p": 1,
+      "d": 1,
+      "q": 0,
+      "seasonal_p": 0,
+      "seasonal_q": 0
+    }
+  },
+  "outputs": {
+    "confidence": 0.95
+  },
+  "comparison": {
+    "enabled": false,
+    "identifications": [],
+    "methods": [],
+    "scenarios": []
+  },
+  "seed": 20261021,
+  "identification": null
+}

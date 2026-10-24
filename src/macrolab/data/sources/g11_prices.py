@@ -79,7 +79,13 @@ def normalise_ppi_eurostat(
         codes = set(actual) if isinstance(actual, (dict, list)) else set()
         if codes != {expected}:
             raise ValueError(f"Eurostat PPI dimension {dimension} differs from verified selection")
-    eligible = [c for c in countries if c.get("eu_member") is True or c["iso3"] == "EA"]
+    eligible = [
+        c
+        for c in countries
+        if c.get("eu_member") is True
+        or c["iso3"] == "EA"
+        or c["iso3"] in specification.get("additional_countries", [])
+    ]
     rows = normalise_eurostat(payload, fetched, eligible, specification)
     for row in rows:
         row["definition"] = specification["definition"]

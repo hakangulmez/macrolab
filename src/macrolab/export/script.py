@@ -45,6 +45,13 @@ def config_script(config: dict[str, Any]) -> str:
         required_countries(normalised),
         required_concepts(normalised),
     )
+    if normalised["model"]["params"].get("template_id") == "same_ecb_shock_pooled" or (
+        normalised["model"]["id"] == "test.break"
+        and normalised["model"]["params"].get("source_variant", "none") != "none"
+    ):
+        from macrolab.analysis.engine import _inputs
+
+        bundle = _inputs(normalised, None)
     return standalone(normalised, bundle)
 
 

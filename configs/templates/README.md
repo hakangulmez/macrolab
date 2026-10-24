@@ -1,5 +1,16 @@
 # Local DRAFT template configurations — G3.1 defaults
 
+**Current local additions:** G15 adds `ea_phillips_pooled`,
+`same_ecb_shock_pooled` and `ea_inflation_horse_race` on snapshot
+`20261023-1634`. Their full specifications were committed before estimation in
+`DECISIONS.md` at `82ff653`. The Phillips filter resolves the incomplete trailing
+quarter to the latest fully observed endpoint, with the failure and correction
+documented. The forecast target is y/y inflation itself, not an inverted HICP
+index. See `docs/STOP_REPORT_G15.md` and its three economic reviews. Build the
+local nine-template review with `make g15-build`; it performs no refresh,
+download, push or deployment. The historical gate descriptions below retain
+their original context; later accepted decisions and the JSON files govern.
+
 Countries remain USA (monetary policy), GBR (Taylor rule), CAN (Phillips curve),
 and ESP (Okun's law). All use accepted snapshot `20261021-0025`, quarterly
 frequency, seed 20261021, complete-period aggregation, and no gap filling.

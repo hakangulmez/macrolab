@@ -26,6 +26,15 @@ MODEL_IDS = (
     "out.hd",
     "ident.external_series",
     "cmp.common_shock",
+    "panel.fe",
+    "panel.lp",
+    "bvar.minn",
+    "uni.arima",
+    "fc.var",
+    "fc.eval",
+    "test.coint",
+    "vecm",
+    "test.break",
 )
 TRANSFORMS = (
     "level",
@@ -57,6 +66,11 @@ def config_hash(config: dict[str, Any]) -> str:
 def required_concepts(config: dict[str, Any]) -> list[str]:
     """Include source-only series needed by explicitly enabled comparisons."""
     concepts = [str(item["concept_id"]) for item in config["series"]]
+    if (
+        config["model"]["id"] == "test.break"
+        and config["model"]["params"].get("source_variant") == "rate_3m"
+    ):
+        concepts.append("rate_3m")
     first = config.get("model", {}).get("params", {}).get("first_stage")
     if isinstance(first, dict):
         concepts.extend(required_concepts(first))
@@ -68,7 +82,12 @@ def required_concepts(config: dict[str, Any]) -> list[str]:
 
 def required_countries(config: dict[str, Any]) -> list[str]:
     first = config.get("model", {}).get("params", {}).get("first_stage", {})
-    return list(dict.fromkeys([*config["countries"], *first.get("countries", [])]))
+    extra = []
+    if config["model"]["params"].get("template_id") == "same_ecb_shock_pooled":
+        from macrolab.analysis.templates_v2 import FOUNDERS
+
+        extra = FOUNDERS
+    return list(dict.fromkeys([*config["countries"], *first.get("countries", []), *extra]))
 
 
 def _fields(value: Any, allowed: set[str], required: set[str], name: str) -> dict[str, Any]:
@@ -221,7 +240,14 @@ def normalise_config(value: dict[str, Any]) -> dict[str, Any]:
         _fields(identification, {"id", "params"}, {"id", "params"}, "identification")
         if identification["id"] not in ("recursive", "ident.recursive"):
             raise ConfigError("Only recursive identification is released in v0")
-        if model["id"] not in ("var.ols", "ident.recursive", "out.hd", "ident.external_series"):
+        if model["id"] not in (
+            "var.ols",
+            "ident.recursive",
+            "out.hd",
+            "ident.external_series",
+            "bvar.minn",
+            "test.break",
+        ):
             raise ConfigError("Identification requires a VAR model")
         _fields(identification["params"], {"order"}, {"order"}, "identification.params")
         endogenous = [
@@ -373,7 +399,7 @@ def validated_config(value: dict[str, Any]) -> dict[str, Any]:
             raise ConfigError(f"{key} is below the minimum")
         if "maximum" in rule and v > rule["maximum"]:
             raise ConfigError(f"{key} exceeds the maximum")
-    if plugin.id == "cmp.common_shock":
+    if plugin.id == "cmp.common_shock" or (plugin.id == "panel.lp" and "first_stage" in params):
         first = params.get("first_stage")
         if not isinstance(first, dict) or first.get("model", {}).get("id") not in {
             "var.ols",
@@ -394,8 +420,24 @@ def validated_config(value: dict[str, Any]) -> dict[str, Any]:
                 raise ConfigError(
                     "The common impulse must use the generated identified_impulse field"
                 )
+        if plugin.id == "panel.lp" and params.get("shock_type") != "common":
+            raise ConfigError("An identified common first-stage shock requires common shock mode")
         params["first_stage"] = first
-    if plugin.id in {"lp.ols", "out.hd", "ident.external_series", "cmp.common_shock"}:
+    if plugin.id in {
+        "lp.ols",
+        "out.hd",
+        "ident.external_series",
+        "cmp.common_shock",
+        "panel.fe",
+        "panel.lp",
+        "bvar.minn",
+        "uni.arima",
+        "fc.var",
+        "fc.eval",
+        "test.coint",
+        "vecm",
+        "test.break",
+    }:
         # JavaScript JSON has one numeric type. Normalize integral floats only
         # for the new model contracts; accepted v0 config hashes stay intact.
         def portable_numbers(value: Any) -> Any:

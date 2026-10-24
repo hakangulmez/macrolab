@@ -1,4 +1,4 @@
-/* global window, document, Worker, requestAnimationFrame */
+/* global window, document, Worker, requestAnimationFrame, CanvasRenderingContext2D */
 import assert from "node:assert/strict";
 import { checkExtension } from "./g10-extension-check.mjs";
 import { createServer } from "node:http";
@@ -13,7 +13,7 @@ const { chromium } = require("@playwright/test");
 const AxeBuilder = require("@axe-core/playwright").default;
 const root = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
 const before = process.argv.includes("--before");
-const accepted = join(root, "runs/v101");
+const accepted = join(root, process.env.MACROLAB_ACCEPTED_DIR ?? "runs/v101");
 const review = process.env.MACROLAB_REVIEW_DIR ?? "runs/g10";
 const out = join(root, review, before ? "before" : ""),
   site = before ? join(root, "runs/v101/site") : join(out, "site");
@@ -71,7 +71,10 @@ function compare(a, b) {
     if (typeof x === "number") {
       assert.equal(typeof y, "number", path);
       const diff = Math.abs(x - y);
-      assert(diff === 0, `${path}: ${x} vs ${y}`);
+      assert(
+        diff <= Number(process.env.MACROLAB_PARITY_TOLERANCE ?? 0),
+        `${path}: ${x} vs ${y}`,
+      );
       max = Math.max(max, diff);
       count++;
     } else if (Array.isArray(x)) {
@@ -81,6 +84,13 @@ function compare(a, b) {
       assert.deepEqual(Object.keys(x).sort(), Object.keys(y).sort(), path);
       for (const k of Object.keys(x)) {
         if (["runtime_ms", "code_version"].includes(k)) continue;
+        // The hash covers full-precision generated shock bytes, not rounded inputs.
+        // Retain exact hash checks within a runtime; compare the actual numbers across runtimes.
+        if (
+          process.env.MACROLAB_REFERENCE_KIND === "native" &&
+          k === "shock_fingerprint"
+        )
+          continue;
         visit(x[k], y[k], path + "/" + k);
       }
     } else if (
@@ -117,7 +127,12 @@ try {
     viewport: { width: 1440, height: 1000 },
   });
   await context.route("**/*", async (route) => {
-    if (new URL(route.request().url()).origin !== origin) {
+    if (
+      !route
+        .request()
+        .url()
+        .startsWith(origin + "/macrolab/")
+    ) {
       report.external_requests.push(route.request().url());
       await route.abort();
     } else await route.continue();
@@ -129,6 +144,13 @@ try {
     if (r.status() >= 400) report.failed_requests.push(r.url());
   });
   await page.addInitScript(() => {
+    window.exportAxisTitles = [];
+    const fillText = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (...args) {
+      if (!this.canvas.isConnected && /after the shock/.test(String(args[0])))
+        window.exportAxisTitles.push(String(args[0]));
+      return fillText.apply(this, args);
+    };
     window.g7Runs = [];
     window.g9Pairs = [];
     window.g71Partial = [];
@@ -235,18 +257,29 @@ try {
   }
   await page.goto(origin + "/macrolab/");
   await page
-    .getByText(`${before ? "v1.0.1" : "v1.1"} · Data snapshot 23 Oct 2026`, {
-      exact: true,
-    })
+    .getByText(
+      process.env.MACROLAB_EXPECTED_BADGE ??
+        `${before ? "v1.0.1" : "v1.1"} · Data snapshot 23 Oct 2026`,
+      {
+        exact: true,
+      },
+    )
     .waitFor();
   const single = process.argv
     .find((a) => a.startsWith("--template="))
     ?.split("=")[1];
-  const names = benchmark
-    ? Array.from({ length: 5 }, () => [
+  const benchmarkNames = process.env.MACROLAB_ALL_TEMPLATE_BENCHMARK
+    ? [
         "monetary_policy",
+        "taylor_rule",
+        "phillips_curve",
+        "okuns_law",
         "same_ecb_shock",
-      ]).flat()
+        "tur_pass_through",
+      ]
+    : ["monetary_policy", "same_ecb_shock"];
+  const names = benchmark
+    ? Array.from({ length: 5 }, () => benchmarkNames).flat()
     : single
       ? [single]
       : [
@@ -267,7 +300,14 @@ try {
     else await page.getByTestId("template-" + name).click();
     await page
       .locator('[data-testid="runtime-readiness"][data-runtime-status="ready"]')
-      .waitFor();
+      .waitFor()
+      .catch(async (error) => {
+        console.error(
+          "Runtime preparation failed:",
+          await page.locator("body").innerText(),
+        );
+        throw error;
+      });
     const preparation_ms = Date.now() - preparationStarted;
     if (process.argv.includes("--cold-only")) {
       report.cold_preparation_ms = preparation_ms;
@@ -304,7 +344,15 @@ try {
       JSON.stringify(run.result) + "\n",
     );
     const expected = JSON.parse(
-      await readFile(join(accepted, name + ".browser.json")),
+      await readFile(
+        join(
+          accepted,
+          name +
+            (process.env.MACROLAB_REFERENCE_KIND === "native"
+              ? ".json"
+              : ".browser.json"),
+        ),
+      ),
     );
     const diff = compare(expected, run.result);
     if (name === "same_ecb_shock")
@@ -382,6 +430,7 @@ try {
       : process.argv.includes("--png-only")
         ? ["png"]
         : ["csv", "png", "python"]) {
+      await page.evaluate(() => (window.exportAxisTitles = []));
       const downloadPromise = page.waitForEvent("download");
       await page.getByTestId("export-" + format).click();
       const download = await downloadPromise;
@@ -393,6 +442,24 @@ try {
         ),
       );
       if (format === "png") {
+        if (
+          process.env.MACROLAB_G11_PRESENTATION &&
+          ["monetary_policy", "same_ecb_shock", "tur_pass_through"].includes(
+            name,
+          )
+        ) {
+          const axes = await page.evaluate(() => window.exportAxisTitles);
+          assert(axes.length > 0);
+          assert(
+            axes.every(
+              (s) =>
+                s ===
+                `${name === "tur_pass_through" ? "Months" : "Quarters"} after the shock`,
+            ),
+          );
+          report.png_axis_titles ??= [];
+          report.png_axis_titles.push({ name, axes });
+        }
         await mkdir(join(out, "screenshots/exports"), {
           recursive: true,
         });
@@ -435,6 +502,26 @@ try {
       }));
       console.log("width check", name, width, overflow.scroll);
       assert(overflow.scroll <= width + 1, "Page overflow");
+      if (
+        process.env.MACROLAB_G11_PRESENTATION &&
+        ["monetary_policy", "same_ecb_shock", "tur_pass_through"].includes(name)
+      ) {
+        const axes = await page
+          .locator("[data-x-axis-title]")
+          .evaluateAll((nodes) =>
+            nodes.map((e) => e.getAttribute("data-x-axis-title")),
+          );
+        assert(axes.length > 0);
+        assert(
+          axes.every(
+            (s) =>
+              s ===
+              `${name === "tur_pass_through" ? "Months" : "Quarters"} after the shock`,
+          ),
+        );
+        report.response_axis_titles ??= [];
+        report.response_axis_titles.push({ name, width, axes });
+      }
       await mkdir(join(out, "screenshots"), { recursive: true });
       void 0;
       if (name === "same_ecb_shock") void 0;
@@ -474,7 +561,16 @@ try {
       );
       assert.equal(pair.status, "ok", JSON.stringify(pair));
       const expected = JSON.parse(
-        await readFile(join(accepted, name + "-methods.browser.json")),
+        await readFile(
+          join(
+            accepted,
+            name +
+              "-methods" +
+              (process.env.MACROLAB_REFERENCE_KIND === "native"
+                ? ".json"
+                : ".browser.json"),
+          ),
+        ),
       );
       report.methods.push({
         name,
@@ -566,7 +662,12 @@ try {
       if (screen === "methods") {
         assert.match(
           await page.getByTestId("screen-methods").innerText(),
-          /v1\.1 · Data snapshot 23 Oct 2026/,
+          new RegExp(
+            (
+              process.env.MACROLAB_EXPECTED_BADGE ??
+              "v1.1 · Data snapshot 23 Oct 2026"
+            ).replaceAll(".", "\\."),
+          ),
         );
         assert.match(
           await page.getByTestId("screen-methods").innerText(),
@@ -620,7 +721,7 @@ try {
       return a[i] + (a[Math.min(i + 1, a.length - 1)] - a[i]) * (x - i);
     };
     report.performance = Object.fromEntries(
-      ["monetary_policy", "same_ecb_shock"].map((name) => {
+      benchmarkNames.map((name) => {
         const rows = report.cases.filter((r) => r.name === name);
         return [
           name,

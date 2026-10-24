@@ -11,6 +11,29 @@ export function TemplateControls({
   const p = config.model.params,
     ecb = p.template_id === "same_ecb_shock";
   if (!p.template_id) return null;
+  if (
+    [
+      "ea_phillips_pooled",
+      "same_ecb_shock_pooled",
+      "ea_inflation_horse_race",
+    ].includes(String(p.template_id))
+  )
+    return (
+      <section className="card stack" aria-label="Template assumptions">
+        <h3>Template assumptions</h3>
+        <p>
+          {p.template_id === "ea_phillips_pooled"
+            ? "Year-on-year HICP inflation and Brent growth. The HP unemployment gap (λ = 1600) is two-sided and uses later observations. Country fixed effects; Driscoll–Kraay intervals and country OLS HAC(4)."
+            : p.template_id === "same_ecb_shock_pooled"
+              ? "HICP and GDP responses to the existing EA DFR shock. Common country and horizon windows, lag-augmented LP, Driscoll–Kraay conditional bands. Time effects would absorb the common shock."
+              : "Predict year-on-year EA HICP inflation itself. The first origin has 40 usable quarters; orders are fixed there. No exogenous regressors; BVAR λ = 0.2, two lags. Final-vintage data."}
+        </p>
+        <p className="small">
+          The preregistered specification sensitivity rows run with the baseline
+          and retain their exact samples and warnings.
+        </p>
+      </section>
+    );
   const first = p.first_stage as AnalysisConfig | undefined;
   return (
     <section className="card stack" aria-label="Template assumptions">
@@ -18,7 +41,7 @@ export function TemplateControls({
       <p className="small">
         {ecb
           ? "DFR is the consistent policy series. National NSA HICP uses quarterly seasonal controls; EA HICP is officially seasonally adjusted. No shadow rate is available for 2014–2022."
-          : "A 1% depreciation, with monthly seasonal controls. Conditional association; currency-crisis options are deferred to v1.1."}
+          : "A 1% depreciation, with monthly seasonal controls. Conditional association; optional currency-crisis analysis has a separate sensitivity summary."}
       </p>
       {ecb && <TemplateSources config={config} />}
       {ecb && (

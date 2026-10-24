@@ -687,11 +687,20 @@ export function Methods({ manifest }: { manifest: Manifest }) {
         <p>
           {buildVersion} · Data snapshot {snapshotDate(manifest.as_of_date)}.
           This is a fixed snapshot bundled with the app; it does not refresh
-          while you browse. Six templates include a common ECB shock across
-          countries and Türkiye exchange-rate pass-through, with matched VAR/LP
-          comparisons available where supported. Country narratives are
-          withheld.
+          while you browse. {manifest.templates.length} templates include a
+          common ECB shock across countries and Türkiye exchange-rate
+          pass-through, with matched VAR/LP comparisons available where
+          supported. Country narratives are withheld.
         </p>
+        {manifest.templates.some((t) => t.id === "ea_inflation_horse_race") && (
+          <p>
+            v2.0 includes a pooled euro-area Phillips curve, pooled responses to
+            the same ECB shock, and a euro-area inflation forecast horse race.
+            HP gaps use later observations; pooled shock bands ignore
+            first-stage uncertainty. Forecast evaluation uses final-vintage data
+            and may overstate real-time performance.
+          </p>
+        )}
         {manifest.publication?.included_global_factors?.includes(
           "commod_idx",
         ) && (
@@ -1009,6 +1018,137 @@ export function Methods({ manifest }: { manifest: Manifest }) {
           stay visible. The secondary CPI path is the response to an initial 1%
           depreciation, followed by the exchange rate’s own subsequent path.
         </p>
+        <h3>Panel fixed effects and local projections</h3>
+        <p>
+          Panel fixed effects pool within-country variation. Country effects are
+          the default; two-way effects also remove common time variation.
+          Balanced and unbalanced panels retain each country’s observed sample.
+          Country OLS columns relax the common-slope restriction and default to
+          Newey–West HAC(4) standard errors; conventional uncertainty is
+          selectable. Within R² measures fit after country means are removed.
+        </p>
+        <p>
+          Driscoll–Kraay is the default covariance, using Bartlett weights and
+          bandwidth floor(4(T/100)^(2/9)). Country-clustered and conventional FE
+          alternatives hold coefficients fixed. Fewer than ten country clusters
+          warn; a lagged dependent variable and T_min below 40 warn about
+          Nickell bias. Robust covariance does not remove this bias.
+        </p>
+        <p>
+          Panel LP reuses calendar-aware lag augmentation and reports pooled and
+          country responses on the same estimation dates. The summary within R²
+          refers to horizon 0. A common shock is absorbed by time effects, so
+          that combination is disabled. Conditional bands ignore generated-shock
+          uncertainty. N=1 reproduces single-country LP point estimates exactly;
+          intervals agree only when covariance settings match.
+        </p>
+        <h3>Bayesian VAR with Minnesota shrinkage</h3>
+        <p>
+          Conjugate Normal–inverse-Wishart priors are implemented through dummy
+          observations. Default tightness is λ = 0.2 and lag variance decays as
+          lag squared. Own first-lag means are 1 for levels and log levels, and
+          0 for growth and differences. Scales are univariate AR(p) residual
+          standard deviations (SSE divided by residual degrees of freedom); the
+          constant is diffuse. The conjugate prior treats own and cross-variable
+          lags symmetrically.
+        </p>
+        <p>
+          Optional sum-of-coefficients and co-persistence priors are off. An
+          optional marginal-likelihood grid displays every λ and score; it
+          conditions on the selected λ rather than integrating hyperparameter
+          uncertainty. Seeded NIW draws produce posterior median IRFs, 68% and
+          90% credible bands and mean FEVD shares. These are posterior
+          probabilities, not frequentist confidence intervals. Recursive
+          ordering and the actual sample match the OLS comparison.
+        </p>
+        <p>
+          Explosive BVAR draws remain by default. A share above 10% warns;
+          explicit exclusion reports the count and conditions bands on
+          stability. This posterior accounting does not change the existing OLS
+          stability rule.
+        </p>
+        <h3>Forecasting and pseudo-out-of-sample evaluation</h3>
+        <p>
+          ARIMA uses SARIMAX. ADF and KPSS agree on d or default to d = 1 with a
+          visible d = 0 sensitivity when they disagree. AICc selects p and q up
+          to 4; seasonal AR/MA terms up to 1 are limited to monthly NSA series.
+          Fixed orders are available. Predictive intervals are 68% and 90%, in
+          original units: linear inverses use joint horizon covariance;
+          nonlinear inverses use seeded paths.
+        </p>
+        <p>
+          OLS VAR intervals re-estimate coefficients in each of 500
+          residual-bootstrap histories. BVAR predictive paths draw coefficients,
+          covariance and future innovations. Selected exogenous inputs require
+          an explicit future path. Future COVID dummies are zero; seasonal
+          controls follow the known calendar. No predictive paths are silently
+          dropped.
+        </p>
+        <p>
+          Evaluation expands from 40 quarters or 120 months, with RW and AR(BIC)
+          benchmarks beside ARIMA and BVAR. Orders are fixed at the first origin
+          unless re-selection is enabled. Transforms, standardisation and BVAR
+          scales are recomputed on the training prefix. Lossy filters are
+          blocked. RMSE, MAE and relative RMSE use common successful origins;
+          failures remain visible. Separate sensitivities exclude 2020–2021
+          target dates or forecasts made from 2020–2021 origins. Both score the
+          same stored forecasts. Error charts show actual minus prediction by
+          target date against the random walk.
+        </p>
+        <p>
+          Diebold–Mariano uses squared-error losses, h−1 calendar
+          autocovariances, the Harvey–Leybourne–Newbold correction and a t
+          reference. A negative variance estimate triggers flagged Bartlett
+          weights. Several pairwise tests are not a joint test. These are
+          pseudo-out-of-sample results on final-vintage data; real-time
+          performance may be worse.
+        </p>
+        <h3>Cointegration, VECM and structural breaks</h3>
+        <p>
+          Cointegration uses levels or log levels. Engle–Granger reports both
+          two-variable normalisations with MacKinnon p-values. Johansen reports
+          trace and maximum-eigenvalue statistics with asymptotic 90/95/99%
+          critical values and a sequential 95% trace rank suggestion. The chosen
+          deterministic case is shared with VECM: no terms, unrestricted
+          constant, or unrestricted constant and trend. Lagged differences equal
+          VAR lags minus one. The pinned test supports at most 12 variables and
+          no external controls.
+        </p>
+        <p>
+          VECM rank remains user-chosen. The first rank rows of β form an
+          identity matrix; α gives adjustment speeds. Recursive IRFs use the
+          equivalent VAR coefficients, with 200 seeded centered-residual
+          bootstrap draws and fixed rank. Initial observations and deterministic
+          paths are held fixed, and coefficients are re-estimated. Responses can
+          be permanent. Neither cointegration nor recursive ordering alone
+          establishes causation.
+        </p>
+        <p>
+          Break diagnostics attach to the exact OLS, ARDL or ECB policy-rate
+          equation. A selected date uses the classical Chow SSE F test and a
+          covariance-matched Wald test. Sup-F searches a 15%-trimmed grid.
+          Statistics and critical values use Wald/q, with q shown explicitly.
+          Hansen's approximate asymptotic p-value receives the raw Wald
+          statistic. Sparse calendar dummies remain stable nuisance terms;
+          invalid dates are listed, and peaks near a trimming boundary warn.
+        </p>
+        <p>
+          The default is a 499-draw seeded fixed-regressor bootstrap with
+          HAC-studentised Wald. Hansen (2000) uses Gaussian wild multipliers and
+          residuals from the minimum-SSE unrestricted break fit; regressors stay
+          fixed. Conventional and HAC asymptotic calibrations and the original
+          heteroskedastic bootstrap remain visible alternatives.
+        </p>
+        <p>
+          The default minimises the worst size error in a predeclared
+          simulation, not real-data significance. At T=110 (500 replications per
+          null), it rejects 9.6%, 9.6% and 17.2% under IID, heteroskedastic and
+          AR(1) errors at nominal 5%. It remains oversized: IID multipliers do
+          not preserve serial correlation. CUSUM bounds are OLS-based, not HAC
+          intervals. VECM log-response plots show 100 × log response
+          (approximately percent); numerical exports retain unscaled log
+          responses at full precision.
+        </p>
         <h3>Stability rule</h3>
         <p>
           First-stage shock extraction uses orthogonalised residuals and does
@@ -1024,9 +1164,9 @@ export function Methods({ manifest }: { manifest: Manifest }) {
           Türkiye crisis analysis adds monthly impulse dummies or excludes
           entire lag and cumulative-response footprints touching the approved
           crisis windows. It has a separate agreement summary and preserves the
-          baseline. Country narratives remain withheld. Forecasting, BVAR,
-          panels and cointegration are planned for v2; sign restrictions, proxy
-          instruments, state dependence and TVP-VAR are planned for v3.
+          baseline. Country narratives remain withheld. Panel and forecasting
+          templates are available in v2.0; sign restrictions, proxy instruments,
+          state dependence and TVP-VAR are planned for v3.
         </p>
       </section>
       <section className="card stack" aria-labelledby="limits">

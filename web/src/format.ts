@@ -30,6 +30,19 @@ export const significant = (value: unknown): string =>
         notation: "standard",
       }).format(value)
     : "—";
+/** Counts, indices and dates are not estimates: retain their integer precision. */
+export const integerField = (key: string): boolean =>
+  /^(?:(?:null |suggested |forecast |actual sample |sample |baseline |sign comparison |peak |max |min |minimum |required |selected |common |total |effective |requested |dropped |adf |kpss |hac |dependent |bootstrap |dummy )*(?:horizons?|periods?|quarters?|months?|years?|lags?|observations|nobs|counts?|rank|draws|replications|seed)|n|t|t min|t max|df|df resid|df model|residual df|residual degrees of freedom|effect rank|dk bandwidth|bandwidth|n parameters|num parameters|parameters|parameter count per equation|clusters|design columns|common holdback|comparable alternatives|eligible|numerical retries|redundant nuisance dimensions|unstable draws retained|maxlags|schema version|window)$/i.test(
+    key.replaceAll("_", " ").replaceAll("–", " ").trim(),
+  );
+export const tableValue = (key: string, value: unknown): string =>
+  typeof value === "number"
+    ? integerField(key)
+      ? text(value)
+      : significant(value)
+    : text(value);
+export const horizonAxisTitle = (frequency?: string): string =>
+  `${frequency === "M" ? "Months" : frequency === "A" || frequency === "Y" ? "Years" : "Quarters"} after the shock`;
 export const title = (id: string, indicators: Indicator[]) =>
   indicators.find((i) => i.concept_id === id)?.title ?? id.replaceAll("_", " ");
 export function indicatorSummary(manifest: Manifest): string {

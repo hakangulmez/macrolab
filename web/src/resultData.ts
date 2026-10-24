@@ -2,17 +2,27 @@
 import { countryIndicators } from "./displayLabels";
 import type { AxisScale } from "./chartScale";
 import type { ChartPoint } from "./components/Chart";
-import { number, significant, record, records, text, title } from "./format";
+import {
+  number,
+  significant,
+  record,
+  records,
+  strings,
+  text,
+  title,
+} from "./format";
 import type {
   AnalysisConfig,
   AnalysisResult,
   CountryResult,
+  CountryBundle,
   Indicator,
   IRF,
   JsonRecord,
 } from "./types";
 
 export interface ResultChart {
+  xAxisTitle?: string;
   stack?: { name: string; color: string; values: number[] }[];
   variable?: string;
   name: string;
@@ -31,6 +41,32 @@ export interface ResultTableBlock {
   title: string;
   rows: JsonRecord[];
   columns?: string[];
+}
+/** Plot stored errors only: this never refits or changes evaluation samples. */
+export function forecastErrorChart(
+  result: CountryResult,
+  model: string,
+  horizon: number,
+): ResultChart {
+  const e = record(result.evaluation);
+  return {
+    name: `Forecast error by target date · ${model} · horizon ${horizon}`,
+    unit: /percent|%/i.test(text(e.unit)) ? "Percentage points" : text(e.unit),
+    xAxisTitle: "Forecast target date",
+    summary:
+      "Actual minus prediction, in original units. Positive errors mean underprediction. The comparison is the random walk at the same origin and horizon.",
+    intervalLabel: "Actual minus prediction",
+    pngNote:
+      "Error = actual minus prediction; positive means underprediction. Dates are forecast targets.",
+    points: records(e.predictions)
+      .filter((r) => r.horizon === horizon)
+      .map((r) => ({
+        period: text(r.target),
+        value: Number(r.actual) - Number(record(r.predictions)[model]),
+        comparison:
+          Number(r.actual) - Number(record(r.predictions)["Random walk"]),
+      })),
+  };
 }
 const finite = (value: unknown): number | null =>
   typeof value === "number" && Number.isFinite(value) ? value : null;
@@ -136,11 +172,18 @@ function transformLabel(result: CountryResult, concept: string): string {
 }
 
 export function termLabel(term: string, indicators: Indicator[]): string {
+  if (/^covid_\d{4}-(Q[1-4]|\d{2})$/.test(term))
+    return term.replace(/^covid_(\d{4})-(.*)$/, "COVID dummy $1 $2");
   let label = term === "const" ? "Intercept" : term;
   for (const indicator of [...indicators].sort(
     (a, b) => b.concept_id.length - a.concept_id.length,
   )) {
-    label = label.replaceAll(indicator.concept_id, indicator.title);
+    label = label.replaceAll(
+      indicator.concept_id,
+      indicator.concept_id === "oil_brent"
+        ? "Brent oil price"
+        : indicator.title,
+    );
   }
   return label
     .replace(/^L(\d+)\./, "Lag $1 · ")
@@ -206,6 +249,106 @@ export function chartData(
   if (result.status !== "ok") return [];
   indicators = countryIndicators(indicators, result.country);
   let charts: ResultChart[] = [];
+  if (result.forecast) {
+    const f = record(result.forecast);
+    return (f.variables as string[]).map((variable) => {
+      const d = record(record(f.distributions)[variable]),
+        band = record(record(d.bands)["0.9"]),
+        history = record(record(f.history)[variable]);
+      return {
+        variable,
+        name: `${title(variable, indicators)} · forecast`,
+        unit: text(record(f.units)[variable], "Original units"),
+        intervalLabel: "90% predictive interval",
+        summary:
+          `Predictive mean and equal-tail interval in original units. ${text(f.interval_scope)} ${(f.assumptions as string[]).filter((note) => note.startsWith("Selected exogenous regressors:")).join(" ")}`.trim(),
+        pngNote: (f.assumptions as string[]).join(" "),
+        points: [
+          ...(history.periods as string[]).map((period, i) => ({
+            period,
+            value: (history.values as number[])[i],
+          })),
+          ...(f.periods as string[]).map((period, i) => ({
+            period,
+            value: (d.mean as number[])[i],
+            lower: (band.lower as number[])[i],
+            upper: (band.upper as number[])[i],
+          })),
+        ],
+      };
+    });
+  }
+  if (result.evaluation) {
+    const e = record(result.evaluation);
+    return (e.horizons as number[]).map((h) => ({
+      name: `Relative RMSE · horizon ${h}`,
+      unit: "RMSE / random walk",
+      bar: true,
+      summary: text(e.label),
+      points: records(e.metrics)
+        .filter((r) => r.horizon === h)
+        .map((r) => ({
+          period: text(r.model),
+          value: finite(r.relative_rmse),
+        })),
+    }));
+  }
+  if (result.cointegration && !result.vecm) {
+    const c = record(result.cointegration);
+    return [false, true].map((maxeig) => ({
+      name: maxeig ? "Johansen maximum-eigenvalue test" : "Johansen trace test",
+      unit: "Test statistic",
+      xAxisTitle: "Null cointegration rank",
+      bar: true,
+      intervalLabel: "95% critical value",
+      pngComparisonLabel: "95% critical value",
+      summary: `${text(c.deterministic_case)}. Asymptotic 95% critical values; small samples can distort size.`,
+      points: records(c.johansen).map((r) => ({
+        period: Number(r.null_rank),
+        value: Number(r[maxeig ? "maximum_eigenvalue" : "trace"]),
+        comparison: Number(
+          record(r[maxeig ? "max_eigen_critical" : "trace_critical"])["95"],
+        ),
+      })),
+    }));
+  }
+  if (result.break_tests) {
+    const b = record(result.break_tests),
+      rows = records(b.recursive);
+    return [
+      {
+        name: "Sup-F path · candidate break date",
+        unit: `Wald/q · q = ${text(b.tested_coefficients)}`,
+        xAxisTitle: "Candidate break date",
+        intervalLabel: "95% critical line",
+        pngComparisonLabel: "95% critical value",
+        summary: `q = ${text(b.tested_coefficients)}; statistic and critical value on Wald/q scale. 15% trimming; ${text(b.covariance)} covariance. ${text(b.critical_source)}.`,
+        points: records(b.candidate_path).map((r) => ({
+          period: text(r.date),
+          value: finite(r.f_statistic),
+          comparison: Number(record(b.critical_values)["95"]),
+        })),
+      },
+      ...[false, true].map((squares) => ({
+        name: squares
+          ? "CUSUM of squares · recursive residuals"
+          : "CUSUM · recursive residuals",
+        xAxisTitle: "Observation date",
+        unit: squares
+          ? "Cumulative share of squared residuals"
+          : "Standardised cumulative residual",
+        intervalLabel: "95% test bounds",
+        summary:
+          "OLS recursive residuals with 95% statsmodels test bounds; not HAC-robust confidence intervals.",
+        points: rows.map((r) => ({
+          period: text(r.date),
+          value: finite(r[squares ? "cusum_squares" : "cusum"]),
+          lower: Number(r[squares ? "squares_lower" : "cusum_lower"]),
+          upper: Number(r[squares ? "squares_upper" : "cusum_upper"]),
+        })),
+      })),
+    ];
+  }
   if (result.irf) {
     const irf = result.irf;
     charts = irf.variables.map((variable, j) => {
@@ -228,7 +371,11 @@ export function chartData(
           ? String(projection(result, variable).response_definition)
           : resultUnit(result, variable, indicators, true),
         points,
-        summary: `Largest absolute response: ${number(peak.value, 3)} at horizon ${peak.period}; ${Math.round(irf.band_level * 100)}% pointwise band ${peak.lower > 0 || peak.upper < 0 ? "excludes" : "includes"} zero there.`,
+        intervalLabel:
+          result.model_id === "bvar.minn"
+            ? `${Math.round(irf.band_level * 100)}% posterior credible band`
+            : undefined,
+        summary: `Largest absolute response: ${number(peak.value, 3)} at horizon ${peak.period}; ${Math.round(irf.band_level * 100)}% ${result.model_id === "bvar.minn" ? "posterior credible" : "pointwise"} band ${peak.lower > 0 || peak.upper < 0 ? "excludes" : "includes"} zero there.`,
       };
     });
     const pass = record(result.pass_through);
@@ -312,9 +459,13 @@ export function chartData(
     );
   } else {
     if (
-      ["sing.ols", "sing.ardl", "var.ols", "ident.recursive"].includes(
-        result.model_id,
-      )
+      [
+        "sing.ols",
+        "sing.ardl",
+        "var.ols",
+        "ident.recursive",
+        "panel.fe",
+      ].includes(result.model_id)
     )
       charts.push(...coefficientCharts(result, indicators));
     const filtered = records(result.filtered_series).filter(
@@ -459,6 +610,40 @@ export function resultTableBlocks(result: CountryResult): ResultTableBlock[] {
       : "Coefficients and intervals",
     records(result.coefficients_table),
   );
+  if (result.model_id.startsWith("panel.")) {
+    const panel = record(result.panel);
+    add("Panel metadata", [panel]);
+    add(
+      "Panel horizon results",
+      records(record(result.local_projection).horizons),
+    );
+    for (const [country, values] of Object.entries(
+      record(panel.country_estimates),
+    ))
+      add(
+        `Country estimates: ${country}`,
+        records(values).map((r) => {
+          const sample = record(record(panel.country_samples)[country]);
+          return {
+            country,
+            actual_sample_start: r.start ?? sample.start,
+            actual_sample_end: r.end ?? sample.end,
+            actual_sample_nobs: r.nobs ?? sample.nobs,
+            common_nobs: sample.common_nobs,
+            ...r,
+          };
+        }),
+      );
+    for (const variant of result.sensitivity.variants)
+      add(
+        `Covariance sensitivity: ${text(variant.variant_id)}`,
+        records(variant.rows),
+      );
+    for (const [country, values] of Object.entries(
+      record(panel.country_estimates_conventional),
+    ))
+      add(`Country OLS conventional: ${country}`, records(values));
+  }
   add(
     "ARDL error-correction coefficients (reparameterisation, not a cointegration test)",
     records(result.error_correction_table),
@@ -485,6 +670,110 @@ export function resultTableBlocks(result: CountryResult): ResultTableBlock[] {
     records(result.test_results),
   );
   add("Impulse responses and pointwise intervals", irfRows(result));
+  if (result.forecast) {
+    const f = record(result.forecast);
+    add("Forecast metadata and assumptions", [f]);
+    for (const [variable, v] of Object.entries(record(f.distributions))) {
+      const d = record(v);
+      for (const [level, b] of Object.entries(record(d.bands))) {
+        const band = record(b);
+        add(
+          `Forecast: ${variable} · ${Number(level) * 100}% predictive interval`,
+          (f.periods as string[]).map((period, i) => ({
+            variable,
+            period,
+            horizon: i + 1,
+            mean: (d.mean as number[])[i],
+            lower: (band.lower as number[])[i],
+            upper: (band.upper as number[])[i],
+            inverse_method: d.inverse_method,
+            assumptions: f.assumptions,
+          })),
+        );
+      }
+    }
+    add("ARIMA candidate orders", records(record(f.arima).candidates));
+    add("ARIMA failed candidates", records(record(f.arima).failed_candidates));
+    add("Forecast sensitivity", result.sensitivity.variants);
+  }
+  if (result.evaluation) {
+    const e = record(result.evaluation);
+    add("Forecast evaluation metadata", [e]);
+    add("Forecast accuracy", records(e.metrics));
+    add("DM and HLN tests", records(e.dm_tests));
+    add("Origin forecasts and actual targets", records(e.predictions));
+    add(
+      "Forecast errors by target date (actual minus prediction)",
+      records(e.predictions).flatMap((r) =>
+        Object.entries(record(r.predictions)).map(([model, prediction]) => ({
+          origin: r.origin,
+          target: r.target,
+          horizon: r.horizon,
+          model,
+          error: Number(r.actual) - Number(prediction),
+        })),
+      ),
+    );
+    add("Origin orders, training samples and BVAR scales", records(e.origins));
+    add("Failed evaluation origins", records(e.failed_origins));
+    for (const variant of result.sensitivity.variants)
+      add(text(variant.label), [variant]);
+  }
+  if (result.cointegration) {
+    const c = record(result.cointegration);
+    add("Cointegration specification", [c]);
+    add("Johansen trace and maximum-eigenvalue tests", records(c.johansen));
+    add("Engle–Granger normalisations", records(c.engle_granger));
+  }
+  if (result.vecm)
+    add("VECM parameters and all recursive impulse responses", [
+      record(result.vecm),
+    ]);
+  if (result.break_tests) {
+    const b = record(result.break_tests);
+    add("Break specification and supremum", [b]);
+    add("Chow test", [record(b.chow)]);
+    add("Sup-F candidate path", records(b.candidate_path));
+    add(
+      "Recursive CUSUM and CUSUM-of-squares with bounds",
+      records(b.recursive),
+    );
+    add("Omitted break candidates", records(b.omitted_candidates));
+  }
+  if (result.bvar) {
+    const b = record(result.bvar),
+      prior = record(b.prior),
+      draws = record(b.draws);
+    add("Minnesota prior", [prior]);
+    add("Lambda grid", records(b.grid));
+    add("Posterior moments", [
+      {
+        mean: b.posterior_mean,
+        row_covariance: b.posterior_row_covariance,
+        scale: b.posterior_scale,
+        df: b.posterior_df,
+      },
+    ]);
+    add("Posterior draw accounting", [draws]);
+    add("Matched OLS VAR", [record(b.matched_ols)]);
+    for (const [level, value] of Object.entries(record(b.bands))) {
+      const band = record(value),
+        lower = band.lower as number[][],
+        upper = band.upper as number[][];
+      add(
+        `${Number(level) * 100}% posterior credible bands`,
+        result.irf!.periods.flatMap((h, i) =>
+          result.irf!.variables.map((variable, j) => ({
+            horizon: h,
+            variable,
+            median: result.irf!.values[i][j],
+            lower: lower[i][j],
+            upper: upper[i][j],
+          })),
+        ),
+      );
+    }
+  }
   const diagnostics = record(result.diagnostics);
   add(
     "Diagnostic tests",
@@ -515,6 +804,7 @@ export function resultCsvRows(result: CountryResult): JsonRecord[] {
   const sample = result.actual_sample;
   const base = {
     country: result.country,
+    ...(result.outcome ? { outcome: result.outcome } : {}),
     model: result.model_id,
     status: result.status,
     actual_sample_start: sample.start,
@@ -582,7 +872,9 @@ export function resultCsvRows(result: CountryResult): JsonRecord[] {
 /** Keep analysis-level provenance separate from each sensitivity configuration. */
 export function analysisCsvRows(
   result: Pick<AnalysisResult, "results" | "snapshot_id" | "config_hash"> &
-    Partial<Pick<AnalysisResult, "checks">>,
+    Partial<
+      Pick<AnalysisResult, "checks" | "template_sensitivity" | "template_notes">
+    >,
 ): JsonRecord[] {
   const rows = result.results.flatMap((item) =>
     resultCsvRows(item).map((row) => ({
@@ -591,10 +883,39 @@ export function analysisCsvRows(
       config_hash: result.config_hash,
     })),
   );
+  const includeTemplateDetails = result.results.some((item) =>
+    ["panel.fe", "panel.lp", "fc.eval"].includes(item.model_id),
+  );
   // Multi-response analyses also carry checks outside the first response's
   // country record. Export those instances verbatim, never the display groups.
   return [
     ...rows,
+    ...records(
+      includeTemplateDetails ? result.template_sensitivity : [],
+    ).flatMap((variant) => [
+      {
+        record_type: "template_specification_sensitivity",
+        ...variant,
+        snapshot: result.snapshot_id,
+        config_hash: result.config_hash,
+      },
+      ...((variant.results ?? []) as CountryResult[]).flatMap((item) =>
+        resultCsvRows(item).map((r) => ({
+          ...r,
+          specification: variant.id,
+          snapshot: result.snapshot_id,
+          config_hash: result.config_hash,
+        })),
+      ),
+    ]),
+    ...strings(includeTemplateDetails ? result.template_notes : []).map(
+      (note) => ({
+        record_type: "template_note",
+        note,
+        snapshot: result.snapshot_id,
+        config_hash: result.config_hash,
+      }),
+    ),
     ...(result.checks ?? []).map((check) => ({
       record_type: "analysis_check",
       ...check,
@@ -718,6 +1039,37 @@ export function sensitivityRows(
   result: CountryResult,
   indicators: Indicator[],
 ): JsonRecord[] {
+  if (result.model_id === "bvar.minn" && result.irf) {
+    const irf = result.irf,
+      ols = record(record(result.bvar).matched_ols);
+    const values = ols.values as number[][] | undefined;
+    return irf.variables.map((variable, j) => {
+      const peak = irf.values.reduce(
+        (best, row, i, all) =>
+          Math.abs(row[j]) > Math.abs(all[best][j]) ? i : best,
+        0,
+      );
+      const other = values?.reduce(
+        (best, row, i, all) =>
+          Math.abs(row[j]) > Math.abs(all[best][j]) ? i : best,
+        0,
+      );
+      return {
+        Response: title(
+          variable,
+          countryIndicators(indicators, result.country),
+        ),
+        "Baseline peak": significant(irf.values[peak][j]),
+        "Peak horizon": irf.periods[peak],
+        "Matched OLS peak":
+          values && other !== undefined
+            ? significant(values[other][j])
+            : "Blocked",
+        "OLS peak horizon": other !== undefined ? irf.periods[other] : "—",
+        Comparison: "BVAR posterior median / OLS point estimate; descriptive",
+      };
+    });
+  }
   return (result.sensitivity.summary ?? []).map((row) =>
     result.irf
       ? {
@@ -757,8 +1109,38 @@ export function mobileSummaryLines(result: AnalysisResult): string[] {
     sample
       ? `${first.country}: ${sample.start ?? "Unavailable"}–${sample.end ?? "—"} · n = ${sample.nobs}`
       : "No estimation sample",
-    irf
-      ? `Model scenario · ${number(irf.band_level * 100, 0)}% pointwise intervals`
-      : result.label,
+    first?.model_id === "bvar.minn"
+      ? "Posterior IRFs · selected credible band below"
+      : irf
+        ? `Model scenario · ${number(irf.band_level * 100, 0)}% pointwise intervals`
+        : result.label,
   ];
+}
+
+/** Source names for pooled exports, including the explicitly selected EA variants. */
+export function panelSourceNames(
+  config: AnalysisConfig,
+  bundles: Record<string, CountryBundle>,
+): string[] {
+  const dfr = config.model.params.first_stage_source === "ecb_dfr";
+  return [
+    ...new Set([
+      ...Object.entries(bundles)
+        .filter(([country]) => config.countries.includes(country))
+        .flatMap(([, bundle]) =>
+          bundle.cards
+            .filter(
+              (card) =>
+                config.series.some((s) => s.concept_id === card.concept_id) &&
+                !(dfr && card.concept_id === "policy_rate"),
+            )
+            .flatMap((card) =>
+              records(card.source_segments).map((s) => text(s.source)),
+            ),
+        ),
+      ...(dfr ? ["ECB"] : []),
+    ]),
+  ]
+    .filter(Boolean)
+    .sort();
 }

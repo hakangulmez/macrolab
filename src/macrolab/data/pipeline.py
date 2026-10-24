@@ -65,6 +65,7 @@ def processing_inputs(root: Path, concepts: list[dict[str, Any]]) -> dict[str, A
             "configs/country_notes.yaml",
             "configs/oecd_mappings.yaml",
             "configs/supplemental_mappings.yaml",
+            "configs/g16_stale_candidates.json",
             "uv.lock",
             "pyproject.toml",
         )

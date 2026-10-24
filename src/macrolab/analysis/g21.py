@@ -26,7 +26,13 @@ def run_configured_plugin(
     Derived floats are output metadata, never inputs to portable config hashes.
     """
     plugin = plugin or get_plugin(config["model"]["id"])
-    if config["model"]["id"] in {"lp.ols", "out.hd", "ident.external_series", "cmp.common_shock"}:
+    if config["model"]["id"] in {
+        "lp.ols",
+        "out.hd",
+        "ident.external_series",
+        "cmp.common_shock",
+        "bvar.minn",
+    }:
         return plugin.run(data, config)
     requested = config.get("outputs", {}).get("irf", {})
     one_sd = requested.get("shock_mode", "fixed") == "one_sd"

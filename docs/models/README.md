@@ -1,4 +1,6 @@
-# G2 model validation cards
+# Model validation cards
+
+## Original G2 validation record
 
 Twelve v0 plug-ins share a pure Python input/output contract and run in the native
 engine and offline browser worker. Each `<model_id>.md` records its method,
@@ -24,3 +26,16 @@ v0 models: [LP](lp.ols.md), [historical decomposition](out.hd.md),
 [common-shock comparison](cmp.common_shock.md). These cards and the G6 stop report
 record their separate validation. The fixed experimental protocol is
 [here](../G6_VALIDATION_PROTOCOL.md). New templates are G7; new product views are G8.
+
+## v2.0 available methods
+
+The v2.0 registry includes [Panel FE](panel_fe.md), [panel LP](panel_lp.md),
+[BVAR](bvar_minn.md), [SARIMAX, VAR/BVAR forecasting and evaluation](forecasting.md),
+[Engle–Granger, Johansen and VECM](cointegration.md), and
+[structural-break diagnostics](break-tests.md). Each linked card records native
+reference checks, browser/offline parity, recovery and finite-sample limits.
+The three product templates are the pooled euro-area Phillips curve, pooled
+responses to the same ECB shock and the EA inflation forecast horse race.
+These are release-candidate capabilities awaiting exact-artifact P6 approval.
+Sign restrictions, proxy SVAR/LP-IV, state dependence and TVP-VAR remain planned
+for v3. Published observations are not real-time vintages.

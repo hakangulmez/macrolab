@@ -19,6 +19,7 @@ import {
 import { CanvasRenderer } from "echarts/renderers";
 import { niceScale, tickLabel, type AxisScale } from "../chartScale";
 import { DataTable } from "./Common";
+import { horizonAxisTitle } from "../format";
 echarts.use([
   LineChart,
   BarChart,
@@ -52,6 +53,7 @@ export function Chart({
   exportContext,
   stack,
   pngNote,
+  xAxisTitle,
 }: {
   title: string;
   unit: string;
@@ -66,9 +68,17 @@ export function Chart({
   exportContext?: PngContext;
   stack?: ResultChart["stack"];
   pngNote?: string;
+  xAxisTitle?: string;
 }) {
   const inherited = useContext(ChartExportContext);
   const context = exportContext ?? inherited;
+  const xTitle =
+    xAxisTitle ??
+    (context?.horizon && !coefficient && typeof points[0]?.period === "number"
+      ? horizonAxisTitle(context.frequency)
+      : context?.forecast && !bar
+        ? `Period (${context.frequency === "M" ? "months" : "quarters"})`
+        : "");
   const [exportError, setExportError] = useState("");
   const element = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -165,10 +175,14 @@ export function Chart({
     chart.setOption({
       animation: false,
       aria: { enabled: true, description: summary },
-      grid: { top: 20, left: 58, right: 18, bottom: 42 },
+      grid: { top: 20, left: 58, right: 18, bottom: xTitle ? 58 : 42 },
       textStyle: { fontFamily: "Inter, sans-serif", color: muted },
       tooltip: { trigger: "axis", confine: true },
       xAxis: {
+        name: xTitle,
+        nameLocation: "middle",
+        nameGap: 30,
+        nameTextStyle: { color: muted, fontSize: 11 },
         type: "category",
         data: points.map((p) => p.period),
         boundaryGap: bar || coefficient,
@@ -269,6 +283,7 @@ export function Chart({
     axis,
     intervalLabel,
     stack,
+    xTitle,
   ]);
   return (
     <figure className="card chart-card" data-testid="result-chart">
@@ -280,7 +295,8 @@ export function Chart({
         className="chart-canvas"
         ref={element}
         role="img"
-        aria-label={summary}
+        aria-label={xTitle ? `${summary} X-axis: ${xTitle}.` : summary}
+        data-x-axis-title={xTitle || undefined}
       />
       <p className="chart-summary">{summary}</p>
       {stack && (
@@ -312,6 +328,7 @@ export function Chart({
                   intervalLabel,
                   stack,
                   pngNote,
+                  xAxisTitle,
                 },
               ],
               { ...context, comparisonLabel },

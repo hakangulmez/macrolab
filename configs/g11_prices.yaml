@@ -77,4 +77,5 @@ eurostat_ppi:
   - manufacturing_domestic_market
   - not_seasonally_adjusted
   - PPI_market_scope_explicit
-  scope: Runtime EU members plus EA only; non-EU observations are excluded even if returned by Eurostat.
+  additional_countries: [NOR, CHE, TUR]
+  scope: Runtime EU members plus EA and the owner-approved G16 Norway, Switzerland and Türkiye replacements. No other non-EU observations are eligible.

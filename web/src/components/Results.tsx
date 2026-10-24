@@ -1,3 +1,10 @@
+import { ForecastResults } from "./ForecastResults";
+import { V2TemplateResults } from "./V2TemplateResults";
+import { v2Template } from "../templatesV2";
+import { DiagnosticResults } from "./DiagnosticResults";
+import { breakConfig, diagnosticModel } from "../diagnosticModels";
+import { forecastModel } from "../forecast";
+import { BvarResults } from "./BvarResults";
 import {
   lazy,
   Suspense,
@@ -29,7 +36,9 @@ import { Checks, DataTable, Field } from "./Common";
 import { Chart } from "./Chart";
 import {
   chartData,
+  termLabel,
   coefficientInterval,
+  panelSourceNames,
   resultTableBlocks,
   analysisCsvRows,
   readingBullets,
@@ -45,6 +54,7 @@ import { TemplateSources } from "./TemplateSources";
 import { countryIndicators } from "../displayLabels";
 import { getTemplateSources, type AnalysisRuntime } from "../runtime";
 import { CountryComparison } from "./CountryComparison";
+import { PanelResults, PanelCovarianceTable } from "./PanelResults";
 import { MethodComparison } from "./MethodComparison";
 const TechnicalExtensions = lazy(() =>
   import("./TechnicalExtensions").then((m) => ({
@@ -283,7 +293,14 @@ export function ResultsCountry({
   const [exportError, setExportError] = useState("");
   useEffect(() => {
     const handler = (event: Event) => {
-      if (!first || !charts.length || result.status !== "ok") return;
+      if (
+        !first ||
+        !charts.length ||
+        result.status !== "ok" ||
+        forecastModel(result.model_id) ||
+        diagnosticModel(result.model_id)
+      )
+        return;
       const panel =
         (event as CustomEvent<{ mode?: string }>).detail?.mode === "panel";
       const selected = panel ? charts : [selectedChart];
@@ -328,27 +345,29 @@ export function ResultsCountry({
       const modelTitle =
         manifest.models.find((m) => m.id === result.model_id)?.title ??
         "MacroLab analysis";
-      const sources = [
-        ...new Set(
-          cards
-            .filter(
-              (c) =>
-                !analysisConfig ||
-                (analysisConfig.series.some(
-                  (s) => s.concept_id === c.concept_id,
-                ) &&
-                  !(
-                    analysisConfig.model.params.template_id ===
-                      "same_ecb_shock" && c.concept_id === "policy_rate"
-                  )),
-            )
-            .flatMap((c) =>
-              records(c.source_segments).map((s) => text(s.source)),
+      const sources = analysisConfig?.model.id.startsWith("panel.")
+        ? (exportContext?.sources ?? [])
+        : [
+            ...new Set(
+              cards
+                .filter(
+                  (c) =>
+                    !analysisConfig ||
+                    (analysisConfig.series.some(
+                      (s) => s.concept_id === c.concept_id,
+                    ) &&
+                      !(
+                        analysisConfig.model.params.template_id ===
+                          "same_ecb_shock" && c.concept_id === "policy_rate"
+                      )),
+                )
+                .flatMap((c) =>
+                  records(c.source_segments).map((s) => text(s.source)),
+                ),
             ),
-        ),
-      ]
-        .filter(Boolean)
-        .sort();
+          ]
+            .filter(Boolean)
+            .sort();
       setExportError("");
       const stageSources =
         analysisConfig?.model.params.template_id === "same_ecb_shock"
@@ -371,6 +390,7 @@ export function ResultsCountry({
             sample: `Actual sample: ${sample.start}–${sample.end} · n = ${sample.nobs}`,
             frequency: analysisConfig?.frequency ?? "Q",
             horizon: Boolean(result.irf),
+            forecast: forecastModel(result.model_id),
             sources: [
               ...new Set([
                 ...sources,
@@ -403,6 +423,7 @@ export function ResultsCountry({
     charts,
     comparison,
     comparisonLabel,
+    exportContext?.sources,
     first,
     indicators,
     manifest,
@@ -539,6 +560,7 @@ export function ResultsCountry({
                             country: name,
                             sample: `Actual sample: ${sample.start}–${sample.end} · n = ${sample.nobs} · Snapshot ${analysisConfig?.snapshot_id}`,
                             horizon: Boolean(result.irf),
+                            forecast: forecastModel(result.model_id),
                           }
                         }
                         comparisonLabel={
@@ -581,146 +603,152 @@ export function ResultsCountry({
               )}
             </>
           )}
-          <div className="result-grid">
-            <section className="card stack sensitivity-section">
-              <h2>How much does the answer depend on the model?</h2>
-              {comparison ? (
-                <>
-                  <p className="small muted">
-                    {result.irf
-                      ? "Signed ranges include the baseline and comparable specifications, using each curve's largest absolute response. Signs are compared at the baseline peak horizon."
-                      : "Compare estimates and sign agreement across the available specifications."}
-                  </p>
-                  {rows.length ? (
-                    compact ? (
-                      <div
-                        className="sensitivity-cards"
-                        data-testid="mobile-sensitivity-cards"
-                      >
-                        {rows.map((row, index) => (
-                          <details
-                            key={index}
-                            className="sensitivity-mini-card"
-                          >
-                            <summary>
-                              <strong>{text(row.Response ?? row.Term)}</strong>
-                              <span>
-                                {text(
-                                  row["Baseline peak"] ??
-                                    row["Baseline estimate"],
-                                )}
-                              </span>
-                            </summary>
-                            <dl>
-                              {Object.entries(row)
-                                .filter(
-                                  ([key]) =>
-                                    !["Response", "Term"].includes(key),
-                                )
-                                .map(([key, value]) => (
-                                  <div key={key}>
-                                    <dt>{key}</dt>
-                                    <dd>{text(value)}</dd>
-                                  </div>
-                                ))}
-                            </dl>
-                          </details>
-                        ))}
-                      </div>
+          {!forecastModel(result.model_id) && (
+            <div className="result-grid">
+              <section className="card stack sensitivity-section">
+                <h2>How much does the answer depend on the model?</h2>
+                {comparison ? (
+                  <>
+                    <p className="small muted">
+                      {result.irf
+                        ? "Signed ranges include the baseline and comparable specifications, using each curve's largest absolute response. Signs are compared at the baseline peak horizon."
+                        : "Compare estimates and sign agreement across the available specifications."}
+                    </p>
+                    {rows.length ? (
+                      compact ? (
+                        <div
+                          className="sensitivity-cards"
+                          data-testid="mobile-sensitivity-cards"
+                        >
+                          {rows.map((row, index) => (
+                            <details
+                              key={index}
+                              className="sensitivity-mini-card"
+                            >
+                              <summary>
+                                <strong>
+                                  {text(row.Response ?? row.Term)}
+                                </strong>
+                                <span>
+                                  {text(
+                                    row["Baseline peak"] ??
+                                      row["Baseline estimate"],
+                                  )}
+                                </span>
+                              </summary>
+                              <dl>
+                                {Object.entries(row)
+                                  .filter(
+                                    ([key]) =>
+                                      !["Response", "Term"].includes(key),
+                                  )
+                                  .map(([key, value]) => (
+                                    <div key={key}>
+                                      <dt>{key}</dt>
+                                      <dd>{text(value)}</dd>
+                                    </div>
+                                  ))}
+                              </dl>
+                            </details>
+                          ))}
+                        </div>
+                      ) : (
+                        <DataTable countries={manifest.countries} rows={rows} />
+                      )
                     ) : (
-                      <DataTable countries={manifest.countries} rows={rows} />
-                    )
-                  ) : (
-                    <p>
+                      <p>
+                        {text(
+                          sensitivity.reason,
+                          "Sensitivity is not applicable to this output.",
+                        )}
+                      </p>
+                    )}
+                    <details className="specification-details">
+                      <summary>Every specification and its sample</summary>
+                      <div className="stack">
+                        {sensitivity.variants.map((v, index) => {
+                          const s = record(v.sample ?? v.actual_sample);
+                          return (
+                            <div key={index}>
+                              <strong>{specificationLabel(v)}</strong> ·{" "}
+                              {text(v.status)}
+                              <p className="small">
+                                {strings(v.changes).join("; ")}{" "}
+                                {text(v.reason, "")}
+                              </p>
+                              <p className="mono">
+                                {text(s.start)}–{text(s.end)} · n {text(s.nobs)}
+                              </p>
+                              {records(v.checks).map((check, i) => (
+                                <p className="small" key={i}>
+                                  {text(check.message)}
+                                </p>
+                              ))}
+                              {Object.keys(record(v.metrics)).length > 0 && (
+                                <details>
+                                  <summary>Variant estimates</summary>
+                                  <DataTable
+                                    countries={manifest.countries}
+                                    rows={records(
+                                      record(v.metrics).responses ??
+                                        record(v.metrics).coefficients,
+                                    )}
+                                  />
+                                </details>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </details>
+                  </>
+                ) : (
+                  <p className="muted">
+                    Turn on specification comparison to inspect sensitivity.
+                  </p>
+                )}
+                {comparison && Object.keys(lagCriteria).length > 0 && (
+                  <details className="lag-criteria-details">
+                    <summary>
+                      Lag selection · AIC {text(selectedLags.aic)} · BIC{" "}
+                      {text(selectedLags.bic)} · HQIC {text(selectedLags.hqic)}
+                    </summary>
+                    <p className="small">
                       {text(
-                        sensitivity.reason,
-                        "Sensitivity is not applicable to this output.",
+                        lagCriteria.interpretation ?? lagCriteria.reason,
+                        "Criteria use a common comparison sample; the baseline lag remains unchanged.",
                       )}
                     </p>
-                  )}
-                  <details className="specification-details">
-                    <summary>Every specification and its sample</summary>
-                    <div className="stack">
-                      {sensitivity.variants.map((v, index) => {
-                        const s = record(v.sample ?? v.actual_sample);
-                        return (
-                          <div key={index}>
-                            <strong>{specificationLabel(v)}</strong> ·{" "}
-                            {text(v.status)}
-                            <p className="small">
-                              {strings(v.changes).join("; ")}{" "}
-                              {text(v.reason, "")}
-                            </p>
-                            <p className="mono">
-                              {text(s.start)}–{text(s.end)} · n {text(s.nobs)}
-                            </p>
-                            {records(v.checks).map((check, i) => (
-                              <p className="small" key={i}>
-                                {text(check.message)}
-                              </p>
-                            ))}
-                            {Object.keys(record(v.metrics)).length > 0 && (
-                              <details>
-                                <summary>Variant estimates</summary>
-                                <DataTable
-                                  countries={manifest.countries}
-                                  rows={records(
-                                    record(v.metrics).responses ??
-                                      record(v.metrics).coefficients,
-                                  )}
-                                />
-                              </details>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
+                    <p className="small mono">
+                      Comparison sample:{" "}
+                      {text(record(lagCriteria.comparison_sample).start)}–
+                      {text(record(lagCriteria.comparison_sample).end)} · n ={" "}
+                      {text(record(lagCriteria.comparison_sample).nobs)}
+                    </p>
+                    <DataTable
+                      countries={manifest.countries}
+                      rows={records(lagCriteria.candidates).map(
+                        (candidate) => ({
+                          Lag: candidate.lag,
+                          AIC: candidate.aic,
+                          BIC: candidate.bic,
+                          HQIC: candidate.hqic,
+                        }),
+                      )}
+                    />
                   </details>
-                </>
-              ) : (
-                <p className="muted">
-                  Turn on specification comparison to inspect sensitivity.
-                </p>
-              )}
-              {comparison && Object.keys(lagCriteria).length > 0 && (
-                <details className="lag-criteria-details">
-                  <summary>
-                    Lag selection · AIC {text(selectedLags.aic)} · BIC{" "}
-                    {text(selectedLags.bic)} · HQIC {text(selectedLags.hqic)}
-                  </summary>
-                  <p className="small">
-                    {text(
-                      lagCriteria.interpretation ?? lagCriteria.reason,
-                      "Criteria use a common comparison sample; the baseline lag remains unchanged.",
-                    )}
-                  </p>
-                  <p className="small mono">
-                    Comparison sample:{" "}
-                    {text(record(lagCriteria.comparison_sample).start)}–
-                    {text(record(lagCriteria.comparison_sample).end)} · n ={" "}
-                    {text(record(lagCriteria.comparison_sample).nobs)}
-                  </p>
-                  <DataTable
-                    countries={manifest.countries}
-                    rows={records(lagCriteria.candidates).map((candidate) => ({
-                      Lag: candidate.lag,
-                      AIC: candidate.aic,
-                      BIC: candidate.bic,
-                      HQIC: candidate.hqic,
-                    }))}
-                  />
-                </details>
-              )}
-            </section>
-            <aside className="card stack reading">
-              <h2>Reading the result</h2>
-              <ul data-testid="reading-bullets">
-                {readingBullets(result, indicators).map((bullet, index) => (
-                  <li key={index}>{bullet}</li>
-                ))}
-              </ul>
-            </aside>
-          </div>
+                )}
+              </section>
+              <aside className="card stack reading">
+                <h2>Reading the result</h2>
+                <ul data-testid="reading-bullets">
+                  {readingBullets(result, indicators).map((bullet, index) => (
+                    <li key={index}>{bullet}</li>
+                  ))}
+                </ul>
+              </aside>
+            </div>
+          )}
           <details className="card technical-details">
             <summary>Tables, diagnostics and full method notes</summary>
             <div className="stack">
@@ -730,11 +758,32 @@ export function ResultsCountry({
                   open={block.title.includes("Test") || !charts.length}
                 >
                   <summary>{block.title}</summary>
-                  <DataTable
-                    countries={manifest.countries}
-                    rows={block.rows}
-                    columns={block.columns}
-                  />
+                  {result.model_id.startsWith("panel.") &&
+                  block.title.startsWith("Covariance sensitivity: ") ? (
+                    <PanelCovarianceTable
+                      rows={block.rows}
+                      lp={result.model_id === "panel.lp"}
+                      label={block.title.replace(
+                        "Covariance sensitivity: ",
+                        "",
+                      )}
+                      indicators={indicators}
+                    />
+                  ) : (
+                    <DataTable
+                      countries={manifest.countries}
+                      rows={
+                        result.model_id.startsWith("panel.")
+                          ? block.rows.map((r) =>
+                              typeof r.term === "string"
+                                ? { ...r, term: termLabel(r.term, indicators) }
+                                : r,
+                            )
+                          : block.rows
+                      }
+                      columns={block.columns}
+                    />
+                  )}
                 </details>
               ))}
               {Boolean(result.fevd) && (
@@ -848,6 +897,7 @@ export function Results({
     );
   const irf = result.results.find((r) => r.irf)?.irf;
   const config = result.config;
+  const breakDiagnostic = breakConfig(result);
   const model = manifest.models.find((m) => m.id === config.model.id);
   const template = config.model.params.template_id;
   const ecbTemplate = template === "same_ecb_shock";
@@ -897,21 +947,29 @@ export function Results({
           )
           .join(" / "),
         sample: `Snapshot ${result.snapshot_id} · ${result.results.map((r) => `${r.country}: ${r.actual_sample.start}–${r.actual_sample.end}, n=${r.actual_sample.nobs}`).join("; ")}`,
-        sources: [
-          ...new Set(
-            Object.values(bundles).flatMap((b) =>
-              b.cards
-                .filter((c) =>
-                  config.series.some((s) => s.concept_id === c.concept_id),
-                )
-                .flatMap((c) =>
-                  records(c.source_segments).map((s) => text(s.source)),
+        sources: config.model.id.startsWith("panel.")
+          ? panelSourceNames(config, bundles)
+          : [
+              ...new Set([
+                ...Object.values(bundles).flatMap((b) =>
+                  b.cards
+                    .filter((c) =>
+                      config.series.some((s) => s.concept_id === c.concept_id),
+                    )
+                    .flatMap((c) =>
+                      records(c.source_segments).map((s) => text(s.source)),
+                    ),
                 ),
-            ),
-          ),
-        ],
+                ...(config.model.id === "test.break" &&
+                config.model.params.source_variant &&
+                config.model.params.source_variant !== "none"
+                  ? ["ECB"] // All accepted first-stage variants use ECB SA HICP.
+                  : []),
+              ]),
+            ],
         frequency: config.frequency,
         horizon: Boolean(irf),
+        forecast: forecastModel(result.config.model.id),
         bandLevel: irf?.band_level ?? config.outputs.confidence ?? 0.95,
         comparisonLabel: "Comparison",
       }}
@@ -983,7 +1041,12 @@ export function Results({
             </button>
           </div>
         </div>
-        {Boolean(template) && (
+        {config.model.id === "test.break" &&
+          Boolean(config.model.params.source_variant) &&
+          config.model.params.source_variant !== "none" && (
+            <TemplateSources config={config} />
+          )}
+        {Boolean(template) && !v2Template(template) && (
           <section className="card stack" data-testid="v1-band-disclosure">
             {ecbTemplate && <TemplateSources config={config} />}
             <strong>
@@ -1038,13 +1101,15 @@ export function Results({
           <div>
             <span className="overline">Results · {model?.title}</span>
             <h1>
-              {ecbTemplate
-                ? `ECB ${config.model.params.policy_measure === "dfr" ? "DFR" : config.model.params.policy_measure === "bis" ? "BIS policy-rate" : "3-month rate"} shock: +${number(record(record(records(record(result.first_stage).results)[0]).identified_shock).requested_physical_size, 2)} pp`
-                : template === "tur_pass_through"
-                  ? "Türkiye: cumulative pass-through ratio"
-                  : irf
-                    ? shockHeading(irf, config, manifest.indicators)
-                    : `${model?.title ?? config.model.id}: the estimated relationship`}
+              {v2Template(template)
+                ? manifest.templates.find((t) => t.id === template)?.title
+                : ecbTemplate
+                  ? `ECB ${config.model.params.policy_measure === "dfr" ? "DFR" : config.model.params.policy_measure === "bis" ? "BIS policy-rate" : "3-month rate"} shock: +${number(record(record(records(record(result.first_stage).results)[0]).identified_shock).requested_physical_size, 2)} pp`
+                  : template === "tur_pass_through"
+                    ? "Türkiye: cumulative pass-through ratio"
+                    : irf
+                      ? shockHeading(irf, config, manifest.indicators)
+                      : `${model?.title ?? config.model.id}: the estimated relationship`}
             </h1>
             <p className="muted">
               {config.countries
@@ -1219,6 +1284,40 @@ export function Results({
             Exact samples and assumptions remain available below.
           </span>
         </div>
+        {breakDiagnostic && (
+          <button disabled={busy} onClick={() => rerun(breakDiagnostic)}>
+            Run break diagnostics for{" "}
+            {ecbTemplate || template === "same_ecb_shock_pooled"
+              ? "the ECB first-stage policy-rate equation"
+              : "this equation"}
+          </button>
+        )}
+        <V2TemplateResults result={result} manifest={manifest} />
+        {!v2Template(template) &&
+          result.results
+            .filter(
+              (r) =>
+                r.model_id.startsWith("panel.") ||
+                r.model_id === "bvar.minn" ||
+                diagnosticModel(r.model_id) ||
+                forecastModel(r.model_id),
+            )
+            .map((r) => (
+              <div key={`${r.country}-${text(r.outcome)}`}>
+                <PanelResults result={r} manifest={manifest} />
+                <DiagnosticResults
+                  result={r}
+                  manifest={manifest}
+                  first={r === result.results[0]}
+                />
+                <BvarResults result={r} manifest={manifest} />
+                <ForecastResults
+                  result={r}
+                  manifest={manifest}
+                  first={r === result.results[0]}
+                />
+              </div>
+            ))}
         {ecbTemplate && (
           <CountryComparison
             result={result}
@@ -1262,8 +1361,8 @@ export function Results({
           )
           .map((r, index) => (
             <details
-              key={r.country}
-              open={!ecbTemplate}
+              key={`${r.country}-${text(r.outcome)}`}
+              open={!ecbTemplate && !v2Template(template)}
               className={
                 ecbTemplate ? "card country-details" : "result-wrapper"
               }
@@ -1271,6 +1370,9 @@ export function Results({
               <summary>
                 {manifest.countries.find((c) => c.iso3 === r.country)?.name ??
                   r.country}{" "}
+                {r.outcome
+                  ? ` · ${termLabel(text(r.outcome), manifest.indicators)}`
+                  : ""}
                 · checks, sensitivity and technical details
               </summary>
               <ResultsCountry
@@ -1281,6 +1383,7 @@ export function Results({
                 comparison={comparison}
                 first={
                   !ecbTemplate &&
+                  !v2Template(template) &&
                   index ===
                     result.results.findIndex(
                       (item) =>
@@ -1292,7 +1395,12 @@ export function Results({
                 }
                 cards={bundles[r.country]?.cards ?? []}
                 compact={compact}
-                hideCharts={ecbTemplate}
+                hideCharts={
+                  ecbTemplate ||
+                  r.model_id === "bvar.minn" ||
+                  diagnosticModel(r.model_id) ||
+                  forecastModel(r.model_id)
+                }
                 hideChecks
                 onSourceCard={onSourceCard}
                 previouslyDisplayedChecks={previouslyDisplayedChecks}

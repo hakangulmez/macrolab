@@ -37,6 +37,9 @@ REGRESSION_MODELS = {
     "out.hd",
     "ident.external_series",
     "cmp.common_shock",
+    "panel.fe",
+    "panel.lp",
+    "bvar.minn",
 }
 DYNAMIC_MODELS = {
     "sing.ardl",
@@ -47,6 +50,9 @@ DYNAMIC_MODELS = {
     "out.hd",
     "ident.external_series",
     "cmp.common_shock",
+    "panel.fe",
+    "panel.lp",
+    "bvar.minn",
 }
 VAR_MODELS = {"var.ols", "ident.recursive", "out.hd", "ident.external_series"}
 ENDOGENOUS_ROLES = {"shock", "endogenous", "response"}
@@ -499,12 +505,26 @@ def _nsa_checks(data: AnalysisData, config: AnalysisConfig) -> list[dict[str, An
                 check(
                     "info"
                     if _model_id(config)
-                    in {"lp.ols", "cmp.common_shock", "out.hd", "ident.external_series"}
+                    in {
+                        "lp.ols",
+                        "cmp.common_shock",
+                        "out.hd",
+                        "ident.external_series",
+                        "panel.fe",
+                        "panel.lp",
+                    }
                     else "warn",
                     "nsa_series",
                     "Calendar seasonal dummies are included for this unadjusted input."
                     if _model_id(config)
-                    in {"lp.ols", "cmp.common_shock", "out.hd", "ident.external_series"}
+                    in {
+                        "lp.ols",
+                        "cmp.common_shock",
+                        "out.hd",
+                        "ident.external_series",
+                        "panel.fe",
+                        "panel.lp",
+                    }
                     else "Not seasonally adjusted; year-on-year changes or seasonal dummies "
                     "can address recurring seasonal patterns.",
                     concept_id=cid,

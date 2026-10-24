@@ -1,0 +1,42 @@
+# Panel local projections — G11 validation card
+
+`panel.lp` pools the existing `lp.ols` horizon designs with country fixed
+effects. The default target is y_(i,t+h) − y_(i,t−1); original log inputs can
+instead produce 100 × (log Y_(i,t+h) − log Y_(i,t−1)), labelled cumulative %
+change in the level. Level and growth displays are explicit alternatives.
+Lag augmentation adds one lag, as in the accepted LP implementation.
+
+Both a shared dated shock and country-specific impulses are supported. A
+common-shock selection verifies that overlapping shock observations agree
+exactly. Time effects are disabled and blocked with a common shock because
+they absorb it. Country-specific shocks may use two-way effects.
+
+The optional existing EA first stage explicitly binds the cleared ECB DFR
+and ECB SA HICP variants; it never silently uses the BIS policy splice.
+Orthogonalised residuals are recovered by the accepted first-stage estimator.
+The root and conditional nature of bands are visible; uncertainty in the
+generated shock is not included. Its source/configuration fingerprints are
+retained. No new data or template is introduced.
+
+Country windows may differ, or the user can intersect estimation dates at
+each horizon. Calendar gaps, lag/difference initialisation and future-target
+holdbacks remain explicit. The country LP overlay is fitted on exactly those
+same masks and uses the existing Moore–Penrose point-fit convention. Rank
+redundancy among nuisance lags is retained; an unidentified impulse blocks.
+Two-way pooled fits and country curves differ in time-effect restrictions,
+which is labelled. Their agreement is not added to legacy estimand counts.
+
+Default pooled inference is Driscoll–Kraay, with country-clustered sensitivity.
+Covariance rules follow the [panel FE card](panel_fe.md). Bands are normal,
+68% and 90%, pointwise rather than simultaneous. Country curves use HC1 with
+lag augmentation and HAC otherwise. With N=1 the point coefficient is exactly
+the existing LP coefficient; HC1 or HAC matching is required for exact band
+identity. A different panel covariance is not claimed to equal LP inference.
+
+Validation includes exact N=1 identities for four target definitions, both
+sample modes and lag-augmentation settings; independent horizon-by-horizon
+PanelOLS checks; country-overlay identity; seeded common/country-specific
+shock recovery; progress/cancellation; browser parity and offline exports.
+Workloads are 4 and 17 countries, H=20, with all covariance sensitivity rows.
+The G11 report (local review record omitted from source export) records median and p90, including misses.
+No new runtime dependency; no G15 template.

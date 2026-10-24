@@ -1,11 +1,12 @@
 /** Self-contained raster exports from the same plotted points; no network or model work. */
-import { download } from "./format";
+import { download, horizonAxisTitle } from "./format";
 import { buildVersion } from "./version";
 import { niceScale, tickLabel } from "./chartScale";
 import type { ResultChart } from "./resultData";
 
 export interface PngContext {
   snapshot?: string;
+  forecast?: boolean;
   analysis: string;
   scenario?: string;
   country: string;
@@ -29,7 +30,7 @@ export function exportText(charts: ResultChart[], context: PngContext) {
     title: `${context.analysis} · ${context.country}`,
     sample: context.sample,
     legend: `${context.estimateLabel ?? "Estimate"} · ${context.intervalLabel ?? charts[0]?.intervalLabel ?? `${Math.round(context.bandLevel * 100)}% pointwise interval`}${charts.some((c) => !c.pngComparisonLabel && c.points.some((p) => p.comparison != null)) ? ` · ${context.comparisonLabel} (point estimate)` : ""}`,
-    footer: `MacroLab ${buildVersion} · Data: ${context.sources.join(", ") || "see source cards"}${context.snapshot ? ` · Snapshot ${context.snapshot}` : ""} · Model scenario, not a forecast · hakangulmez.github.io/macrolab`,
+    footer: `MacroLab ${buildVersion} · Data: ${context.sources.join(", ") || "see source cards"}${context.snapshot ? ` · Snapshot ${context.snapshot}` : ""} · ${context.forecast ? "Forecast · final-vintage data" : "Model scenario, not a forecast"} · hakangulmez.github.io/macrolab`,
   };
 }
 
@@ -304,11 +305,12 @@ function plot(
         : "years";
   wrapped(
     ctx,
-    coefficients
-      ? `Coefficient (${chart.unit})`
-      : context.horizon
-        ? `Horizon (${timeUnit} after the shock)`
-        : `Period (${timeUnit})`,
+    chart.xAxisTitle ??
+      (coefficients
+        ? `Coefficient (${chart.unit})`
+        : context.horizon
+          ? horizonAxisTitle(context.frequency)
+          : `Period (${timeUnit})`),
     (left + right) / 2,
     height - 22,
     width - left - 30,

@@ -16,9 +16,13 @@ export async function checkExtension(
     key = hd ? "hd" : "crisis";
   const panel = page.getByTestId(hd ? "hd-view" : "crisis-view");
   const times = [];
-  const screenshotDir = join(root, "docs/screenshots", out.split("/").at(-1));
+  const screenshotDir = join(
+    root,
+    "docs/screenshots",
+    process.env.MACROLAB_SCREENSHOT_GATE ?? out.split("/").at(-1),
+  );
   let value;
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < Number(process.env.MACROLAB_EXTENSION_RUNS ?? 5); i++) {
     const n = await page.evaluate(() => window.g7Runs.length),
       start = Date.now();
     await panel
@@ -87,13 +91,33 @@ export async function checkExtension(
       assert((await row.innerText()).includes("changes the answer materially"));
     }
   }
-  const native = JSON.parse(await readFile(join(out, key + ".json")));
+  const native = JSON.parse(
+    await readFile(
+      join(
+        process.env.MACROLAB_ACCEPTED_DIR
+          ? join(root, process.env.MACROLAB_ACCEPTED_DIR)
+          : out,
+        key +
+          (process.env.MACROLAB_ACCEPTED_DIR &&
+          process.env.MACROLAB_REFERENCE_KIND !== "native"
+            ? ".browser.json"
+            : ".json"),
+      ),
+    ),
+  );
   let max = 0,
     count = 0;
   function compare(x, y, path = "") {
     if (typeof x === "number") {
       const d = Math.abs(x - y);
-      assert(d <= 1e-8, `${path}: ${x} / ${y}`);
+      assert(
+        d <=
+          Number(
+            process.env.MACROLAB_PARITY_TOLERANCE ??
+              (process.env.MACROLAB_ACCEPTED_DIR ? 0 : 1e-8),
+          ),
+        `${path}: ${x} / ${y}`,
+      );
       max = Math.max(max, d);
       count++;
     } else if (Array.isArray(x)) {
@@ -118,8 +142,11 @@ export async function checkExtension(
     max_difference: max,
     numeric_fields: count,
     times_ms: times,
-    median_ms: ordered[2],
-    p90_ms: ordered[3] * 0.4 + ordered[4] * 0.6,
+    median_ms: ordered[Math.floor(ordered.length / 2)],
+    p90_ms:
+      ordered.length === 5
+        ? ordered[3] * 0.4 + ordered[4] * 0.6
+        : ordered.at(-1),
   });
   for (const format of ["CSV", "Python", "JSON"]) {
     const event = page.waitForEvent("download");
@@ -138,10 +165,12 @@ export async function checkExtension(
   for (const width of [1440, 375]) {
     await page.setViewportSize({ width, height: 1000 });
     await panel.scrollIntoViewIfNeeded();
-    await mkdir(screenshotDir, { recursive: true });
-    await panel.screenshot({
-      path: join(screenshotDir, key + "-" + width + ".png"),
-    });
+    if (!process.env.MACROLAB_NO_SCREENSHOTS) {
+      await mkdir(screenshotDir, { recursive: true });
+      await panel.screenshot({
+        path: join(screenshotDir, key + "-" + width + ".png"),
+      });
+    }
     assert(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= window.innerWidth + 1,

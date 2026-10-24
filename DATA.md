@@ -1,15 +1,28 @@
-# Data rights — v1.1 technical candidate, 24 October 2026
+# Data rights — v2.0 local release candidate, 24 October 2026
 
-The v1.1 candidate retains snapshot `20261023-1634` and the accepted source
-policy below. Country observations, global variants, profile data, source cards
-and rights metadata are byte-identical to v1.0.1. The manifest changes only
-software and candidate metadata. `make static-build` prepares `runs/g10/site/`;
-P5 requires approval of the exact source and site artifacts. Country narratives
-and World Bank Pink Sheet remain withheld. No new runtime dependency is added.
+The v2.0 candidate uses immutable snapshot `20261024-2040` (24 October 2026),
+refreshed from the cleared official sources. The prior snapshot `20261023-1634`
+and all earlier snapshots remain unchanged. Country narratives and World Bank
+Pink Sheet remain withheld. Exact source/site artifacts require P6 approval.
 
-The inactive G16 PPI proposals use the already-cleared Eurostat STS dataset;
-their observations do not enter v1.1. G10 did not refresh the release data or
-repeat the legal review; the accepted dated evidence follows.
+The [G16 licence review](docs/G16_LICENCE_REVIEW.json) rechecked the seven provider
+reuse clauses and five WDI indicator licences. Seven selected OECD metadata
+responses match G9 outside response headers and availability constraints. No
+changed reuse clause or new restriction was found. IMF index access fields
+retain the reviewed licence, PUBLIC_OPEN status and empty sharing notes.
+
+G16 activates only the audited Eurostat `sts_inppd_m` PPI histories for Norway,
+Switzerland and Türkiye: monthly domestic manufacturing prices, NSA, 2021=100.
+Each replaces its entire former history; index bases are never spliced. Norway
+and Switzerland are EFTA members and Türkiye is an EU candidate; the selected
+price series do not fall under the detailed trade-data exceptions. Credit:
+`Source: Eurostat, sts_inppd_m, accessed 24 October 2026` with the series URL.
+MacroLab identifies transformations and retains Eurostat's non-responsibility
+notice. The fresh independent audit matched all nine country/date values.
+All other stale flags remain visible. No new runtime dependency is introduced.
+
+The licence table below continues to apply to this candidate. Historical sections
+record their original scope; they do not authorise publication of v2.0.
 
 ## Accepted G9 source-policy review
 
@@ -48,7 +61,7 @@ The classifications drive [`configs/publication_sources.json`](configs/publicati
 | BIS | **OK to redistribute processed data with attribution** | [Terms of permitted use of BIS statistics](https://data.bis.org/help/legal): “The use of the statistics is unrestricted, provided that:” | Cite BIS as the statistics source; MacroLab adds dataset, series and URL, and labels calculations. No misleading endorsement. Translations must be marked unofficial. A commercial product cannot impose an additional charge for including BIS statistics. The statistics are not investment advice. |
 | IMF | **OK to redistribute processed data with attribution**, non-commercial use only | [Copyright and Usage, Special Terms for Statistical Data](https://www.imf.org/en/about/copyright-and-terms): “create derivative works, publish, distribute, and use Data” | `Source: International Monetary Fund, Database Name, link`. P2 credits World Economic Outlook (WEO) or Exchange Rates (ER) explicitly, preserves accuracy and terms, and identifies transformations. Potential commercial reuse requires permission and is outside this inclusion decision. |
 | ECB | **OK to redistribute processed data with attribution** | [Disclaimer & copyright](https://www.ecb.europa.eu/services/using-our-site/disclaimer/html/index.en.html): “When such information is distributed or reproduced, it must appear accurately and the ECB must be cited as the source.” | Cite ECB; identify transformations, including seasonal adjustment or growth calculations. If data are included in sold documents, disclose free availability before payment and on access. Authored papers have separate permission requirements. This row covers statistics, not logos or papers. |
-| Eurostat | **OK to redistribute processed data with attribution** | [Copyright notice](https://ec.europa.eu/eurostat/web/main/help/copyright-notice): “for commercial or non-commercial purposes is authorised provided the source is acknowledged.” | For customised datasets: `Source: [Eurostat dataset datacode link], [access date]`. Identify changes and include a Eurostat non-responsibility disclaimer. Third-party material and specified country/trade exceptions apply. All selected observations here cover EU members or the euro area. |
+| Eurostat | **OK to redistribute processed data with attribution** | [Copyright notice](https://ec.europa.eu/eurostat/web/main/help/copyright-notice): “for commercial or non-commercial purposes is authorised provided the source is acknowledged.” | For customised datasets: `Source: [Eurostat dataset datacode link], [access date]`. Identify changes and include a Eurostat non-responsibility disclaimer. Third-party material and specified country/trade exceptions apply. Selected observations cover EU members/the euro area and the approved EFTA/EU-candidate PPI additions described above. |
 | World Bank WDI | **OK to redistribute processed data with attribution**, for the five reviewed profile indicators | [Summary Terms of Use](https://data.worldbank.org/summary-terms-of-use): “copy, distribute, adapt, display or include the data”; [WDI catalogue](https://datacatalog.worldbank.org/search/dataset/0037712/world-development-indicators) identifies CC BY 4.0. | Required general credit: `The World Bank: Dataset name: Data source (if known).` Follow indicator metadata; retain licence/terms links and downstream acknowledgement, identify modifications, and avoid endorsement. CC BY 4.0 includes commercial reuse; World Bank additional dispute-resolution terms also apply. Third-party exceptions must be checked per indicator. |
 | World Bank Pink Sheet | **unclear — excluded by owner** | [Commodity Prices catalogue](https://datacatalog.worldbank.org/search/dataset/0038238/commodity-prices-history-and-projections): “This dataset is licensed under Creative Commons Attribution 4.0”. [World Bank data terms](https://data.worldbank.org/summary-terms-of-use) also apply. | Third-party interests in monthly workbook columns remain unresolved. P2 ships no Pink Sheet observations; EIA replaces Brent and both energy/non-energy commodity-index variants are withheld. |
 | EIA | **OK to redistribute processed data with attribution**, selected Europe Brent monthly series | [Copyrights and reuse](https://www.eia.gov/about/copyrights_reuse.php): “U.S. government publications are in the public domain” | `Source: U.S. Energy Information Administration (October 2026)`, plus Europe Brent Spot Price FOB, monthly USD/bbl, official file URL and access date. Preserve the publication date; identify transformations and avoid implied endorsement. |
@@ -63,7 +76,7 @@ The classifications drive [`configs/publication_sources.json`](configs/publicati
 
 **P1 provenance correction:** its text incorrectly described the selected IMF observations as a BIS-hosted proxy. The accepted rows and successful archived response manifests show both request and final URLs on `api.imf.org` for WEO 9.0.0 and ER 4.0.1. P2 preserves those observed official URLs; it does not alter the observations to make this correction.
 
-**Eurostat.** The selected Eurostat rows are producer prices, government balance and government debt for EU countries/the euro area. There are no selected non-European-country observations or the detailed trade categories named in its exceptions. The candidate carries this modification notice: `Data transformations are by MacroLab; Eurostat is not responsible for these modifications or results.` Future source/country additions need another scope check.
+**Eurostat.** The selected Eurostat rows are producer prices, government balance and government debt for EU countries/the euro area, plus the approved Norway, Switzerland and Türkiye PPI histories. No selected series belongs to the detailed trade categories named in its exceptions. The candidate carries this modification notice: `Data transformations are by MacroLab; Eurostat is not responsible for these modifications or results.` Future source/country additions need another scope check.
 
 **WDI.** Each exact indicator page below explicitly displays CC BY-4.0 beside its provider metadata; no contrary indicator-specific restriction was displayed. The build restricts WDI to these five reviewed series and preserves the providers in its profile credits. This updates the prior unresolved WDI status for processed profile data only; raw archives remain private and excluded.
 

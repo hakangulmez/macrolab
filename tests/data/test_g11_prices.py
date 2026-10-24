@@ -137,6 +137,22 @@ def test_eurostat_ppi_retains_domestic_manufacturing_definition_and_audit() -> N
     assert row["audit"]["flat_index"] == 0 and row["obs_status"] == "p"
 
 
+@pytest.mark.parametrize(
+    "country,geo,allowed",
+    [("NOR", "NO", True), ("CHE", "CH", True), ("TUR", "TR", True), ("USA", "US", False)],
+)
+def test_g16_additional_ppi_scope_is_exact(country, geo, allowed):
+    payload = ppi_payload()
+    payload["dimension"]["geo"]["category"]["index"] = {geo: 0}
+    rows = normalise_ppi_eurostat(
+        payload,
+        fetched(),
+        [{"iso3": country, "iso2": geo, "eu_member": False}],
+        configuration()["eurostat_ppi"],
+    )
+    assert bool(rows) == allowed
+
+
 @pytest.mark.parametrize("dimension,code", [("unit", "I15"), ("nace_r2", "B-D"), ("s_adj", "SA")])
 def test_eurostat_ppi_rejects_mislabelled_response(dimension: str, code: str) -> None:
     payload = ppi_payload()
@@ -163,13 +179,13 @@ def test_incomplete_http_200_responses_do_not_create_price_mappings() -> None:
     ) == len(client.calls)
 
 
-def test_eurostat_ppi_does_not_emit_non_eu_countries() -> None:
+def test_historical_ppi_mapping_excludes_non_eu_countries_without_explicit_approval() -> None:
     payload = ppi_payload()
     payload["dimension"]["geo"]["category"] = {"index": {"CH": 0}, "label": {"CH": "Switzerland"}}
     rows = normalise_ppi_eurostat(
         payload,
         fetched(),
         [{"iso3": "CHE", "iso2": "CH", "eu_member": False}],
-        configuration()["eurostat_ppi"],
+        {k: v for k, v in configuration()["eurostat_ppi"].items() if k != "additional_countries"},
     )
     assert rows == []

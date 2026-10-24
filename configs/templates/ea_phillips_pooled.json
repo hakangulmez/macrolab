@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "20261023-1634",
+  "countries": [
+    "AUT",
+    "BEL",
+    "FIN",
+    "FRA",
+    "DEU",
+    "IRL",
+    "ITA",
+    "LUX",
+    "NLD",
+    "PRT",
+    "ESP"
+  ],
+  "frequency": "Q",
+  "series": [
+    {
+      "concept_id": "cpi",
+      "role": "dependent",
+      "transform": "yoy_pct",
+      "transform_params": {}
+    },
+    {
+      "concept_id": "unemp",
+      "role": "regressor",
+      "transform": "hp_cycle",
+      "transform_params": {
+        "lamb": 1600,
+        "log": false
+      }
+    },
+    {
+      "concept_id": "oil_brent",
+      "role": "exogenous",
+      "transform": "yoy_pct",
+      "transform_params": {}
+    }
+  ],
+  "aggregation": {
+    "cpi": "mean",
+    "unemp": "mean",
+    "oil_brent": "mean"
+  },
+  "sample": {
+    "start": "1999-Q1",
+    "end": "latest"
+  },
+  "special_periods": {
+    "covid": "include",
+    "covid_window": {
+      "start": "2020-Q1",
+      "end": "2021-Q2"
+    },
+    "elb_threshold": 0.25
+  },
+  "model": {
+    "id": "panel.fe",
+    "params": {
+      "template_id": "ea_phillips_pooled",
+      "effects": "country",
+      "covariance": "Driscoll-Kraay",
+      "dependent_lags": 0,
+      "seasonal": false
+    }
+  },
+  "outputs": {
+    "confidence": 0.95
+  },
+  "comparison": {
+    "enabled": false,
+    "identifications": [],
+    "methods": [],
+    "scenarios": []
+  },
+  "seed": 20261021,
+  "identification": null
+}

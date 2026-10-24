@@ -177,7 +177,21 @@ export async function buildBundle(
   const template = config.model?.params?.template_id;
   const first = config.model?.params?.first_stage as AnalysisConfig | undefined;
   const codes = new Set(config.countries);
-  if (template === "same_ecb_shock")
+  if (template === "same_ecb_shock_pooled")
+    [
+      "AUT",
+      "BEL",
+      "FIN",
+      "FRA",
+      "DEU",
+      "IRL",
+      "ITA",
+      "LUX",
+      "NLD",
+      "PRT",
+      "ESP",
+    ].forEach((code) => codes.add(code));
+  if (template === "same_ecb_shock" || config.model?.id === "panel.lp")
     first?.countries.forEach((code) => codes.add(code));
   const selected = await Promise.all([...codes].map(getCountry));
   const concepts = new Set(config.series.map((series) => series.concept_id));
@@ -188,7 +202,12 @@ export async function buildBundle(
     concepts.add("reer");
     concepts.add("credit_pnfs");
   }
-  if (template === "same_ecb_shock") {
+  if (
+    template === "same_ecb_shock" ||
+    (config.model?.id === "panel.lp" && first) ||
+    (config.model?.id === "test.break" &&
+      (config.model.params.source_variant ?? "none") !== "none")
+  ) {
     first?.series.forEach((series) => concepts.add(series.concept_id));
     concepts.add("rate_3m");
   }
@@ -217,7 +236,12 @@ export async function buildBundle(
       ),
     };
   }
-  if (template === "same_ecb_shock") {
+  if (
+    template === "same_ecb_shock" ||
+    (config.model?.id === "panel.lp" && first) ||
+    (config.model?.id === "test.break" &&
+      (config.model.params.source_variant ?? "none") !== "none")
+  ) {
     const data = await (
       await localResponse(manifest.global_variants_url)
     ).json();

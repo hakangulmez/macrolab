@@ -1,6 +1,8 @@
 # Local release-candidate procedure
 
-For v1.1, `make static-build` (or `make g10-build`) prepares a browser-only
+## Historical v1.1 procedure
+
+For v1.1, `make g10-build` prepares a browser-only
 candidate under `runs/g10/site/`, with the `/macrolab/` base path. It requires the
 accepted v1.0.1 site at `runs/v101/site/`. It copies the cleared October 23 data
 and pinned runtime dependencies, and rebuilds MacroLab's own runtime and UI.
@@ -37,3 +39,17 @@ readback inventories plus `runs/g10/source.patch`. Its parents are public main
 `d5ce053` and gh-pages `fc5a603`. It performs no network calls. The older G9
 procedure remains in `scripts/g9_prepare.py` and `scripts/g9_export.py` for
 historical reproducibility; it must not overwrite accepted artifacts.
+
+## v2.0 / G16
+
+`make g16-build SNAPSHOT=<id>` requires the passed immutable refresh marker and
+`docs/G16_LICENCE_REVIEW.json` dated to that snapshot. It prepares all nine
+unchanged templates, withheld narratives, the current model registry and local
+validation-card pages. All runtime packages and notices come from the pinned
+cache; no new runtime package is fetched.
+
+P6 candidates are separate local repositories with no remotes. Source must be
+one successor to public main `23969e8`; static files must be one successor to
+public gh-pages `7db5514`. Never copy development ancestry. Inventory file sizes
+and SHA-256 hashes, scan for secrets/private paths, retain the source diff, and
+wait for exact-artifact approval before either ordinary fast-forward push.

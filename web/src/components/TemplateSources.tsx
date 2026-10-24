@@ -5,7 +5,11 @@ import { text } from "../format";
 export function TemplateSources({ config }: { config: AnalysisConfig }) {
   const [cards, setCards] = useState<JsonRecord[]>([]),
     [error, setError] = useState("");
-  const measure = String(config.model.params.policy_measure ?? "dfr");
+  const measure = String(
+    config.model.params.policy_measure ??
+      config.model.params.source_variant ??
+      "dfr",
+  );
   useEffect(() => {
     let active = true;
     void getTemplateSources(measure)
@@ -35,13 +39,17 @@ export function TemplateSources({ config }: { config: AnalysisConfig }) {
       </summary>
       <p className="small">
         These override the catalogue’s generic policy/price concepts for stage
-        1. National prices retain their original NSA HICP and calendar controls.
+        1.
+        {config.model.id !== "test.break" &&
+          " National prices retain their original NSA HICP and calendar controls."}
       </p>
       {error && <p role="alert">{error}</p>}
       {cards.map((card, i) => (
         <article key={i}>
           <strong>{text(card.title ?? card.source_series_id)}</strong>
-          <p className="small">{text(card.attribution)}</p>
+          <p className="small" style={{ overflowWrap: "anywhere" }}>
+            {text(card.attribution)}
+          </p>
           <a href={text(card.source_url)} target="_blank" rel="noreferrer">
             Official source metadata / data
           </a>
