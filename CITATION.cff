@@ -1,10 +1,13 @@
 cff-version: 1.2.0
-message: "Please cite MacroLab when using this software."
-title: "MacroLab"
+message: "Please cite MacroLab when using this software. Cite data providers separately as described in DATA.md."
 type: software
+title: MacroLab
 authors:
-  - family-names: "Gülmez"
-    given-names: "Hakan Zeki"
-version: "0.4.0"
+  - family-names: Gülmez
+    given-names: Hakan Zeki
+version: 2.1.0
+date-released: 2026-10-25
+repository-code: "https://github.com/hakangulmez/macrolab"
+url: "https://hakangulmez.github.io/macrolab/"
 license: MIT
-abstract: "Local reproducible macroeconomic analysis with validated v0 methods and a browser interface."
+abstract: "Official macroeconomic data and validated econometrics in the browser, with visible assumptions, data gaps and sensitivity."

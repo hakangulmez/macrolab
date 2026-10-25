@@ -1,99 +1,152 @@
 # MacroLab
 
-MacroLab is a non-commercial research and teaching tool for exploring official
-macro data and testing how results depend on modelling assumptions. The **v2.1.0
-release candidate** provides 33 national indicators and three global factors
-across 38 OECD economies and the euro area, with nine templates.
+Official macroeconomic data and validated econometrics in the browser, with assumptions, data gaps and sensitivity visible.
 
-The interface adds a searchable dataset explorer, a coverage matrix, dark and
-light themes, a result overview and LaTeX tables. This release changes presentation
-only: the accepted data, scientific runtime and template defaults stay unchanged.
+[Live app](https://hakangulmez.github.io/macrolab/) · [Documentation / Methods](https://hakangulmez.github.io/macrolab/#methods) · [Data licences](DATA.md)
 
-Estimation runs entirely in the browser in a pinned Pyodide worker. A published
-build bundles a fixed, audited snapshot; browsing never fetches new observations
-from providers. Every result records its actual sample, transformations, dropped
-periods, source notes and sensitivity. Country narratives remain withheld.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/home-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/home-light.webp">
+  <img src="docs/images/home-light.webp" alt="MacroLab Home: inflation across economies and snapshot statistics, version 2.1.0." width="1440" height="937">
+</picture>
 
-The six established templates cover monetary policy, Taylor and Phillips
-relationships, Okun's law, a common ECB shock and Türkiye exchange-rate
-pass-through. v2.0 adds a pooled euro-area Phillips curve, pooled responses to
-the same ECB shock, and an EA inflation forecast horse race. Panel FE and LP,
-Minnesota BVAR, SARIMAX, VAR/BVAR forecasts, expanding-window evaluation,
-cointegration, VECM and structural-break diagnostics have linked validation cards.
-Historical decomposition and optional crisis analysis remain available.
+## What it does
 
-Only forecasting outputs are forecasts. Other outputs are conditional
-associations or identified scenarios, not forecasts. Evaluation uses final-vintage
-data and is pseudo-out-of-sample; real-time performance may be worse. Two-sided
-HP gaps use later observations. Pooled shock bands omit first-stage uncertainty;
-ECB break-test size remains unreliable. Sensitivities are descriptive and do not
-remove identification or model uncertainty. Further v3 methods remain planned.
+<!-- Counts verified against the shipped manifest; provenance in docs/README_MANIFEST.json. -->
 
-The local candidate requires separate approval of its exact source and site
-artifacts at P8. No preparation command publishes or deploys the application.
+- Explore **39 economies × 36 indicators** (33 national + 3 global factors), with every gap visible in the dataset explorer.
+- Use **25 validated methods in 8 families**, from descriptive analysis to panel models and forecasting.
+- Start from **9 templates** with explicit specifications and default countries.
+- Run entirely in the browser through **Pyodide**, with no account or analysis server. The published app uses a bundled snapshot and does not request new data from providers.
+- Export results to **CSV, PNG, LaTeX tables and reproducible Python scripts**.
+- Read robustness beside each answer: actual samples, assumptions, warnings and sensitivity remain visible.
 
-## Install and check
+## Screenshots
 
-Use Python 3.11, a Node version satisfying `web/package.json`, and `uv` on PATH.
-Dependencies are pinned in `uv.lock` and `web/package-lock.json`.
+These are real states of the published v2.1.0 app. Desktop images switch with your colour-scheme preference. [Capture provenance and image sizes](docs/images/README.md).
+
+### Dataset explorer
+
+Germany's HICP cell is selected; its observations, coverage and source citation are shown together.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/dataset-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/dataset-light.webp">
+  <img src="docs/images/dataset-light.webp" alt="Dataset explorer with Germany's HICP cell selected, coverage matrix and official source citation." width="1440" height="1770">
+</picture>
+
+### Same ECB shock · pooled
+
+Pooled and country responses use identical estimation dates. Sensitivity and the conditional-band caveat remain alongside the chart.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/ecb-pooled-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/ecb-pooled-light.webp">
+  <img src="docs/images/ecb-pooled-light.webp" alt="Pooled ECB shock result: HICP response, Germany overlay, actual sample and sensitivity." width="1440" height="1548">
+</picture>
+
+### Türkiye exchange-rate pass-through
+
+The cumulative CPI-to-NEER response ratio is the headline measure; it is a conditional association, not a causal estimate.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/turkiye-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/turkiye-light.webp">
+  <img src="docs/images/turkiye-light.webp" alt="Türkiye pass-through result with the cumulative price-to-exchange-rate response ratio and sensitivity." width="1440" height="1527">
+</picture>
+
+### Euro-area inflation forecast horse race
+
+Expanding-window forecast errors are compared with the random-walk benchmark, with crisis-period sensitivity shown beside the result.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/horse-race-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/horse-race-light.webp">
+  <img src="docs/images/horse-race-light.webp" alt="Euro-area inflation evaluation: ARIMA and random-walk forecast errors, metrics and crisis sensitivities." width="1440" height="1206">
+</picture>
+
+### Mobile
+
+Home and the pooled ECB result at 375 px, also available in both themes.
+
+<table>
+  <tr>
+    <td><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/home-mobile-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/home-mobile-light.webp">
+  <img src="docs/images/home-mobile-light.webp" alt="MacroLab Home at 375 px: inflation chart and snapshot statistics." width="375" height="1624">
+</picture></td>
+    <td><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/ecb-pooled-mobile-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/ecb-pooled-mobile-light.webp">
+  <img src="docs/images/ecb-pooled-mobile-light.webp" alt="Pooled ECB response at 375 px, with the sample and conditional-band caveat." width="375" height="2432">
+</picture></td>
+  </tr>
+</table>
+
+## Templates
+
+| Template                                | Question                                                                                 | Method                         | Default countries                            |
+| --------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------ | -------------------------------------------- |
+| Monetary policy                         | How do output and prices respond to a recursive US policy-rate shock?                    | VAR · Recursive                | United States                                |
+| Taylor rule                             | How is the policy rate associated with inflation and activity?                           | OLS · HAC                      | United Kingdom                               |
+| Phillips curve                          | How does the inflation–unemployment relationship vary across samples?                    | OLS · Rolling                  | Canada                                       |
+| Okun's law                              | How are output growth and unemployment changes related?                                  | OLS · HAC                      | Spain                                        |
+| Same ECB shock                          | How do national responses differ after the same ECB shock?                               | Local projections · HC1        | Germany, France, Italy, Spain                |
+| Türkiye exchange-rate pass-through      | How much exchange-rate depreciation passes through to prices?                            | Local projections · HC1        | Türkiye                                      |
+| Euro-area Phillips curve · pooled       | What inflation–slack relationship emerges when euro-area countries are pooled?           | Panel FE · Driscoll–Kraay      | 11 founding euro-area members (listed below) |
+| Same ECB shock · pooled                 | What is the pooled response to the same ECB shock?                                       | Panel LP · Driscoll–Kraay      | Germany, France, Italy, Spain                |
+| Euro-area inflation forecast horse race | Which model predicts euro-area inflation most accurately in expanding-window evaluation? | Forecast · RW, AR, ARIMA, BVAR | Euro area                                    |
+
+The founding-member panel comprises Austria, Belgium, Finland, France, Germany, Ireland, Italy, Luxembourg, Netherlands, Portugal, Spain.
+
+## Data
+
+The **20261024-2040** snapshot contains **1,404 economy–indicator cells: 1,333 populated and 71 missing**. Shared global factors appear for each economy; cells are not distinct underlying source series.
+
+| Coverage status                                     | Cells |
+| --------------------------------------------------- | ----: |
+| Available                                           |   521 |
+| Available with a source or methodological note      |   695 |
+| Limited history, freshness or modelling suitability |   117 |
+| Missing                                             |    71 |
+
+The 7 official sources are **OECD, BIS, IMF, ECB, Eurostat, World Bank WDI and U.S. EIA**. Each series carries attribution and coverage notes. **IMF data are included for non-commercial use; Pink Sheet is excluded.** See [DATA.md](DATA.md) for source-specific permissions and restrictions. Country narratives remain withheld.
+
+MacroLab is a **non-commercial research and teaching tool**. Source revisions and data freshness can affect results; the bundled snapshot does not update while you browse.
+
+## How to read results
+
+- **Only forecasting outputs are forecasts.** Other outputs are conditional associations or identified scenarios, not forecasts.
+- Forecast evaluation is **pseudo-out-of-sample with final-vintage data**; real-time performance may be worse.
+- **Two-sided HP gaps use later observations.** They are retrospective measures.
+- **Pooled shock bands omit first-stage estimation uncertainty.** Their precision is conditional on the estimated shock.
+- **ECB break-test size remains unreliable.** Do not treat its p-values as well-calibrated evidence.
+- Sensitivities are descriptive; they do not remove identification or model uncertainty. Different estimands are not combined in one agreement count.
+
+## Run locally and reproduce
+
+Use Python 3.11, `uv`, and a Node version supported by `web/package.json`. Python and JavaScript dependencies are pinned in `uv.lock` and `web/package-lock.json`.
 
 ```sh
 make setup
 make quick
-make test lint typecheck
-# Compile the interface source without preparing data or runtime assets:
+make test typecheck
+make lint
+# Compile the interface source:
 cd web && npm run build
 ```
 
-Setup retrieves dependencies from PyPI/npm. Automatic Python downloads and npm
-lifecycle scripts are disabled. `make quick` uses seeded synthetic data without
-network. Tests use fixtures/mocks; private-snapshot checks skip when inputs are
-absent. No raw data, generated results, environments or scientific runtime
-binaries are included in the public source repository.
+`make setup` retrieves dependencies from PyPI/npm with automatic Python downloads and npm lifecycle scripts disabled. `make quick` uses seeded synthetic data without network. Snapshot-dependent checks skip if their inputs are absent. The source repository does not bundle raw data, runtime binaries or private review evidence; compiling the interface alone does not prepare a runnable data snapshot.
 
-## Data and a runnable static site
+For a self-contained calculation, download the result's **Python script**, follow its embedded environment instructions and run it locally. It carries the configuration, required input and provenance for that result. See [local build and reproduction](docs/LOCAL_BUILD.md) for the static-site inputs and [model validation cards](docs/models/README.md) for methods and limits. First-use runtime preparation takes about 8–9 seconds on the review machine; later runs reuse the worker.
 
-Sources are OECD, BIS, IMF WEO/ER/PCPS, ECB, Eurostat, World Bank WDI and EIA.
-Global factors are EIA Brent, BIS US policy and the IMF non-fuel commodity index;
-all/energy commodity variants are also available. Pink Sheet remains excluded.
-Country narratives are withheld. Data rights and attribution are in [DATA.md](DATA.md).
+## Citation
 
-The v2.1.0 UI build uses the exact accepted v2.0.1 (P7) static-site archive as
-read-only input. The builder verifies its full SHA-256 inventory, copies the data,
-scientific runtime, schemas and validation cards byte-for-byte, and generates the
-UI's inflation/coverage projection from those same observations. No analysis
-server or data-provider request is needed. Country narratives remain withheld.
-The source repository does not contain the static archive or private review evidence.
+Hakan Zeki Gülmez (2026). _MacroLab_, version 2.1.0. https://github.com/hakangulmez/macrolab.
 
-```sh
-# Supply the previously accepted P7 archive locally; this does not fetch it:
-make static-build ACCEPTED_SITE=/path/to/accepted-p7-site
-# Serve runs/g19/site under /macrolab/ using a static server.
-```
+Machine-readable citation: [CITATION.cff](CITATION.cff). No DOI has been assigned.
 
-This presentation release does not refresh data. A future explicitly approved
-refresh uses the separate `make refresh` / `make g16-build` procedure and requires
-its dated licence review, audited snapshot and pinned runtime cache.
+## Licence
 
-Follow [refresh instructions](docs/DATA_REFRESH.md) and the
-[release-candidate procedure](docs/RELEASE_CANDIDATE.md). A refresh never changes
-the published site or the accepted old snapshot. Source failures and changed
-licence clauses stop the release. No push or deployment is part of these commands.
-
-The first browser run prepares the cached scientific runtime, taking about 8–9 s
-on the review machine. ECB baseline results appear before background sensitivity;
-joint uncertainty is available on demand. Finite-sample coverage limits,
-identification caveats and data warnings remain visible.
-
-## Documentation and licences
-
-- [Model methods](docs/models/README.md)
-- [Source mappings](docs/SOURCES.md)
-- [Data rights and attribution](DATA.md)
-- [Software notices](docs/P1_SOFTWARE_NOTICES.md)
-- [Pinned runtime notices](third_party/runtime/SOURCE_AVAILABILITY.md)
-- [Changelog](CHANGELOG.md)
-
-MacroLab code is MIT licensed. **Data and data-derived outputs are not covered by
-the MIT licence; see [DATA.md](DATA.md).** Third-party software and fonts retain
-their own terms. A shared configuration is not a data licence or publication approval.
+Code: [MIT](LICENSE). **Data and data-derived outputs are not covered by the MIT licence; see [DATA.md](DATA.md).** Fonts use the SIL Open Font License (OFL); other software retains its own terms. See [software notices](docs/P1_SOFTWARE_NOTICES.md) and [runtime notices](third_party/runtime/SOURCE_AVAILABILITY.md).

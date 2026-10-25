@@ -1,0 +1,111 @@
+{
+  "snapshot_id": "20261024-2040",
+  "manifest_url": "https://hakangulmez.github.io/macrolab/data/manifest.json",
+  "manifest_sha256": "cdd90f2eb036f9e8619a3ec886b166672ad51cca1d5bd3fd27db2ec860b9e069",
+  "site_commit": "7b598606e5b7fe8381ace5557cbea84b441ce967",
+  "counts": {
+    "economies": 39,
+    "indicators": 36,
+    "national": 33,
+    "global": 3,
+    "cells": 1404,
+    "populated": 1333,
+    "methods": 25,
+    "families": 8,
+    "templates": 9,
+    "sources": 7
+  },
+  "coverage": {
+    "available": 521,
+    "available_note": 695,
+    "limited": 117,
+    "missing": 71
+  },
+  "method_families": [
+    "Explore & test",
+    "Regression",
+    "Trends & gaps",
+    "VAR & local projections",
+    "Identify & compare",
+    "Panel models",
+    "Bayesian & forecasting",
+    "Long run & breaks"
+  ],
+  "sources": [
+    "OECD",
+    "BIS",
+    "IMF",
+    "ECB",
+    "Eurostat",
+    "World Bank WDI",
+    "U.S. EIA"
+  ],
+  "templates": [
+    {
+      "name": "Monetary policy",
+      "question": "How do output and prices respond to a recursive US policy-rate shock?",
+      "method": "VAR · Recursive",
+      "countries": ["United States"]
+    },
+    {
+      "name": "Taylor rule",
+      "question": "How is the policy rate associated with inflation and activity?",
+      "method": "OLS · HAC",
+      "countries": ["United Kingdom"]
+    },
+    {
+      "name": "Phillips curve",
+      "question": "How does the inflation–unemployment relationship vary across samples?",
+      "method": "OLS · Rolling",
+      "countries": ["Canada"]
+    },
+    {
+      "name": "Okun's law",
+      "question": "How are output growth and unemployment changes related?",
+      "method": "OLS · HAC",
+      "countries": ["Spain"]
+    },
+    {
+      "name": "Same ECB shock",
+      "question": "How do national responses differ after the same ECB shock?",
+      "method": "Local projections · HC1",
+      "countries": ["Germany", "France", "Italy", "Spain"]
+    },
+    {
+      "name": "Türkiye exchange-rate pass-through",
+      "question": "How much exchange-rate depreciation passes through to prices?",
+      "method": "Local projections · HC1",
+      "countries": ["Türkiye"]
+    },
+    {
+      "name": "Euro-area Phillips curve · pooled",
+      "question": "What inflation–slack relationship emerges when euro-area countries are pooled?",
+      "method": "Panel FE · Driscoll–Kraay",
+      "countries": [
+        "Austria",
+        "Belgium",
+        "Finland",
+        "France",
+        "Germany",
+        "Ireland",
+        "Italy",
+        "Luxembourg",
+        "Netherlands",
+        "Portugal",
+        "Spain"
+      ]
+    },
+    {
+      "name": "Same ECB shock · pooled",
+      "question": "What is the pooled response to the same ECB shock?",
+      "method": "Panel LP · Driscoll–Kraay",
+      "countries": ["Germany", "France", "Italy", "Spain"]
+    },
+    {
+      "name": "Euro-area inflation forecast horse race",
+      "question": "Which model predicts euro-area inflation most accurately in expanding-window evaluation?",
+      "method": "Forecast · RW, AR, ARIMA, BVAR",
+      "countries": ["Euro area"]
+    }
+  ]
+}
