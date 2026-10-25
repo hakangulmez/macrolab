@@ -6,20 +6,19 @@ import { latexTables } from "../src/latexExport";
 import { ResultRail, ResultTableView } from "../src/components/ResultOverview";
 import type { AnalysisResult, Manifest } from "../src/types";
 afterEach(() => vi.unstubAllGlobals());
-it("respects saved choice, system preference, then dark, including blocked storage", () => {
+it("opens dark unless light was chosen, ignoring system preference and blocked storage", () => {
   vi.stubGlobal("localStorage", { getItem: () => "light" });
-  vi.stubGlobal("matchMedia", () => ({ matches: true }));
   expect(initialTheme()).toBe("light");
+  vi.stubGlobal("localStorage", { getItem: () => null });
+  vi.stubGlobal("matchMedia", (q: string) => ({
+    matches: q.includes("light"),
+  }));
+  expect(initialTheme()).toBe("dark");
   vi.stubGlobal("localStorage", {
     getItem: () => {
       throw Error("blocked");
     },
   });
-  vi.stubGlobal("matchMedia", (q: string) => ({
-    matches: q.includes("light"),
-  }));
-  expect(initialTheme()).toBe("light");
-  vi.stubGlobal("matchMedia", () => ({ matches: false }));
   expect(initialTheme()).toBe("dark");
 });
 const manifest = {

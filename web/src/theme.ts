@@ -7,14 +7,7 @@ export function initialTheme(): Theme {
   } catch {
     /* Storage may be unavailable. */
   }
-  try {
-    if (typeof matchMedia === "function") {
-      if (matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
-      if (matchMedia("(prefers-color-scheme: light)").matches) return "light";
-    }
-  } catch {
-    /* Dark is the final fallback. */
-  }
+  /* Dark is the default; the toggle stores an explicit light choice. */
   return "dark";
 }
 if (typeof document !== "undefined")
