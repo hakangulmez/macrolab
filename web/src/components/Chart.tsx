@@ -1,3 +1,4 @@
+import { chartTheme, escapeHtml, useTheme } from "../theme";
 import { useContext, useEffect, useRef, useState } from "react";
 import { ChartExportContext } from "../chartExportContext";
 import { exportPng, type PngContext } from "../pngExport";
@@ -48,6 +49,9 @@ export function Chart({
   bar = false,
   coefficient = false,
   comparisonLabel = "Comparison",
+  comparisonDisplayLabel = comparisonLabel,
+  estimateLabel = "Estimate",
+  comparisonShortLabel = "Comparison",
   axis,
   intervalLabel = "Pointwise interval",
   exportContext,
@@ -63,6 +67,9 @@ export function Chart({
   bar?: boolean;
   coefficient?: boolean;
   comparisonLabel?: string;
+  comparisonDisplayLabel?: string;
+  estimateLabel?: string;
+  comparisonShortLabel?: string;
   axis?: AxisScale;
   intervalLabel?: string;
   exportContext?: PngContext;
@@ -70,6 +77,7 @@ export function Chart({
   pngNote?: string;
   xAxisTitle?: string;
 }) {
+  const theme = useTheme();
   const inherited = useContext(ChartExportContext);
   const context = exportContext ?? inherited;
   const xTitle =
@@ -78,17 +86,22 @@ export function Chart({
       ? horizonAxisTitle(context.frequency)
       : context?.forecast && !bar
         ? `Period (${context.frequency === "M" ? "months" : "quarters"})`
-        : "");
+        : coefficient
+          ? "Term"
+          : bar
+            ? "Category"
+            : `Period (${context?.frequency === "M" ? "months" : context?.frequency === "Q" ? "quarters" : "time"})`);
   const [exportError, setExportError] = useState("");
   const element = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!element.current || !points.length) return;
     const css = getComputedStyle(document.documentElement);
-    const blue = css.getPropertyValue("--blue").trim(),
-      orange = css.getPropertyValue("--orange").trim(),
+    const palette = chartTheme(theme);
+    const blue = palette.color[0],
+      orange = palette.color[1],
       muted = css.getPropertyValue("--muted").trim(),
       border = css.getPropertyValue("--border").trim();
-    const chart = echarts.init(element.current, undefined, {
+    const chart = echarts.init(element.current, palette, {
       renderer: "canvas",
     });
     const bands = points.some(
@@ -175,9 +188,31 @@ export function Chart({
     chart.setOption({
       animation: false,
       aria: { enabled: true, description: summary },
-      grid: { top: 20, left: 58, right: 18, bottom: xTitle ? 58 : 42 },
+      grid: {
+        top: 25,
+        left: 58,
+        right: bar || coefficient ? 18 : 75,
+        bottom: xTitle ? 58 : 42,
+      },
       textStyle: { fontFamily: "Inter, sans-serif", color: muted },
-      tooltip: { trigger: "axis", confine: true },
+      tooltip: {
+        trigger: "axis",
+        confine: true,
+        axisPointer: { type: "cross", snap: true },
+        formatter: (params: unknown) => {
+          const rows = params as { dataIndex: number }[];
+          const p = points[rows[0]?.dataIndex];
+          if (!p) return "";
+          const fmt = (v: unknown) =>
+            typeof v === "number"
+              ? new Intl.NumberFormat("en", {
+                  maximumSignificantDigits: 4,
+                  notation: "standard",
+                }).format(v)
+              : "—";
+          return `<b>${escapeHtml(String(p.period))}</b><br><strong>${fmt(p.value)}</strong> ${escapeHtml(title)}<br>${escapeHtml(unit)}${p.lower !== undefined ? `<br>${fmt(p.lower)} – ${fmt(p.upper)} ${escapeHtml(intervalLabel)}` : ""}${p.comparison !== undefined ? `<br><strong>${fmt(p.comparison)}</strong> ${escapeHtml(comparisonDisplayLabel)}` : ""}${stack ? stack.map((s) => `<br><strong>${fmt(s.values[rows[0].dataIndex])}</strong> ${escapeHtml(s.name)}`).join("") : ""}`;
+        },
+      },
       xAxis: {
         name: xTitle,
         nameLocation: "middle",
@@ -204,19 +239,29 @@ export function Chart({
         splitLine: { lineStyle: { color: border, type: "dashed" } },
       },
       series: [
-        ...(stack ?? []).map((s) => ({
+        ...(stack ?? []).map((s, index) => ({
           name: s.name,
           type: "bar",
           stack: "contributions",
           data: s.values,
-          itemStyle: { color: s.color },
+          itemStyle: {
+            color:
+              stack!.length > 3
+                ? index === 0
+                  ? blue
+                  : muted
+                : palette.color[index % palette.color.length],
+            opacity: stack!.length > 3 && index > 0 ? 0.55 : 1,
+            borderWidth: 0.5,
+            borderColor: palette.backgroundColor,
+          },
           barMaxWidth: 18,
         })),
         ...(points.some((p) => p.comparisonLower !== undefined)
           ? [
               {
                 type: "custom",
-                name: `${comparisonLabel} interval`,
+                name: `${comparisonDisplayLabel} interval`,
                 renderItem: renderBand(true),
                 data: [0],
                 silent: true,
@@ -244,6 +289,12 @@ export function Chart({
           showSymbol: coefficient,
           connectNulls: false,
           lineStyle: { width: 2.5, color: blue },
+          endLabel: {
+            show: !bar && !coefficient,
+            formatter: () => (stack ? "Actual" : estimateLabel),
+            color: muted,
+            fontSize: 11,
+          },
           itemStyle: { color: blue },
           barMaxWidth: 42,
           markLine: {
@@ -257,11 +308,17 @@ export function Chart({
         ...(points.some((p) => p.comparison !== undefined)
           ? [
               {
-                name: comparisonLabel,
+                name: comparisonDisplayLabel,
                 type: "line",
                 showSymbol: false,
                 data: points.map((p) => p.comparison ?? null),
                 lineStyle: { color: orange, type: "dashed", width: 2 },
+                endLabel: {
+                  show: !bar && !coefficient,
+                  formatter: () => comparisonShortLabel,
+                  color: muted,
+                  fontSize: 11,
+                },
               },
             ]
           : []),
@@ -274,12 +331,16 @@ export function Chart({
       chart.dispose();
     };
   }, [
+    theme,
+    unit,
     title,
     points,
     summary,
     bar,
     coefficient,
-    comparisonLabel,
+    comparisonDisplayLabel,
+    estimateLabel,
+    comparisonShortLabel,
     axis,
     intervalLabel,
     stack,
@@ -301,9 +362,21 @@ export function Chart({
       <p className="chart-summary">{summary}</p>
       {stack && (
         <p className="small">
-          {stack.map((s) => (
+          {stack.map((s, index) => (
             <span key={s.name} style={{ marginRight: 14 }}>
-              <span style={{ color: s.color }}>■</span> {s.name}
+              <span
+                style={{
+                  color:
+                    stack.length > 3
+                      ? index === 0
+                        ? chartTheme(theme).color[0]
+                        : "var(--muted)"
+                      : chartTheme(theme).color[index % 4],
+                }}
+              >
+                ■
+              </span>{" "}
+              {s.name}
             </span>
           ))}{" "}
           · Blue line: actual

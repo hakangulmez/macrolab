@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.1.0 — 25 October 2026, local release candidate
+
+- Searchable dataset explorer, fit-to-width coverage matrix, inflation overview,
+  dark/light themes and result-first navigation. No new econometric methods.
+- Approved sensitivity display labels and a LaTeX serializer of existing fields.
+- Same 24 October snapshot, numerical results, warnings, defaults and scientific
+  runtime. PNG and LaTeX version text now reads v2.1.0; scientific export values
+  remain unchanged. Country narratives remain withheld.
+- Separate local source/site successors to P7; exact-artifact P8 approval is
+  required before any publication or private-backup push.
+
 ## v2.0 — 24 October 2026, local release candidate
 
 - Panel fixed effects and lag-augmented local projections, Minnesota BVAR,

@@ -129,7 +129,9 @@ it("states FE uncertainty, collapses only COVID rows, and orders covariance colu
   expect(main).toContain("COVID dummies (6)");
   expect(main).not.toContain("COVID dummy 2020 Q1");
   expect(html).toContain("COVID dummy 2020 Q1");
-  expect(html).toContain("95% confidence intervals (conventional)");
+  expect(html).toContain(
+    "95% confidence intervals (Conventional standard errors)",
+  );
   expect(html).toContain(
     '<th scope="col">Term</th><th scope="col">Estimate</th><th scope="col">Std. error</th><th scope="col">Lower</th><th scope="col">Upper</th>',
   );

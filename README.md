@@ -1,9 +1,13 @@
 # MacroLab
 
 MacroLab is a non-commercial research and teaching tool for exploring official
-macro data and testing how results depend on modelling assumptions. The **v2.0
+macro data and testing how results depend on modelling assumptions. The **v2.1.0
 release candidate** provides 33 national indicators and three global factors
 across 38 OECD economies and the euro area, with nine templates.
+
+The interface adds a searchable dataset explorer, a coverage matrix, dark and
+light themes, a result overview and LaTeX tables. This release changes presentation
+only: the accepted data, scientific runtime and template defaults stay unchanged.
 
 Estimation runs entirely in the browser in a pinned Pyodide worker. A published
 build bundles a fixed, audited snapshot; browsing never fetches new observations
@@ -26,7 +30,7 @@ ECB break-test size remains unreliable. Sensitivities are descriptive and do not
 remove identification or model uncertainty. Further v3 methods remain planned.
 
 The local candidate requires separate approval of its exact source and site
-artifacts at P6. No preparation command publishes or deploys the application.
+artifacts at P8. No preparation command publishes or deploys the application.
 
 ## Install and check
 
@@ -54,20 +58,22 @@ Global factors are EIA Brent, BIS US policy and the IMF non-fuel commodity index
 all/energy commodity variants are also available. Pink Sheet remains excluded.
 Country narratives are withheld. Data rights and attribution are in [DATA.md](DATA.md).
 
-Preparing a full local app additionally requires an audited snapshot and the
-exact cached runtime files listed in `web/runtime/assets.lock.json`, their pinned
-notices, and the accepted native reference-validation summary at
-`runs/g4/model-validation.json`. Preparation
-never silently downloads runtime files. Original review evidence is private and
-absent from the public source export; code alone cannot recreate that evidence.
+The v2.1.0 UI build uses the exact accepted v2.0.1 (P7) static-site archive as
+read-only input. The builder verifies its full SHA-256 inventory, copies the data,
+scientific runtime, schemas and validation cards byte-for-byte, and generates the
+UI's inflation/coverage projection from those same observations. No analysis
+server or data-provider request is needed. Country narratives remain withheld.
+The source repository does not contain the static archive or private review evidence.
 
 ```sh
-# Explicit live data operation; PREVIOUS is an existing audited static data folder:
-make refresh PREVIOUS=runs/g15/site/data
-# Use a passed refresh plus its completed dated licence review:
-make g16-build SNAPSHOT=<audited-snapshot-id>
-# Serve runs/g16/site under /macrolab/ with a static server (no local API).
+# Supply the previously accepted P7 archive locally; this does not fetch it:
+make static-build ACCEPTED_SITE=/path/to/accepted-p7-site
+# Serve runs/g19/site under /macrolab/ using a static server.
 ```
+
+This presentation release does not refresh data. A future explicitly approved
+refresh uses the separate `make refresh` / `make g16-build` procedure and requires
+its dated licence review, audited snapshot and pinned runtime cache.
 
 Follow [refresh instructions](docs/DATA_REFRESH.md) and the
 [release-candidate procedure](docs/RELEASE_CANDIDATE.md). A refresh never changes

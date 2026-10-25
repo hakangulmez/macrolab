@@ -23,6 +23,10 @@ import { download, text } from "./format";
 import { Home, Library } from "./components/Explore";
 import { PublicationNotice } from "./components/PublicationNotice";
 import "./styles.css";
+import "./ui-v3.css";
+import { useTheme, setTheme } from "./theme";
+import { SeriesSearch } from "./components/SeriesSearch";
+const DatasetExplorer = lazy(() => import("./components/DatasetExplorer"));
 const Builder = lazy(() =>
   import("./components/Builder").then((module) => ({
     default: module.Builder,
@@ -45,12 +49,13 @@ const Methods = lazy(() =>
 const NAV: [Screen, string][] = [
   ["home", "Explore"],
   ["builder", "Build"],
-  ["library", "Model library"],
+  ["library", "Models"],
+  ["data", "Data"],
   ["results", "Results"],
-  ["catalogue", "Data catalogue"],
   ["methods", "Methods"],
 ];
 export function App() {
+  const theme = useTheme();
   const [manifest, setManifest] = useState<Manifest | null>(null);
   const [config, setRawConfig] = useState<AnalysisConfig | null>(null);
   const [catalogueSelection, setCatalogueSelection] = useState<{
@@ -59,7 +64,14 @@ export function App() {
     category?: string;
     region?: string;
   }>({});
-  const [screen, setScreen] = useState<Screen>("home");
+  const [screen, setScreen] = useState<Screen>(() =>
+    typeof location !== "undefined" &&
+    ["data", "builder", "library", "results", "methods"].includes(
+      location.hash.slice(1),
+    )
+      ? (location.hash.slice(1) as Screen)
+      : "home",
+  );
   const [bundles, setBundles] = useState<Record<string, CountryBundle>>({});
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [resultKnownChecks, setResultKnownChecks] = useState<Check[]>([]);
@@ -175,6 +187,9 @@ export function App() {
     if (next === "builder" && runtimeStatus !== "ready")
       setRuntimeStatus("preparing");
     setScreen(next);
+    const url = new URL(location.href);
+    url.hash = next === "home" ? "" : next;
+    history.replaceState(null, "", url);
     setError("");
     requestAnimationFrame(() =>
       document.getElementById("main-content")?.focus(),
@@ -393,6 +408,21 @@ export function App() {
       )
       .catch((e: unknown) => setError(String(e)));
   }
+  function useSeries(country: string, concept: string) {
+    if (!config) return;
+    const next = structuredClone(config);
+    next.countries = [country];
+    next.series = [
+      { concept_id: concept, role: "response", transform: "level" },
+    ];
+    next.aggregation = { [concept]: "mean" };
+    next.model = { id: "desc.plot", params: {} };
+    next.identification = null;
+    next.outputs = {};
+    next.comparison = { enabled: false };
+    setConfig(next);
+    navigate("builder");
+  }
   const header = (
     <header className="site-header">
       <div className="header-inner">
@@ -425,9 +455,25 @@ export function App() {
             </button>
           ))}
         </nav>
+        <SeriesSearch
+          manifest={manifest}
+          select={(cell) => {
+            setCatalogueSelection({
+              country: cell.country,
+              search: cell.concept_id,
+            });
+            navigate("data");
+          }}
+        />
+        <button
+          className="theme-toggle"
+          aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+          aria-pressed={theme === "dark"}
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        >
+          {theme === "dark" ? "Light" : "Dark"}
+        </button>
         <div className="snapshot">
-          Data updated {manifest?.as_of_date ?? "…"}
-          <br />
           <span className="badge draft">
             {buildVersion} · Data snapshot {snapshotDate(manifest?.as_of_date)}
           </span>
@@ -481,9 +527,10 @@ export function App() {
               manifest={manifest}
               select={select}
               start={() => navigate("builder")}
+              models={() => navigate("library")}
               catalogue={(selection = {}) => {
                 setCatalogueSelection(selection);
-                navigate("catalogue");
+                navigate("data");
               }}
             />
           ) : screen === "builder" ? (
@@ -525,6 +572,13 @@ export function App() {
               shareUrl={shareUrl}
               edit={() => navigate("builder")}
             />
+          ) : screen === "data" ? (
+            <DatasetExplorer
+              key={JSON.stringify(catalogueSelection)}
+              manifest={manifest}
+              initialSelection={catalogueSelection}
+              onUse={useSeries}
+            />
           ) : screen === "catalogue" ? (
             <section data-testid="screen-catalogue">
               <Catalogue
@@ -565,7 +619,7 @@ export function App() {
       )}
       <footer>
         <span>
-          MacroLab {buildVersion} · Reproducible macroeconomic analysis ·{" "}
+          MacroLab {buildVersion} · Runs entirely in your browser ·{" "}
           <a
             href="https://hakangulmez.github.io/"
             target="_blank"
@@ -575,8 +629,27 @@ export function App() {
           </a>
         </span>
         <span>
-          Snapshot {text(manifest?.snapshot_id, "loading")} · Official data,
-          visible assumptions · Country notes are not yet published
+          Snapshot {text(manifest?.snapshot_id, "loading")} · Country notes are
+          not yet published
+          <span className="footer-links">
+            <a
+              href="https://github.com/hakangulmez/macrolab/blob/main/LICENSE"
+              target="_blank"
+              rel="noreferrer"
+            >
+              MIT code licence
+            </a>
+            <button className="link" onClick={() => navigate("methods")}>
+              Data terms
+            </button>
+            <a
+              href="https://github.com/hakangulmez/macrolab"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Source
+            </a>
+          </span>
         </span>
       </footer>
     </>

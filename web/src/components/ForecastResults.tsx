@@ -286,6 +286,12 @@ export function ForecastResults({
           points={points}
           bar={chart.bar}
           comparisonLabel="Random walk"
+          estimateLabel={
+            points.some((p) => p.comparison !== undefined)
+              ? errorModel
+              : undefined
+          }
+          comparisonShortLabel="Random walk"
           intervalLabel={`${Number(band) * 100}% predictive interval`}
           summary={chart.summary}
           xAxisTitle={chart.xAxisTitle}

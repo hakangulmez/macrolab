@@ -48,6 +48,8 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/STOP_REPORT_G14.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G15.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G16.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G17.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G18.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G2.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G3.md` — Review report/evidence omitted, including all verification and result reports.
@@ -275,6 +277,38 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/screenshots/g16/vecm_point-375.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g17/home-1440.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g17/home-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/builder-dark-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/builder-dark-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/builder-light-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/builder-light-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/coverage-hover-dark-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/coverage-hover-light-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/data-dark-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/data-dark-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/data-light-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/data-light-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/ea_inflation_horse_race-dark-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/ea_inflation_horse_race-dark-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/ea_inflation_horse_race-light-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/ea_inflation_horse_race-light-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/hero-hover-dark-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/hero-hover-light-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/home-dark-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/home-dark-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/home-light-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/home-light-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/same_ecb_shock-dark-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/same_ecb_shock-dark-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/same_ecb_shock-light-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/same_ecb_shock-light-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/same_ecb_shock_pooled-dark-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/same_ecb_shock_pooled-dark-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/same_ecb_shock_pooled-light-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/same_ecb_shock_pooled-light-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/tur_pass_through-dark-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/tur_pass_through-dark-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/tur_pass_through-light-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g18/tur_pass_through-light-375.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g3_1/README.md` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g3_1/builder-desktop.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g3_1/builder-mobile.png` — All review screenshots and their indexes are omitted.
@@ -417,4 +451,4 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/models/panel_fe.md` — Links to omitted review records replaced by explicit omission text.
 - `docs/models/panel_lp.md` — Links to omitted review records replaced by explicit omission text.
 
-One v2.0.1 candidate commit follows public main 91bc11e. Public ancestry only; private development history and remotes excluded. Exact-artifact P7 approval is required.
+One v2.1.0 candidate commit follows public main 3d9970d. Public ancestry only; private development history and remotes excluded. Exact-artifact P8 approval is required.

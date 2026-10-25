@@ -16,7 +16,7 @@ describe("G3 application boot", () => {
         "builder",
         "library",
         "results",
-        "catalogue",
+        "data",
         "methods",
       ]) {
         expect(markup).toContain(`data-testid="nav-${screen}"`);

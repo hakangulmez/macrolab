@@ -103,7 +103,7 @@ p2-prepare:
 p2-build:
 	$(PYTHON) scripts/p1_prepare.py --candidate p2 --base-path $(P1_BASE_PATH) --build
 
-static-build: g16-build
+static-build: g19-build
 
 # Explicit v1 preparation; never changes the frozen P2/P3.1 artifacts or current pointer.
 .PHONY: refresh g5-prepare g5-build g6-build regress-v0 test-v1
@@ -175,3 +175,7 @@ g15-build:
 .PHONY: g16-build
 g16-build:
 	$(PYTHON) scripts/g16_prepare.py --build $(if $(SNAPSHOT),--snapshot $(SNAPSHOT),)
+
+.PHONY: g19-build
+g19-build:
+	$(PYTHON) scripts/g19_prepare.py $(if $(ACCEPTED_SITE),--accepted-site $(ACCEPTED_SITE),)

@@ -53,3 +53,22 @@ one successor to public main `23969e8`; static files must be one successor to
 public gh-pages `7db5514`. Never copy development ancestry. Inventory file sizes
 and SHA-256 hashes, scan for secrets/private paths, retain the source diff, and
 wait for exact-artifact approval before either ordinary fast-forward push.
+
+## v2.1.0 / G19
+
+`make static-build ACCEPTED_SITE=<accepted-p7-site>` builds the UI only.
+The accepted P7 tree SHA-256 is
+`908607a6eddbb76572b748c9c5b50a66e221d52786965263e21946ff8d7636e0`.
+The build rejects another input and preserves its data, runtime, licences, schemas
+and validation cards. The new presentation projection uses the same observations.
+Only the approved JetBrains Mono UI font is added, with its OFL notice.
+No data refresh or scientific-runtime rebuild is performed.
+
+P8 candidates are separate local repositories without remotes: one successor to
+public main `3d9970d`, and one successor to gh-pages `e1d520b`. Development history,
+review screenshots and generated numerical evidence are excluded from source.
+Record inventories, hashes, source diff, licence review, secret/path scan, exact
+frozen results, export comparisons, both themes at 1440/375 px, and performance
+against v2.0.1. Version text is the only new G19 PNG/LaTeX export difference.
+Wait for written approval of the exact artifacts before pushing either public
+branch or the private development backup.

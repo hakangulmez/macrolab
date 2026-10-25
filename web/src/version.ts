@@ -1,5 +1,5 @@
 import { version } from "../package.json";
-export const buildVersion = `v${version.replace(/\.0$/, "")}`;
+export const buildVersion = `v${version}`;
 export const snapshotDate = (value?: string) =>
   value
     ? new Intl.DateTimeFormat("en-GB", {

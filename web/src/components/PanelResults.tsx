@@ -1,3 +1,4 @@
+import { sensitivityDisplayLabel } from "../sensitivityLabels";
 import { useState } from "react";
 import type { CountryResult, Indicator, JsonRecord, Manifest } from "../types";
 import { record, records, significant, text } from "../format";
@@ -203,6 +204,8 @@ export function PanelResults({
               comparison: Number(countryRows[i]?.estimate),
             }))}
             comparisonLabel={`${name(country)} · matched sample`}
+            estimateLabel="Pooled"
+            comparisonShortLabel={name(country)}
             intervalLabel={`68% pointwise (${text(panel.covariance)})`}
           />
         </>
@@ -245,8 +248,8 @@ export function PanelResults({
       </details>
       <h3>Covariance sensitivity · same point estimates</h3>
       {result.sensitivity.variants.map((variant, i) => (
-        <details key={i} open>
-          <summary>{text(variant.label ?? variant.variant_id)}</summary>
+        <details key={i}>
+          <summary>{sensitivityDisplayLabel(variant)}</summary>
           <Checks
             countries={manifest.countries}
             checks={(variant.checks ?? []) as CountryResult["checks"]}
@@ -254,7 +257,7 @@ export function PanelResults({
           <PanelCovarianceTable
             rows={records(variant.rows)}
             lp={lp}
-            label={text(variant.label ?? variant.variant_id)}
+            label={sensitivityDisplayLabel(variant)}
             indicators={manifest.indicators}
           />
         </details>

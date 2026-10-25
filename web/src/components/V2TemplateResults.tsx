@@ -1,3 +1,4 @@
+import { sensitivityDisplayLabel } from "../sensitivityLabels";
 import { useContext, useEffect, useState } from "react";
 import type { AnalysisResult, Manifest } from "../types";
 import { records, strings, text, record } from "../format";
@@ -194,7 +195,7 @@ export function V2TemplateResults({
             return (
               <details key={text(variant.id)}>
                 <summary>
-                  {text(variant.label)} ·{" "}
+                  {sensitivityDisplayLabel(variant)} ·{" "}
                   {variant.status === "ok"
                     ? material.length
                       ? "changes the answer materially"
