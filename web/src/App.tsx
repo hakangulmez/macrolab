@@ -576,7 +576,7 @@ export function App() {
         </span>
         <span>
           Snapshot {text(manifest?.snapshot_id, "loading")} · Official data,
-          visible assumptions · Nothing published
+          visible assumptions · Country notes are not yet published
         </span>
       </footer>
     </>

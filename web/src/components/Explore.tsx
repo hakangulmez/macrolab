@@ -14,6 +14,28 @@ const validationCards: Record<string, string> = {
   vecm: "cointegration",
   "test.break": "break-tests",
 };
+const templateTags: Record<string, string> = {
+  monetary_policy: "VAR · Recursive",
+  taylor_rule: "OLS · HAC",
+  phillips_curve: "OLS · Rolling",
+  okuns_law: "OLS · HAC",
+  same_ecb_shock: "Local projections · HC1",
+  tur_pass_through: "Local projections · HC1",
+  ea_phillips_pooled: "Panel FE · Driscoll–Kraay",
+  same_ecb_shock_pooled: "Panel LP · Driscoll–Kraay",
+  ea_inflation_horse_race: "Forecast · RW, AR, ARIMA, BVAR",
+};
+const templateCountries: Record<string, string> = {
+  ea_phillips_pooled: "11 founding members",
+  same_ecb_shock: "DE · FR · IT · ES",
+  same_ecb_shock_pooled: "DE · FR · IT · ES",
+  ea_inflation_horse_race: "Euro area",
+};
+const newInV2 = new Set([
+  "ea_phillips_pooled",
+  "same_ecb_shock_pooled",
+  "ea_inflation_horse_race",
+]);
 export function Home({
   manifest,
   select,
@@ -109,22 +131,21 @@ export function Home({
               onClick={() => select(t)}
             >
               <span className="badge mono">
-                {t.new_in_v1
-                  ? "NEW · LP · HC1"
-                  : t.config.model.id === "var.ols"
-                    ? "VAR · recursive"
-                    : t.id === "phillips_curve"
-                      ? "OLS · rolling"
-                      : "OLS · HAC"}
+                {templateTags[t.id] ?? t.config.model.id}
               </span>
+              {newInV2.has(t.id) && (
+                <span className="badge mono">New in v2</span>
+              )}
               <h3>{t.title}</h3>
               <p>{t.description}</p>
               <span className="card-foot">
                 <span>
                   Default:{" "}
-                  {manifest.countries.find(
-                    (c) => c.iso3 === t.config.countries[0],
-                  )?.name ?? t.config.countries[0]}
+                  {templateCountries[t.id] ??
+                    manifest.countries.find(
+                      (c) => c.iso3 === t.config.countries[0],
+                    )?.name ??
+                    t.config.countries[0]}
                 </span>
                 <span aria-hidden="true">↗</span>
               </span>
@@ -174,7 +195,9 @@ export function Home({
           <h3>Official sources. Visible limits.</h3>
           <div className="row">
             {manifest.sources
-              .filter((s) => s.name !== "FRED")
+              .filter(
+                (s) => s.name !== "FRED" && s.name !== "World Bank Pink Sheet",
+              )
               .map((s) => (
                 <span key={text(s.name)} className="badge draft mono">
                   {text(s.name)}
@@ -183,7 +206,7 @@ export function Home({
           </div>
           <p className="small muted">
             Every series carries units, coverage, attribution and source
-            caveats. Missing data stay missing. FRED is unavailable.
+            caveats. Missing data stay missing.
           </p>
           <button onClick={() => catalogue()}>Explore the data →</button>
         </div>

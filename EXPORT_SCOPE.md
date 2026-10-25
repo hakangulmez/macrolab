@@ -18,6 +18,7 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/G14_1_BREAK_CHANGES.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G14_1_PROTOCOL.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G15_OPEN_NOTES.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/G16_EVIDENCE.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G1_1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/G2_1_RESULTS.md` — Review report/evidence omitted, including all verification and result reports.
@@ -46,6 +47,7 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/STOP_REPORT_G13.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G14.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G15.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/STOP_REPORT_G16.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G2.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/STOP_REPORT_G3.md` — Review report/evidence omitted, including all verification and result reports.
@@ -271,6 +273,8 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/screenshots/g16/vecm_bootstrap-375.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g16/vecm_point-1440.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g16/vecm_point-375.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g17/home-1440.png` — All review screenshots and their indexes are omitted.
+- `docs/screenshots/g17/home-375.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g3_1/README.md` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g3_1/builder-desktop.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/g3_1/builder-mobile.png` — All review screenshots and their indexes are omitted.
@@ -413,4 +417,4 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/models/panel_fe.md` — Links to omitted review records replaced by explicit omission text.
 - `docs/models/panel_lp.md` — Links to omitted review records replaced by explicit omission text.
 
-One v2.0 candidate commit follows public main 23969e8. Public ancestry only; private development history and remotes excluded. Exact-artifact P6 approval is required.
+One v2.0.1 candidate commit follows public main 91bc11e. Public ancestry only; private development history and remotes excluded. Exact-artifact P7 approval is required.
