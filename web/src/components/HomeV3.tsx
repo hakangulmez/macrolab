@@ -108,6 +108,11 @@ export function Home({
           <div>
             <p className="overline">Templates</p>
             <h2>Start with a question.</h2>
+            <p>
+              <button className="link" onClick={start}>
+                …or build your own analysis →
+              </button>
+            </p>
             <p>Run a reviewed specification. Then change the assumptions.</p>
           </div>
           <div className="category-tabs" aria-label="Filter templates">
@@ -177,9 +182,6 @@ export function Home({
               </button>
             ))}
         </div>
-        <button className="link" onClick={start}>
-          …or build your own analysis →
-        </button>
       </section>
       <section className="section-v3 dataset-preview">
         <div className="section-heading">

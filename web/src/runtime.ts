@@ -192,7 +192,11 @@ export async function buildBundle(
       "PRT",
       "ESP",
     ].forEach((code) => codes.add(code));
-  if (template === "same_ecb_shock" || config.model?.id === "panel.lp")
+  if (
+    template === "same_ecb_shock" ||
+    config.model?.id === "panel.lp" ||
+    config.model?.id === "cmp.common_shock"
+  )
     first?.countries.forEach((code) => codes.add(code));
   const selected = await Promise.all([...codes].map(getCountry));
   const concepts = new Set(config.series.map((series) => series.concept_id));
@@ -205,7 +209,7 @@ export async function buildBundle(
   }
   if (
     template === "same_ecb_shock" ||
-    (config.model?.id === "panel.lp" && first) ||
+    (["panel.lp", "cmp.common_shock"].includes(config.model?.id) && first) ||
     (config.model?.id === "test.break" &&
       (config.model.params.source_variant ?? "none") !== "none")
   ) {
@@ -239,7 +243,7 @@ export async function buildBundle(
   }
   if (
     template === "same_ecb_shock" ||
-    (config.model?.id === "panel.lp" && first) ||
+    (["panel.lp", "cmp.common_shock"].includes(config.model?.id) && first) ||
     (config.model?.id === "test.break" &&
       (config.model.params.source_variant ?? "none") !== "none")
   ) {
@@ -403,6 +407,13 @@ export class AnalysisRuntime {
     partial?: (result: JsonRecord) => void,
   ): Promise<JsonRecord> {
     return this.operation({ type: "run", config, bundle }, partial);
+  }
+  relationship(
+    config: AnalysisConfig,
+    bundle: AnalysisBundle,
+    result: JsonRecord,
+  ): Promise<JsonRecord> {
+    return this.operation({ type: "relationship", config, bundle, result });
   }
   compareMethods(
     config: AnalysisConfig,

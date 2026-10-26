@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { lazy, Suspense, useContext, useEffect, useState } from "react";
 import { ChartExportContext } from "../chartExportContext";
 import { countryIndicators } from "../displayLabels";
 import { record, records, significant, text, title } from "../format";
@@ -8,6 +8,10 @@ import { Chart } from "./Chart";
 import { DataTable, Field } from "./Common";
 import { forecastModel } from "../forecast";
 import { exportPng } from "../pngExport";
+
+const ForecastViews = lazy(() =>
+  import("./AdditionalViews").then((m) => ({ default: m.ForecastViews })),
+);
 
 export function ForecastResults({
   result,
@@ -157,6 +161,13 @@ export function ForecastResults({
       </p>
       {result.model_id === "fc.eval" ? (
         <>
+          <Suspense fallback={<p>Loading forecast views…</p>}>
+            <ForecastViews
+              manifest={manifest}
+              result={result}
+              snapshot={context?.snapshot ?? manifest.snapshot_id}
+            />
+          </Suspense>
           <h3>
             {title(text(e.target), indicators)} · {text(e.unit)}
           </h3>

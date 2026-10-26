@@ -61,6 +61,9 @@ import { getTemplateSources, type AnalysisRuntime } from "../runtime";
 import { CountryComparison } from "./CountryComparison";
 import { PanelResults, PanelCovarianceTable } from "./PanelResults";
 import { MethodComparison } from "./MethodComparison";
+const RelationshipViews = lazy(() =>
+  import("./AdditionalViews").then((m) => ({ default: m.RelationshipViews })),
+);
 const TechnicalExtensions = lazy(() =>
   import("./TechnicalExtensions").then((m) => ({
     default: m.TechnicalExtensions,
@@ -1117,6 +1120,15 @@ export function Results({
                   </strong>{" "}
                   · {resultDisplayLabel(result.label)}
                 </div>
+              )}
+              {runtime && (
+                <Suspense fallback={<p>Loading relationship view…</p>}>
+                  <RelationshipViews
+                    result={result}
+                    manifest={manifest}
+                    runtime={runtime}
+                  />
+                </Suspense>
               )}
               <V2TemplateResults result={result} manifest={manifest} />
               {!v2Template(template) &&

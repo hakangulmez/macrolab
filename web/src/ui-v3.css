@@ -1542,3 +1542,87 @@ pre {
   gap: 0.5rem;
   text-decoration: none;
 }
+
+/* Additional chart views keep the existing grid and tokens on small screens. */
+.additional-view {
+  min-width: 0;
+  margin: 0;
+}
+.additional-view [aria-label="Chart series"] {
+  flex-wrap: wrap;
+  gap: 0.35rem 0.8rem;
+  font-size: 0.78rem;
+}
+
+.view-legend-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.view-legend-swatch {
+  display: inline-block;
+  flex: none;
+  position: relative;
+}
+.view-legend-swatch.line {
+  width: 24px;
+  border-top-width: 2px;
+}
+.view-legend-swatch.point,
+.view-legend-swatch.marker::after {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.view-legend-swatch.marker::after {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: -4px;
+}
+.first-stage-series {
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) minmax(225px, 1.6fr) auto;
+  align-items: end;
+  gap: 0.6rem 0.8rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+.first-stage-series > strong {
+  grid-column: 1 / -1;
+  font-size: 0.85rem;
+}
+.first-stage-order {
+  list-style: none;
+  padding: 0;
+}
+.first-stage-order li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0;
+}
+.first-stage-editor select {
+  text-overflow: clip;
+}
+@media (max-width: 1100px) {
+  .first-stage-series {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .first-stage-series > .field {
+    grid-column: 1 / -1;
+  }
+  .first-stage-series > strong {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .first-stage-remove {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .first-stage-editor .two-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

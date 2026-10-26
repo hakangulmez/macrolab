@@ -1,3 +1,4 @@
+import { builderGuidance, suggestedRoles } from "../builderGuidance";
 import { parameterDisplayLabel } from "../chartDisplay";
 import { FirstStageInput } from "./FirstStageInput";
 import { ForecastControls } from "./ForecastControls";
@@ -71,6 +72,9 @@ export function Builder({
   const vars = config.series.filter((s) =>
     ["endogenous", "response", "shock"].includes(s.role),
   );
+  const guidance = builderGuidance(config, model);
+  const suggestion = suggestedRoles(config);
+  const blocked = guidance.length > 0;
   const isTemplate = Boolean(config.model.params.template_id);
   const isBvar = model.id === "bvar.minn";
   const isVar = ["var.ols", "ident.recursive", "bvar.minn"].includes(model.id);
@@ -457,6 +461,13 @@ export function Builder({
               ))}
             </div>
           </section>
+          {model.id === "cmp.common_shock" && !isTemplate && (
+            <FirstStageInput
+              config={config}
+              manifest={manifest}
+              update={update}
+            />
+          )}
         </div>
         <aside className="stack sidebar">
           <section id="step-Model" className="card stack">
@@ -485,6 +496,36 @@ export function Builder({
               </select>
             </Field>
             <p className="small muted">{model.summary}</p>
+            {blocked && (
+              <section
+                className="warning-box stack"
+                data-testid="builder-guidance"
+                aria-label="Before you run"
+              >
+                <h3>Before you run</h3>
+                <ul>
+                  {guidance.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+                {suggestion && (
+                  <>
+                    <p className="small">
+                      Suggested roles (same indicators, order and transforms):{" "}
+                      {suggestion.series
+                        .map(
+                          (s) =>
+                            `${title(s.concept_id, countryIndicators(manifest.indicators, config.countries[0]))} → ${s.role}`,
+                        )
+                        .join("; ")}
+                    </p>
+                    <button onClick={() => setConfig(suggestion)}>
+                      Apply suggested roles
+                    </button>
+                  </>
+                )}
+              </section>
+            )}
             <div className="two-fields">
               <Field label="Frequency">
                 <select
@@ -567,9 +608,6 @@ export function Builder({
                 : "2020 Q1–2021 Q2"}
               .
             </p>
-            {model.id === "cmp.common_shock" && !isTemplate && (
-              <FirstStageInput config={config} update={update} />
-            )}
             <TemplateControls config={config} update={update} />
             <PanelControls
               config={config}
@@ -861,10 +899,23 @@ export function Builder({
             data-testid="run-analysis"
             className="primary run-button"
             onClick={run}
-            disabled={busy || !config.series.length || !config.countries.length}
+            disabled={
+              busy ||
+              blocked ||
+              !config.series.length ||
+              !config.countries.length
+            }
+            aria-describedby="run-reason"
           >
             Run analysis →
           </button>
+          <p id="run-reason" className="small muted">
+            {busy
+              ? "An operation is running."
+              : blocked
+                ? `Cannot run yet: ${guidance.join(" ")}`
+                : "Configuration roles are ready; data compatibility is checked at estimation."}
+          </p>
           <p className="small muted">
             Runs locally in your browser. Actual sample, uncertainty and
             sensitivity accompany every result.

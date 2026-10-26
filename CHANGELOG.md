@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.2.0 — 26 October 2026, local candidate
+
+- Relationship scatter plots reuse the actual samples and accepted OLS/pooled coefficients. Forecast paths and RMSE-by-horizon views project existing evaluation outputs. New chart CSV/PNG downloads are additive.
+- Builder shows structural guidance before estimation; suggestions require an explicit click. Common-shock first-stage pickers preserve the same validated configuration, with JSON retained under Advanced.
+- Relationship views use shared chart styling, padded data ranges and optional country highlighting; RMSE horizons are proportionally spaced. First-stage controls occupy the main column with explicit up/down ordering, and legends match line styles.
+- The build-your-own link is beside Templates. Existing results, template defaults, warnings and scientific export fields are unchanged. The scientific wheel and snapshot remain unchanged; only the browser bridge adds a read-only data-projection operation.
+
 ## v2.1.1 — 26 October 2026, local candidate
 
 - Actionable validation messages, meaningful chart labels and two-line legends,
