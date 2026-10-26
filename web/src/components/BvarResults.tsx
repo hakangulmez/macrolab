@@ -113,6 +113,8 @@ export function BvarResults({
         )}
       </div>
       <Chart
+        estimateLabel={mode === "var" ? "OLS VAR" : "BVAR median"}
+        comparisonShortLabel="OLS VAR"
         title={`${chart.name} · ${mode === "var" ? "OLS VAR" : "BVAR"}`}
         unit={chart.unit}
         points={points}

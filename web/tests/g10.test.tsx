@@ -19,6 +19,8 @@ it("gives each chart a PNG action whose accessible name contains its visible nam
   const html = renderToStaticMarkup(
     <ChartExportContext.Provider value={context}>
       <Chart
+        estimateLabel="Response"
+        comparisonShortLabel=""
         title="GDP contributions"
         unit="Annualised q/q growth"
         points={[{ period: "2020-Q1", value: -1 }]}

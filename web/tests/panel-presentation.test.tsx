@@ -156,6 +156,8 @@ it("uses readable terms and shared time-axis titles for browser and PNG response
         value={{ frequency, horizon: true } as PngContext}
       >
         <Chart
+          estimateLabel="Response"
+          comparisonShortLabel=""
           title="Response"
           unit="%"
           summary="Test"

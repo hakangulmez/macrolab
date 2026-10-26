@@ -289,7 +289,9 @@ export function ForecastResults({
           estimateLabel={
             points.some((p) => p.comparison !== undefined)
               ? errorModel
-              : undefined
+              : chart.bar
+                ? "Relative RMSE"
+                : "Predictive mean"
           }
           comparisonShortLabel="Random walk"
           intervalLabel={`${Number(band) * 100}% predictive interval`}

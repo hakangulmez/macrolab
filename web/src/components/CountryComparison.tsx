@@ -140,10 +140,21 @@ export function CountryComparison({
         {current
           .filter((c) => !compact || c.name.startsWith(selectedName + " · "))
           .map((c) => (
-            <Chart key={c.name} {...c} title={c.name} />
+            <Chart
+              estimateLabel="Response"
+              comparisonShortLabel=""
+              key={c.name}
+              {...c}
+              title={c.name}
+            />
           ))}
       </div>
-      <Chart {...ranking} title={ranking.name} />
+      <Chart
+        estimateLabel="Response"
+        comparisonShortLabel=""
+        {...ranking}
+        title={ranking.name}
+      />
       <details open={!compact}>
         <summary>Per-country estimation samples</summary>
         <DataTable

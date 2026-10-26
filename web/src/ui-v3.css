@@ -1525,3 +1525,20 @@ pre {
   padding-top: 18px;
   border-top: 1px solid var(--border);
 }
+
+#templates {
+  scroll-margin-top: 6rem;
+}
+.hero-actions a.button {
+  border: 1px solid var(--primary);
+  border-radius: 12px;
+  background: var(--primary);
+  color: #fff;
+  padding: 9px 14px;
+  min-height: 40px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}

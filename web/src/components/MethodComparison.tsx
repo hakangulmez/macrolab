@@ -223,6 +223,8 @@ export function MethodComparison({
             {...chart}
             title={chart.name}
             comparisonLabel="LP"
+            estimateLabel={mode === "LP" ? "LP" : "VAR"}
+            comparisonShortLabel="LP"
             exportContext={
               exportContext && {
                 ...exportContext,

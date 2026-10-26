@@ -1,3 +1,8 @@
+import {
+  parameterDisplayLabel,
+  resultDisplayLabel,
+  screenText,
+} from "../chartDisplay";
 import { sensitivityDisplayLabel } from "../sensitivityLabels";
 import type { AnalysisResult, Manifest, Check } from "../types";
 import { records, record, significant, text } from "../format";
@@ -133,7 +138,9 @@ export function ResultOverview({
               [
                 "Standard error",
                 significant(coef.std_error),
-                text(panel.covariance, "Reported covariance"),
+                parameterDisplayLabel(
+                  text(panel.covariance, "Reported covariance"),
+                ),
               ],
               [
                 "Reported interval",
@@ -170,7 +177,14 @@ export function ResultOverview({
         </span>
         {primary && (
           <span>
-            {primary.name} · {primary.unit}
+            {screenText(
+              primary.name,
+              countryIndicators(
+                manifest.indicators,
+                result.config.countries[0],
+              ),
+            )}{" "}
+            · {primary.unit}
           </span>
         )}
         <span>
@@ -186,10 +200,12 @@ export function ResultOverview({
             )}
           </span>
         )}
-        {r?.irf?.band_method && <span>{text(r.irf.band_method)} bands</span>}
+        {r?.irf?.band_method && (
+          <span>{parameterDisplayLabel(text(r.irf.band_method))} bands</span>
+        )}
         <span>Snapshot {result.snapshot_id}</span>
       </div>
-      <p className="result-label">{result.label}</p>
+      <p className="result-label">{resultDisplayLabel(result.label)}</p>
       <dl className="result-kpis">
         {kpis.map(([label, value, note]) => (
           <div key={label}>

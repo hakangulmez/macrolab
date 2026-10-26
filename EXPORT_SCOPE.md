@@ -452,3 +452,5 @@ This export excludes the following tracked review material. Ignored local datase
 - `docs/models/panel_lp.md` — Links to omitted review records replaced by explicit omission text.
 
 One v2.1.0 candidate commit follows public main 3d9970d. Public ancestry only; private development history and remotes excluded. Exact-artifact P8 approval is required.
+
+G22: v2.1.1 presentation/error-handling candidate, following public source 506ad1b. Existing exclusions, withheld country notes, public ancestry and reviewed screenshot assets are preserved. No publication is authorised.

@@ -17,6 +17,7 @@ import {
   AriaComponent,
   MarkLineComponent,
 } from "echarts/components";
+import { LabelLayout } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
 import { niceScale, tickLabel, type AxisScale } from "../chartScale";
 import { DataTable } from "./Common";
@@ -31,6 +32,7 @@ echarts.use([
   AriaComponent,
   MarkLineComponent,
   CanvasRenderer,
+  LabelLayout,
 ]);
 export interface ChartPoint {
   period: string | number;
@@ -50,8 +52,10 @@ export function Chart({
   coefficient = false,
   comparisonLabel = "Comparison",
   comparisonDisplayLabel = comparisonLabel,
-  estimateLabel = "Estimate",
-  comparisonShortLabel = "Comparison",
+  estimateLabel,
+  comparisonShortLabel,
+  displayTitle = title,
+  displaySummary = summary,
   axis,
   intervalLabel = "Pointwise interval",
   exportContext,
@@ -68,8 +72,10 @@ export function Chart({
   coefficient?: boolean;
   comparisonLabel?: string;
   comparisonDisplayLabel?: string;
-  estimateLabel?: string;
-  comparisonShortLabel?: string;
+  estimateLabel: string;
+  comparisonShortLabel: string;
+  displayTitle?: string;
+  displaySummary?: string;
   axis?: AxisScale;
   intervalLabel?: string;
   exportContext?: PngContext;
@@ -187,11 +193,22 @@ export function Chart({
       };
     chart.setOption({
       animation: false,
-      aria: { enabled: true, description: summary },
+      aria: { enabled: true, description: displaySummary },
       grid: {
         top: 25,
         left: 58,
-        right: bar || coefficient ? 18 : 75,
+        right:
+          bar || coefficient
+            ? 18
+            : Math.max(
+                75,
+                Math.min(
+                  145,
+                  Math.max(estimateLabel.length, comparisonShortLabel.length) *
+                    6 +
+                    16,
+                ),
+              ),
         bottom: xTitle ? 58 : 42,
       },
       textStyle: { fontFamily: "Inter, sans-serif", color: muted },
@@ -210,7 +227,7 @@ export function Chart({
                   notation: "standard",
                 }).format(v)
               : "—";
-          return `<b>${escapeHtml(String(p.period))}</b><br><strong>${fmt(p.value)}</strong> ${escapeHtml(title)}<br>${escapeHtml(unit)}${p.lower !== undefined ? `<br>${fmt(p.lower)} – ${fmt(p.upper)} ${escapeHtml(intervalLabel)}` : ""}${p.comparison !== undefined ? `<br><strong>${fmt(p.comparison)}</strong> ${escapeHtml(comparisonDisplayLabel)}` : ""}${stack ? stack.map((s) => `<br><strong>${fmt(s.values[rows[0].dataIndex])}</strong> ${escapeHtml(s.name)}`).join("") : ""}`;
+          return `<b>${escapeHtml(String(p.period))}</b><br><strong>${fmt(p.value)}</strong> ${escapeHtml(displayTitle)}<br>${escapeHtml(unit)}${p.lower !== undefined ? `<br>${fmt(p.lower)} – ${fmt(p.upper)} ${escapeHtml(intervalLabel)}` : ""}${p.comparison !== undefined ? `<br><strong>${fmt(p.comparison)}</strong> ${escapeHtml(comparisonShortLabel || comparisonDisplayLabel)}` : ""}${stack ? stack.map((s) => `<br><strong>${fmt(s.values[rows[0].dataIndex])}</strong> ${escapeHtml(s.name)}`).join("") : ""}`;
         },
       },
       xAxis: {
@@ -282,13 +299,14 @@ export function Chart({
             ]
           : []),
         {
-          name: title,
+          name: estimateLabel,
           type: coefficient ? "scatter" : bar ? "bar" : "line",
           data: points.map((p) => p.value),
           symbolSize: 8,
           showSymbol: coefficient,
           connectNulls: false,
           lineStyle: { width: 2.5, color: blue },
+          labelLayout: { moveOverlap: "shiftY" },
           endLabel: {
             show: !bar && !coefficient,
             formatter: () => (stack ? "Actual" : estimateLabel),
@@ -308,11 +326,12 @@ export function Chart({
         ...(points.some((p) => p.comparison !== undefined)
           ? [
               {
-                name: comparisonDisplayLabel,
+                name: comparisonShortLabel,
                 type: "line",
                 showSymbol: false,
                 data: points.map((p) => p.comparison ?? null),
                 lineStyle: { color: orange, type: "dashed", width: 2 },
+                labelLayout: { moveOverlap: "shiftY" },
                 endLabel: {
                   show: !bar && !coefficient,
                   formatter: () => comparisonShortLabel,
@@ -339,6 +358,8 @@ export function Chart({
     bar,
     coefficient,
     comparisonDisplayLabel,
+    displayTitle,
+    displaySummary,
     estimateLabel,
     comparisonShortLabel,
     axis,
@@ -349,17 +370,34 @@ export function Chart({
   return (
     <figure className="card chart-card" data-testid="result-chart">
       <figcaption>
-        <span>{title}</span>
+        <span>{displayTitle}</span>
         <span className="muted mono">{unit}</span>
       </figcaption>
       <div
         className="chart-canvas"
         ref={element}
         role="img"
-        aria-label={xTitle ? `${summary} X-axis: ${xTitle}.` : summary}
+        aria-label={
+          xTitle ? `${displaySummary} X-axis: ${xTitle}.` : displaySummary
+        }
         data-x-axis-title={xTitle || undefined}
       />
-      <p className="chart-summary">{summary}</p>
+      {!bar &&
+        !coefficient &&
+        !stack &&
+        points.some((p) => p.comparison != null) && (
+          <div className="legend" aria-label="Chart series">
+            <span>
+              <i className="legend-line" />
+              {estimateLabel}
+            </span>
+            <span>
+              <i className="legend-line comparison" />
+              {comparisonShortLabel}
+            </span>
+          </div>
+        )}
+      <p className="chart-summary">{displaySummary}</p>
       {stack && (
         <p className="small">
           {stack.map((s, index) => (
@@ -385,7 +423,7 @@ export function Chart({
       {context && (
         <button
           className="link"
-          aria-label={`Export PNG: ${title}`}
+          aria-label={`Export PNG: ${displayTitle}`}
           onClick={() => {
             setExportError("");
             void exportPng(

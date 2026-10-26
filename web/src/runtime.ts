@@ -1,3 +1,4 @@
+import { analysisErrorMessage } from "./analysisErrors";
 import type { AnalysisConfig } from "./types";
 
 type JsonRecord = Record<string, unknown>;
@@ -338,7 +339,11 @@ export class AnalysisRuntime {
           }
           this.pending.delete(data.id);
           if (data.type === "error")
-            pending.reject(new Error(data.message ?? "Analysis failed."));
+            pending.reject(
+              new Error(
+                analysisErrorMessage(data.message ?? "Analysis failed."),
+              ),
+            );
           else pending.resolve(data.result);
         };
         this.worker.onerror = (event) => {

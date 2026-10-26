@@ -297,6 +297,8 @@ export function TechnicalExtensions({
                 .
               </p>
               <Chart
+                estimateLabel="Actual"
+                comparisonShortLabel=""
                 title={`Historical decomposition · ${title(selected, indicators)}`}
                 unit={
                   transforms[

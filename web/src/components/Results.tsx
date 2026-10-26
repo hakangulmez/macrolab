@@ -1,3 +1,4 @@
+import { chartDisplay, resultDisplayLabel, screenText } from "../chartDisplay";
 import { sensitivityDisplayLabel } from "../sensitivityLabels";
 import { ResultOverview, ResultRail, ResultTableView } from "./ResultOverview";
 import { latexTables } from "../latexExport";
@@ -24,6 +25,7 @@ import type {
   CountryResult,
   CountryBundle,
   Manifest,
+  JsonRecord,
 } from "../types";
 import {
   csv,
@@ -289,7 +291,12 @@ export function ResultsCountry({
   const sensitivity = result.sensitivity;
   const lagCriteria = record(record(sensitivity).lag_criteria);
   const selectedLags = record(lagCriteria.selected_lags);
-  const rows = sensitivityRows(result, indicators);
+  const rows = sensitivityRows(result, indicators).map((row): JsonRecord => ({
+    ...row,
+    ...(typeof row.Term === "string"
+      ? { Term: screenText(row.Term, indicators) }
+      : {}),
+  }));
   const sample = result.actual_sample;
   const name =
     manifest.countries.find((c) => c.iso3 === result.country)?.name ??
@@ -478,7 +485,7 @@ export function ResultsCountry({
                   >
                     {charts.map((chart) => (
                       <option key={chart.name} value={chart.name}>
-                        {chart.name}
+                        {screenText(chart.name, indicators)}
                       </option>
                     ))}
                   </select>
@@ -511,8 +518,14 @@ export function ResultsCountry({
                 )}
               <div className="legend">
                 <span>
-                  <i className={result.irf ? "legend-line" : "legend-dot"} />
-                  Estimate
+                  <i
+                    className={
+                      charts[0]?.coefficient ? "legend-dot" : "legend-line"
+                    }
+                  />
+                  {charts[0]
+                    ? chartDisplay(result, charts[0], indicators).estimateLabel
+                    : "Reported value"}
                 </span>
                 {charts.some((chart) =>
                   chart.points.some((point) => point.lower !== undefined),
@@ -553,6 +566,17 @@ export function ResultsCountry({
                         key={chart.name}
                         {...chart}
                         title={chart.name}
+                        {...chartDisplay(result, chart, indicators)}
+                        comparisonShortLabel={
+                          result.irf && variant
+                            ? variant?.variant_id === "reverse_order"
+                              ? "Reversed order"
+                              : variant?.variant_id === "sample_2003"
+                                ? "Since 2003"
+                                : comparisonDisplayLabel
+                            : chartDisplay(result, chart, indicators)
+                                .comparisonShortLabel
+                        }
                         pngNote={
                           result.pass_through && chart.variable === "cpi"
                             ? text(record(result.pass_through).secondary_label)
@@ -750,7 +774,7 @@ export function ResultsCountry({
                 <h2>Reading the result</h2>
                 <ul data-testid="reading-bullets">
                   {readingBullets(result, indicators).map((bullet, index) => (
-                    <li key={index}>{bullet}</li>
+                    <li key={index}>{screenText(bullet, indicators)}</li>
                   ))}
                 </ul>
               </aside>
@@ -1091,7 +1115,7 @@ export function Results({
                       ? "Analysis complete"
                       : "Analysis blocked or partly unavailable"}
                   </strong>{" "}
-                  · {result.label}
+                  · {resultDisplayLabel(result.label)}
                 </div>
               )}
               <V2TemplateResults result={result} manifest={manifest} />
@@ -1316,7 +1340,7 @@ export function Results({
                       ? "Analysis complete"
                       : "Analysis blocked or partly unavailable"}
                   </strong>{" "}
-                  · {result.label}
+                  · {resultDisplayLabel(result.label)}
                 </div>
               )}
               <details id="all-findings" className="all-findings card">

@@ -294,6 +294,7 @@ export default function DatasetExplorer({
                 points={displayed}
                 summary={`Observed ${title} for ${country?.name}. No imputation.`}
                 estimateLabel="Observed"
+                comparisonShortLabel=""
                 xAxisTitle={`Period (${cell?.frequency === "M" ? "months" : cell?.frequency === "Q" ? "quarters" : "years"})`}
               />
             </>

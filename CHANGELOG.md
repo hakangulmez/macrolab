@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.1.1 — 26 October 2026, local candidate
+
+- Actionable validation messages, meaningful chart labels and two-line legends,
+  with collision handling for line-end labels.
+- Clearer display captions, Home navigation to templates, and corrected shared-link
+  preparation status. Data, models, defaults and exported values are unchanged;
+  only build-version strings change in exports. Publication is not approved.
+
 ## v2.1.0 — 25 October 2026, local release candidate
 
 - Searchable dataset explorer, fit-to-width coverage matrix, inflation overview,

@@ -1,3 +1,5 @@
+import { parameterDisplayLabel } from "../chartDisplay";
+import { FirstStageInput } from "./FirstStageInput";
 import { ForecastControls } from "./ForecastControls";
 import { DiagnosticControls } from "./DiagnosticControls";
 import { diagnosticModel } from "../diagnosticModels";
@@ -565,6 +567,9 @@ export function Builder({
                 : "2020 Q1–2021 Q2"}
               .
             </p>
+            {model.id === "cmp.common_shock" && !isTemplate && (
+              <FirstStageInput config={config} update={update} />
+            )}
             <TemplateControls config={config} update={update} />
             <PanelControls
               config={config}
@@ -608,7 +613,7 @@ export function Builder({
                       (!isBvar || !["draws", "lambda_selection"].includes(key)),
                   )
                   .map(([key, rule]) => (
-                    <Field key={key} label={key.replaceAll("_", " ")}>
+                    <Field key={key} label={parameterDisplayLabel(key)}>
                       {Array.isArray(rule.enum) ? (
                         <select
                           value={text(
@@ -623,7 +628,7 @@ export function Builder({
                         >
                           {rule.enum.map((v) => (
                             <option key={text(v)} value={text(v)}>
-                              {text(v)}
+                              {parameterDisplayLabel(text(v))}
                             </option>
                           ))}
                         </select>
@@ -666,10 +671,17 @@ export function Builder({
                   ))}
               </div>
             </details>
-            {isVar && (
+            {[
+              "var.ols",
+              "ident.recursive",
+              "bvar.minn",
+              "out.hd",
+              "ident.external_series",
+            ].includes(model.id) && (
               <>
                 <Field label="Identification">
                   <select
+                    id="identification-control"
                     value={config.identification ? "recursive" : "none"}
                     onChange={(e) =>
                       update((c) => {

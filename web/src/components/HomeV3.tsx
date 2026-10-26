@@ -67,9 +67,9 @@ export function Home({
             the test.
           </p>
           <div className="row hero-actions">
-            <button className="primary" onClick={start}>
-              Start an analysis <span aria-hidden="true">↗</span>
-            </button>
+            <a className="button primary" href="#templates">
+              Start an analysis <span aria-hidden="true">↓</span>
+            </a>
             <button onClick={() => catalogue()}>Browse the dataset</button>
           </div>
           <p className="trust-line">
@@ -103,11 +103,11 @@ export function Home({
           </div>
         ))}
       </dl>
-      <section className="section-v3">
+      <section className="section-v3" id="templates">
         <div className="section-heading">
           <div>
-            <p className="overline">Start with a question</p>
-            <h2>Start with a model.</h2>
+            <p className="overline">Templates</p>
+            <h2>Start with a question.</h2>
             <p>Run a reviewed specification. Then change the assumptions.</p>
           </div>
           <div className="category-tabs" aria-label="Filter templates">
@@ -177,6 +177,9 @@ export function Home({
               </button>
             ))}
         </div>
+        <button className="link" onClick={start}>
+          …or build your own analysis →
+        </button>
       </section>
       <section className="section-v3 dataset-preview">
         <div className="section-heading">

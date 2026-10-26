@@ -11,6 +11,14 @@ import yaml
 EXPORT = runpy.run_path(str(Path(__file__).resolve().parents[2] / "scripts/p2_export_repo.py"))
 
 
+@pytest.fixture(autouse=True)
+def isolated_export_readme(monkeypatch: pytest.MonkeyPatch) -> None:
+    # Export fixtures must not inherit the live README's image/document links.
+    monkeypatch.setitem(
+        EXPORT["transformed"].__globals__, "README", "Public source-export fixture instructions\n"
+    )
+
+
 def fixture(root: Path) -> None:
     files = {
         "README.md": "Private review links",

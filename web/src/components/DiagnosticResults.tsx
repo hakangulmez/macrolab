@@ -350,6 +350,8 @@ export function DiagnosticResults({
             {...(charts[selected] ?? charts[0])}
             title={(charts[selected] ?? charts[0]).name}
             comparisonLabel="95% critical value"
+            estimateLabel={result.vecm ? "Response" : "Test statistic"}
+            comparisonShortLabel="95% critical value"
             exportContext={context ?? undefined}
           />
         </>

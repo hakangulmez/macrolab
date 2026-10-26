@@ -1,3 +1,4 @@
+import { analysisErrorMessage, errorControl } from "./analysisErrors";
 import { buildVersion, snapshotDate } from "./version";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import type { ValidateFunction } from "ajv/dist/2020.js";
@@ -115,7 +116,7 @@ export function App() {
                 "Shared configuration does not match the supported schema.",
               );
             if (active) {
-              setRuntimeStatus("preparing");
+              setRuntimeStatus("ready");
               setScreen("builder");
             }
           } finally {
@@ -128,7 +129,7 @@ export function App() {
         if (active) setRawConfig(structuredClone(initial));
       })
       .catch((e: unknown) => {
-        if (active) setError(String(e));
+        if (active) setError(analysisErrorMessage(e));
       });
     return () => {
       active = false;
@@ -148,7 +149,7 @@ export function App() {
         if (active) setRuntimeStatus("idle");
         if (active && String(e) !== "Error: Cancelled") {
           setError(
-            `The local analysis engine could not be prepared. Run analysis to retry. ${String(e)}`,
+            `The local analysis engine could not be prepared. Run analysis to retry. ${analysisErrorMessage(e)}`,
           );
         }
       });
@@ -177,7 +178,7 @@ export function App() {
           }));
       })
       .catch((e: unknown) => {
-        if (active) setError(String(e));
+        if (active) setError(analysisErrorMessage(e));
       });
     return () => {
       active = false;
@@ -290,7 +291,7 @@ export function App() {
     } catch (e: unknown) {
       if (id === requestId.current) {
         setResult((current) => (current?.sensitivity_pending ? null : current));
-        setError(String(e));
+        setError(analysisErrorMessage(e));
       }
     } finally {
       if (id === requestId.current) {
@@ -376,7 +377,7 @@ export function App() {
         /* Visible selectable link remains available. */
       }
     } catch (e: unknown) {
-      setError(String(e));
+      setError(analysisErrorMessage(e));
     } finally {
       setBusy(false);
       setProgress("");
@@ -392,7 +393,7 @@ export function App() {
       const script = await runtime.exportPython(result.config, bundle);
       download(script, "macrolab_analysis.py", "text/x-python");
     } catch (e: unknown) {
-      setError(String(e));
+      setError(analysisErrorMessage(e));
     } finally {
       setBusy(false);
       setProgress("");
@@ -406,7 +407,7 @@ export function App() {
           [iso]: bundle as unknown as CountryBundle,
         })),
       )
-      .catch((e: unknown) => setError(String(e)));
+      .catch((e: unknown) => setError(analysisErrorMessage(e)));
   }
   function useSeries(country: string, concept: string) {
     if (!config) return;
@@ -498,6 +499,24 @@ export function App() {
           <div role="alert" className="error-box section">
             <strong>We couldn’t complete that action.</strong>
             <p>{error}</p>
+            <button
+              onClick={() => {
+                const target = errorControl(error, config?.model.id);
+                navigate("builder");
+                requestAnimationFrame(() => {
+                  const element = document.getElementById(target.id);
+                  element?.scrollIntoView({ block: "center" });
+                  (element?.matches("input, select, textarea")
+                    ? element
+                    : element?.querySelector<HTMLElement>(
+                        "input, select, textarea, button",
+                      )
+                  )?.focus();
+                });
+              }}
+            >
+              {errorControl(error, config?.model.id).label}
+            </button>
             <button onClick={() => setError("")}>Dismiss message</button>
           </div>
         )}
