@@ -5,8 +5,8 @@ title: MacroLab
 authors:
   - family-names: Gülmez
     given-names: Hakan Zeki
-version: 2.2.0
-date-released: 2026-10-25
+version: 2.2.1
+date-released: 2026-10-26
 repository-code: "https://github.com/hakangulmez/macrolab"
 url: "https://hakangulmez.github.io/macrolab/"
 license: MIT

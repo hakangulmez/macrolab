@@ -2,7 +2,7 @@
   "snapshot_id": "20261024-2040",
   "manifest_url": "https://hakangulmez.github.io/macrolab/data/manifest.json",
   "manifest_sha256": "cdd90f2eb036f9e8619a3ec886b166672ad51cca1d5bd3fd27db2ec860b9e069",
-  "site_commit": "7b598606e5b7fe8381ace5557cbea84b441ce967",
+  "site_commit": "f2eb4636fec22ced92eadaee7e2019738392b4d5",
   "counts": {
     "economies": 39,
     "indicators": 36,

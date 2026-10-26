@@ -1,13 +1,23 @@
 import type { AnalysisConfig, CountryResult, JsonRecord } from "./types";
 import { record, records, strings } from "./format";
 
-/** Presentation extents only: never anchor a relationship at an unobserved zero. */
+/** Round padded presentation bounds outward; never force an unobserved zero. */
 export function relationshipExtent(values: number[]) {
   const finite = values.filter(Number.isFinite);
   const low = finite.length ? Math.min(...finite) : 0;
   const high = finite.length ? Math.max(...finite) : 1;
   const padding = (high - low || Math.abs(low) || 1) * 0.05;
-  return { min: low - padding, max: high + padding };
+  const rawStep = (high - low + 2 * padding) / 5;
+  const power = 10 ** Math.floor(Math.log10(rawStep));
+  const step =
+    ([1, 2, 2.5, 5, 10].find((v) => v * power >= rawStep) ?? 10) * power;
+  // Limit floating-point display noise without touching the plotted observations.
+  const rounded = (v: number) => Number(v.toPrecision(14));
+  return {
+    min: rounded(Math.floor((low - padding) / step) * step),
+    max: rounded(Math.ceil((high + padding) / step) * step),
+    step: rounded(step),
+  };
 }
 export function relationshipEligible(config: AnalysisConfig, r: CountryResult) {
   return (

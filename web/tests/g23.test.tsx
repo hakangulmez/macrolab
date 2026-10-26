@@ -201,17 +201,24 @@ it("keeps valid first-stage VAR-hosted break diagnostics runnable", () => {
   expect(suggestedRoles(c)).toBeNull();
 });
 
-it("relationship axes cover observed data with 5 percent padding, without an invented zero", () => {
-  expect(relationshipExtent([4, 14])).toEqual({ min: 3.5, max: 14.5 });
-  expect(relationshipExtent([-14, -4])).toEqual({ min: -14.5, max: -3.5 });
-  expect(relationshipExtent([-2, 2])).toEqual({ min: -2.2, max: 2.2 });
+it("rounds scatter bounds outward without changing inputs or forcing zero", () => {
+  const values = [5.033333333333333, 13.5];
+  const original = [...values];
+  expect(relationshipExtent(values)).toEqual({ min: 4, max: 14, step: 2 });
+  expect(values).toEqual(original);
+  expect(relationshipExtent([-3.2, 3.3])).toEqual({ min: -4, max: 4, step: 2 });
+  expect(relationshipExtent([-14, -4]).max).toBeLessThan(0);
   expect(relationshipExtent([1000, 1001])).toEqual({
-    min: 999.95,
-    max: 1001.05,
+    min: 999.75,
+    max: 1001.25,
+    step: 0.25,
   });
-  expect(relationshipExtent([0, 0])).toEqual({ min: -0.05, max: 0.05 });
-  expect(relationshipExtent([4, Number.NaN, 14])).toEqual({
-    min: 3.5,
-    max: 14.5,
+  expect(relationshipExtent([0, 0])).toEqual({
+    min: -0.06,
+    max: 0.06,
+    step: 0.02,
   });
+  expect(relationshipExtent([...values, Number.NaN])).toEqual(
+    relationshipExtent(values),
+  );
 });

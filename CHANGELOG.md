@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.2.1 — 26 October 2026, local candidate
+
+- Relationship scatter axes round padded bounds outward to readable ticks. Observations, fitted lines, defaults and scientific results are unchanged.
+- Refresh the public README gallery from live v2.2.0, including Phillips relationships and RMSE by horizon; explain the new views and Builder guidance. Update citation metadata.
+- Retain the accepted build-version convention in PNG footers and LaTeX headers. CSV/Python files and exported scientific values are unchanged. Only relationship plots change beyond version text.
+
 ## v2.2.0 — 26 October 2026, local candidate
 
 - Relationship scatter plots reuse the actual samples and accepted OLS/pooled coefficients. Forecast paths and RMSE-by-horizon views project existing evaluation outputs. New chart CSV/PNG downloads are additive.

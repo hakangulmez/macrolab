@@ -280,19 +280,16 @@ function ViewChart({
   );
 }
 const axis = (values: number[], name: string, dataRange = false) => {
-  const a = niceScale(values);
-  const extent = relationshipExtent(values);
-  const displayStep = dataRange ? (extent.max - extent.min) / 5 : a.step;
+  const a = dataRange ? relationshipExtent(values) : niceScale(values);
   return {
     type: "value",
     min: a.min,
     max: a.max,
-    interval: dataRange ? undefined : a.step,
-    ...(dataRange ? extent : {}),
+    interval: a.step,
     name,
     nameLocation: "middle",
     nameGap: 36,
-    axisLabel: { formatter: (v: number) => tickLabel(v, displayStep) },
+    axisLabel: { formatter: (v: number) => tickLabel(v, a.step) },
     splitLine: { show: true },
   };
 };

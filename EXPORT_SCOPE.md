@@ -456,3 +456,5 @@ One v2.1.0 candidate commit follows public main 3d9970d. Public ancestry only; p
 G22: v2.1.1 presentation/error-handling candidate, following public source 506ad1b. Existing exclusions, withheld country notes, public ancestry and reviewed screenshot assets are preserved. No publication is authorised.
 
 G23.1: v2.2.0 relationship/forecast views and explicit Builder controls, following public source 2589ba8. Scientific data, wheel and existing result values are unchanged. Existing exclusions, withheld country notes, public ancestry and approved documentation images are preserved. Local candidate; publication requires separate exact-artifact approval.
+
+G24: v2.2.1 rounds relationship scatter bounds and refreshes public documentation from the live v2.2.0 build. Approved public README screenshot assets are included with provenance and size limits. Data, defaults, scientific runtime, source exclusions and withheld narratives remain unchanged. Export version metadata follows the build. Local candidate; publication requires separate exact-artifact approval.
