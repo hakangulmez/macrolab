@@ -100,6 +100,56 @@ self.onmessage = async ({ data: message }) => {
     let result;
     if (type === "init") {
       result = await initialise(message);
+    } else if (type === "relationship") {
+      if (!runtime) throw new Error("Initialise the analysis runtime first");
+      runtime.globals.set("__ml_chart_json", JSON.stringify(message));
+      // Data projection only: reuse the accepted preparation/design functions.
+      // No estimator is called and no existing result/export field is modified.
+      result = JSON.parse(
+        await runtime.runPythonAsync(`
+from copy import deepcopy
+import json
+import pandas as pd
+from macrolab.analysis.data import prepare_country
+from macrolab.analysis.transforms import label, period_frequency
+from macrolab.models.linear import regression_data
+from macrolab.models.panel import fe_design
+_req = json.loads(__ml_chart_json)
+_config, _result = _req["config"], _req["result"]
+_coefficients = {r["term"]: r["estimate"] for r in _result["coefficients_table"]}
+_panel = _result["model_id"] == "panel.fe"
+_samples = _result["panel"]["country_samples"] if _panel else {_result["country"]: _result["actual_sample"]}
+_xid = next(s["concept_id"] for s in _config["series"] if s["role"] == "regressor")
+_yid = next(s["concept_id"] for s in _config["series"] if s["role"] == "dependent")
+_points, _intercepts = [], []
+for _country, _sample in _samples.items():
+    _c = deepcopy(_config)
+    _c.update(deepcopy(_sample["preparation_config"]))
+    _data, _checks = prepare_country(_c, _req["bundle"], _country)
+    if any(v["level"] == "block" for v in _checks):
+        raise ValueError("Relationship data could not reproduce the recorded estimation sample")
+    if _panel:
+        _d = fe_design(_data, _c)
+        _idx = pd.PeriodIndex(_sample["periods"], freq=period_frequency(_c["frequency"]))
+        _x, _y = _d["x"].loc[_idx], _d["y"].loc[_idx]
+    else:
+        _y, _x = regression_data(_data, _c)
+        _x, _y = _x.loc[_sample["periods"]], _y.loc[_sample["periods"]]
+    _controls = sum((_x[k] * b for k, b in _coefficients.items() if k != _xid and k in _x), start=pd.Series(0.0, index=_x.index))
+    _raw_x, _raw_y = _x[_xid], _y
+    if _panel:
+        _xx = _raw_x - _raw_x.mean()
+        _adjusted = _raw_y - _controls
+        _yy = _adjusted - _adjusted.mean()
+        _intercepts.append(0.0)
+    else:
+        _xx, _yy = _raw_x, _raw_y
+        _intercepts.append(float(_controls.mean()))
+    for _i in range(len(_x)):
+        _points.append({"country": _country, "period": label(_x.index[_i]) if _panel else str(_x.index[_i]), "x": float(_xx.iloc[_i]), "y": float(_yy.iloc[_i]), "raw_x": float(_raw_x.iloc[_i]), "raw_y": float(_raw_y.iloc[_i])})
+json.dumps({"points": _points, "x_id": _xid, "y_id": _yid, "slope": _coefficients[_xid], "intercept": _intercepts[0], "pooled": _panel}, allow_nan=False)
+`),
+      );
     } else if (
       [
         "run",
