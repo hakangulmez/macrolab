@@ -1626,3 +1626,43 @@ pre {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* G27: the original method views stay mounted inside Details. */
+.result-details > summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding-block: 0.5rem;
+}
+.result-details[open] > summary {
+  margin-bottom: 1.5rem;
+}
+.result-details .result-main {
+  min-width: 0;
+}
+.primary-chart-slot:empty {
+  display: none;
+}
+.primary-chart-slot > figure {
+  margin: 0;
+}
+.equation-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 0.75rem 0;
+}
+.equation-scroll math {
+  width: max-content;
+  min-width: 100%;
+  color: var(--text);
+}
+.key-facts p {
+  max-width: 85ch;
+  margin-block: 0.6rem;
+}
+.result-primary-actions {
+  flex-wrap: wrap;
+}
+.robustness-headline + .robustness-headline {
+  border-top: 1px solid var(--border);
+  padding-top: 0.5rem;
+}

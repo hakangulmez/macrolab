@@ -170,7 +170,7 @@ try {
       assert.equal(violations.length, 0, JSON.stringify(violations));
       if (!process.env.MACROLAB_SKIP_SCREENSHOTS)
         await page
-          .getByTestId(testId)
+          .getByTestId(testId.endsWith("-results") ? "screen-results" : testId)
           .screenshot({ path: join(screens, `${name}-${width}.png`) });
     }
     await page.setViewportSize({ width: 1440, height: 1000 });
@@ -214,7 +214,7 @@ try {
       assert.equal(result.status, "ok", JSON.stringify(result.checks));
       await page.getByTestId("bvar-results").waitFor();
       await page
-        .getByTestId("bvar-results")
+        .getByTestId("screen-results")
         .locator("canvas")
         .first()
         .waitFor();
@@ -255,12 +255,16 @@ try {
       );
     }
     const view = page.getByTestId("bvar-results");
+    const chart = page
+      .getByTestId("screen-results")
+      .getByTestId("result-chart")
+      .first();
     assert.match(
       await view.innerText(),
       /own and cross-variable lags symmetrically/,
     );
     assert.equal(
-      await view.locator(".chart-canvas").getAttribute("data-x-axis-title"),
+      await chart.locator(".chart-canvas").getAttribute("data-x-axis-title"),
       "Quarters after the shock",
     );
     await page
@@ -282,7 +286,7 @@ try {
           .getAttribute("class"),
         /primary/,
       );
-      assert.match(await view.innerText(), /no OLS uncertainty band/);
+      assert.match(await chart.innerText(), /no OLS uncertainty band/);
       await view.getByRole("button", { name: "Both", exact: true }).click();
       assert.equal(
         await view
@@ -298,7 +302,7 @@ try {
       );
     }
     const event = page.waitForEvent("download");
-    await view.getByRole("button", { name: /Export PNG:/ }).click();
+    await chart.getByRole("button", { name: /Export PNG:/ }).click();
     await (await event).saveAs(join(out, "bvar-downloads", name + "-90.png"));
     if (name !== "bvar_optional") await checkView(name, "bvar-results");
     console.log(

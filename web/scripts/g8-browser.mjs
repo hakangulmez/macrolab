@@ -299,7 +299,7 @@ try {
         fullPage: true,
       });
       if (name === "same_ecb_shock")
-        await page.getByTestId("country-comparison").screenshot({
+        await page.getByTestId("screen-results").screenshot({
           path: join(
             root,
             "docs/screenshots/g8",
@@ -396,20 +396,28 @@ try {
       await page.getByTestId("comparison-country").selectOption("ESP");
       assert.equal(
         await page
-          .getByTestId("country-comparison")
+          .getByTestId("screen-results")
           .getByTestId("result-chart")
           .count(),
         2,
       );
       assert.match(
-        await page.getByTestId("country-comparison").innerText(),
+        await page
+          .getByTestId("screen-results")
+          .getByTestId("result-chart")
+          .first()
+          .innerText(),
         /Spain/,
       );
       await page
         .getByLabel("Compare response", { exact: true })
         .selectOption("cpi");
       assert.match(
-        await page.getByTestId("country-comparison").innerText(),
+        await page
+          .getByTestId("screen-results")
+          .getByTestId("result-chart")
+          .first()
+          .innerText(),
         /HICP/,
       );
       await page.getByTestId("comparison-country").selectOption("DEU");

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.4.0 — layered results
+
+- Put Key facts, the main chart and the existing robustness summary first; retain all charts, controls, findings and tables in Details.
+- Show each analysis's equation and settings in its Specification box.
+- Keep AdditionalViews PNG geometry independent of responsive screen size; label the country-ranking axis Country.
+- Refresh result screenshots and add verified covariance/prior references.
+- Data, defaults, scientific results and CSV/Python values are unchanged. Simple/Advanced Build and Data quick actions remain planned.
+
 ## 2.3.0 — navigation and structure
 
 Explore, Data and Build are the three main navigation items. The complete method

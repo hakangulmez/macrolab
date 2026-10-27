@@ -138,23 +138,28 @@ export function V2TemplateResults({
           </p>
         )}
       </section>
-      {lp && (
-        <Field label="Pooled outcome">
-          <select value={outcome} onChange={(e) => setOutcome(e.target.value)}>
-            <option value="cpi">
-              HICP · cumulative % change in the price level
-            </option>
-            <option value="gdp_real">
-              Real GDP · cumulative % change in the level
-            </option>
-          </select>
-        </Field>
-      )}
       {fe || lp ? (
         <PanelResults
           key={outcome}
           result={row}
           manifest={display}
+          chartControls={
+            lp && (
+              <Field label="Pooled outcome">
+                <select
+                  value={outcome}
+                  onChange={(e) => setOutcome(e.target.value)}
+                >
+                  <option value="cpi">
+                    HICP · cumulative % change in the price level
+                  </option>
+                  <option value="gdp_real">
+                    Real GDP · cumulative % change in the level
+                  </option>
+                </select>
+              </Field>
+            )
+          }
           selectedCountry={lp ? country : undefined}
           onCountryChange={lp ? setCountry : undefined}
         />

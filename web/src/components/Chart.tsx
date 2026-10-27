@@ -1,5 +1,7 @@
+import { createPortal } from "react-dom";
+import { usePrimaryChart } from "./PrimaryChart";
 import { chartTheme, escapeHtml, useTheme } from "../theme";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { ChartExportContext } from "../chartExportContext";
 import { exportPng, type PngContext } from "../pngExport";
 import type { ResultChart } from "../resultData";
@@ -62,7 +64,11 @@ export function Chart({
   stack,
   pngNote,
   xAxisTitle,
+  controls,
+  primary = false,
 }: {
+  controls?: ReactNode;
+  primary?: boolean;
   title: string;
   unit: string;
   points: ChartPoint[];
@@ -83,6 +89,7 @@ export function Chart({
   pngNote?: string;
   xAxisTitle?: string;
 }) {
+  const primaryTarget = usePrimaryChart(primary);
   const theme = useTheme();
   const inherited = useContext(ChartExportContext);
   const context = exportContext ?? inherited;
@@ -366,9 +373,11 @@ export function Chart({
     intervalLabel,
     stack,
     xTitle,
+    primaryTarget,
   ]);
-  return (
+  const figure = (
     <figure className="card chart-card" data-testid="result-chart">
+      {controls && <div className="row chart-controls">{controls}</div>}
       <figcaption>
         <span>{displayTitle}</span>
         <span className="muted mono">{unit}</span>
@@ -456,4 +465,5 @@ export function Chart({
       </details>
     </figure>
   );
+  return primaryTarget ? createPortal(figure, primaryTarget) : figure;
 }

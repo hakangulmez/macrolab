@@ -506,7 +506,17 @@ try {
         process.env.MACROLAB_G11_PRESENTATION &&
         ["monetary_policy", "same_ecb_shock", "tur_pass_through"].includes(name)
       ) {
-        const axes = await page
+        const responseCharts =
+          name === "same_ecb_shock"
+            ? page.getByTestId("result-chart").filter({
+                has: page.locator("figcaption").filter({
+                  hasText: /^(Germany|France|Italy|Spain) · /,
+                }),
+              })
+            : page;
+        if (name === "same_ecb_shock")
+          assert.equal(await responseCharts.count(), width === 375 ? 1 : 4);
+        const axes = await responseCharts
           .locator("[data-x-axis-title]")
           .evaluateAll((nodes) =>
             nodes.map((e) => e.getAttribute("data-x-axis-title")),
@@ -629,20 +639,28 @@ try {
       await page.getByTestId("comparison-country").selectOption("ESP");
       assert.equal(
         await page
-          .getByTestId("country-comparison")
+          .getByTestId("screen-results")
           .getByTestId("result-chart")
           .count(),
         2,
       );
       assert.match(
-        await page.getByTestId("country-comparison").innerText(),
+        await page
+          .getByTestId("screen-results")
+          .getByTestId("result-chart")
+          .first()
+          .innerText(),
         /Spain/,
       );
       await page
         .getByLabel("Compare response", { exact: true })
         .selectOption("cpi");
       assert.match(
-        await page.getByTestId("country-comparison").innerText(),
+        await page
+          .getByTestId("screen-results")
+          .getByTestId("result-chart")
+          .first()
+          .innerText(),
         /HICP/,
       );
       await page.getByTestId("comparison-country").selectOption("DEU");

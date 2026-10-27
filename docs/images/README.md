@@ -9,3 +9,14 @@ Only image encoding is optimised. No numbers, text, DOM styles, overlays, fake c
 [manifest.json](manifest.json) records dimensions, file sizes, SHA-256 digests, source capture hashes and compression settings. Every image is at most 350,000 bytes; the complete image set is below 4,000,000 bytes. Screenshots do not broaden data rights: see [DATA.md](../../DATA.md).
 
 The refreshed gallery includes the Phillips relationship scatter and a separate RMSE-by-horizon capture. These screenshots document the live v2.2.0 release; the local v2.2.1 axis rounding is verified separately. All eighteen README images use lossless WebP encoding.
+
+
+## v2.4.0 result-page refresh
+
+On 27 October 2026, only result-page captures were refreshed from the final local
+v2.4.0 build, snapshot 20261024-2040. These show the layered result page and its
+existing charts through the normal controls. Home, Dataset explorer and mobile
+Home captures retain their original published v2.2.0 files. Result comparisons
+against the accepted v2.3.0 outputs are exact. The manifest records each refreshed
+file's source tree, dimensions, capture hash and encoding; the whole image set
+remains below 4 MB and each file below 350 KB. No figures or app text were edited.

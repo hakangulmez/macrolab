@@ -1,0 +1,117 @@
+{
+  "monetary_policy": {
+    "facts": [
+      "The response of real GDP growth (q/q annualised) peaks at +0.303 percentage points, 1 quarter after the shock.",
+      "For a 0.280 pp policy-rate shock, the 68% pointwise band there is 0.145 to 0.502 and excludes zero.",
+      "Actual sample: 1999-Q3–2025-Q3; n = 105."
+    ],
+    "equation": "Yₜ = α + Σⱼ₌₁…2 Aⱼ Yₜ₋ⱼ + B Zₜ + δ′ Dₜ + uₜ",
+    "definitions": [
+      "Y = (q/q annualised real GDP growth; q/q annualised CPI growth; unemployment rate; policy rate).",
+      "Z = (log(Brent oil price)).",
+      "D = (COVID dummy 2020-Q1; COVID dummy 2020-Q2; COVID dummy 2020-Q3); exact indicators and coefficients remain in the original details and exports."
+    ],
+    "settings": "Vector autoregression · bootstrap · 68% pointwise bands · lags 2 · 1999-Q3–2025-Q3 · n = 105"
+  },
+  "taylor_rule": {
+    "facts": [
+      "A one-percentage-point difference in y/y CPI inflation is associated with a 0.195 percentage-point difference in policy rate.",
+      "The 95% coefficient interval is -0.184 to 0.575 and includes zero.",
+      "Actual sample: 1999-Q1–2008-Q4; n = 40."
+    ],
+    "equation": "policy rateₜ = α + β1 y/y CPI growthₜ + β2 HP gap(log real GDP, λ=1600)ₜ + εₜ",
+    "definitions": [],
+    "settings": "Linear regression · HAC(4) · lags not applicable · 1999-Q1–2008-Q4 · n = 40"
+  },
+  "phillips_curve": {
+    "facts": [
+      "A one-percentage-point difference in unemployment is associated with a -0.650 percentage-point difference in y/y CPI inflation.",
+      "The 95% coefficient interval is -1.12 to -0.179 and excludes zero.",
+      "Actual sample: 1999-Q1–2026-Q3; n = 111."
+    ],
+    "equation": "y/y CPI growthₜ = α + β1 unemployment rateₜ + εₜ",
+    "definitions": [],
+    "settings": "Linear regression · HAC(4) · lags not applicable · 1999-Q1–2026-Q3 · n = 111"
+  },
+  "okuns_law": {
+    "facts": [
+      "A one-percentage-point difference in y/y real GDP growth is associated with a -0.316 percentage-point difference in y/y change in unemployment.",
+      "The 95% coefficient interval is -0.587 to -0.0452 and excludes zero.",
+      "Actual sample: 1999-Q1–2026-Q2; n = 110."
+    ],
+    "equation": "y/y change in unemployment rateₜ = α + β1 y/y real GDP growthₜ + εₜ",
+    "definitions": [],
+    "settings": "Linear regression · HAC(4) · lags not applicable · 1999-Q1–2026-Q2 · n = 110"
+  },
+  "same_ecb_shock": {
+    "facts": [
+      "Real GDP in Germany is 0.514% lower at the trough, 9 quarters after the shock.",
+      "For a 0.197 pp policy-rate shock, the 68% pointwise band there is -0.825 to -0.203 and excludes zero.",
+      "Actual sample: 2000-Q3–2023-Q2; n = 92."
+    ],
+    "equation": "100 [log(real GDP)ₜ₊ₕ − log(real GDP)ₜ₋₁] = αₕ + θₕ identified ECB shockₜ + Σⱼ₌₁…3 Γₕ,ⱼ Xₜ₋ⱼ + γₕ′ Zₜ + δ′ COVIDₜ + s′ Sₜ + εₜ₊ₕ",
+    "definitions": [
+      "X = (ECB DFR; 400 Δ log(real GDP); 400 Δ log(HICP); unemployment rate; identified ECB shock); 2 lags + one augmentation lag.",
+      "Z = (log(Brent oil price); y/y non-fuel commodity index growth).",
+      "A separate equation is estimated for each country and response; the same stage-1 ECB shock enters each equation. Other response equations remain in Details.",
+      "COVID indicators: 2020-Q1–2020-Q3; only active columns are retained.",
+      "S = (quarter 2 indicator; quarter 3 indicator; quarter 4 indicator); calendar seasonality controls, with the first period as reference."
+    ],
+    "settings": "Common-shock country comparison · HC1 · lags 2 · 2000-Q3–2023-Q2 · n = 92"
+  },
+  "tur_pass_through": {
+    "facts": [
+      "At 12 months, the cumulative CPI / cumulative NEER pass-through ratio is 0.747 for the same impulse.",
+      "The 68% interval is 0.650 to 0.845 and excludes zero.",
+      "Actual sample: 2000-03–2024-09; n = 295."
+    ],
+    "equation": "100 [log(CPI)ₜ₊ₕ − log(CPI)ₜ₋₁] = αₕ + θₕ 100 Δ log(NEER)ₜ + Σⱼ₌₁…13 Γₕ,ⱼ Xₜ₋ⱼ + γₕ′ Zₜ + s′ Sₜ + εₜ₊ₕ",
+    "definitions": [
+      "X = (100 Δ log(CPI); 100 Δ log(NEER)); 12 lags + one augmentation lag.",
+      "Z = (100 Δ log(Brent oil price); 100 Δ log(non-fuel commodity index)).",
+      "The headline ratio divides this cumulative CPI response by the cumulative NEER response to the same impulse, horizon by horizon.",
+      "S = (month 2 indicator; month 3 indicator; month 4 indicator; month 5 indicator; month 6 indicator; month 7 indicator; month 8 indicator; month 9 indicator; month 10 indicator; month 11 indicator; month 12 indicator); calendar seasonality controls, with the first period as reference."
+    ],
+    "settings": "Local projections · HC1 · lags 12 · 2000-03–2024-09 · n = 295"
+  },
+  "ea_phillips_pooled": {
+    "facts": [
+      "A one-percentage-point difference in the HP unemployment gap is associated with a -0.645 percentage-point difference in y/y HICP inflation.",
+      "The 95% coefficient interval is -1.04 to -0.250 and excludes zero.",
+      "Actual sample: 1999-Q1–2026-Q2; n = 1210 country-period observations."
+    ],
+    "equation": "y/y HICP growthₜ = αᵢ + β1 HP gap(unemployment rate, λ=1600)ₜ + β2 y/y Brent oil price growthₜ + εₜ",
+    "definitions": [
+      "All variables and errors carry country index i; country intercepts are absorbed."
+    ],
+    "settings": "Panel fixed effects · Driscoll-Kraay · lags 0 · 1999-Q1–2026-Q2 · n = 1210"
+  },
+  "same_ecb_shock_pooled": {
+    "facts": [
+      "Pooled HICP is 0.586% lower at the trough, 9 quarters after the shock.",
+      "For a 0.197 pp policy-rate shock, the 68% pointwise band there is -0.827 to -0.345 and excludes zero.",
+      "Actual sample: 2000-Q3–2021-Q2; n = 336 country-period observations."
+    ],
+    "equation": "100 [log(HICP)ₜ₊ₕ − log(HICP)ₜ₋₁] = αᵢ,ₕ + θₕ identified ECB shockₜ + Σⱼ₌₁…3 Γₕ,ⱼ Xₜ₋ⱼ + γₕ′ Zₜ + δ′ COVIDₜ + s′ Sₜ + εₜ₊ₕ",
+    "definitions": [
+      "X = (ECB DFR; 400 Δ log(real GDP); 400 Δ log(HICP); unemployment rate; identified ECB shock); 2 lags + one augmentation lag.",
+      "Z = (log(Brent oil price); y/y non-fuel commodity index growth).",
+      "Variables and errors carry country index i; the common shock has only a time index. The other response equation remains in Details.",
+      "COVID indicators: 2020-Q1–2020-Q3; only active columns are retained.",
+      "S = (quarter 2 indicator; quarter 3 indicator; quarter 4 indicator); calendar seasonality controls, with the first period as reference."
+    ],
+    "settings": "Panel local projections · Driscoll-Kraay · lags 2 · 2000-Q3–2021-Q2 · n = 336"
+  },
+  "ea_inflation_horse_race": {
+    "facts": [
+      "At one quarter ahead, ARIMA has the lowest reported RMSE, 0.550 percentage points, across 69 forecasts.",
+      "Its RMSE relative to the random walk is 0.736; this is pseudo-out-of-sample evaluation using final-vintage data.",
+      "Input sample: 1998-Q1–2026-Q2; n = 114; each forecast uses its own training prefix."
+    ],
+    "equation": "ŷₜ₊ₕ|ₜ⁽ᵐ⁾ = fₘ(y/y HICP growth₁:ₜ, X₁:ₜ); m ∈ {Random walk, AR (BIC), ARIMA, BVAR}",
+    "definitions": [
+      "y = y/y HICP growth; BVAR vector X = (y/y HICP growth; unemployment rate; 3-month rate; q/q annualised real GDP growth). Each model is fitted using only its origin's training prefix; this is a model comparison, not one pooled estimating equation."
+    ],
+    "settings": "Expanding-window evaluation · paired loss comparisons; DM/HLN · lags 2 · 1998-Q1–2026-Q2 · n = 114"
+  }
+}

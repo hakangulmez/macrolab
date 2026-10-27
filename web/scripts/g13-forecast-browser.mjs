@@ -174,7 +174,7 @@ try {
       assert.equal(violations.length, 0, JSON.stringify(violations));
       if (!process.env.MACROLAB_SKIP_SCREENSHOTS)
         await page
-          .getByTestId(testId)
+          .getByTestId(testId.endsWith("-results") ? "screen-results" : testId)
           .screenshot({ path: join(screens, `${name}-${width}.png`) });
     }
     await page.setViewportSize({ width: 1440, height: 1000 });
@@ -212,7 +212,7 @@ try {
       );
       assert.equal(result.status, "ok", JSON.stringify(result.checks));
       await page
-        .getByTestId("forecast-results")
+        .getByTestId("screen-results")
         .locator("canvas")
         .first()
         .waitFor();
@@ -249,7 +249,7 @@ try {
           .selectOption("AR (BIC)");
         assert(
           await page
-            .getByTestId("forecast-results")
+            .getByTestId("screen-results")
             .locator("figcaption")
             .getByText("Forecast error by target date · AR (BIC) · horizon 8", {
               exact: true,
@@ -300,7 +300,7 @@ try {
         .selectOption("0.68");
       const event = page.waitForEvent("download");
       await page
-        .getByTestId("forecast-results")
+        .getByTestId("screen-results")
         .getByRole("button", { name: /Export PNG:/ })
         .click();
       await (

@@ -37,6 +37,7 @@ export function CountryComparison({
     name: "Peak responses · descriptive ranking",
     unit: current[0]?.unit ?? "response units",
     coefficient: true,
+    xAxisTitle: "Country",
     intervalLabel: "68% pointwise interval at the selected peak",
     points: ranked.map((r) => ({
       period:
@@ -89,47 +90,47 @@ export function CountryComparison({
     window.addEventListener("macrolab-export-png", handler);
     return () => window.removeEventListener("macrolab-export-png", handler);
   }, [all, bundles, result]);
+  const controls = (
+    <div className="row">
+      <Field label="Compare response">
+        <select
+          aria-label="Compare response"
+          value={response}
+          onChange={(e) => setResponse(e.target.value)}
+        >
+          {[
+            ...new Map(
+              all.map((c) => [
+                c.variable,
+                c.name.split(" · ").slice(1).join(" · "),
+              ]),
+            ).entries(),
+          ].map(([id, name]) => (
+            <option key={id} value={id}>
+              {name}
+            </option>
+          ))}
+        </select>
+      </Field>
+      <Field label="Country">
+        <select
+          data-testid="comparison-country"
+          value={country}
+          onChange={(e) => selectCountry(e.target.value)}
+        >
+          {result.results.map((r) => (
+            <option key={r.country} value={r.country}>
+              {manifest.countries.find((c) => c.iso3 === r.country)?.name ??
+                r.country}
+            </option>
+          ))}
+        </select>
+      </Field>
+    </div>
+  );
   return (
     <section className="stack" data-testid="country-comparison">
       <h2>One ECB shock, {result.results.length} national responses</h2>
-      <div className="row">
-        <Field label="Compare response">
-          <select
-            aria-label="Compare response"
-            value={response}
-            onChange={(e) => setResponse(e.target.value)}
-          >
-            {[
-              ...new Map(
-                all.map((c) => [
-                  c.variable,
-                  c.name.split(" · ").slice(1).join(" · "),
-                ]),
-              ).entries(),
-            ].map(([id, name]) => (
-              <option key={id} value={id}>
-                {name}
-              </option>
-            ))}
-          </select>
-        </Field>
-        {compact && (
-          <Field label="Country">
-            <select
-              data-testid="comparison-country"
-              value={country}
-              onChange={(e) => selectCountry(e.target.value)}
-            >
-              {result.results.map((r) => (
-                <option key={r.country} value={r.country}>
-                  {manifest.countries.find((c) => c.iso3 === r.country)?.name ??
-                    r.country}
-                </option>
-              ))}
-            </select>
-          </Field>
-        )}
-      </div>
       <p className="small muted">
         Shared y-axis for each response · 68% pointwise{" "}
         {String(result.config.model.params.displayed_band)} bands.{" "}
@@ -141,6 +142,10 @@ export function CountryComparison({
           .filter((c) => !compact || c.name.startsWith(selectedName + " · "))
           .map((c) => (
             <Chart
+              primary={c.name.startsWith(selectedName + " · ")}
+              controls={
+                c.name.startsWith(selectedName + " · ") ? controls : undefined
+              }
               estimateLabel="Response"
               comparisonShortLabel=""
               key={c.name}

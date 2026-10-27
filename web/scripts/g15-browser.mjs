@@ -175,7 +175,7 @@ try {
       report.accessibility.push({ name, width, violations });
       assert.equal(violations.length, 0, JSON.stringify(violations));
       await page
-        .getByTestId(testId)
+        .getByTestId(testId.endsWith("-results") ? "screen-results" : testId)
         .screenshot({ path: join(screens, `${name}-${width}.png`) });
     }
     await page.setViewportSize({ width: 1440, height: 1000 });
@@ -205,7 +205,7 @@ try {
       await page.getByTestId("v2-template-results").waitFor();
       if (name !== "ea_phillips_pooled")
         await page
-          .getByTestId("v2-template-results")
+          .getByTestId("screen-results")
           .locator("canvas")
           .first()
           .waitFor();
@@ -275,7 +275,14 @@ try {
       await page
         .getByRole("combobox", { name: "Pooled outcome", exact: true })
         .selectOption("gdp_real");
-      assert.match(await page.getByTestId("panel-results").innerText(), /GDP/);
+      assert.match(
+        await page
+          .getByTestId("screen-results")
+          .getByTestId("result-chart")
+          .first()
+          .innerText(),
+        /GDP/,
+      );
       await checkView(name + "-gdp", "screen-results");
       const event = page.waitForEvent("download");
       await page.getByTestId("export-png").click();

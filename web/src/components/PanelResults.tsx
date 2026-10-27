@@ -1,5 +1,5 @@
 import { sensitivityDisplayLabel } from "../sensitivityLabels";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import type { CountryResult, Indicator, JsonRecord, Manifest } from "../types";
 import { record, records, significant, text } from "../format";
 import { Chart } from "./Chart";
@@ -54,7 +54,9 @@ export function PanelResults({
   manifest,
   selectedCountry,
   onCountryChange,
+  chartControls,
 }: {
+  chartControls?: ReactNode;
   result: CountryResult;
   manifest: Manifest;
   selectedCountry?: string;
@@ -180,22 +182,28 @@ export function PanelResults({
       )}
       {lp && chart && (
         <>
-          <Field label="Overlay country">
-            <select
-              value={country}
-              onChange={(e) => {
-                setSelected(e.target.value);
-                onCountryChange?.(e.target.value);
-              }}
-            >
-              {countries.map((c) => (
-                <option key={c} value={c}>
-                  {name(c)}
-                </option>
-              ))}
-            </select>
-          </Field>
           <Chart
+            primary
+            controls={
+              <>
+                {chartControls}{" "}
+                <Field label="Overlay country">
+                  <select
+                    value={country}
+                    onChange={(e) => {
+                      setSelected(e.target.value);
+                      onCountryChange?.(e.target.value);
+                    }}
+                  >
+                    {countries.map((c) => (
+                      <option key={c} value={c}>
+                        {name(c)}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+              </>
+            }
             title={`Pooled response of ${outcome} and ${name(country)}`}
             unit={outcomeUnit ?? chart.unit}
             summary="Solid blue: pooled response with 68% pointwise panel band. Dashed orange: country LP on identical estimation dates. These are different slope restrictions, not an agreement count."

@@ -62,7 +62,7 @@ Estimate a conditional linear association.
 
 - **Key assumptions:** Regressors must be exogenous for the conditional mean.
 - **Inference:** HAC or HC1 standard errors and residual-df Student t intervals; HC1 does not address serial correlation.
-- **Reference:** [statsmodels OLS](https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLS.html). [Validation card](models/sing.ols.md).
+- **Reference:** [Newey–West (1987)](#covariance-and-prior-references) for HAC; [statsmodels OLS](https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.OLS.html). [Validation card](models/sing.ols.md).
 
 ### Autoregressive distributed lags · `sing.ardl`
 
@@ -158,7 +158,7 @@ Estimate a common slope with country effects, optionally time effects.
 
 - **Key assumptions:** Conditional exogeneity; pooled slopes need not describe every country. Lagged outcomes can create Nickell bias.
 - **Inference:** Driscoll–Kraay default; clustered and conventional alternatives; Student t intervals. Country OLS uses HAC(4) by default.
-- **Reference:** [linearmodels 7.0 PanelOLS reference implementation](https://pypi.org/project/linearmodels/7.0/). [Validation card](models/panel_fe.md).
+- **Reference:** [Driscoll–Kraay (1998)](#covariance-and-prior-references) for panel covariance; [linearmodels 7.0 PanelOLS reference implementation](https://pypi.org/project/linearmodels/7.0/). [Validation card](models/panel_fe.md).
 
 ### Panel local projections · `panel.lp`
 
@@ -176,7 +176,7 @@ Shrink a VAR through a conjugate normal–inverse-Wishart dummy-observation prio
 
 - **Key assumptions:** Prior/lag/order choices matter; own and cross-variable lags receive symmetric conjugate treatment. Default λ=0.2; AR(p) residuals set scales.
 - **Inference:** Seeded posterior draws; 68/90% pointwise credible response bands. Explosive draws are disclosed and retained unless explicitly filtered.
-- **Reference:** [Bańbura, Giannone and Reichlin, Large Bayesian VARs](https://www.ecb.europa.eu/pub/pdf/scpwps/ecbwp966.pdf). [Validation card](models/bvar_minn.md).
+- **Reference:** [Litterman (1986)](#covariance-and-prior-references) for the Minnesota prior; [Bańbura, Giannone and Reichlin, Large Bayesian VARs](https://www.ecb.europa.eu/pub/pdf/scpwps/ecbwp966.pdf). [Validation card](models/bvar_minn.md).
 
 ### ARIMA / SARIMAX · `uni.arima`
 
@@ -234,5 +234,15 @@ Shock identification is currently recursive. The reusable-shock interface does
 not supply a high-frequency or external-instrument shock dataset. New series
 such as EA-MPD require separate data-source approval. Double/debiased machine
 learning for shock identification is planned, not implemented. References above
-are drawn from the existing validation cards; software documentation is used
-where it specifies the implemented procedure.
+come from the existing validation cards or checked publisher records; software
+documentation is retained where it specifies the implemented procedure.
+
+## Covariance and prior references
+
+- Newey, Whitney K., and Kenneth D. West (1987). “A Simple, Positive Semi-Definite, Heteroskedasticity and Autocorrelation Consistent Covariance Matrix.” *Econometrica*, 55(3), 703–708. [doi:10.2307/1913610](https://doi.org/10.2307/1913610).
+- Driscoll, John C., and Aart C. Kraay (1998). “Consistent Covariance Matrix Estimation with Spatially Dependent Panel Data.” *The Review of Economics and Statistics*, 80(4), 549–560. [doi:10.1162/003465398557825](https://doi.org/10.1162/003465398557825).
+- Litterman, Robert B. (1986). “Forecasting With Bayesian Vector Autoregressions—Five Years of Experience.” *Journal of Business & Economic Statistics*, 4(1), 25–38. [doi:10.1080/07350015.1986.10509491](https://doi.org/10.1080/07350015.1986.10509491).
+
+These references describe covariance estimators and prior motivation. They do not
+validate a particular economic interpretation or replace the implementation
+choices and limitations in MacroLab's validation cards.

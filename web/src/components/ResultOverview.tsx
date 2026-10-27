@@ -1,3 +1,4 @@
+import { robustnessHeadlines } from "../resultFacts";
 import {
   parameterDisplayLabel,
   resultDisplayLabel,
@@ -10,6 +11,7 @@ import { chartData, termLabel } from "../resultData";
 import { countryIndicators } from "../displayLabels";
 import { templateTags } from "../uiData";
 import {
+  distinctFindings,
   warningTiers,
   readableCheckMessage,
   resultDisclosureChecks,
@@ -41,10 +43,14 @@ export function ResultOverview({
   result,
   manifest,
   edit,
+  numbersOnly = false,
+  hideNumbers = false,
 }: {
   result: AnalysisResult;
   manifest: Manifest;
   edit: () => void;
+  numbersOnly?: boolean;
+  hideNumbers?: boolean;
 }) {
   const r = result.results[0],
     title = resultName(result, manifest),
@@ -159,6 +165,20 @@ export function ResultOverview({
       ? `${r.actual_sample.start} → ${r.actual_sample.end}`
       : "No estimation sample",
   ]);
+  const numbers = (
+    <dl className="result-kpis">
+      {kpis.map(([label, value, note]) => (
+        <div key={label}>
+          <dt>{label}</dt>
+          <dd>
+            {value}
+            <small>{note}</small>
+          </dd>
+        </div>
+      ))}
+    </dl>
+  );
+  if (numbersOnly) return numbers;
   return (
     <header className="result-overview">
       <p className="breadcrumbs">
@@ -206,17 +226,7 @@ export function ResultOverview({
         <span>Snapshot {result.snapshot_id}</span>
       </div>
       <p className="result-label">{resultDisplayLabel(result.label)}</p>
-      <dl className="result-kpis">
-        {kpis.map(([label, value, note]) => (
-          <div key={label}>
-            <dt>{label}</dt>
-            <dd>
-              {value}
-              <small>{note}</small>
-            </dd>
-          </div>
-        ))}
-      </dl>
+      {!hideNumbers && numbers}
       {result.checks.some((c) => c.level === "block") && (
         <Checks
           checks={result.checks.filter((c) => c.level === "block")}
@@ -242,11 +252,6 @@ export function ResultRail({
   result,
   manifest,
   showResponse,
-  exportCsv,
-  exportPython,
-  exportLatex,
-  exportPng,
-  busy,
   previouslyDisplayedChecks,
 }: {
   result: AnalysisResult;
@@ -260,6 +265,13 @@ export function ResultRail({
   previouslyDisplayedChecks?: Check[];
 }) {
   const tiers = warningTiers(result.checks);
+  const headlines = robustnessHeadlines(result, manifest);
+  const findings = distinctFindings(result.checks);
+  const firstFinding =
+    tiers.blocking[0] ??
+    tiers.important[0] ??
+    tiers.notes[0] ??
+    tiers.sourceFindings[0];
   const disclosed = resultDisclosureChecks(
     result.checks,
     previouslyDisplayedChecks,
@@ -284,6 +296,14 @@ export function ResultRail({
           Existing comparisons, with their original estimands and
           material-change flags.
         </p>
+        {headlines.map((headline, i) => (
+          <div key={i} className="robustness-headline">
+            <p>
+              <strong>{headline.line}</strong>
+            </p>
+            <p className="small muted">{headline.scope}</p>
+          </div>
+        ))}
         <div className="robust-row">
           <strong>Current specification</strong>
           <span className="badge">Default</span>
@@ -374,8 +394,11 @@ export function ResultRail({
       </section>
       <section className="card stack">
         <p className="overline">Read before citing</p>
-        <h2>{tiers.importantCount} important findings</h2>
-        {tiers.important.slice(0, 4).map((c, i) => (
+        <h2>{findings.length} findings in total</h2>
+        <p className="small muted">
+          {tiers.importantCount} important findings · complete list in Details
+        </p>
+        {(firstFinding ? [firstFinding] : []).map((c, i) => (
           <p className="compact-finding" key={i}>
             {c.instances.some((instance) => disclosed.has(instance)) && (
               <span className="warning-phase">Found after estimation</span>
@@ -383,7 +406,7 @@ export function ResultRail({
             {readableCheckMessage(c, manifest.indicators)}
           </p>
         ))}
-        {!tiers.importantCount && (
+        {!findings.length && (
           <p className="small muted">
             No important findings for this specification. Source notes and
             technical details remain below.
@@ -392,30 +415,6 @@ export function ResultRail({
         <button className="link" onClick={() => jump("#all-findings")}>
           All findings, source notes & technical details ↗
         </button>
-      </section>
-      <section className="card stack">
-        <p className="overline">Take it with you</p>
-        <h2>Export this result</h2>
-        <div className="export-grid">
-          <button disabled={busy || result.status !== "ok"} onClick={exportPng}>
-            PNG
-          </button>
-          <button disabled={busy} onClick={exportCsv}>
-            CSV
-          </button>
-          <button disabled={busy} onClick={exportLatex}>
-            LaTeX table
-          </button>
-          <button
-            disabled={busy || result.status !== "ok"}
-            onClick={exportPython}
-          >
-            Python
-          </button>
-        </div>
-        <p className="small muted">
-          The snapshot, sample and full precision travel with the export.
-        </p>
       </section>
     </aside>
   );
@@ -500,6 +499,49 @@ export function ResultTableView({
           )}
         </section>
       ))}
+    </section>
+  );
+}
+
+export function ResultExports({
+  result,
+  busy,
+  exportCsv,
+  exportPython,
+  exportLatex,
+  exportPng,
+}: {
+  result: AnalysisResult;
+  busy: boolean;
+  exportCsv: () => void;
+  exportPython: () => void;
+  exportLatex: () => void;
+  exportPng: () => void;
+}) {
+  return (
+    <section className="card stack">
+      <p className="overline">Take it with you</p>
+      <h2>Export this result</h2>
+      <div className="export-grid">
+        <button disabled={busy || result.status !== "ok"} onClick={exportPng}>
+          PNG
+        </button>
+        <button disabled={busy} onClick={exportCsv}>
+          CSV
+        </button>
+        <button disabled={busy} onClick={exportLatex}>
+          LaTeX table
+        </button>
+        <button
+          disabled={busy || result.status !== "ok"}
+          onClick={exportPython}
+        >
+          Python
+        </button>
+      </div>
+      <p className="small muted">
+        The snapshot, sample and full precision travel with the export.
+      </p>
     </section>
   );
 }

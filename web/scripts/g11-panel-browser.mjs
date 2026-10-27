@@ -225,7 +225,10 @@ try {
         await wrap.evaluate((e) => (e.scrollLeft = 0));
       }
       if (name.startsWith("panel_lp_") && testId === "panel-results") {
-        const chart = page.getByTestId(testId).getByTestId("result-chart");
+        const chart = page
+          .getByTestId("screen-results")
+          .getByTestId("result-chart")
+          .first();
         assert.match(
           await chart.locator("figcaption").innerText(),
           /Pooled response of Real GDP.*Germany[\s\S]*cumulative % change/,
@@ -270,7 +273,7 @@ try {
       report.presentation.push({ name, width, passed: true });
       if (!process.env.MACROLAB_SKIP_SCREENSHOTS)
         await page
-          .getByTestId(testId)
+          .getByTestId(testId.endsWith("-results") ? "screen-results" : testId)
           .screenshot({ path: join(screens, `${name}-${width}.png`) });
     }
     await page.setViewportSize({ width: 1440, height: 1000 });
@@ -403,12 +406,18 @@ try {
     if (name === "panel_lp_4") {
       await page.getByLabel("Overlay country").selectOption("ESP");
       assert.match(
-        await page.getByTestId("panel-results").innerText(),
+        await page
+          .getByTestId("screen-results")
+          .getByTestId("result-chart")
+          .first()
+          .innerText(),
         /Spain/,
       );
       const event = page.waitForEvent("download");
       await page
-        .getByTestId("panel-results")
+        .getByTestId("screen-results")
+        .getByTestId("result-chart")
+        .first()
         .getByRole("button", { name: /Export PNG:/ })
         .click();
       await (

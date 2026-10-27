@@ -29,6 +29,7 @@ import type {
 } from "../types";
 import { DataTable, Field } from "./Common";
 import { analysisErrorMessage } from "../analysisErrors";
+import { canonicalChartImage } from "../additionalPngExport";
 echarts.use([
   LineChart,
   ScatterChart,
@@ -47,6 +48,7 @@ function ViewChart({
   legend,
   rows,
   snapshot,
+  exportWidth = 966,
 }: {
   name: string;
   summary: string;
@@ -56,6 +58,7 @@ function ViewChart({
   legend: string[];
   rows: JsonRecord[];
   snapshot: string;
+  exportWidth?: 966 | 916;
 }) {
   const ref = useRef<HTMLDivElement>(null),
     instance = useRef<echarts.EChartsType | null>(null),
@@ -259,10 +262,11 @@ function ViewChart({
                 a.download = name + ".png";
                 a.click();
               };
-              img.src = c.getDataURL({
-                pixelRatio: 2,
-                backgroundColor: theme === "dark" ? "#131816" : "#ffffff",
-              });
+              img.src = canonicalChartImage(
+                c,
+                exportWidth,
+                theme === "dark" ? "#131816" : "#ffffff",
+              );
             } catch (e) {
               setError(analysisErrorMessage(e));
             }
@@ -635,6 +639,7 @@ export function ForecastViews({
       </Field>
       <ViewChart
         name={`Actual vs forecasts · ${outcome} · horizon ${selectedHorizon}`}
+        exportWidth={916}
         xTitle="Target period"
         yTitle={unit}
         summary="Pseudo-out-of-sample, final-vintage data; real-time performance may be worse. Each point uses the recorded forecast for this horizon, made at its displayed origin. Missing/failed origins remain absent; no new forecast is fitted."
@@ -645,6 +650,7 @@ export function ForecastViews({
       />
       <ViewChart
         name="RMSE by horizon"
+        exportWidth={916}
         xTitle={`Forecast horizon (${result.actual_sample.frequency === "M" ? "months" : "quarters"})`}
         yTitle={unit}
         summary="Recorded RMSE on paired common origins for each horizon; lower is better. Random walk is the reference. The scoring samples can differ across horizons."

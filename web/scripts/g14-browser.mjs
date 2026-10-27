@@ -179,7 +179,7 @@ try {
         process.env.MACROLAB_SCREENSHOT_CASES.split(",").includes(name)
       )
         await page
-          .getByTestId(testId)
+          .getByTestId(testId.endsWith("-results") ? "screen-results" : testId)
           .screenshot({ path: join(screens, `${name}-${width}.png`) });
     }
     await page.setViewportSize({ width: 1440, height: 1000 });
@@ -223,7 +223,7 @@ try {
       );
       assert.equal(result.status, "ok", JSON.stringify(result.checks));
       await page
-        .getByTestId("diagnostic-results")
+        .getByTestId("screen-results")
         .locator("canvas")
         .first()
         .waitFor();
@@ -242,13 +242,15 @@ try {
     report.cases.push({ name, ...comparison });
     if (name === "break_ecb") {
       const sources = page.locator("details").filter({
-        has: page.locator("summary", { hasText: "Selected EA source cards" }),
+        has: page.locator(":scope > summary", {
+          hasText: "Selected EA source cards",
+        }),
       });
-      await sources.locator("summary").click();
+      await sources.locator(":scope > summary").click();
       assert.match(await sources.innerText(), /Source: European Central Bank/);
       assert.match(await sources.innerText(), /ECB DFR/);
       await checkView("break-ecb-source-cards", "screen-results");
-      await sources.locator("summary").click();
+      await sources.locator(":scope > summary").click();
       report.presentation.push(
         "Selected ECB DFR and SA HICP attribution cards are visible",
       );
@@ -279,10 +281,7 @@ try {
           .getByRole("combobox", { name: "Diagnostic chart", exact: true })
           .selectOption(String(index));
         assert(
-          await page
-            .getByTestId("diagnostic-results")
-            .locator("canvas")
-            .count(),
+          await page.getByTestId("screen-results").locator("canvas").count(),
         );
       }
       await page
@@ -321,7 +320,7 @@ try {
         .selectOption("1");
       const event = page.waitForEvent("download");
       await page
-        .getByTestId("diagnostic-results")
+        .getByTestId("screen-results")
         .getByRole("button", { name: /Export PNG:/ })
         .click();
       await (
