@@ -11,16 +11,12 @@ describe("G3 application boot", () => {
       expect(markup).toContain('href="#main-content"');
       expect(markup).toContain('id="main-content"');
       expect(markup).toContain('aria-label="Main navigation"');
-      for (const screen of [
-        "home",
-        "builder",
-        "library",
-        "results",
-        "data",
-        "methods",
-      ]) {
+      for (const screen of ["home", "builder", "data", "methods"]) {
         expect(markup).toContain(`data-testid="nav-${screen}"`);
       }
+      expect(markup).not.toContain('data-testid="nav-library"');
+      expect(markup).not.toContain('data-testid="nav-results"');
+      expect(markup).toContain(">About</button>");
       expect(markup).toContain("Preparing your workspace");
       expect(markup).toContain(`${buildVersion} · Data snapshot …`);
       expect(markup).toContain('href="https://hakangulmez.github.io/"');

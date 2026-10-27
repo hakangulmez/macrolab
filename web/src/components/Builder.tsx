@@ -7,7 +7,7 @@ import { diagnosticModel } from "../diagnosticModels";
 import { forecastModel } from "../forecast";
 import { BvarControls } from "./BvarControls";
 import { countryIndicators } from "../displayLabels";
-import { useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import type {
   AnalysisConfig,
   Card,
@@ -32,6 +32,10 @@ import "./builder.css";
 import { PanelControls } from "./PanelControls";
 import { TemplateControls } from "./TemplateControls";
 interface Props {
+  browseMethods?: () => void;
+  methodsOpen?: boolean;
+  methodBrowser?: ReactNode;
+  recentResults?: ReactNode;
   manifest: Manifest;
   config: AnalysisConfig;
   setConfig: (c: AnalysisConfig) => void;
@@ -46,6 +50,10 @@ interface Props {
   openSource?: (country: string, conceptId: string) => void;
 }
 export function Builder({
+  browseMethods,
+  methodsOpen,
+  methodBrowser,
+  recentResults,
   manifest,
   config,
   setConfig,
@@ -59,6 +67,15 @@ export function Builder({
   fix,
   openSource,
 }: Props) {
+  const browserSlot = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (methodsOpen) {
+      browserSlot.current?.scrollIntoView({ block: "start" });
+      browserSlot.current
+        ?.querySelector<HTMLElement>("#browse-methods")
+        ?.focus();
+    }
+  }, [methodsOpen]);
   const [countrySearch, setCountrySearch] = useState("");
   const [indicatorSearch, setIndicatorSearch] = useState("");
   const [category, setCategory] = useState("All");
@@ -161,6 +178,7 @@ export function Builder({
           </button>
         ))}
       </nav>
+      <div ref={browserSlot}>{methodBrowser}</div>
       <div className="builder-grid">
         <div className="stack">
           <section id="step-Countries" className="card stack">
@@ -472,29 +490,40 @@ export function Builder({
         <aside className="stack sidebar">
           <section id="step-Model" className="card stack">
             <h2>3 · Model &amp; sample</h2>
-            <Field label="Method">
-              <select
-                value={config.model.id}
-                disabled={isTemplate}
-                onChange={(e) => selectModel(e.target.value)}
-              >
-                {manifest.models.map((m) => (
-                  <option
-                    key={m.id}
-                    value={m.id}
-                    disabled={
-                      !m.id.startsWith("panel.") &&
-                      !forecastModel(m.id) &&
-                      m.id !== "bvar.minn" &&
-                      !diagnosticModel(m.id) &&
-                      models?.find((x) => x.id === m.id)?.available === false
-                    }
-                  >
-                    {m.title}
-                  </option>
-                ))}
-              </select>
-            </Field>
+            <div className="method-picker-row">
+              <Field label="Method">
+                <select
+                  value={config.model.id}
+                  disabled={isTemplate}
+                  onChange={(e) => selectModel(e.target.value)}
+                >
+                  {manifest.models.map((m) => (
+                    <option
+                      key={m.id}
+                      value={m.id}
+                      disabled={
+                        !m.id.startsWith("panel.") &&
+                        !forecastModel(m.id) &&
+                        m.id !== "bvar.minn" &&
+                        !diagnosticModel(m.id) &&
+                        models?.find((x) => x.id === m.id)?.available === false
+                      }
+                    >
+                      {m.title}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+              {browseMethods && (
+                <button
+                  onClick={browseMethods}
+                  aria-expanded={Boolean(methodsOpen)}
+                  aria-controls="browse-methods"
+                >
+                  Browse methods
+                </button>
+              )}
+            </div>
             <p className="small muted">{model.summary}</p>
             {blocked && (
               <section
@@ -925,6 +954,7 @@ export function Builder({
           </span>
         </aside>
       </div>
+      {recentResults}
     </section>
   );
 }

@@ -1,6 +1,6 @@
 # MacroLab
 
-Version 2.2.2.
+Version 2.3.0.
 
 Official macroeconomic data and validated econometrics in the browser, with assumptions, data gaps and sensitivity visible.
 

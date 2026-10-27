@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.3.0 — navigation and structure
+
+Explore, Data and Build are the three main navigation items. The complete method
+library is available from Browse methods in Build; About retains the Methods,
+validation, data and licence content and now includes the method families and
+sources previously on Explore. Explore puts the existing templates after the
+hero and provides a short dataset link. Recent results on Explore and Build
+rerun locally stored configurations; old hash routes and share links remain
+supported. No scientific runtime, data, default, warning or export-value changes;
+PNG/LaTeX build-version text changes only. Later UX phases are not included.
+
+
 ## 2.2.2
 
 - Add public Methods and Validation guides and a Methods-page validation link.

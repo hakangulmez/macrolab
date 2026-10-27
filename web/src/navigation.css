@@ -1,0 +1,89 @@
+/* Phase 1 only: navigation and placement, with existing visual tokens. */
+.header-about {
+  font-size: 12px;
+  white-space: nowrap;
+}
+.header-about[aria-current="page"] {
+  color: var(--ink);
+  text-decoration: underline;
+}
+.site-nav {
+  flex-wrap: nowrap;
+}
+.explore-reference-links {
+  margin-top: 12px;
+}
+.recent-results {
+  margin-top: 28px;
+}
+.recent-results-list {
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 12px;
+}
+.recent-results-list button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 6px;
+  height: 100%;
+  width: 100%;
+}
+.method-picker-row {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.method-picker-row > label {
+  flex: 1 1 180px;
+  min-width: 0;
+}
+.method-picker-row > button {
+  flex: 0 1 auto;
+  font-size: 12px;
+}
+.method-browser {
+  scroll-margin-top: 24px;
+  margin: 20px 0;
+}
+.method-browser .page-heading h3 {
+  font-size: 28px;
+}
+.method-browser .model-card h4 {
+  font-size: 20px;
+}
+.about-contents {
+  gap: 16px;
+  padding: 16px 0;
+  border-block: 1px solid var(--border);
+}
+.empty-explore-link {
+  text-align: center;
+}
+@media (max-width: 760px) {
+  .header-inner {
+    gap: 10px;
+  }
+  .header-search {
+    width: 100%;
+  }
+  .site-nav {
+    overflow: visible;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  .site-nav button {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+  .method-browser {
+    padding: 16px;
+  }
+  .method-browser .model-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

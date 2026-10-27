@@ -22,6 +22,7 @@ export function Library({
   busy,
   selectModel,
   config,
+  embedded = false,
 }: {
   manifest: Manifest;
   compatibility: Model[] | null;
@@ -29,7 +30,10 @@ export function Library({
   busy: boolean;
   selectModel: (m: Model) => void;
   config: AnalysisConfig;
+  embedded?: boolean;
 }) {
+  const Heading = embedded ? "h3" : "h1";
+  const CardHeading = embedded ? "h4" : "h2";
   const [family, setFamily] = useState("All");
   const models = compatibility ?? manifest.models;
   const families = ["All", ...new Set(models.map((m) => m.family))];
@@ -37,7 +41,7 @@ export function Library({
     <section data-testid="screen-library" className="stack">
       <div className="page-heading">
         <span className="overline">Model library · validated methods</span>
-        <h1>A method for the question you’re asking.</h1>
+        <Heading>A method for the question you’re asking.</Heading>
         <p>
           Inspect assumptions before choosing. Compatibility is checked against
           your current countries, roles, transformations and actual data.
@@ -80,7 +84,7 @@ export function Library({
                   </span>
                   <span className="small muted">In your browser</span>
                 </div>
-                <h2>{m.title}</h2>
+                <CardHeading>{m.title}</CardHeading>
                 <p>{m.summary}</p>
                 {validationCards[m.id] && (
                   <a

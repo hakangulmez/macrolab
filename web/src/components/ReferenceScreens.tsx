@@ -1,3 +1,4 @@
+import { AboutSections } from "./AboutSections";
 import { buildVersion, snapshotDate } from "../version";
 import { countryIndicators } from "../displayLabels";
 import { useEffect, useMemo, useState } from "react";
@@ -649,7 +650,19 @@ function scientific(value: unknown): string {
     : "Not reported";
 }
 
-export function Methods({ manifest }: { manifest: Manifest }) {
+export function Methods({
+  manifest,
+  models = () => {},
+  anchor = "",
+}: {
+  manifest: Manifest;
+  models?: () => void;
+  anchor?: string;
+}) {
+  useEffect(() => {
+    if (anchor)
+      document.getElementById(anchor)?.scrollIntoView({ block: "start" });
+  }, [anchor]);
   const localOnly =
     manifest.publication?.local_only_comparison === true ||
     manifest.publication?.source_mode === "all";
@@ -682,6 +695,11 @@ export function Methods({ manifest }: { manifest: Manifest }) {
           </a>
         </p>
       </header>
+      <nav className="about-contents row" aria-label="About contents">
+        <a href="#methods-validation">Methods &amp; validation</a>
+        <a href="#source-terms">Data &amp; sources</a>
+        <a href="#diagnostic-rules">Reading results</a>
+      </nav>
       <section className="card stack" aria-labelledby="about-macrolab">
         <h2 id="about-macrolab">About MacroLab</h2>
         <p>MacroLab is a non-commercial research and teaching tool.</p>
@@ -729,7 +747,12 @@ export function Methods({ manifest }: { manifest: Manifest }) {
           sensitivity variants.
         </p>
       </section>
-      <section className="overview-grid" aria-label="Validation summary">
+      <AboutSections manifest={manifest} models={models} />
+      <section
+        id="methods-validation"
+        className="overview-grid"
+        aria-label="Validation summary"
+      >
         <div className="card stack">
           <span className="overline">Reference checks</span>
           <h2>

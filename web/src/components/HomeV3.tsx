@@ -1,13 +1,11 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useState, type ReactNode } from "react";
 import type { Manifest, Template } from "../types";
 import {
   datasetCounts,
-  methodFamilies,
   newInV2,
   templateCountries,
   templateTags,
 } from "../uiData";
-import { CoverageLegend, CoverageMatrix } from "./CoverageMatrix";
 import { snapshotDate } from "../version";
 const InflationHero = lazy(() => import("./InflationHero"));
 export function Home({
@@ -15,7 +13,8 @@ export function Home({
   select,
   start,
   catalogue,
-  models,
+  about,
+  recentResults,
 }: {
   manifest: Manifest;
   select: (t: Template) => void;
@@ -26,7 +25,9 @@ export function Home({
     category?: string;
     region?: string;
   }) => void;
-  models: () => void;
+  models?: () => void;
+  about?: (section: string) => void;
+  recentResults?: ReactNode;
 }) {
   const [filter, setFilter] = useState("All");
   const counts = datasetCounts(manifest);
@@ -41,16 +42,6 @@ export function Home({
           ].includes(t.id)
         ? "Shocks"
         : "Relationships";
-  const sources = [
-    ...new Set(
-      manifest.sources
-        .map((s) => String(s.name))
-        .filter((s) => !["FRED", "World Bank Pink Sheet"].includes(s))
-        .map((s) =>
-          s.startsWith("IMF") ? "IMF" : s.startsWith("U.S.") ? "U.S. EIA" : s,
-        ),
-    ),
-  ];
   return (
     <section className="home-v3 stack" data-testid="screen-home">
       <div className="home-hero">
@@ -198,59 +189,21 @@ export function Home({
           </div>
           <button onClick={() => catalogue()}>Open dataset explorer ↗</button>
         </div>
-        <div className="card">
-          <CoverageLegend manifest={manifest} />
-          <CoverageMatrix manifest={manifest} compact />
-        </div>
         <p className="small muted">
           Data snapshot {snapshotDate(manifest.as_of_date)}. Shared global
           factors appear for each economy. Source definitions and limitations
           remain attached to every series.
         </p>
       </section>
-      <section className="section-v3">
-        <div className="section-heading">
-          <div>
-            <p className="overline">Methods, with their assumptions</p>
-            <h2>{counts.methods} validated methods.</h2>
-          </div>
-          <button className="link" onClick={models}>
-            Explore the model library ↗
-          </button>
-        </div>
-        <div className="method-family-grid">
-          {methodFamilies.map((f) => (
-            <button key={f.name} onClick={models}>
-              <span className="mono">
-                {manifest.models
-                  .filter((m) => f.ids.includes(m.id))
-                  .length.toString()
-                  .padStart(2, "0")}
-              </span>
-              <strong>{f.name}</strong>
-              <small>
-                {manifest.models
-                  .filter((m) => f.ids.includes(m.id))
-                  .map((m) => m.title)
-                  .join(" · ")}
-              </small>
-              <span aria-hidden="true">↗</span>
-            </button>
-          ))}
-        </div>
-      </section>
-      <section className="source-strip">
-        <p className="overline">Official sources. Visible limits.</p>
-        <div>
-          {sources.map((s) => (
-            <span key={s}>{s}</span>
-          ))}
-        </div>
-        <p className="small muted">
-          Every series carries attribution and a coverage record. Data terms
-          differ by source. Missing data stay missing.
-        </p>
-      </section>
+      <div className="row explore-reference-links">
+        <button className="link" onClick={() => about?.("method-families")}>
+          Methods &amp; families →
+        </button>
+        <button className="link" onClick={() => about?.("official-sources")}>
+          Official sources &amp; data terms →
+        </button>
+      </div>
+      {recentResults}
     </section>
   );
 }

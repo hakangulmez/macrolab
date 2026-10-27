@@ -21,10 +21,18 @@ import type {
   Template,
 } from "./types";
 import { download, text } from "./format";
+import { routeFromHash, screenHash } from "./navigation";
+import {
+  readRecentResults,
+  rememberResult,
+  type RecentResult,
+} from "./recentResults";
+import { RecentResults } from "./components/RecentResults";
 import { Home, Library } from "./components/Explore";
 import { PublicationNotice } from "./components/PublicationNotice";
 import "./styles.css";
 import "./ui-v3.css";
+import "./navigation.css";
 import { useTheme, setTheme } from "./theme";
 import { SeriesSearch } from "./components/SeriesSearch";
 const DatasetExplorer = lazy(() => import("./components/DatasetExplorer"));
@@ -49,11 +57,8 @@ const Methods = lazy(() =>
 );
 const NAV: [Screen, string][] = [
   ["home", "Explore"],
-  ["builder", "Build"],
-  ["library", "Models"],
   ["data", "Data"],
-  ["results", "Results"],
-  ["methods", "Methods"],
+  ["builder", "Build"],
 ];
 export function App() {
   const theme = useTheme();
@@ -65,14 +70,36 @@ export function App() {
     category?: string;
     region?: string;
   }>({});
-  const [screen, setScreen] = useState<Screen>(() =>
-    typeof location !== "undefined" &&
-    ["data", "builder", "library", "results", "methods"].includes(
-      location.hash.slice(1),
-    )
-      ? (location.hash.slice(1) as Screen)
-      : "home",
+  const [route, setRoute] = useState(
+    () =>
+      (typeof location !== "undefined" && routeFromHash(location.hash)) || {
+        screen: "home" as Screen,
+        methodsOpen: false,
+      },
   );
+  const { screen, methodsOpen } = route;
+  const [recent, setRecent] = useState<RecentResult[]>([]);
+  const [aboutAnchor, setAboutAnchor] = useState(() =>
+    typeof location !== "undefined" &&
+    routeFromHash(location.hash)?.screen === "methods"
+      ? location.hash.slice(1)
+      : "",
+  );
+  useEffect(() => {
+    const followLocation = () => {
+      const next = routeFromHash(location.hash);
+      if (next) {
+        setRoute(next);
+        if (next.screen === "methods") setAboutAnchor(location.hash.slice(1));
+      }
+    };
+    window.addEventListener("popstate", followLocation);
+    window.addEventListener("hashchange", followLocation);
+    return () => {
+      window.removeEventListener("popstate", followLocation);
+      window.removeEventListener("hashchange", followLocation);
+    };
+  }, []);
   const [bundles, setBundles] = useState<Record<string, CountryBundle>>({});
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [resultKnownChecks, setResultKnownChecks] = useState<Check[]>([]);
@@ -103,6 +130,9 @@ export function App() {
         }).compile<AnalysisConfig>(schema);
         if (!active) return;
         setManifest(m);
+        setRecent(
+          readRecentResults((value) => Boolean(validator.current?.(value))),
+        );
         const token = new URL(location.href).searchParams.get("c");
         let initial = m.templates.find(
           (t) => t.id === "monetary_policy",
@@ -117,7 +147,7 @@ export function App() {
               );
             if (active) {
               setRuntimeStatus("ready");
-              setScreen("builder");
+              setRoute({ screen: "builder", methodsOpen: false });
             }
           } finally {
             if (active) {
@@ -185,16 +215,27 @@ export function App() {
     };
   }, [config]);
   function navigate(next: Screen) {
-    if (next === "builder" && runtimeStatus !== "ready")
+    const target = routeFromHash(screenHash(next))!;
+    if (target.screen === "builder" && runtimeStatus !== "ready")
       setRuntimeStatus("preparing");
-    setScreen(next);
+    setRoute(target);
     const url = new URL(location.href);
-    url.hash = next === "home" ? "" : next;
-    history.replaceState(null, "", url);
+    url.hash = screenHash(next);
+    if (url.href !== location.href) history.pushState(null, "", url);
     setError("");
     requestAnimationFrame(() =>
-      document.getElementById("main-content")?.focus(),
+      document
+        .getElementById(target.methodsOpen ? "browse-methods" : "main-content")
+        ?.focus(),
     );
+  }
+  function openAbout(anchor = "") {
+    setAboutAnchor(anchor);
+    navigate("methods");
+    requestAnimationFrame(() => {
+      if (anchor)
+        document.getElementById(anchor)?.scrollIntoView({ block: "start" });
+    });
   }
   function openSource(country: string, conceptId: string) {
     setCatalogueSelection({ country, search: conceptId });
@@ -247,11 +288,15 @@ export function App() {
           }),
         )
     : [];
-  async function execute(next: AnalysisConfig, compatibility = false) {
+  async function execute(
+    next: AnalysisConfig,
+    compatibility = false,
+    knownOverride?: Check[],
+  ) {
     if (busy) return;
     const id = ++requestId.current;
     // Snapshot the exact pre-run disclosure separately from mutable Builder state.
-    const knownChecks = structuredClone(builderChecks);
+    const knownChecks = structuredClone(knownOverride ?? builderChecks);
     setBusy(true);
     setError("");
     setProgress("Loading selected snapshot data…");
@@ -284,6 +329,8 @@ export function App() {
         setResult(output);
         setResultKnownChecks(knownChecks);
         setRawConfig(output.config);
+        if (output.status !== "blocked" && output.status !== "error")
+          setRecent((current) => rememberResult(current, output.config));
         setChecks(output.checks);
         setShareUrl("");
         navigate("results");
@@ -298,6 +345,19 @@ export function App() {
         setBusy(false);
         setProgress("");
       }
+    }
+  }
+  function reopenRecent(entry: RecentResult) {
+    if (busy) return;
+    const next = structuredClone(entry.config);
+    try {
+      validate(next);
+      setConfig(next);
+      setResult(null);
+      navigate("builder");
+      void execute(next, false, []);
+    } catch (e: unknown) {
+      setError(analysisErrorMessage(e));
     }
   }
   function select(t: Template) {
@@ -474,6 +534,14 @@ export function App() {
         >
           {theme === "dark" ? "Light" : "Dark"}
         </button>
+        <button
+          className="link header-about"
+          data-testid="nav-methods"
+          aria-current={screen === "methods" ? "page" : undefined}
+          onClick={() => openAbout()}
+        >
+          About
+        </button>
         <div className="snapshot">
           <span className="badge draft">
             {buildVersion} · Data snapshot {snapshotDate(manifest?.as_of_date)}
@@ -546,7 +614,15 @@ export function App() {
               manifest={manifest}
               select={select}
               start={() => navigate("builder")}
-              models={() => navigate("library")}
+              about={openAbout}
+              recentResults={
+                <RecentResults
+                  entries={recent}
+                  manifest={manifest}
+                  busy={busy}
+                  reopen={reopenRecent}
+                />
+              }
               catalogue={(selection = {}) => {
                 setCatalogueSelection(selection);
                 navigate("data");
@@ -554,6 +630,42 @@ export function App() {
             />
           ) : screen === "builder" ? (
             <Builder
+              browseMethods={() => navigate("library")}
+              methodsOpen={methodsOpen}
+              methodBrowser={
+                methodsOpen ? (
+                  <section
+                    id="browse-methods"
+                    className="method-browser card stack"
+                    tabIndex={-1}
+                    aria-label="Browse methods"
+                  >
+                    <div className="row between">
+                      <h2>Browse methods</h2>
+                      <button onClick={() => navigate("builder")}>
+                        Close method browser
+                      </button>
+                    </div>
+                    <Library
+                      manifest={manifest}
+                      compatibility={compatible}
+                      check={() => void execute(config, true)}
+                      busy={busy}
+                      selectModel={selectModel}
+                      config={config}
+                      embedded
+                    />
+                  </section>
+                ) : null
+              }
+              recentResults={
+                <RecentResults
+                  entries={recent}
+                  manifest={manifest}
+                  busy={busy}
+                  reopen={reopenRecent}
+                />
+              }
               openSource={openSource}
               manifest={manifest}
               config={config}
@@ -567,30 +679,30 @@ export function App() {
               check={() => void execute(config, true)}
               fix={applyFix}
             />
-          ) : screen === "library" ? (
-            <Library
-              manifest={manifest}
-              compatibility={compatible}
-              check={() => void execute(config, true)}
-              busy={busy}
-              selectModel={selectModel}
-              config={config}
-            />
           ) : screen === "results" ? (
-            <Results
-              runtime={runtime}
-              previouslyDisplayedChecks={resultKnownChecks}
-              onSourceCard={openSource}
-              bundles={bundles}
-              result={result}
-              manifest={manifest}
-              busy={busy}
-              rerun={(next) => void execute(next)}
-              exportPython={() => void exportPython()}
-              share={() => void share()}
-              shareUrl={shareUrl}
-              edit={() => navigate("builder")}
-            />
+            <>
+              <Results
+                runtime={runtime}
+                previouslyDisplayedChecks={resultKnownChecks}
+                onSourceCard={openSource}
+                bundles={bundles}
+                result={result}
+                manifest={manifest}
+                busy={busy}
+                rerun={(next) => void execute(next)}
+                exportPython={() => void exportPython()}
+                share={() => void share()}
+                shareUrl={shareUrl}
+                edit={() => navigate("builder")}
+              />
+              {!result && (
+                <p className="empty-explore-link">
+                  <button className="link" onClick={() => navigate("home")}>
+                    Explore templates →
+                  </button>
+                </p>
+              )}
+            </>
           ) : screen === "data" ? (
             <DatasetExplorer
               key={JSON.stringify(catalogueSelection)}
@@ -610,7 +722,11 @@ export function App() {
             </section>
           ) : (
             <section data-testid="screen-methods">
-              <Methods manifest={manifest} />
+              <Methods
+                manifest={manifest}
+                models={() => navigate("library")}
+                anchor={aboutAnchor}
+              />
             </section>
           )}
         </Suspense>
@@ -651,6 +767,9 @@ export function App() {
           Snapshot {text(manifest?.snapshot_id, "loading")} · Country notes are
           not yet published
           <span className="footer-links">
+            <button className="link" onClick={() => openAbout()}>
+              About
+            </button>
             <a
               href="https://github.com/hakangulmez/macrolab/blob/main/LICENSE"
               target="_blank"
@@ -658,7 +777,7 @@ export function App() {
             >
               MIT code licence
             </a>
-            <button className="link" onClick={() => navigate("methods")}>
+            <button className="link" onClick={() => openAbout("source-terms")}>
               Data terms
             </button>
             <a
