@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def prepare(snapshot: str, *, build: bool = False):
     marker = json.loads((ROOT / "data/manifests/refresh" / f"{snapshot}.json").read_text())
-    licence = json.loads((ROOT / "docs/G9_LICENCE_REVIEW.json").read_text())
+    licence = json.loads((ROOT / "docs/process/G9_LICENCE_REVIEW.json").read_text())
     if marker["status"] != "passed" or not licence["passed"]:
         raise ValueError("G9 requires a passed refresh and completed licence review")
     snapshot_manifest = json.loads(

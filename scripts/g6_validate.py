@@ -113,7 +113,7 @@ def run(kind, n, replications=200):
         "T": n,
         "replications": replications,
         "horizon": 12,
-        "protocol": "docs/G6_VALIDATION_PROTOCOL.md",
+        "protocol": "docs/process/G6_VALIDATION_PROTOCOL.md",
         "seconds": time.perf_counter() - started,
         "conditional": summaries(estimates, coverage, truth),
         "reference_maximum_absolute_difference": reference_diff,

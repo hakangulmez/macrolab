@@ -22,4 +22,4 @@ make static-build ACCEPTED_SITE=relative/path/to/published-v2.0.1-site
 
 The builder reports its output directory. Serve it under `/macrolab/` using a static HTTP server. Opening the HTML as a `file:` URL is insufficient for the worker and data fetches. The published v2.1.0 payload is also available on the repository's `gh-pages` branch.
 
-A new data refresh is separate from the presentation build. See [refresh instructions](DATA_REFRESH.md) and the [release procedure](RELEASE_CANDIDATE.md). Refreshing locally does not alter the published site or previous snapshots; failures or changed licence clauses require review.
+A new data refresh is separate from the presentation build. See [refresh instructions](DATA_REFRESH.md) and the [release procedure](process/RELEASE_CANDIDATE.md). Refreshing locally does not alter the published site or previous snapshots; failures or changed licence clauses require review.

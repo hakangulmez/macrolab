@@ -83,7 +83,7 @@ def main():
     assert all(r["passed"] for r in read("scale-validation"))
     assert (
         read("size-validation")["protocol_sha256"]
-        == hashlib.sha256((ROOT / "docs/G14_1_PROTOCOL.md").read_bytes()).hexdigest()
+        == hashlib.sha256((ROOT / "docs/process/G14_1_PROTOCOL.md").read_bytes()).hexdigest()
     )
     protected = read("accepted-files-before")
     for path, sha in protected.items():

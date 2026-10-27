@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-ACCEPTED_EVIDENCE = ROOT / "docs/G1_1_VERIFICATION.json"
+ACCEPTED_EVIDENCE = ROOT / "docs/process/G1_1_VERIFICATION.json"
 
 
 def digest(payload: bytes) -> str:

@@ -25,7 +25,7 @@ The default non-fuel history is shared by all 39 units, classified available_not
 The current IMF endpoint is
 <https://api.imf.org/external/sdmx/2.1/data/IMF.RES,PCPS,9.0.0/G001.PALLFNF+PNFUEL+PNRG.INDEX.M?startPeriod=1980>.
 Flow metadata: <https://api.imf.org/external/sdmx/2.1/dataflow/IMF.RES/PCPS/latest?references=all>.
-Licence review and exact reuse/restriction excerpts: [DATA.md](../DATA.md).
+Licence review and exact reuse/restriction excerpts: [DATA.md](../../DATA.md).
 
 ## ECB policy definitions and audit
 

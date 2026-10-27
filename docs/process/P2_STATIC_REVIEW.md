@@ -46,7 +46,7 @@ explains the exclusion, but its observations are absent and it cannot be added
 in the Builder. The interface therefore reports **33 indicators + 2 included
 global factors**. Country narratives remain withheld pending review.
 
-The full source decisions and evidence are in [DATA.md](../DATA.md). P1 remains
+The full source decisions and evidence are in [DATA.md](../../DATA.md). P1 remains
 historical evidence; its full-data comparison is local-only and must not be
 confused with P2.
 

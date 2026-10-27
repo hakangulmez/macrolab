@@ -1,6 +1,6 @@
 # MacroLab
 
-Version 2.2.1.
+Version 2.2.2.
 
 Official macroeconomic data and validated econometrics in the browser, with assumptions, data gaps and sensitivity visible.
 
@@ -22,6 +22,21 @@ Official macroeconomic data and validated econometrics in the browser, with assu
 - Run entirely in the browser through **Pyodide**, with no account or analysis server. The published app uses a bundled snapshot and does not request new data from providers.
 - Export results to **CSV, PNG, LaTeX tables and reproducible Python scripts**.
 - Read robustness beside each answer: actual samples, assumptions, warnings and sensitivity remain visible. Forecast-evaluation charts compare actual paths with forecasts and RMSE across horizons.
+
+## Who it's for
+
+MacroLab is for researchers and students exploring macroeconomic relationships,
+for teaching familiar methods, and for checking how results depend on samples
+and assumptions. It supports research exploration and robustness checks; it does
+not replace a study's identification strategy or expert judgement.
+
+## How results are validated
+
+Calculations are cross-checked against reference implementations and independent
+formulas, with stated tolerances. Simulations examine bias and interval coverage;
+frozen native/browser regressions and export checks detect unintended changes.
+Passing these checks does not validate an economic interpretation. See
+[how methods are validated](docs/VALIDATION.md) and the [method guide](docs/METHODS.md).
 
 ## Screenshots
 
@@ -142,6 +157,15 @@ MacroLab is a **non-commercial research and teaching tool**. Source revisions an
 - **ECB break-test size remains unreliable.** Do not treat its p-values as well-calibrated evidence.
 - Sensitivities are descriptive; they do not remove identification or model uncertainty. Different estimands are not combined in one agreement count.
 
+## Limitations and roadmap
+
+Shock identification is currently recursive: the ordering supplies the
+contemporaneous restrictions. MacroLab does not include high-frequency or
+external-instrument shock series such as EA-MPD; adding one requires separate
+approval of a new data source. The bundled data are a fixed snapshot, not a live
+feed. Double/debiased machine learning for shock identification is planned and
+is not an available method or a substitute for identification assumptions.
+
 ## Run locally and reproduce
 
 Use Python 3.11, `uv`, and a Node version supported by `web/package.json`. Python and JavaScript dependencies are pinned in `uv.lock` and `web/package-lock.json`.
@@ -161,10 +185,10 @@ For a self-contained calculation, download the result's **Python script**, follo
 
 ## Citation
 
-Hakan Zeki Gülmez (2026). _MacroLab_, version 2.2.1. https://github.com/hakangulmez/macrolab.
+Hakan Zeki Gülmez (2026). _MacroLab_, version 2.2.2. https://github.com/hakangulmez/macrolab.
 
 Machine-readable citation: [CITATION.cff](CITATION.cff). No DOI has been assigned.
 
 ## Licence
 
-Code: [MIT](LICENSE). **Data and data-derived outputs are not covered by the MIT licence; see [DATA.md](DATA.md).** Fonts use the SIL Open Font License (OFL); other software retains its own terms. See [software notices](docs/P1_SOFTWARE_NOTICES.md) and [runtime notices](third_party/runtime/SOURCE_AVAILABILITY.md).
+Code: [MIT](LICENSE). **Data and data-derived outputs are not covered by the MIT licence; see [DATA.md](DATA.md).** Fonts use the SIL Open Font License (OFL); other software retains its own terms. See [software notices](docs/SOFTWARE_NOTICES.md) and [runtime notices](third_party/runtime/SOURCE_AVAILABILITY.md).

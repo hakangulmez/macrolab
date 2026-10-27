@@ -676,6 +676,11 @@ export function Methods({ manifest }: { manifest: Manifest }) {
           Every result depends on data, transformations and assumptions. Review
           the model, its reference checks and the limits of its interpretation.
         </p>
+        <p>
+          <a href="https://github.com/hakangulmez/macrolab/blob/main/docs/VALIDATION.md">
+            How methods are validated →
+          </a>
+        </p>
       </header>
       <section className="card stack" aria-labelledby="about-macrolab">
         <h2 id="about-macrolab">About MacroLab</h2>

@@ -190,7 +190,7 @@ def main():
         "was pushed, deployed or published. G2.1 flows directly into G3 review.",
         "",
     ]
-    (ROOT / "docs/G2_1_RESULTS.md").write_text("\n".join(lines))
+    (ROOT / "docs/process/G2_1_RESULTS.md").write_text("\n".join(lines))
     print(json.dumps({"templates": len(templates), "references": len(models), "status": "passed"}))
 
 

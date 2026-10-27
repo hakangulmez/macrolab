@@ -93,7 +93,7 @@ it("serializes full precision into LaTeX without mutating any result or replacin
   expect(tex).toContain("0.000004321");
   expect(tex).toContain("\\&");
   expect(tex).toContain("\\_");
-  expect(tex).toContain("MacroLab v2.2.1; scientific runtime 2.0.0");
+  expect(tex).toContain("MacroLab v2.2.2; scientific runtime 2.0.0");
   expect(JSON.stringify(result)).toBe(before);
 });
 it("keeps material flags and different-estimand exclusions distinct in the compact rail", () => {

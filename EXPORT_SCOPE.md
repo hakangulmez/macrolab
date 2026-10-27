@@ -6,68 +6,68 @@ This export excludes the following tracked review material. Ignored local datase
 
 - `DECISIONS.md` — Private gate review/decision record.
 - `OPEN_ISSUES.md` — Private gate review/decision record.
-- `docs/COUNTRY_NOTES_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/COVERAGE_G1.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/COVERAGE_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/DATA_AUDIT.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/DATA_AUDIT_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/FALLBACKS_G1.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G0_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G10_STALE_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G13_LOSS_ATTRIBUTION.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G14_1_BREAK_CHANGES.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G14_1_PROTOCOL.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G15_OPEN_NOTES.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G16_EVIDENCE.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G1_1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G2_1_RESULTS.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G2_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G3_1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G3_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G4_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G5_DATA_EVIDENCE.json` — Review report/evidence omitted, including all verification and result reports.
-- `docs/G9_CANDIDATE_INVENTORY.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/LOCAL_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/P1_OECD_RIGHTS_EVIDENCE.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/P1_REPOSITORY_AUDIT.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/P1_STATIC_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/P1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
-- `docs/P2_REPOSITORY_EXPORT.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/P2_REPOSITORY_EXPORT_FILES.json` — Review report/evidence omitted, including all verification and result reports.
-- `docs/P2_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/COUNTRY_NOTES_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/COVERAGE_G1.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/COVERAGE_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/DATA_AUDIT.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/DATA_AUDIT_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/FALLBACKS_G1.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G0_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G10_STALE_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G13_LOSS_ATTRIBUTION.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G14_1_BREAK_CHANGES.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G14_1_PROTOCOL.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G15_OPEN_NOTES.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G16_EVIDENCE.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G1_1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G2_1_RESULTS.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G2_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G3_1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G3_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G4_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G5_DATA_EVIDENCE.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/G9_CANDIDATE_INVENTORY.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/LOCAL_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/P1_OECD_RIGHTS_EVIDENCE.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/P1_REPOSITORY_AUDIT.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/P1_STATIC_REVIEW.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/P1_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/P2_REPOSITORY_EXPORT.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/P2_REPOSITORY_EXPORT_FILES.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/P2_VERIFICATION.json` — Review report/evidence omitted, including all verification and result reports.
 - `docs/REFRESH_20261021-1446.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/REFRESH_20261023-1634.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/REFRESH_20261024-2040.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G0.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G1.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G10.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G11.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G12.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G13.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G14.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G15.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G16.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G17.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G18.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G2.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G3.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G3_1.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G4.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G5.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G6.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G7.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G7_1.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G8.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_G9.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_P1.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_P2.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/STOP_REPORT_V1_0_1.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/probe_evidence.json` — Review report/evidence omitted, including all verification and result reports.
-- `docs/reviews/G15_EA_PHILLIPS.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/reviews/G15_ECB_POOLED.md` — Review report/evidence omitted, including all verification and result reports.
-- `docs/reviews/G15_INFLATION_FORECAST.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G0.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G1.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G10.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G11.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G12.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G13.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G14.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G15.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G16.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G17.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G18.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G1_1.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G2.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G3.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G3_1.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G4.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G5.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G6.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G7.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G7_1.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G8.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_G9.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_P1.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_P2.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/STOP_REPORT_V1_0_1.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/probe_evidence.json` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/reviews/G15_EA_PHILLIPS.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/reviews/G15_ECB_POOLED.md` — Review report/evidence omitted, including all verification and result reports.
+- `docs/process/reviews/G15_INFLATION_FORECAST.md` — Review report/evidence omitted, including all verification and result reports.
 - `docs/screenshots/README.md` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/builder-desktop.png` — All review screenshots and their indexes are omitted.
 - `docs/screenshots/builder-mobile.png` — All review screenshots and their indexes are omitted.
@@ -443,7 +443,7 @@ This export excludes the following tracked review material. Ignored local datase
 - `configs/country_notes.yaml` — Narrative notes removed; adoption, currency and source metadata preserved.
 - `configs/g16_stale_candidates.json` — Public data-rights record replaces private gate-audit link.
 - `DATA.md` — Links to omitted review records replaced by explicit omission text.
-- `docs/G5_DATA_SOURCES.md` — Links to omitted review records replaced by explicit omission text.
+- `docs/process/G5_DATA_SOURCES.md` — Links to omitted review records replaced by explicit omission text.
 - `docs/models/break-tests.md` — Links to omitted review records replaced by explicit omission text.
 - `docs/models/bvar_minn.md` — Links to omitted review records replaced by explicit omission text.
 - `docs/models/cointegration.md` — Links to omitted review records replaced by explicit omission text.
@@ -458,3 +458,5 @@ G22: v2.1.1 presentation/error-handling candidate, following public source 506ad
 G23.1: v2.2.0 relationship/forecast views and explicit Builder controls, following public source 2589ba8. Scientific data, wheel and existing result values are unchanged. Existing exclusions, withheld country notes, public ancestry and approved documentation images are preserved. Local candidate; publication requires separate exact-artifact approval.
 
 G24: v2.2.1 rounds relationship scatter bounds and refreshes public documentation from the live v2.2.0 build. Approved public README screenshot assets are included with provenance and size limits. Data, defaults, scientific runtime, source exclusions and withheld narratives remain unchanged. Export version metadata follows the build. Local candidate; publication requires separate exact-artifact approval.
+
+G25: public Methods and Validation guides, development-record reorganisation and a Methods-page guide link. Existing public records move under docs/process; private reports, review arrays and screenshots remain excluded. Documentation path literals follow moved records without logic changes. Data, defaults and scientific exports remain unchanged; PNG/LaTeX build-version text is v2.2.2. This is a local candidate requiring exact-artifact publication approval.

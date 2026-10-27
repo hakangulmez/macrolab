@@ -5,7 +5,7 @@ Combined G0 evidence: original probes plus bounded Eurostat follow-up; each fetc
 
 These are bounded access and parsing probes, not validated G1 concept mappings. A successful status requires finite observations and source response metadata; HTTP success alone is insufficient. Candidate IDs remain unverified where the probe failed.
 
-Raw response bodies and observation values are stored only in ignored `data/` and `runs/`. The tracked `docs/probe_evidence.json` contains metadata, checksums and counts without observation values.
+Raw response bodies and observation values are stored only in ignored `data/` and `runs/`. The tracked `docs/process/probe_evidence.json` contains metadata, checksums and counts without observation values.
 
 | Provider / probe | Status | Parsed observations | Details |
 |---|---|---:|---|
@@ -179,10 +179,10 @@ See [DATA.md](../DATA.md) for the retained G0 legal evidence and G1 handling rul
 
 ## G1.1 bounded corrections
 
-The [price source review](G1_1_PRICE_SOURCES.md) verifies current OECD COICOP2018
+The [price source review](process/G1_1_PRICE_SOURCES.md) verifies current OECD COICOP2018
 CPI/core and Eurostat domestic manufacturing PPI for EU members and EA. It also
 records the bounded negative search for a replacement OECD PPI flow. The
-[CLI review](G1_1_CLI_SOURCES.md) verifies the current 4.1 flow, all available
+[CLI review](process/G1_1_CLI_SOURCES.md) verifies the current 4.1 flow, all available
 geographies and its stated G20-plus-Spain coverage. Five official responses
 support this correction; original G1 responses remain referenced through the
 accepted parent snapshot. IMF was not needed for CPI/core. M3, Türkiye's short
@@ -197,7 +197,7 @@ Pink Sheet exclusion. Those decisions do not rewrite the accepted G1.1 data or
 the frozen P1 full-data comparison.
 
 P2 replaces `oil_brent` only with the keyless official EIA monthly Europe Brent
-spot-price workbook. The [EIA audit](P2_EIA_AUDIT.md) records both official
+spot-price workbook. The [EIA audit](process/P2_EIA_AUDIT.md) records both official
 formats, raw checksums, 473 exact workbook/table matches and three cell-level
 spot checks. Source values remain nominal USD per barrel at monthly frequency;
 frequency conversion and log transformations occur only in the requested
@@ -213,9 +213,9 @@ checked against the frozen P1 full-data input.
 
 ## G5 v1 data additions
 
-[G5 source review](G5_DATA_SOURCES.md) records the exact IMF PCPS index codes,
+[G5 source review](process/G5_DATA_SOURCES.md) records the exact IMF PCPS index codes,
 base year, ECB DFR/MRO variants and independent-format audits. [Seasonality
-review](G5_SEASONALITY.md) identifies the current official SA euro-area HICP
+review](process/G5_SEASONALITY.md) identifies the current official SA euro-area HICP
 flow and the controls required for national NSA prices. The keyless IMF PCPS
 endpoint under `api.imf.org/external/sdmx/2.1/` is approved for G5. Existing
 approved official metadata and terms endpoints are used for source review.

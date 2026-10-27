@@ -110,7 +110,7 @@ def main():
         "publication_approved": False,
     }
     # Browser evidence contains comparison metadata and samples, never source observations.
-    (ROOT / "docs/G2_VERIFICATION.json").write_text(
+    (ROOT / "docs/process/G2_VERIFICATION.json").write_text(
         json.dumps(verification, indent=2, allow_nan=False) + "\n"
     )
     text = (
@@ -273,14 +273,14 @@ exports, binary wheels and full result bundles remain ignored by Git.
 **Decision required:** approve G2 to proceed to G3, or request a bounded correction.
 G3 has not started. No decision on hosting or the first v1 template is needed now.
 """
-    (ROOT / "docs/STOP_REPORT_G2.md").write_text(text)
+    (ROOT / "docs/process/STOP_REPORT_G2.md").write_text(text)
     print(
         json.dumps(
             {
                 "tests": counts,
                 "models": len(evidence["models"]),
                 "templates": len(evidence["templates"]),
-                "report": "docs/STOP_REPORT_G2.md",
+                "report": "docs/process/STOP_REPORT_G2.md",
             }
         )
     )

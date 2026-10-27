@@ -31,7 +31,7 @@ def read_json(path: str) -> Any:
 def source_verification() -> dict[str, Any]:
     """Read back every stored response and verify recorded checksum and size."""
     source_config = read_json("configs/source_probes.json")
-    evidence = read_json("docs/probe_evidence.json")
+    evidence = read_json("docs/process/probe_evidence.json")
     expected = {probe["id"] for probe in source_config["probes"]}
     actual = {probe["id"] for probe in evidence["probes"]}
     if expected != actual or len(actual) != len(evidence["probes"]):
@@ -165,7 +165,7 @@ def main() -> None:
         )
     if len(payload["ignored_paths"]) != len(ignored):
         raise SystemExit("Data/results ignore rules failed")
-    destination = ROOT / "docs" / "G0_VERIFICATION.json"
+    destination = ROOT / "docs/process" / "G0_VERIFICATION.json"
     destination.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(payload, indent=2))
 

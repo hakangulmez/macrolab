@@ -169,7 +169,7 @@ def main():
         "",
         f"All {count:,} existing evaluation numeric fields remain exact. The new origin-exclusion metrics and dated-error charts use the stored predictions only.",  # noqa: E501 - generated Markdown table/prose
     ]
-    (ROOT / "docs/G13_LOSS_ATTRIBUTION.md").write_text("\n".join(lines) + "\n")
+    (ROOT / "docs/process/G13_LOSS_ATTRIBUTION.md").write_text("\n".join(lines) + "\n")
     print(
         json.dumps(dict(fields=count, max_difference=difference, references=references), indent=2)
     )

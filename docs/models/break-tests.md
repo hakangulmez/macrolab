@@ -59,7 +59,7 @@ on Wald/q scale; all draws are retained. Their interpolation and the discrete
 plus-one p-value can differ at a threshold; the bootstrap decision uses p≤.05.
 Asymptotic decisions use the separately tabulated Andrews critical value.
 
-Before simulation, `docs/G14_1_PROTOCOL.md` fixed 500 replications per null,
+Before simulation, `docs/process/G14_1_PROTOCOL.md` fixed 500 replications per null,
 T=110, q=2 (matching the earlier G14 size benchmark), 5% nominal size and a
 minimax selection rule. Percent rejection:
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.2.2
+
+- Add public Methods and Validation guides and a Methods-page validation link.
+- Group development records under `docs/process/`; repair documentation links.
+- Clarify intended use, identification limits and the research roadmap in README.
+- Data, model defaults, estimates and scientific export values are unchanged.
+  PNG/LaTeX version text follows the build.
+
 ## v2.2.1 — 26 October 2026, local candidate
 
 - Relationship scatter axes round padded bounds outward to readable ticks. Observations, fitted lines, defaults and scientific results are unchanged.

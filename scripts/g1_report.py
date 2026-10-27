@@ -126,7 +126,7 @@ def main() -> None:
             if card["stale"]
         ],
     )
-    (ROOT / "docs/COVERAGE_G1.md").write_text("\n".join(lines).rstrip() + "\n")
+    (ROOT / "docs/process/COVERAGE_G1.md").write_text("\n".join(lines).rstrip() + "\n")
 
     lines = [
         "# G1 source fallback ledger",
@@ -203,7 +203,7 @@ def main() -> None:
             if country.get("euro_adoption") and country["iso3"] != "EA"
         ],
     )
-    (ROOT / "docs/FALLBACKS_G1.md").write_text("\n".join(lines).rstrip() + "\n")
+    (ROOT / "docs/process/FALLBACKS_G1.md").write_text("\n".join(lines).rstrip() + "\n")
 
     lines = [
         "# G1 independent data audit",
@@ -262,7 +262,7 @@ def main() -> None:
         json.dumps(failures, indent=2) if failures else "None.",
         "",
     ]
-    (ROOT / "docs/DATA_AUDIT.md").write_text("\n".join(lines).rstrip() + "\n")
+    (ROOT / "docs/process/DATA_AUDIT.md").write_text("\n".join(lines).rstrip() + "\n")
     print(
         json.dumps(
             {

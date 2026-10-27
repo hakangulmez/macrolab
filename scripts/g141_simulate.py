@@ -68,7 +68,9 @@ def size():
     preference = ["hac_bootstrap", "hc_bootstrap", "hac_asymptotic", "conventional_asymptotic"]
     chosen = min(preference, key=lambda v: errors[v])
     report = dict(
-        protocol_sha256=hashlib.sha256((ROOT / "docs/G14_1_PROTOCOL.md").read_bytes()).hexdigest(),
+        protocol_sha256=hashlib.sha256(
+            (ROOT / "docs/process/G14_1_PROTOCOL.md").read_bytes()
+        ).hexdigest(),
         table=table,
         maximum_absolute_size_error=errors,
         selected_default=chosen,

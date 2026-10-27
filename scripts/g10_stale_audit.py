@@ -79,7 +79,11 @@ def main():
     (OUT / "audit.json").write_text(json.dumps(report, indent=2) + "\n")
     (ROOT / "configs/g16_stale_candidates.json").write_text(
         json.dumps(
-            {"active": False, "candidates": candidates, "audit": "docs/G10_STALE_REVIEW.md"},
+            {
+                "active": False,
+                "candidates": candidates,
+                "audit": "docs/process/G10_STALE_REVIEW.md",
+            },
             indent=2,
         )
         + "\n"

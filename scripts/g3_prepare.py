@@ -183,7 +183,7 @@ def prepare(root: Path = ROOT) -> dict[str, Any]:
         }
         for key, (title, description) in TEMPLATES.items()
     ]
-    verification = json.loads((root / "docs/G2_VERIFICATION.json").read_text())
+    verification = json.loads((root / "docs/process/G2_VERIFICATION.json").read_text())
     assets = json.loads((root / "runs/g2/runtime_assets.json").read_text())
     wheel = json.loads((root / "runs/g2/runtime_wheel.json").read_text())
     for name, expected in assets["runtime_files"].items():
@@ -266,7 +266,7 @@ def prepare(root: Path = ROOT) -> dict[str, Any]:
 if __name__ == "__main__":
     if not (ROOT / "data/processed/current/processed_manifest.json").is_file():
         raise SystemExit(
-            "Local review inputs are missing. See docs/LOCAL_REVIEW.md and run "
+            "Local review inputs are missing. See docs/process/LOCAL_REVIEW.md and run "
             "python3.11 scripts/seed_review_inputs.py --from /path/to/authorised/local/checkout. "
             "No data or runtime files are downloaded by this build."
         )

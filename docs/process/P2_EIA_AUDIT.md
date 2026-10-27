@@ -62,5 +62,5 @@ saved under `runs/p2/validation.json` and `runs/p2/differences/`; the final P2
 stop report gives their observed numerical outcomes.
 
 The source policy and redistribution conditions are recorded in
-[DATA.md](../DATA.md). Nothing in this local audit constitutes publication or
+[DATA.md](../../DATA.md). Nothing in this local audit constitutes publication or
 deployment approval.

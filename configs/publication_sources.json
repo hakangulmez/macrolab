@@ -33,7 +33,7 @@
         "OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0": "OECD (2026), Consumer price indices (CPIs,HICPs), COICOP 2018, OECD Data Explorer, https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL,1.0/ (accessed on 2026-10-20).",
         "OECD.SDD.STES,DSD_STES@DF_CLI,4.1": "OECD (2026), Composite leading indicators, OECD Data Explorer, https://sdmx.oecd.org/public/rest/v1/data/OECD.SDD.STES,DSD_STES@DF_CLI,4.1/ (accessed on 2026-10-20)."
       },
-      "metadata_review": "docs/P2_OECD_METADATA_REVIEW.md"
+      "metadata_review": "docs/process/P2_OECD_METADATA_REVIEW.md"
     },
     {
       "id": "bis",

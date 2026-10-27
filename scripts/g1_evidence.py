@@ -151,7 +151,7 @@ def main() -> None:
         "ui_gate": False,
         "screenshots_required": False,
     }
-    (ROOT / "docs/G1_VERIFICATION.json").write_text(json.dumps(payload, indent=2) + "\n")
+    (ROOT / "docs/process/G1_VERIFICATION.json").write_text(json.dumps(payload, indent=2) + "\n")
     print(
         json.dumps(
             {

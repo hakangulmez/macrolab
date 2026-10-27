@@ -106,7 +106,7 @@ def main():
         "no added quantity replaces an unrelated old quantity.",
         "",
     ]
-    (ROOT / "docs/G14_1_BREAK_CHANGES.md").write_text("\n".join(lines))
+    (ROOT / "docs/process/G14_1_BREAK_CHANGES.md").write_text("\n".join(lines))
     print([(r["name"], r["count"]) for r in changed])
 
 

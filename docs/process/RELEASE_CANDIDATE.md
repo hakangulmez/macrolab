@@ -43,7 +43,7 @@ historical reproducibility; it must not overwrite accepted artifacts.
 ## v2.0 / G16
 
 `make g16-build SNAPSHOT=<id>` requires the passed immutable refresh marker and
-`docs/G16_LICENCE_REVIEW.json` dated to that snapshot. It prepares all nine
+`docs/process/G16_LICENCE_REVIEW.json` dated to that snapshot. It prepares all nine
 unchanged templates, withheld narratives, the current model registry and local
 validation-card pages. All runtime packages and notices come from the pinned
 cache; no new runtime package is fetched.

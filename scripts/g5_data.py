@@ -88,7 +88,7 @@ def main() -> None:
         "shared_default_country_counts": dict(Counter(r["country"] for r in result["rows"])),
         "source_records": json.loads(path.read_text())["source_records"],
     }
-    write_json(ROOT / "docs/G5_DATA_EVIDENCE.json", evidence)
+    write_json(ROOT / "docs/process/G5_DATA_EVIDENCE.json", evidence)
     print(json.dumps({"audit": result["audit"], "coverage": coverage}, indent=2))
 
 

@@ -6,7 +6,7 @@
 `DECISIONS.md` at `82ff653`. The Phillips filter resolves the incomplete trailing
 quarter to the latest fully observed endpoint, with the failure and correction
 documented. The forecast target is y/y inflation itself, not an inverted HICP
-index. See `docs/STOP_REPORT_G15.md` and its three economic reviews. Build the
+index. See `docs/process/STOP_REPORT_G15.md` and its three economic reviews. Build the
 local nine-template review with `make g15-build`; it performs no refresh,
 download, push or deployment. The historical gate descriptions below retain
 their original context; later accepted decisions and the JSON files govern.
@@ -80,7 +80,7 @@ omitted policy information, sample/control dependence and uncertainty.
 
 Run locally: `.venv/bin/python -m macrolab run configs/templates/taylor_rule.json`.
 G2.1 comparison: `.venv/bin/python scripts/g21_validate.py` (writes `runs/g21`
-and `docs/G2_1_RESULTS.md`; preserves accepted G2 results).
+and `docs/process/G2_1_RESULTS.md`; preserves accepted G2 results).
 
 ## G3.1 monetary evidence
 

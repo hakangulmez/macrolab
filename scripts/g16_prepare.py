@@ -51,7 +51,7 @@ def template_metadata(existing: list[dict], snapshot: str) -> list[dict]:
 
 def prepare(snapshot: str, *, build: bool = False):
     marker = json.loads((ROOT / "data/manifests/refresh" / f"{snapshot}.json").read_text())
-    licence = json.loads((ROOT / "docs/G16_LICENCE_REVIEW.json").read_text())
+    licence = json.loads((ROOT / "docs/process/G16_LICENCE_REVIEW.json").read_text())
     if marker["status"] != "passed" or not licence["passed"]:
         raise ValueError("G16 requires a passed refresh and completed licence review")
     snapshot_manifest = json.loads(

@@ -23,13 +23,13 @@ def fixture(root: Path) -> None:
     files = {
         "README.md": "Private review links",
         "LICENSE": "Fixture licence",
-        "DATA.md": "Fixture data policy; [old review](docs/G2_VERIFICATION.json)",
+        "DATA.md": "Fixture data policy; [old review](docs/process/G2_VERIFICATION.json)",
         "CHANGELOG.md": "Fixture changelog",
         "docs/DATA_REFRESH.md": "Fixture refresh instructions",
-        "docs/RELEASE_CANDIDATE.md": "Fixture release instructions",
+        "docs/process/RELEASE_CANDIDATE.md": "Fixture release instructions",
         "docs/SOURCES.md": "Fixture source mappings",
         "docs/models/README.md": "Fixture models",
-        "docs/P1_SOFTWARE_NOTICES.md": "Fixture notices",
+        "docs/SOFTWARE_NOTICES.md": "Fixture notices",
         "third_party/runtime/SOURCE_AVAILABILITY.md": "Fixture source availability",
         "src/example.py": "ANSWER = 42\n",
         "configs/country_notes.yaml": yaml.safe_dump(
@@ -39,9 +39,9 @@ def fixture(root: Path) -> None:
                 "sources": {"ecb": {"url": "https://www.ecb.europa.eu/"}},
             }
         ),
-        "docs/G2_VERIFICATION.json": json.dumps({"trend": [1, 2, 3]}),
+        "docs/process/G2_VERIFICATION.json": json.dumps({"trend": [1, 2, 3]}),
         "docs/screenshots/review.png": "not copied",
-        "docs/COUNTRY_NOTES_REVIEW.md": "Private narrative",
+        "docs/process/COUNTRY_NOTES_REVIEW.md": "Private narrative",
     }
     for name, value in files.items():
         p = root / name
@@ -73,7 +73,7 @@ def test_export_omits_private_material_and_makes_exactly_one_new_commit(tmp_path
     notes = yaml.safe_load((target / "configs/country_notes.yaml").read_text())
     assert notes["notes"] == []
     assert notes["euro_adoptions"]["AUT"]["date"] == "1999-01-01"
-    assert not (target / "docs/G2_VERIFICATION.json").exists()
+    assert not (target / "docs/process/G2_VERIFICATION.json").exists()
     assert not (target / "docs/screenshots/review.png").exists()
     assert "Private review links" not in (target / "README.md").read_text()
     assert "local review record omitted" in (target / "DATA.md").read_text()

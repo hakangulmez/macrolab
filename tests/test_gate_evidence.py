@@ -27,7 +27,7 @@ def evidence_state(
         monkeypatch.setattr(module, "ROOT", tmp_path)
         modules.append(module)
     checks, evidence = modules
-    for directory in ("web", "docs", "runs/checks", "runs/quick"):
+    for directory in ("web", "docs/process", "runs/checks", "runs/quick"):
         (tmp_path / directory).mkdir(parents=True)
     for filename in ("Makefile", "pyproject.toml", ".python-version"):
         (tmp_path / filename).write_text("fixture\n", encoding="utf-8")
@@ -78,7 +78,7 @@ def test_current_successful_evidence_can_be_emitted(
 ) -> None:
     _, evidence, root = evidence_state
     evidence.main()
-    output = json.loads((root / "docs/G0_VERIFICATION.json").read_text())
+    output = json.loads((root / "docs/process/G0_VERIFICATION.json").read_text())
     assert output["checks"]["status"] == "complete"
     assert output["python_tests"]["failures"] == 0
 
@@ -100,7 +100,7 @@ def test_stale_or_in_progress_checks_cannot_emit_verification(
         os.utime(root / "runs/checks/pytest.xml", (old, old))
     with pytest.raises(SystemExit, match="[Ss]tale|incomplete"):
         evidence.main()
-    assert not (root / "docs/G0_VERIFICATION.json").exists()
+    assert not (root / "docs/process/G0_VERIFICATION.json").exists()
 
 
 @pytest.mark.parametrize("failed_suite", ["python", "web"])
@@ -120,7 +120,7 @@ def test_failed_reports_override_previous_successful_commands(
         )
     with pytest.raises(SystemExit, match="test/smoke evidence is empty, failed"):
         evidence.main()
-    assert not (root / "docs/G0_VERIFICATION.json").exists()
+    assert not (root / "docs/process/G0_VERIFICATION.json").exists()
 
 
 def test_interrupted_rerun_invalidates_previous_success_before_first_command(
@@ -139,4 +139,4 @@ def test_interrupted_rerun_invalidates_previous_success_before_first_command(
         checks.main()
     with pytest.raises(SystemExit, match="incomplete or stale"):
         evidence.main()
-    assert not (root / "docs/G0_VERIFICATION.json").exists()
+    assert not (root / "docs/process/G0_VERIFICATION.json").exists()

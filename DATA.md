@@ -5,7 +5,7 @@ refreshed from the cleared official sources. The prior snapshot `20261023-1634`
 and all earlier snapshots remain unchanged. Country narratives and World Bank
 Pink Sheet remain withheld. Exact source/site artifacts require P6 approval.
 
-The [G16 licence review](docs/G16_LICENCE_REVIEW.json) rechecked the seven provider
+The [G16 licence review](docs/process/G16_LICENCE_REVIEW.json) rechecked the seven provider
 reuse clauses and five WDI indicator licences. Seven selected OECD metadata
 responses match G9 outside response headers and availability constraints. No
 changed reuse clause or new restriction was found. IMF index access fields
@@ -28,7 +28,7 @@ record their original scope; they do not authorise publication of v2.0.
 
 The local v1.0 candidate uses audited snapshot `20261023-1634` (23 October 2026).
 All seven current provider reuse clauses quoted below remain present on their
-[official terms pages](docs/G9_LICENCE_REVIEW.json). No changed reuse clause or
+[official terms pages](docs/process/G9_LICENCE_REVIEW.json). No changed reuse clause or
 new dataset restriction was found. All seven selected OECD flow versions retain
 identical non-availability metadata and reuse-related text versus the P2 review;
 only response headers and availability constraints changed. All five WDI indicator
@@ -68,7 +68,7 @@ The classifications drive [`configs/publication_sources.json`](configs/publicati
 
 ## Evidence and unresolved cases
 
-**OECD.** The owner approved inclusion after a flow-level metadata check. The [dated P2 review](docs/P2_OECD_METADATA_REVIEW.md) records live HTTP 200 responses for all seven exact selected flows, their hashes and dataset names. No explicit additional reuse or third-party restriction was found in the flow descriptions, annotations or referenced structures. All seven are included with concrete dataset citations; unmatched flows fail closed. The earlier P1 “unclear” classification is superseded for these reviewed flows only.
+**OECD.** The owner approved inclusion after a flow-level metadata check. The [dated P2 review](docs/process/P2_OECD_METADATA_REVIEW.md) records live HTTP 200 responses for all seven exact selected flows, their hashes and dataset names. No explicit additional reuse or third-party restriction was found in the flow descriptions, annotations or referenced structures. All seven are included with concrete dataset citations; unmatched flows fail closed. The earlier P1 “unclear” classification is superseded for these reviewed flows only.
 
 **BIS.** The [general website terms](https://www.bis.org/about/terms-conditions) expressly route Data Portal statistics to the statistical terms above. Consequently the broader website's non-commercial clause is not the applicable blanket restriction for these statistical series. This corrects the preliminary G0 inventory.
 
@@ -92,7 +92,7 @@ The [CC BY 4.0 licence](https://creativecommons.org/licenses/by/4.0/) and World 
 
 **Pink Sheet.** The owner chose continued exclusion. No Pink Sheet Brent or energy/non-energy commodity-index observations enter the P2 candidate. The old accepted snapshot and full local comparison remain intact solely to measure the source-swap effect.
 
-**EIA.** P2 uses the keyless official [monthly Europe Brent spot-price workbook](https://www.eia.gov/dnav/pet/hist_xls/RBRTEm.xls), series `PET.RBRTE.M`, in USD per barrel. Its raw response is archived with URL, timestamp and SHA-256; three dates are checked against the independent official monthly history table. See [the EIA audit](docs/P2_EIA_AUDIT.md) and [source details](docs/SOURCES.md). The public-domain statement and attribution come from EIA’s own reuse page, not an inferred third-party licence. The published catalogue contains 33 national indicators and two included global factors; `commod_idx` remains visibly “not included”.
+**EIA.** P2 uses the keyless official [monthly Europe Brent spot-price workbook](https://www.eia.gov/dnav/pet/hist_xls/RBRTEm.xls), series `PET.RBRTE.M`, in USD per barrel. Its raw response is archived with URL, timestamp and SHA-256; three dates are checked against the independent official monthly history table. See [the EIA audit](docs/process/P2_EIA_AUDIT.md) and [source details](docs/SOURCES.md). The public-domain statement and attribution come from EIA’s own reuse page, not an inferred third-party licence. The published catalogue contains 33 national indicators and two included global factors; `commod_idx` remains visibly “not included”.
 
 ## Build and publication boundary
 
@@ -128,7 +128,7 @@ Direct IMF HTML requests returned 403; the official dataset and terms pages were
 read through the browsing tool instead. The API metadata and data responses were
 archived in full with hashes. No login, key or access-control bypass was used.
 ECB terms were retrieved directly (HTTP 200). Source metadata, audit URLs and
-hashes are recorded in [G5 source review](docs/G5_DATA_SOURCES.md) and
+hashes are recorded in [G5 source review](docs/process/G5_DATA_SOURCES.md) and
 G5 data evidence (local review record omitted from source export).
 
 Pink Sheet stays excluded. Existing EIA Brent and BIS US-policy-rate data remain
