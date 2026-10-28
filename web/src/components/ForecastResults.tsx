@@ -210,16 +210,19 @@ export function ForecastResults({
               }))}
             />
           </details>
-          {result.sensitivity.variants.map((v) => (
-            <details key={text(v.id)}>
-              <summary>{text(v.label)}</summary>
-              <p>
-                Only the scoring rows are excluded. Training prefixes and
-                forecasts are unchanged.
-              </p>
-              <DataTable rows={metricRows(v.metrics)} />
-            </details>
-          ))}
+          <details className="secondary-section ">
+            <summary>Specification sensitivity</summary>
+            {result.sensitivity.variants.map((v) => (
+              <details key={text(v.id)}>
+                <summary>{text(v.label)}</summary>
+                <p>
+                  Only the scoring rows are excluded. Training prefixes and
+                  forecasts are unchanged.
+                </p>
+                <DataTable rows={metricRows(v.metrics)} />
+              </details>
+            ))}
+          </details>
           <Field label="Evaluation chart">
             <select
               value={evaluationView}
@@ -346,34 +349,37 @@ export function ForecastResults({
       {Boolean(f.distributions) && (
         <p className="small muted">{text(distribution.inverse_method)}</p>
       )}
-      {result.sensitivity.variants
-        .filter((v) => v.id === "d0")
-        .map((v) => (
-          <details key="d0">
-            <summary>d = 0 sensitivity · {text(v.status)}</summary>
-            {v.status === "ok" ? (
-              <DataTable
-                rows={(record(v.distribution).mean as number[]).map(
-                  (value, i) => ({
-                    Horizon: i + 1,
-                    Mean: value,
-                    Lower: (
-                      record(record(record(v.distribution).bands)["0.9"])
-                        .lower as number[]
-                    )[i],
-                    Upper: (
-                      record(record(record(v.distribution).bands)["0.9"])
-                        .upper as number[]
-                    )[i],
-                  }),
-                )}
-                caption="d = 0 · 90% predictive interval in original units"
-              />
-            ) : (
-              <p>{text(v.reason)}</p>
-            )}
-          </details>
-        ))}
+      <details className="secondary-section ">
+        <summary>Specification sensitivity</summary>
+        {result.sensitivity.variants
+          .filter((v) => v.id === "d0")
+          .map((v) => (
+            <details key="d0">
+              <summary>d = 0 sensitivity · {text(v.status)}</summary>
+              {v.status === "ok" ? (
+                <DataTable
+                  rows={(record(v.distribution).mean as number[]).map(
+                    (value, i) => ({
+                      Horizon: i + 1,
+                      Mean: value,
+                      Lower: (
+                        record(record(record(v.distribution).bands)["0.9"])
+                          .lower as number[]
+                      )[i],
+                      Upper: (
+                        record(record(record(v.distribution).bands)["0.9"])
+                          .upper as number[]
+                      )[i],
+                    }),
+                  )}
+                  caption="d = 0 · 90% predictive interval in original units"
+                />
+              ) : (
+                <p>{text(v.reason)}</p>
+              )}
+            </details>
+          ))}
+      </details>
     </section>
   );
 }

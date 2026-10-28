@@ -160,7 +160,8 @@ export function CountryComparison({
         {...ranking}
         title={ranking.name}
       />
-      <section>
+      <details className="secondary-section">
+        <summary>Detailed diagnostics, samples, sources and provenance</summary>
         <h3>Per-country estimation samples</h3>
         <DataTable
           countries={manifest.countries}
@@ -176,7 +177,7 @@ export function CountryComparison({
             };
           })}
         />
-      </section>
+      </details>
       {error && <p role="alert">PNG export failed: {error}</p>}
     </section>
   );

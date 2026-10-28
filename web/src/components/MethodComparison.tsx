@@ -238,60 +238,66 @@ export function MethodComparison({
               }
             }
           />
-          <h3>Sensitivity · method comparison only</h3>
-          {compact ? (
-            <div className="sensitivity-cards">
-              {summary.map((row) => (
-                <article key={row.Method} className="sensitivity-mini-card">
-                  <strong>
-                    {row.Method} · {text(row["Peak response"])} at horizon{" "}
-                    {text(row["Peak horizon"])}
-                  </strong>
-                  <p className="small">
-                    {row.Sample} · n = {text(row.Observations)}
-                  </p>
-                  <p className="small">
-                    Same recursive innovation within this pair. Excluded from
-                    baseline agreement.
-                  </p>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <DataTable rows={summary} />
-          )}
-          <p className="small">
-            Within-pair sign agreement:{" "}
-            {
-              records(comparison.horizons).filter((r) => r.sign_agreement)
-                .length
-            }
-            /{rows.length} horizons. Band overlap:{" "}
-            {records(comparison.horizons).filter((r) => r.band_overlap).length}/
-            {rows.length}. These are descriptive counts; estimates are never
-            averaged.
-          </p>
-          <details>
-            <summary>
-              Every horizon, dates, dropped periods and shock definition
-            </summary>
-            <DataTable rows={rows} />
+          <details className="secondary-section ">
+            <summary>Specification sensitivity</summary>
+            <h3>Sensitivity · method comparison only</h3>
+            {compact ? (
+              <div className="sensitivity-cards">
+                {summary.map((row) => (
+                  <article key={row.Method} className="sensitivity-mini-card">
+                    <strong>
+                      {row.Method} · {text(row["Peak response"])} at horizon{" "}
+                      {text(row["Peak horizon"])}
+                    </strong>
+                    <p className="small">
+                      {row.Sample} · n = {text(row.Observations)}
+                    </p>
+                    <p className="small">
+                      Same recursive innovation within this pair. Excluded from
+                      baseline agreement.
+                    </p>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <DataTable rows={summary} />
+            )}
+            <p className="small">
+              Within-pair sign agreement:{" "}
+              {
+                records(comparison.horizons).filter((r) => r.sign_agreement)
+                  .length
+              }
+              /{rows.length} horizons. Band overlap:{" "}
+              {
+                records(comparison.horizons).filter((r) => r.band_overlap)
+                  .length
+              }
+              /{rows.length}. These are descriptive counts; estimates are never
+              averaged.
+            </p>
             <details>
-              <summary>Full comparison metadata</summary>
-              <pre tabIndex={0}>
-                {JSON.stringify(
-                  {
-                    sample: pair.sample,
-                    shock: {
-                      ...record(pair.shock),
-                      values: "Included at full precision in the JSON export",
+              <summary>
+                Every horizon, dates, dropped periods and shock definition
+              </summary>
+              <DataTable rows={rows} />
+              <details>
+                <summary>Full comparison metadata</summary>
+                <pre tabIndex={0}>
+                  {JSON.stringify(
+                    {
+                      sample: pair.sample,
+                      shock: {
+                        ...record(pair.shock),
+                        values: "Included at full precision in the JSON export",
+                      },
+                      shock_fingerprint: pair.shock_fingerprint,
                     },
-                    shock_fingerprint: pair.shock_fingerprint,
-                  },
-                  null,
-                  2,
-                )}
-              </pre>
+                    null,
+                    2,
+                  )}
+                </pre>
+              </details>
             </details>
           </details>
           <p className="small muted">{text(pair.note)}</p>

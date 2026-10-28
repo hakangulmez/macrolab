@@ -227,15 +227,18 @@ export function PanelResults({
           dates but use a different nuisance specification.
         </p>
       )}
-      <h3>Actual country samples</h3>
-      <DataTable
-        rows={countries.map((c) => ({
-          Country: name(c),
-          Start: record(samples[c]).start,
-          End: record(samples[c]).end,
-          Observations: record(samples[c]).nobs,
-        }))}
-      />
+      <details className="secondary-section ">
+        <summary>Detailed diagnostics, samples, sources and provenance</summary>
+        <h3>Actual country samples</h3>
+        <DataTable
+          rows={countries.map((c) => ({
+            Country: name(c),
+            Start: record(samples[c]).start,
+            End: record(samples[c]).end,
+            Observations: record(samples[c]).nobs,
+          }))}
+        />
+      </details>
       {!lp && (
         <DataTable
           caption={`Full pooled coefficients, including COVID dummies · ${Number(coefficients[0]?.confidence_level ?? 0.95) * 100}% confidence intervals (${text(panel.covariance)})`}
@@ -260,22 +263,25 @@ export function PanelResults({
           <pre>{JSON.stringify(samples, null, 2)}</pre>
         </details>
       </details>
-      <h3>Covariance sensitivity · same point estimates</h3>
-      {result.sensitivity.variants.map((variant, i) => (
-        <section key={i}>
-          <h3>{sensitivityDisplayLabel(variant)}</h3>
-          <Checks
-            countries={manifest.countries}
-            checks={(variant.checks ?? []) as CountryResult["checks"]}
-          />
-          <PanelCovarianceTable
-            rows={records(variant.rows)}
-            lp={lp}
-            label={sensitivityDisplayLabel(variant)}
-            indicators={manifest.indicators}
-          />
-        </section>
-      ))}
+      <details className="secondary-section ">
+        <summary>Covariance sensitivity</summary>
+        <h3>Covariance sensitivity · same point estimates</h3>
+        {result.sensitivity.variants.map((variant, i) => (
+          <section key={i}>
+            <h3>{sensitivityDisplayLabel(variant)}</h3>
+            <Checks
+              countries={manifest.countries}
+              checks={(variant.checks ?? []) as CountryResult["checks"]}
+            />
+            <PanelCovarianceTable
+              rows={records(variant.rows)}
+              lp={lp}
+              label={sensitivityDisplayLabel(variant)}
+              indicators={manifest.indicators}
+            />
+          </section>
+        ))}
+      </details>
     </section>
   );
 }

@@ -284,7 +284,7 @@ describe("G3.1 result interpretation", () => {
     expect(desktop.match(/data-testid="result-chart"/g)).toHaveLength(4);
     expect(desktop).not.toContain('data-testid="mobile-chart-selector"');
     expect(mobile).toContain(
-      "<summary>Tables, diagnostics and full method notes</summary>",
+      "<summary>Detailed diagnostics, samples, sources and provenance</summary>",
     );
     expect(mobile).toContain(
       "<summary>Every specification and its sample</summary>",

@@ -170,57 +170,60 @@ function TemplateCorrectionSummary({
         </p>
       </section>
       {result.config.comparison?.enabled !== false && (
-        <div aria-live="polite" data-testid="sensitivity-progress">
-          <strong>
-            {result.sensitivity_pending
-              ? "Baseline ready · sensitivity computing in the background"
-              : "Sensitivity complete"}
-          </strong>
-          <ul>
-            {names.map((name) => {
-              const row = rows.find((r) => r.variant_id === name);
-              return (
-                <li key={name}>
-                  {
-                    (
-                      {
-                        rate_3m: "EA 3-month rate",
-                        bis: "BIS policy rate",
-                        end_2019: "End sample in 2019",
-                        exclude_2014_2022: "Exclude 2014–2022",
-                        common_window: "Common window",
-                        lags_4: "Four lags",
-                        hac: "HAC inference",
-                        year_on_year_inflation: "Year-on-year inflation",
-                        national_var: "National VAR",
-                      } as Record<string, string>
-                    )[name]
-                  }
-                  :{" "}
-                  {row
-                    ? row.status === "ok"
-                      ? "Ready"
-                      : text(row.status)
-                    : result.sensitivity_pending
-                      ? "Pending"
-                      : "Not run"}
-                  {row && Number(row.first_stage_largest_root) >= 0.98 && (
-                    <span>
-                      {" "}
-                      · Warning:{" "}
-                      {Number(row.first_stage_largest_root) >= 1
-                        ? "unstable"
-                        : "near-unit-root"}{" "}
-                      first stage, root{" "}
-                      {number(row.first_stage_largest_root, 4)}
-                    </span>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-          <p>Joint bootstrap is on demand.</p>
-        </div>
+        <details className="secondary-section ">
+          <summary>Specification sensitivity</summary>
+          <div aria-live="polite" data-testid="sensitivity-progress">
+            <strong>
+              {result.sensitivity_pending
+                ? "Baseline ready · sensitivity computing in the background"
+                : "Sensitivity complete"}
+            </strong>
+            <ul>
+              {names.map((name) => {
+                const row = rows.find((r) => r.variant_id === name);
+                return (
+                  <li key={name}>
+                    {
+                      (
+                        {
+                          rate_3m: "EA 3-month rate",
+                          bis: "BIS policy rate",
+                          end_2019: "End sample in 2019",
+                          exclude_2014_2022: "Exclude 2014–2022",
+                          common_window: "Common window",
+                          lags_4: "Four lags",
+                          hac: "HAC inference",
+                          year_on_year_inflation: "Year-on-year inflation",
+                          national_var: "National VAR",
+                        } as Record<string, string>
+                      )[name]
+                    }
+                    :{" "}
+                    {row
+                      ? row.status === "ok"
+                        ? "Ready"
+                        : text(row.status)
+                      : result.sensitivity_pending
+                        ? "Pending"
+                        : "Not run"}
+                    {row && Number(row.first_stage_largest_root) >= 0.98 && (
+                      <span>
+                        {" "}
+                        · Warning:{" "}
+                        {Number(row.first_stage_largest_root) >= 1
+                          ? "unstable"
+                          : "near-unit-root"}{" "}
+                        first stage, root{" "}
+                        {number(row.first_stage_largest_root, 4)}
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+            <p>Joint bootstrap is on demand.</p>
+          </div>
+        </details>
       )}
     </section>
   );
@@ -286,14 +289,19 @@ export function ResultsCountry({
   const blocks = resultTableBlocks(result);
   const shortDescriptiveTables = blocks.filter(
     (block) =>
-      result.model_id.startsWith("desc.") &&
-      [
-        "Country comparison and rankings",
-        "Full-sample correlations",
-        "Tests, null hypotheses and effective samples",
-      ].includes(block.title) &&
-      block.rows.length <= 12 &&
-      (block.columns?.length ?? Object.keys(block.rows[0] ?? {}).length) <= 8,
+      (["test.adf_kpss_pp", "test.granger"].includes(result.model_id) &&
+        block.title === "Tests, null hypotheses and effective samples") ||
+      ((result.model_id.startsWith("desc.") ||
+        result.model_id === "sing.rolling") &&
+        [
+          "Country comparison and rankings",
+          "Full-sample correlations",
+          "Tests, null hypotheses and effective samples",
+          "Last-window coefficients and intervals",
+        ].includes(block.title) &&
+        block.rows.length <= 12 &&
+        (block.columns?.length ?? Object.keys(block.rows[0] ?? {}).length) <=
+          8),
   );
   const inlineCoefficients =
     !hideCharts && charts.some((chart) => chart.coefficient)
@@ -670,7 +678,8 @@ export function ResultsCountry({
           )}
           {!forecastModel(result.model_id) && (
             <div className="result-grid">
-              <section className="card stack sensitivity-section">
+              <details className="card stack sensitivity-section secondary-section">
+                <summary>Specification sensitivity</summary>
                 <h2>How much does the answer depend on the model?</h2>
                 {comparison ? (
                   <>
@@ -803,15 +812,16 @@ export function ResultsCountry({
                     />
                   </details>
                 )}
-              </section>
-              <aside className="card stack reading">
+              </details>
+              <details className="card stack reading secondary-section">
+                <summary>Extended interpretation and method notes</summary>
                 <h2>Reading the result</h2>
                 <ul data-testid="reading-bullets">
                   {readingBullets(result, indicators).map((bullet, index) => (
                     <li key={index}>{screenText(bullet, indicators)}</li>
                   ))}
                 </ul>
-              </aside>
+              </details>
             </div>
           )}
           {shortDescriptiveTables.map((block) => (
@@ -822,6 +832,7 @@ export function ResultsCountry({
             >
               <h3>{block.title}</h3>
               <DataTable
+                primary
                 countries={manifest.countries}
                 rows={block.rows}
                 columns={block.columns}
@@ -829,7 +840,10 @@ export function ResultsCountry({
             </section>
           ))}
           <details className="card technical-details">
-            <summary>Tables, diagnostics and full method notes</summary>
+            <summary>
+              Detailed diagnostics, samples, sources and provenance
+            </summary>
+            <h3>Tables, diagnostics and full method notes</h3>
             <div className="stack">
               {blocks
                 .filter(
@@ -1605,11 +1619,16 @@ export function Results({
                 numbersOnly
               />
             )}
-            <ResultTableView
-              result={result}
-              manifest={manifest}
-              tab="samples"
-            />
+            <details className="secondary-section ">
+              <summary>
+                Detailed diagnostics, samples, sources and provenance
+              </summary>
+              <ResultTableView
+                result={result}
+                manifest={manifest}
+                tab="samples"
+              />
+            </details>
           </section>
           <div className="result-workspace">
             <div className="result-main">

@@ -127,35 +127,38 @@ export function BvarResults({
             : `Posterior median and ${Number(band) * 100}% pointwise credible band, conditional on the chosen hyperparameters. ${Number(draws.dropped) > 0 ? "Conditioned on stability after explicit draw exclusion." : "Explosive draws retained."}`
         }
       />
-      <DataTable
-        caption="Prior means and univariate AR(p) residual scales (SSE / residual degrees of freedom)"
-        columns={["Variable", "Own first-lag mean", "AR residual SD"]}
-        rows={result.irf.variables.map((name) => ({
-          Variable: title(name, indicators),
-          "Own first-lag mean": String(means[name]),
-          "AR residual SD": scales[name],
-        }))}
-      />
-      <p className="small muted">
-        Lag variance decay: {text(prior.lag_decay)}. Diffuse deterministic prior
-        variance: {Number(prior.constant_variance).toLocaleString()}.
-        Sum-of-coefficients: {prior.sum_of_coefficients ? "On" : "Off"}.
-        Co-persistence: {prior.co_persistence ? "On" : "Off"}. Grid selection is
-        empirical Bayes; hyperparameter uncertainty is not integrated out.
-      </p>
-      {b.lambda_selection === "grid" && (
+      <details className="secondary-section ">
+        <summary>Detailed diagnostics, samples, sources and provenance</summary>
         <DataTable
-          caption="Marginal-likelihood grid · selected λ maximizes the conditional log marginal likelihood"
-          columns={["λ", "Log marginal likelihood", "Selected"]}
-          rows={records(b.grid).map((r) => ({
-            λ: r.lambda,
-            "Log marginal likelihood": Number(
-              r.log_marginal_likelihood,
-            ).toFixed(2),
-            Selected: r.selected ? "Selected" : "—",
+          caption="Prior means and univariate AR(p) residual scales (SSE / residual degrees of freedom)"
+          columns={["Variable", "Own first-lag mean", "AR residual SD"]}
+          rows={result.irf.variables.map((name) => ({
+            Variable: title(name, indicators),
+            "Own first-lag mean": String(means[name]),
+            "AR residual SD": scales[name],
           }))}
         />
-      )}
+        <p className="small muted">
+          Lag variance decay: {text(prior.lag_decay)}. Diffuse deterministic
+          prior variance: {Number(prior.constant_variance).toLocaleString()}.
+          Sum-of-coefficients: {prior.sum_of_coefficients ? "On" : "Off"}.
+          Co-persistence: {prior.co_persistence ? "On" : "Off"}. Grid selection
+          is empirical Bayes; hyperparameter uncertainty is not integrated out.
+        </p>
+        {b.lambda_selection === "grid" && (
+          <DataTable
+            caption="Marginal-likelihood grid · selected λ maximizes the conditional log marginal likelihood"
+            columns={["λ", "Log marginal likelihood", "Selected"]}
+            rows={records(b.grid).map((r) => ({
+              λ: r.lambda,
+              "Log marginal likelihood": Number(
+                r.log_marginal_likelihood,
+              ).toFixed(2),
+              Selected: r.selected ? "Selected" : "—",
+            }))}
+          />
+        )}
+      </details>
       <details>
         <summary>FEVD · posterior mean variance shares</summary>
         <DataTable

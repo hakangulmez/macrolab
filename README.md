@@ -1,6 +1,6 @@
 # MacroLab
 
-Version 2.6.1.
+Version 2.6.2.
 
 Official macroeconomic data and validated econometrics in the browser, with assumptions, data gaps and sensitivity visible.
 
@@ -21,7 +21,7 @@ Official macroeconomic data and validated econometrics in the browser, with assu
 - Start from **9 templates** or five questions in **Simple Build**. Inspect every setting in **Advanced**, with Builder role guidance and the complete method drawer. Switching modes preserves the configuration.
 - Run entirely in the browser through **Pyodide**, with no account or analysis server. The published app uses a bundled snapshot and does not request new data from providers.
 - Carry a selected series and its display transform from Data into comparison, unit-root tests or regression, or open it in Advanced. Missing inputs and incomplete choices stay visible and block execution. Export results to **CSV, PNG, LaTeX tables and reproducible Python scripts**.
-- See scientific **charts and short result tables directly after running**. **Key facts** are followed by the **Econometric specification**, then relationship scatters, coefficient intervals and response curves. Warnings, units and concise samples stay visible; detailed tables, diagnostics and method notes open through keyboard-accessible disclosures. Mobile views stack the visuals; every row and export remains available.
+- See scientific **charts and short result tables directly after running**. **Key facts** are followed by the **Econometric specification**, then relationship scatters, coefficient intervals and response curves. Warnings, units and concise samples stay visible; whole specification-sensitivity, covariance-sensitivity and detailed-evidence sections open through keyboard-accessible disclosures. Primary test results stay exposed, and opening sections never refits a model. Mobile views stack the visuals; every row and export remains available.
 
 ## Who it's for
 
@@ -185,7 +185,7 @@ For a self-contained calculation, download the result's **Python script**, follo
 
 ## Citation
 
-Hakan Zeki Gülmez (2026). _MacroLab_, version 2.6.1. https://github.com/hakangulmez/macrolab.
+Hakan Zeki Gülmez (2026). _MacroLab_, version 2.6.2. https://github.com/hakangulmez/macrolab.
 
 Machine-readable citation: [CITATION.cff](CITATION.cff). No DOI has been assigned.
 

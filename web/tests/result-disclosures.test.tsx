@@ -43,3 +43,24 @@ it("collapses wide matrices and explicitly detailed tables without dropping colu
     ),
   ).toContain("<summary>Detailed sensitivity estimates</summary>");
 });
+
+it("keeps a primary test table exposed even when it has many critical-value columns", () => {
+  const rows = [
+    {
+      rank: 0,
+      trace: 32,
+      c90: 10,
+      c95: 12,
+      c99: 18,
+      maximum: 24,
+      m90: 8,
+      m95: 10,
+      m99: 15,
+    },
+  ];
+  const original = structuredClone(rows);
+  const html = renderToStaticMarkup(<ResultDataTable primary rows={rows} />);
+  expect(html).not.toContain("<details");
+  expect(html.match(/scope="col"/g)).toHaveLength(9);
+  expect(rows).toEqual(original);
+});

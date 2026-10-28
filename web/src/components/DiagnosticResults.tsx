@@ -140,6 +140,7 @@ export function DiagnosticResults({
             sequential trace test at 95%. {text(c.caveat)}
           </p>
           <DataTable
+            primary
             caption="Johansen tests · asymptotic critical values"
             columns={[
               "Null rank",
@@ -262,27 +263,30 @@ export function DiagnosticResults({
               },
             ]}
           />
-          <DataTable
-            caption={`Calibration sensitivity · q = ${text(b.tested_coefficients)} · statistic and critical value: Wald/q · 499 seeded bootstrap draws`}
-            columns={[
-              "Calibration",
-              "Selected",
-              "Peak date",
-              "Sup-F",
-              "p value",
-              "95% critical value",
-              "Reject at 5%",
-            ]}
-            rows={records(b.inference_variants).map((r) => ({
-              Calibration: r.label,
-              Selected: r.selected ? "Selected" : "",
-              "Peak date": r.date,
-              "Sup-F": r.f_statistic,
-              "p value": probability(r.p_value),
-              "95% critical value": record(r.critical_values)["95"],
-              "Reject at 5%": r.reject_5pct ? "Yes" : "No",
-            }))}
-          />
+          <details className="secondary-section ">
+            <summary>Covariance sensitivity</summary>
+            <DataTable
+              caption={`Calibration sensitivity · q = ${text(b.tested_coefficients)} · statistic and critical value: Wald/q · 499 seeded bootstrap draws`}
+              columns={[
+                "Calibration",
+                "Selected",
+                "Peak date",
+                "Sup-F",
+                "p value",
+                "95% critical value",
+                "Reject at 5%",
+              ]}
+              rows={records(b.inference_variants).map((r) => ({
+                Calibration: r.label,
+                Selected: r.selected ? "Selected" : "",
+                "Peak date": r.date,
+                "Sup-F": r.f_statistic,
+                "p value": probability(r.p_value),
+                "95% critical value": record(r.critical_values)["95"],
+                "Reject at 5%": r.reject_5pct ? "Yes" : "No",
+              }))}
+            />
+          </details>
           <p className="small">
             {text(record(b.bootstrap).serial_correlation_note)}
           </p>
@@ -318,11 +322,14 @@ export function DiagnosticResults({
             </p>
             <DataTable rows={records(b.omitted_candidates)} />
           </details>
-          <ul>
-            {(b.notes as string[]).map((note) => (
-              <li key={note}>{note}</li>
-            ))}
-          </ul>
+          <details className="secondary-section ">
+            <summary>Extended interpretation and method notes</summary>
+            <ul>
+              {(b.notes as string[]).map((note) => (
+                <li key={note}>{note}</li>
+              ))}
+            </ul>
+          </details>
         </>
       )}
       {charts.length > 0 && (

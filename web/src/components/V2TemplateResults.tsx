@@ -179,8 +179,11 @@ export function V2TemplateResults({
         </ChartExportContext.Provider>
       )}
       {(fe || lp) && (
-        <section className="card stack" data-testid="v2-template-sensitivity">
-          <h2>Specification sensitivity</h2>
+        <details
+          className="card stack secondary-section"
+          data-testid="v2-template-sensitivity"
+        >
+          <summary>Specification sensitivity</summary>
           <p className="small">
             “Changes the answer materially” means a sign flip or a change
             greater than 50% from baseline at the same horizon or coefficient.
@@ -256,7 +259,7 @@ export function V2TemplateResults({
               </section>
             );
           })}
-        </section>
+        </details>
       )}
     </section>
   );

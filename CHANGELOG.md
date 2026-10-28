@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.2 — Consistent secondary-result sections
+
+- Group sensitivity introductions, variants, warnings and tables inside initially collapsed section-level disclosures.
+- Keep charts, controls, baseline warnings, primary tests and short result tables visible; preserve chart selections when sections open or close.
+- All scientific calculations, defaults, data, runtime and export values are unchanged.
+
 ## 2.6.1 — Result disclosures and econometric specification
 
 - Keep charts and controls exposed; collapse detailed tables, diagnostics and full method notes while retaining short summaries and warnings.

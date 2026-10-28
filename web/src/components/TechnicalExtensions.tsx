@@ -345,19 +345,22 @@ export function TechnicalExtensions({
                 ratios unreliable.
               </p>
               <DataTable rows={ratioRows} />
-              {variants.map((v) => (
-                <div key={text(v.variant_id)}>
-                  <strong>
-                    {text(v.label)}: {text(v.status)}
-                  </strong>
-                  <Checks
-                    checks={(v.checks ?? []) as AnalysisResult["checks"]}
-                    countries={manifest.countries}
-                    indicators={indicators}
-                    showEstimationPhase
-                  />
-                </div>
-              ))}
+              <details className="secondary-section ">
+                <summary>Specification sensitivity</summary>
+                {variants.map((v) => (
+                  <div key={text(v.variant_id)}>
+                    <strong>
+                      {text(v.label)}: {text(v.status)}
+                    </strong>
+                    <Checks
+                      checks={(v.checks ?? []) as AnalysisResult["checks"]}
+                      countries={manifest.countries}
+                      indicators={indicators}
+                      showEstimationPhase
+                    />
+                  </div>
+                ))}
+              </details>
               <p>{text(extension.agreement_rule)}</p>
               <DataTable
                 rows={summaries
