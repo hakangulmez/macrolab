@@ -1,6 +1,6 @@
 # MacroLab
 
-Version 2.4.0.
+Version 2.5.0.
 
 Official macroeconomic data and validated econometrics in the browser, with assumptions, data gaps and sensitivity visible.
 
@@ -9,7 +9,7 @@ Official macroeconomic data and validated econometrics in the browser, with assu
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/home-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/home-light.webp">
-  <img src="docs/images/home-light.webp" alt="MacroLab Home: inflation across economies and snapshot statistics, version 2.2.0." width="1440" height="937">
+  <img src="docs/images/home-light.webp" alt="MacroLab Home: inflation across economies and snapshot statistics, version 2.5.0." width="1440" height="1200">
 </picture>
 
 ## What it does
@@ -18,9 +18,9 @@ Official macroeconomic data and validated econometrics in the browser, with assu
 
 - Explore **39 economies × 36 indicators** (33 national + 3 global factors), with every gap visible in the dataset explorer. Relationship scatters show the recorded sample and existing fitted line.
 - Use **25 validated methods in 8 families**, from descriptive analysis to panel models and forecasting.
-- Start from **9 templates** with explicit specifications and default countries, or use Builder guidance to assign roles and configure first-stage shocks.
+- Start from **9 templates** or five questions in **Simple Build**. Inspect every setting in **Advanced**, with Builder role guidance and the complete method drawer. Switching modes preserves the configuration.
 - Run entirely in the browser through **Pyodide**, with no account or analysis server. The published app uses a bundled snapshot and does not request new data from providers.
-- Export results to **CSV, PNG, LaTeX tables and reproducible Python scripts**.
+- Carry a selected series and its display transform from Data into comparison, unit-root tests or regression, or open it in Advanced. Missing inputs and incomplete choices stay visible and block execution. Export results to **CSV, PNG, LaTeX tables and reproducible Python scripts**.
 - Read a layered result page: **Key facts**, the main chart and a **robustness summary** appear first. **Details** retains every finding, chart and table, plus a **Specification box** with the equation, inference and actual sample. Forecast-evaluation charts compare actual paths with forecasts and RMSE across horizons.
 
 ## Who it's for
@@ -40,7 +40,7 @@ Passing these checks does not validate an economic interpretation. See
 
 ## Screenshots
 
-Result screenshots show real states of v2.4.0; Home and Data captures remain from the published v2.2.0 build. Desktop images switch with your colour-scheme preference. [Capture provenance and image sizes](docs/images/README.md).
+Home and Data screenshots show real states of v2.5.0; unchanged result views retain the v2.4.0 captures. Desktop images switch with your colour-scheme preference. [Capture provenance and image sizes](docs/images/README.md).
 
 ### Dataset explorer
 
@@ -49,7 +49,7 @@ Germany's HICP cell is selected; its observations, coverage and source citation 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/dataset-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/dataset-light.webp">
-  <img src="docs/images/dataset-light.webp" alt="Dataset explorer with Germany's HICP cell selected, coverage matrix and official source citation." width="1440" height="1770">
+  <img src="docs/images/dataset-light.webp" alt="Dataset explorer with Germany's HICP cell selected, coverage matrix and official source citation." width="1440" height="2253">
 </picture>
 
 ### Same ECB shock · pooled
@@ -107,7 +107,7 @@ Home and the pooled ECB result at 375 px, also available in both themes.
     <td><picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/home-mobile-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/home-mobile-light.webp">
-  <img src="docs/images/home-mobile-light.webp" alt="MacroLab Home at 375 px: inflation chart and snapshot statistics." width="375" height="1621">
+  <img src="docs/images/home-mobile-light.webp" alt="MacroLab Home at 375 px: inflation chart and snapshot statistics." width="375" height="2000">
 </picture></td>
     <td><picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/ecb-pooled-mobile-dark.webp">
@@ -185,7 +185,7 @@ For a self-contained calculation, download the result's **Python script**, follo
 
 ## Citation
 
-Hakan Zeki Gülmez (2026). _MacroLab_, version 2.4.0. https://github.com/hakangulmez/macrolab.
+Hakan Zeki Gülmez (2026). _MacroLab_, version 2.5.0. https://github.com/hakangulmez/macrolab.
 
 Machine-readable citation: [CITATION.cff](CITATION.cff). No DOI has been assigned.
 

@@ -45,37 +45,52 @@
       "name": "Monetary policy",
       "question": "How do output and prices respond to a recursive US policy-rate shock?",
       "method": "VAR · Recursive",
-      "countries": ["United States"]
+      "countries": [
+        "United States"
+      ]
     },
     {
       "name": "Taylor rule",
       "question": "How is the policy rate associated with inflation and activity?",
       "method": "OLS · HAC",
-      "countries": ["United Kingdom"]
+      "countries": [
+        "United Kingdom"
+      ]
     },
     {
       "name": "Phillips curve",
       "question": "How does the inflation–unemployment relationship vary across samples?",
       "method": "OLS · Rolling",
-      "countries": ["Canada"]
+      "countries": [
+        "Canada"
+      ]
     },
     {
       "name": "Okun's law",
       "question": "How are output growth and unemployment changes related?",
       "method": "OLS · HAC",
-      "countries": ["Spain"]
+      "countries": [
+        "Spain"
+      ]
     },
     {
       "name": "Same ECB shock",
       "question": "How do national responses differ after the same ECB shock?",
       "method": "Local projections · HC1",
-      "countries": ["Germany", "France", "Italy", "Spain"]
+      "countries": [
+        "Germany",
+        "France",
+        "Italy",
+        "Spain"
+      ]
     },
     {
       "name": "Türkiye exchange-rate pass-through",
       "question": "How much exchange-rate depreciation passes through to prices?",
       "method": "Local projections · HC1",
-      "countries": ["Türkiye"]
+      "countries": [
+        "Türkiye"
+      ]
     },
     {
       "name": "Euro-area Phillips curve · pooled",
@@ -99,13 +114,29 @@
       "name": "Same ECB shock · pooled",
       "question": "What is the pooled response to the same ECB shock?",
       "method": "Panel LP · Driscoll–Kraay",
-      "countries": ["Germany", "France", "Italy", "Spain"]
+      "countries": [
+        "Germany",
+        "France",
+        "Italy",
+        "Spain"
+      ]
     },
     {
       "name": "Euro-area inflation forecast horse race",
       "question": "Which model predicts euro-area inflation most accurately in expanding-window evaluation?",
       "method": "Forecast · RW, AR, ARIMA, BVAR",
-      "countries": ["Euro area"]
+      "countries": [
+        "Euro area"
+      ]
     }
-  ]
+  ],
+  "current_build_verification": {
+    "version": "2.5.0",
+    "snapshot_id": "20261024-2040",
+    "manifest_sha256": "d895788e8966c949a7beaad8cd6191d9bd0fb5ac4cb742488c84ea16ad4128bb",
+    "source_site_tree_sha256": "baa34e5551271ca2369dd8f862c018133ac74b38be68d8fde4b70c06fd83e6f2",
+    "counts_unchanged": true,
+    "runtime_version": "2.0.0",
+    "application_wheel_sha256": "a719d9f1dfdb8c7224c227ecde95d1ed4d43fd4d45bba2cfb6c28e311db88a57"
+  }
 }

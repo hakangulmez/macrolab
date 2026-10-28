@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 from statsmodels.tsa.stattools import adfuller, kpss  # type: ignore[import-untyped]
 
+from macrolab.analysis.transforms import period_frequency
 from macrolab.models.base import AnalysisConfig, AnalysisData, check, sample_size_check
 
 # Test-enforced mirror of configs/checks.yaml; usable in the browser without I/O.
@@ -374,12 +375,12 @@ def _covid_checks(data: AnalysisData, config: AnalysisConfig) -> list[dict[str, 
     periods = _periods(data)
     window = config.get("special_periods", {}).get("covid_window", {})
     start = (
-        pd.Period(window["start"], freq=data.frequency).start_time
+        pd.Period(window["start"], freq=period_frequency(data.frequency)).start_time
         if window
         else pd.Timestamp(DEFAULTS["covid_start"])
     )
     end = (
-        pd.Period(window["end"], freq=data.frequency).end_time
+        pd.Period(window["end"], freq=period_frequency(data.frequency)).end_time
         if window
         else pd.Timestamp(DEFAULTS["covid_end"])
     )

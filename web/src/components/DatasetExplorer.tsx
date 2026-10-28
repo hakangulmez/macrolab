@@ -1,5 +1,6 @@
+import type { DataAction } from "../simpleAnalysis";
 import { useEffect, useMemo, useState } from "react";
-import type { CountryBundle, Manifest } from "../types";
+import type { CountryBundle, Manifest, JsonRecord } from "../types";
 import {
   coverage,
   datasetCounts,
@@ -26,7 +27,13 @@ export default function DatasetExplorer({
     category?: string;
     region?: string;
   };
-  onUse: (country: string, concept: string) => void;
+  onUse: (
+    country: string,
+    concept: string,
+    action: DataAction,
+    transform: string,
+    transformParams: JsonRecord,
+  ) => void;
 }) {
   const [query, setQuery] = useState(initialSelection?.search ?? ""),
     [area, setArea] = useState(initialSelection?.region ?? "All"),
@@ -328,11 +335,40 @@ export default function DatasetExplorer({
             Actual modelling samples depend on complete common periods,
             transformations and lags. No displayed observation is substituted.
           </p>
-          <div className="stack">
+          <section className="stack" aria-label="Try it in a model">
+            <h3>Try it in a model</h3>
+            <p className="small">
+              Carry this display transform into Advanced. The analysis engine
+              uses the original observations, converts frequency if needed, then
+              transforms once. A quarterly model can differ from this
+              native-frequency plot.
+            </p>
+            {cell?.observations ? (
+              <div className="stack">
+                {(
+                  [
+                    ["compare", "Compare with other countries"],
+                    ["stationarity", "Is it stationary?"],
+                    ["relate", "Relate to another series"],
+                    ["build", "Open in Build with this series"],
+                  ] as const
+                ).map(([action, label]) => (
+                  <button
+                    key={action}
+                    data-testid={`data-action-${action}`}
+                    onClick={() => onUse(iso, concept, action, transform, {})}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <p>No model action is available for this missing series.</p>
+            )}
             <button
               className="primary"
               disabled={!cell?.observations}
-              onClick={() => onUse(iso, concept)}
+              onClick={() => onUse(iso, concept, "build", transform, {})}
             >
               Use in analysis ↗
             </button>
@@ -351,7 +387,7 @@ export default function DatasetExplorer({
             >
               Download CSV
             </button>
-          </div>
+          </section>
           <details open>
             <summary>Source & citation</summary>
             {records(card?.source_segments).map((s, i) => (

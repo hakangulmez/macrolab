@@ -32,6 +32,7 @@ import "./builder.css";
 import { PanelControls } from "./PanelControls";
 import { TemplateControls } from "./TemplateControls";
 interface Props {
+  entryBlocked?: boolean;
   browseMethods?: () => void;
   methodsOpen?: boolean;
   methodBrowser?: ReactNode;
@@ -50,6 +51,7 @@ interface Props {
   openSource?: (country: string, conceptId: string) => void;
 }
 export function Builder({
+  entryBlocked = false,
   browseMethods,
   methodsOpen,
   methodBrowser,
@@ -91,7 +93,7 @@ export function Builder({
   );
   const guidance = builderGuidance(config, model);
   const suggestion = suggestedRoles(config);
-  const blocked = guidance.length > 0;
+  const blocked = guidance.length > 0 || entryBlocked;
   const isTemplate = Boolean(config.model.params.template_id);
   const isBvar = model.id === "bvar.minn";
   const isVar = ["var.ols", "ident.recursive", "bvar.minn"].includes(model.id);

@@ -1,5 +1,5 @@
 {
-  "version": "mixed: 2.4.0 results; 2.2.0 Home/Data",
+  "version": "mixed: 2.5.0 Home/Data; 2.4.0 results",
   "snapshot_id": "20261024-2040",
   "site_commit": "f2eb4636fec22ced92eadaee7e2019738392b4d5",
   "site_tree_sha256": "fb73c2b7a1d2c4718d1b6037238a07fbb4f6cf78ee0d8cd9bc0fbe20d96383c6",
@@ -8,93 +8,105 @@
   "files": [
     {
       "file": "home-light.webp",
-      "bytes": 148154,
-      "sha256": "1ddd7a142a60b4befe10feb4f0dc4c2e1bd380753680930b8c23b66c09cc679d",
-      "capture_sha256": "bbf5f4bf5c565f166778d5a3bc9e1e0990e93b61d5a3a938c1646d20f4acb24c",
+      "bytes": 164564,
+      "sha256": "a1d4182bb6e4c56aca4dfbdde3d3021805a787beed08aa267616c488b73c3f3e",
+      "capture_sha256": "1197c04ace781e4009ccf341375e9dcc8538cece35bbe4bb553186da441afe1a",
       "width": 2880,
-      "height": 1874,
+      "height": 2400,
       "viewport_width": 1440,
-      "viewport_height": 937,
+      "viewport_height": 1200,
       "device_scale_factor": 2,
       "theme": "light",
       "selected_cell": null,
       "encoding": "lossless",
-      "quality": null
+      "quality": null,
+      "version": "2.5.0",
+      "source_site_tree_sha256": "baa34e5551271ca2369dd8f862c018133ac74b38be68d8fde4b70c06fd83e6f2"
     },
     {
       "file": "home-dark.webp",
-      "bytes": 146190,
-      "sha256": "9d15b22f3ba0070c98bef320e9a08c56f5f1c2a232380533a86dc799f0858f7a",
-      "capture_sha256": "2b4f8ba68264b0b66c38f78139c5b0c1b3799a75e6a3cd7e23422d0192b246b0",
+      "bytes": 158110,
+      "sha256": "205316765b90af9757f3dab346f213d01c4722808242577534f417065e05a11f",
+      "capture_sha256": "5d97c6d42cae43d983e3386b479c1c8650e7cfb45528d4d45b5ed29f0cc02633",
       "width": 2880,
-      "height": 1874,
+      "height": 2400,
       "viewport_width": 1440,
-      "viewport_height": 937,
+      "viewport_height": 1200,
       "device_scale_factor": 2,
       "theme": "dark",
       "selected_cell": null,
       "encoding": "lossless",
-      "quality": null
+      "quality": null,
+      "version": "2.5.0",
+      "source_site_tree_sha256": "baa34e5551271ca2369dd8f862c018133ac74b38be68d8fde4b70c06fd83e6f2"
     },
     {
       "file": "home-mobile-light.webp",
-      "bytes": 101944,
-      "sha256": "a4d08dfb1d0d09d635594718c3a55740a0e377aac459d119c06a6860d0443b6d",
-      "capture_sha256": "ebc41a49ecbf9b39e3181ad811fcf11e1de4a17e7159f6c1aba8cd3c3be62ffe",
+      "bytes": 114812,
+      "sha256": "67550ca1777ae9d369d2dc1fd2a2029a98faa6585c4ac570dff04309aca0a731",
+      "capture_sha256": "34f2bb884f6c49ceb64fa3c2cd98b9fb06742dd45aeb78660b1c4140460e71d4",
       "width": 750,
-      "height": 3242,
+      "height": 4000,
       "viewport_width": 375,
-      "viewport_height": 1621,
+      "viewport_height": 2000,
       "device_scale_factor": 2,
       "theme": "light",
       "selected_cell": null,
       "encoding": "lossless",
-      "quality": null
+      "quality": null,
+      "version": "2.5.0",
+      "source_site_tree_sha256": "baa34e5551271ca2369dd8f862c018133ac74b38be68d8fde4b70c06fd83e6f2"
     },
     {
       "file": "home-mobile-dark.webp",
-      "bytes": 98522,
-      "sha256": "d0fe5c1f0cdc107cf6a06b2658cd0148072c7dbbf0d759594fc147fc507e8add",
-      "capture_sha256": "1bd42e42dfa7d4332b974901d417d29f971f94dd1e3e6d77a38651f92f3b1283",
+      "bytes": 112526,
+      "sha256": "10255748d9a0e07e36676ddd6895824fb608b3e036c94b808d4a6f748139466f",
+      "capture_sha256": "e408b3d0f4cffd391ad7df62b54e6be9c2988a7d0f6c63665e294b00bdf2ae6b",
       "width": 750,
-      "height": 3242,
+      "height": 4000,
       "viewport_width": 375,
-      "viewport_height": 1621,
+      "viewport_height": 2000,
       "device_scale_factor": 2,
       "theme": "dark",
       "selected_cell": null,
       "encoding": "lossless",
-      "quality": null
+      "quality": null,
+      "version": "2.5.0",
+      "source_site_tree_sha256": "baa34e5551271ca2369dd8f862c018133ac74b38be68d8fde4b70c06fd83e6f2"
     },
     {
       "file": "dataset-light.webp",
-      "bytes": 184096,
-      "sha256": "9dcb7ef175260f0dae40e7f125bdeb925233b5ac2560427c4e8151b4d66dfd0d",
-      "capture_sha256": "4b522b040d721a0cd15759923864ce5146a5f28e7ecae72fcdbee8d7b8448cd7",
+      "bytes": 212968,
+      "sha256": "731e44c049963ae32c5692a819b7f8881051f29cf1f3038596562c56cff7c4bf",
+      "capture_sha256": "3e1fdc8fd45e2ed7cb44cb7b4b8e60ecf41aff46ed58965b53d5ed19324a995b",
       "width": 2880,
-      "height": 3540,
+      "height": 4506,
       "viewport_width": 1440,
-      "viewport_height": 1770,
+      "viewport_height": 2253,
       "device_scale_factor": 2,
       "theme": "light",
       "selected_cell": "DEU:cpi",
       "encoding": "lossless",
-      "quality": null
+      "quality": null,
+      "version": "2.5.0",
+      "source_site_tree_sha256": "baa34e5551271ca2369dd8f862c018133ac74b38be68d8fde4b70c06fd83e6f2"
     },
     {
       "file": "dataset-dark.webp",
-      "bytes": 185188,
-      "sha256": "3dac2e27a000dd2147e8c9f625e04923d64682ccc2b6cb2ec8630c3196d2e4ca",
-      "capture_sha256": "d3514424b4adf55dfd657459ccb7c860fef20bcb01f57268ad1201431e415dbd",
+      "bytes": 166542,
+      "sha256": "117ad82f6d2f206496c37127ca0413d4f27cf96fbedb57f7b29b86bbcac66464",
+      "capture_sha256": "2f47c2d17680fa64a971e594d6c13a2482f7eae635a8414dd91e808861b7453f",
       "width": 2880,
-      "height": 3540,
+      "height": 4506,
       "viewport_width": 1440,
-      "viewport_height": 1770,
+      "viewport_height": 2253,
       "device_scale_factor": 2,
       "theme": "dark",
       "selected_cell": "DEU:cpi",
       "encoding": "lossless",
-      "quality": null
+      "quality": null,
+      "version": "2.5.0",
+      "source_site_tree_sha256": "baa34e5551271ca2369dd8f862c018133ac74b38be68d8fde4b70c06fd83e6f2"
     },
     {
       "file": "ecb-pooled-light.webp",
@@ -301,7 +313,7 @@
       "source_site_tree_sha256": "6ca99e2ad049a146c1bfc6c4f86e243d7905c1a567923dc38671da09135a8f63"
     }
   ],
-  "total_bytes": 1956852,
+  "total_bytes": 2022280,
   "result_refresh": {
     "version": "2.4.0",
     "captured": "2026-10-27",
@@ -322,5 +334,20 @@
       "phillips-dark.webp"
     ],
     "method": "Real Chrome viewports at 2x. App controls only; no DOM or chart edits. WebP encoding only; original resolution retained."
+  },
+  "entry_refresh": {
+    "version": "2.5.0",
+    "captured": "2026-10-27",
+    "source": "local final v2.5.0 build",
+    "source_site_tree_sha256": "baa34e5551271ca2369dd8f862c018133ac74b38be68d8fde4b70c06fd83e6f2",
+    "files": [
+      "dataset-dark.webp",
+      "dataset-light.webp",
+      "home-dark.webp",
+      "home-light.webp",
+      "home-mobile-dark.webp",
+      "home-mobile-light.webp"
+    ],
+    "method": "Real Chrome at 2x; app controls only, no DOM edits; WebP encoding only."
   }
 }

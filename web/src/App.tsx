@@ -1,3 +1,18 @@
+import { SimpleBuilder } from "./components/SimpleBuilder";
+import { MethodDrawer } from "./components/MethodDrawer";
+import { QuestionPicker } from "./components/QuestionPicker";
+import {
+  freshSimple,
+  dataActionConfig,
+  entryUnits,
+  seriesQuantity,
+  type DataAction,
+  readBuildMode,
+  saveBuildMode,
+  selectionChecks,
+  type BuildMode,
+  type Question,
+} from "./simpleAnalysis";
 import { analysisErrorMessage, errorControl } from "./analysisErrors";
 import { buildVersion, snapshotDate } from "./version";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
@@ -62,6 +77,26 @@ const NAV: [Screen, string][] = [
 ];
 export function App() {
   const theme = useTheme();
+  const [buildMode, setBuildMode] = useState<BuildMode>(() =>
+    typeof location !== "undefined" && routeFromHash(location.hash)?.methodsOpen
+      ? "advanced"
+      : readBuildMode(),
+  );
+  const [entryPolicy, setEntryPolicy] = useState(false);
+  function chooseMode(mode: BuildMode) {
+    setBuildMode(mode);
+    saveBuildMode(mode);
+  }
+  function forceAdvanced() {
+    setBuildMode("advanced");
+  }
+  function startQuestion(question: Question) {
+    if (!manifest) return;
+    setEntryPolicy(true);
+    setConfig(freshSimple(manifest, question));
+    setBuildMode("simple");
+    navigate("builder");
+  }
   const [manifest, setManifest] = useState<Manifest | null>(null);
   const [config, setRawConfig] = useState<AnalysisConfig | null>(null);
   const [catalogueSelection, setCatalogueSelection] = useState<{
@@ -90,6 +125,7 @@ export function App() {
       const next = routeFromHash(location.hash);
       if (next) {
         setRoute(next);
+        if (next.methodsOpen) setBuildMode("advanced");
         if (next.screen === "methods") setAboutAnchor(location.hash.slice(1));
       }
     };
@@ -147,6 +183,7 @@ export function App() {
               );
             if (active) {
               setRuntimeStatus("ready");
+              setBuildMode("advanced");
               setRoute({ screen: "builder", methodsOpen: false });
             }
           } finally {
@@ -219,6 +256,7 @@ export function App() {
     if (target.screen === "builder" && runtimeStatus !== "ready")
       setRuntimeStatus("preparing");
     setRoute(target);
+    if (target.methodsOpen) forceAdvanced();
     const url = new URL(location.href);
     url.hash = screenHash(next);
     if (url.href !== location.href) history.pushState(null, "", url);
@@ -288,12 +326,27 @@ export function App() {
           }),
         )
     : [];
+  const entryChecks =
+    config && manifest && entryPolicy
+      ? selectionChecks(manifest, config, buildMode === "simple")
+      : [];
+  const displayedBuilderChecks = [...builderChecks, ...entryChecks];
   async function execute(
     next: AnalysisConfig,
     compatibility = false,
     knownOverride?: Check[],
+    applyEntryPolicy = entryPolicy,
   ) {
     if (busy) return;
+    if (
+      !compatibility &&
+      applyEntryPolicy &&
+      manifest &&
+      selectionChecks(manifest, next, buildMode === "simple").some(
+        (c) => c.level === "block",
+      )
+    )
+      return;
     const id = ++requestId.current;
     // Snapshot the exact pre-run disclosure separately from mutable Builder state.
     const knownChecks = structuredClone(knownOverride ?? builderChecks);
@@ -317,6 +370,21 @@ export function App() {
         setCompatible(models);
         setChecks(models.find((m) => m.id === next.model.id)?.checks ?? []);
       } else {
+        if (applyEntryPolicy) {
+          const preflight = await runtime.compatibility(next, bundle);
+          if (id !== requestId.current) return;
+          const selected = (preflight.models as Model[]).find(
+            (m) => m.id === next.model.id,
+          );
+          setChecks(selected?.checks ?? []);
+          if (
+            selected?.available === false ||
+            selected?.checks?.some((c) => c.level === "block")
+          ) {
+            setRuntimeStatus("ready");
+            return;
+          }
+        }
         const output = (await runtime.run(next, bundle, (partial) => {
           if (id !== requestId.current) return;
           setResult(partial as unknown as AnalysisResult);
@@ -349,22 +417,28 @@ export function App() {
   }
   function reopenRecent(entry: RecentResult) {
     if (busy) return;
+    setEntryPolicy(false);
+    forceAdvanced();
     const next = structuredClone(entry.config);
     try {
       validate(next);
       setConfig(next);
       setResult(null);
       navigate("builder");
-      void execute(next, false, []);
+      void execute(next, false, [], false);
     } catch (e: unknown) {
       setError(analysisErrorMessage(e));
     }
   }
   function select(t: Template) {
+    setEntryPolicy(false);
+    forceAdvanced();
     setConfig(structuredClone(t.config));
     navigate("builder");
   }
   function selectModel(m: Model) {
+    setEntryPolicy(false);
+    forceAdvanced();
     if (!config) return;
     const next = structuredClone(config);
     next.model = { id: m.id, params: {} };
@@ -469,18 +543,24 @@ export function App() {
       )
       .catch((e: unknown) => setError(analysisErrorMessage(e)));
   }
-  function useSeries(country: string, concept: string) {
-    if (!config) return;
-    const next = structuredClone(config);
-    next.countries = [country];
-    next.series = [
-      { concept_id: concept, role: "response", transform: "level" },
-    ];
-    next.aggregation = { [concept]: "mean" };
-    next.model = { id: "desc.plot", params: {} };
-    next.identification = null;
-    next.outputs = {};
-    next.comparison = { enabled: false };
+  function useSeries(
+    country: string,
+    concept: string,
+    action: DataAction,
+    transform: string,
+    transformParams: JsonRecord,
+  ) {
+    if (!manifest) return;
+    const next = dataActionConfig(
+      manifest,
+      action,
+      country,
+      concept,
+      transform,
+      transformParams,
+    );
+    setEntryPolicy(true);
+    forceAdvanced();
     setConfig(next);
     navigate("builder");
   }
@@ -614,6 +694,12 @@ export function App() {
               manifest={manifest}
               select={select}
               start={() => navigate("builder")}
+              questionPicker={
+                <section className="card stack">
+                  <h2>Build your own question</h2>
+                  <QuestionPicker select={startQuestion} />
+                </section>
+              }
               about={openAbout}
               recentResults={
                 <RecentResults
@@ -629,56 +715,132 @@ export function App() {
               }}
             />
           ) : screen === "builder" ? (
-            <Builder
-              browseMethods={() => navigate("library")}
-              methodsOpen={methodsOpen}
-              methodBrowser={
-                methodsOpen ? (
-                  <section
-                    id="browse-methods"
-                    className="method-browser card stack"
-                    tabIndex={-1}
-                    aria-label="Browse methods"
-                  >
-                    <div className="row between">
-                      <h2>Browse methods</h2>
-                      <button onClick={() => navigate("builder")}>
-                        Close method browser
-                      </button>
-                    </div>
-                    <Library
-                      manifest={manifest}
-                      compatibility={compatible}
-                      check={() => void execute(config, true)}
-                      busy={busy}
-                      selectModel={selectModel}
-                      config={config}
-                      embedded
-                    />
-                  </section>
-                ) : null
-              }
-              recentResults={
-                <RecentResults
-                  entries={recent}
+            <>
+              <div
+                className="build-mode-bar"
+                role="group"
+                aria-label="Build mode"
+              >
+                <button
+                  data-testid="mode-simple"
+                  aria-pressed={buildMode === "simple"}
+                  onClick={() => chooseMode("simple")}
+                >
+                  Simple
+                </button>
+                <button
+                  data-testid="mode-advanced"
+                  aria-pressed={buildMode === "advanced"}
+                  onClick={() => chooseMode("advanced")}
+                >
+                  Advanced
+                </button>
+              </div>
+              <MethodDrawer
+                open={methodsOpen}
+                close={() => navigate("builder")}
+              >
+                <Library
                   manifest={manifest}
+                  compatibility={compatible}
+                  check={() => void execute(config, true)}
                   busy={busy}
-                  reopen={reopenRecent}
+                  selectModel={selectModel}
+                  config={config}
+                  embedded
                 />
-              }
-              openSource={openSource}
-              manifest={manifest}
-              config={config}
-              setConfig={setConfig}
-              bundles={bundles}
-              models={compatible}
-              checks={builderChecks}
-              busy={busy}
-              runtimeStatus={runtimeStatus}
-              run={() => void execute(config)}
-              check={() => void execute(config, true)}
-              fix={applyFix}
-            />
+              </MethodDrawer>
+              {entryPolicy && buildMode === "advanced" && (
+                <section
+                  className="info-box stack"
+                  aria-label="Entry settings"
+                  data-testid="entry-settings"
+                >
+                  <h2>Selected analysis settings</h2>
+                  <p>
+                    Frequency: {config.frequency}. Requested sample:{" "}
+                    {config.sample.start}–{config.sample.end}. Actual common
+                    sample and dropped periods appear in Results → Details →
+                    Samples & data.
+                  </p>
+                  {config.series.map((s) => (
+                    <p key={s.concept_id}>
+                      {seriesQuantity(manifest, config, s)} · {s.role} · units:{" "}
+                      {entryUnits(bundles, config, s)} · aggregation:{" "}
+                      {config.aggregation[s.concept_id] ?? "mean"}
+                    </p>
+                  ))}
+                  <p>
+                    The engine converts the original observations to this
+                    frequency and applies each selected transform once. A
+                    different frequency can produce different values from Data's
+                    plot. Definitions, source units and comparability notes
+                    remain in the selected series cards.
+                  </p>
+                  {config.model.id === "desc.compare" && (
+                    <p>
+                      Compare transformed means over the actual common sample,
+                      ranked highest to lowest. No currency conversion or
+                      normalisation is added. Shared global factors repeat the
+                      same series and do not measure national variation.
+                    </p>
+                  )}
+                </section>
+              )}
+              {buildMode === "simple" ? (
+                <SimpleBuilder
+                  manifest={manifest}
+                  config={config}
+                  setConfig={(next) => {
+                    setEntryPolicy(true);
+                    setConfig(next);
+                  }}
+                  start={startQuestion}
+                  checks={displayedBuilderChecks}
+                  bundles={bundles}
+                  busy={busy}
+                  run={() => void execute(config)}
+                  advanced={() => chooseMode("advanced")}
+                  browse={() => navigate("library")}
+                  check={() => void execute(config, true)}
+                  openSource={openSource}
+                  recentResults={
+                    <RecentResults
+                      entries={recent}
+                      manifest={manifest}
+                      busy={busy}
+                      reopen={reopenRecent}
+                    />
+                  }
+                />
+              ) : (
+                <Builder
+                  browseMethods={() => navigate("library")}
+                  methodsOpen={methodsOpen}
+                  recentResults={
+                    <RecentResults
+                      entries={recent}
+                      manifest={manifest}
+                      busy={busy}
+                      reopen={reopenRecent}
+                    />
+                  }
+                  openSource={openSource}
+                  manifest={manifest}
+                  config={config}
+                  setConfig={setConfig}
+                  bundles={bundles}
+                  models={compatible}
+                  checks={displayedBuilderChecks}
+                  entryBlocked={entryChecks.some((c) => c.level === "block")}
+                  busy={busy}
+                  runtimeStatus={runtimeStatus}
+                  run={() => void execute(config)}
+                  check={() => void execute(config, true)}
+                  fix={applyFix}
+                />
+              )}
+            </>
           ) : screen === "results" ? (
             <>
               <Results
@@ -693,7 +855,10 @@ export function App() {
                 exportPython={() => void exportPython()}
                 share={() => void share()}
                 shareUrl={shareUrl}
-                edit={() => navigate("builder")}
+                edit={() => {
+                  forceAdvanced();
+                  navigate("builder");
+                }}
               />
               {!result && (
                 <p className="empty-explore-link">

@@ -1,0 +1,2418 @@
+{
+  "provenance": {
+    "normaliser": "macrolab.analysis.config.validated_config",
+    "source_sha256": "63733d4f9aefb3877264476e1a8f9563a90907f94938c2d1fc326975b9cb9375",
+    "manifest_sha256": "d895788e8966c949a7beaad8cd6191d9bd0fb5ac4cb742488c84ea16ad4128bb",
+    "runtime_version": "2.0.0",
+    "note": "Eight completed browser configs independently equal native validated_config(fresh); US preset additionally normalised natively. No observations or results included."
+  },
+  "manifest": {
+    "snapshot_id": "20261024-2040",
+    "countries": [
+      {
+        "iso3": "AUS",
+        "name": "Australia",
+        "monetary_union": null
+      },
+      {
+        "iso3": "AUT",
+        "name": "Austria",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "BEL",
+        "name": "Belgium",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "CAN",
+        "name": "Canada",
+        "monetary_union": null
+      },
+      {
+        "iso3": "CHL",
+        "name": "Chile",
+        "monetary_union": null
+      },
+      {
+        "iso3": "COL",
+        "name": "Colombia",
+        "monetary_union": null
+      },
+      {
+        "iso3": "CRI",
+        "name": "Costa Rica",
+        "monetary_union": null
+      },
+      {
+        "iso3": "CZE",
+        "name": "Czechia",
+        "monetary_union": null
+      },
+      {
+        "iso3": "DNK",
+        "name": "Denmark",
+        "monetary_union": null
+      },
+      {
+        "iso3": "EST",
+        "name": "Estonia",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "EA",
+        "name": "Euro area",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "FIN",
+        "name": "Finland",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "FRA",
+        "name": "France",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "DEU",
+        "name": "Germany",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "GRC",
+        "name": "Greece",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "HUN",
+        "name": "Hungary",
+        "monetary_union": null
+      },
+      {
+        "iso3": "ISL",
+        "name": "Iceland",
+        "monetary_union": null
+      },
+      {
+        "iso3": "IRL",
+        "name": "Ireland",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "ISR",
+        "name": "Israel",
+        "monetary_union": null
+      },
+      {
+        "iso3": "ITA",
+        "name": "Italy",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "JPN",
+        "name": "Japan",
+        "monetary_union": null
+      },
+      {
+        "iso3": "KOR",
+        "name": "Korea",
+        "monetary_union": null
+      },
+      {
+        "iso3": "LVA",
+        "name": "Latvia",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "LTU",
+        "name": "Lithuania",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "LUX",
+        "name": "Luxembourg",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "MEX",
+        "name": "Mexico",
+        "monetary_union": null
+      },
+      {
+        "iso3": "NLD",
+        "name": "Netherlands",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "NZL",
+        "name": "New Zealand",
+        "monetary_union": null
+      },
+      {
+        "iso3": "NOR",
+        "name": "Norway",
+        "monetary_union": null
+      },
+      {
+        "iso3": "POL",
+        "name": "Poland",
+        "monetary_union": null
+      },
+      {
+        "iso3": "PRT",
+        "name": "Portugal",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "SVK",
+        "name": "Slovak Republic",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "SVN",
+        "name": "Slovenia",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "ESP",
+        "name": "Spain",
+        "monetary_union": "EA"
+      },
+      {
+        "iso3": "SWE",
+        "name": "Sweden",
+        "monetary_union": null
+      },
+      {
+        "iso3": "CHE",
+        "name": "Switzerland",
+        "monetary_union": null
+      },
+      {
+        "iso3": "TUR",
+        "name": "Türkiye",
+        "monetary_union": null
+      },
+      {
+        "iso3": "GBR",
+        "name": "United Kingdom",
+        "monetary_union": null
+      },
+      {
+        "iso3": "USA",
+        "name": "United States",
+        "monetary_union": null
+      }
+    ],
+    "indicators": [
+      {
+        "concept_id": "gdp_real",
+        "frequency": "Q",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "cons_priv",
+        "frequency": "Q",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "gfcf",
+        "frequency": "Q",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "cons_gov",
+        "frequency": "Q",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "exports_real",
+        "frequency": "Q",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "imports_real",
+        "frequency": "Q",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "ind_prod",
+        "frequency": "M",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "retail_vol",
+        "frequency": "M",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "cli",
+        "frequency": "M",
+        "default_transform": "level"
+      },
+      {
+        "concept_id": "cpi",
+        "frequency": "M",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "cpi_core",
+        "frequency": "M",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "ppi",
+        "frequency": "M",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "gdp_defl",
+        "frequency": "Q",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "house_real",
+        "frequency": "Q",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "ulc",
+        "frequency": "Q",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "unemp",
+        "frequency": "M",
+        "default_transform": "level"
+      },
+      {
+        "concept_id": "employment",
+        "frequency": "Q",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "lfpr",
+        "frequency": "Q",
+        "default_transform": "level"
+      },
+      {
+        "concept_id": "policy_rate",
+        "frequency": "M",
+        "default_transform": "level"
+      },
+      {
+        "concept_id": "rate_3m",
+        "frequency": "M",
+        "default_transform": "level"
+      },
+      {
+        "concept_id": "rate_10y",
+        "frequency": "M",
+        "default_transform": "level"
+      },
+      {
+        "concept_id": "term_spread",
+        "frequency": "M",
+        "default_transform": "level"
+      },
+      {
+        "concept_id": "credit_pnfs",
+        "frequency": "Q",
+        "default_transform": "level"
+      },
+      {
+        "concept_id": "money_broad",
+        "frequency": "M",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "equity_idx",
+        "frequency": "M",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "reer",
+        "frequency": "M",
+        "default_transform": "log"
+      },
+      {
+        "concept_id": "neer",
+        "frequency": "M",
+        "default_transform": "log"
+      },
+      {
+        "concept_id": "fx_usd",
+        "frequency": "M",
+        "default_transform": "log"
+      },
+      {
+        "concept_id": "ca_gdp",
+        "frequency": "Q",
+        "default_transform": "level"
+      },
+      {
+        "concept_id": "gov_debt",
+        "frequency": "A",
+        "default_transform": "level"
+      },
+      {
+        "concept_id": "gov_balance",
+        "frequency": "A",
+        "default_transform": "level"
+      },
+      {
+        "concept_id": "conf_cons",
+        "frequency": "M",
+        "default_transform": "level"
+      },
+      {
+        "concept_id": "conf_bus",
+        "frequency": "M",
+        "default_transform": "level"
+      },
+      {
+        "concept_id": "oil_brent",
+        "frequency": "M",
+        "default_transform": "log"
+      },
+      {
+        "concept_id": "commod_idx",
+        "frequency": "M",
+        "default_transform": "yoy_pct"
+      },
+      {
+        "concept_id": "us_policy_rate",
+        "frequency": "M",
+        "default_transform": "level"
+      }
+    ],
+    "coverage": [
+      {
+        "country": "CAN",
+        "concept_id": "gdp_real",
+        "frequency": "Q"
+      },
+      {
+        "country": "CAN",
+        "concept_id": "cpi",
+        "frequency": "M"
+      },
+      {
+        "country": "CAN",
+        "concept_id": "unemp",
+        "frequency": "M"
+      },
+      {
+        "country": "CAN",
+        "concept_id": "gov_debt",
+        "frequency": "A"
+      },
+      {
+        "country": "DEU",
+        "concept_id": "gdp_real",
+        "frequency": "Q"
+      },
+      {
+        "country": "DEU",
+        "concept_id": "cpi",
+        "frequency": "M"
+      },
+      {
+        "country": "DEU",
+        "concept_id": "unemp",
+        "frequency": "M"
+      },
+      {
+        "country": "DEU",
+        "concept_id": "policy_rate",
+        "frequency": "M"
+      },
+      {
+        "country": "DEU",
+        "concept_id": "oil_brent",
+        "frequency": "M"
+      },
+      {
+        "country": "DEU",
+        "concept_id": "commod_idx",
+        "frequency": "M"
+      },
+      {
+        "country": "GBR",
+        "concept_id": "unemp",
+        "frequency": "M"
+      },
+      {
+        "country": "GBR",
+        "concept_id": "gov_debt",
+        "frequency": "A"
+      },
+      {
+        "country": "USA",
+        "concept_id": "gdp_real",
+        "frequency": "Q"
+      },
+      {
+        "country": "USA",
+        "concept_id": "cpi",
+        "frequency": "M"
+      },
+      {
+        "country": "USA",
+        "concept_id": "unemp",
+        "frequency": "M"
+      },
+      {
+        "country": "USA",
+        "concept_id": "policy_rate",
+        "frequency": "M"
+      },
+      {
+        "country": "USA",
+        "concept_id": "oil_brent",
+        "frequency": "M"
+      }
+    ],
+    "templates": [
+      {
+        "id": "monetary_policy",
+        "config": {
+          "schema_version": 1,
+          "snapshot_id": "20261024-2040",
+          "countries": ["USA"],
+          "series": [
+            {
+              "concept_id": "policy_rate",
+              "role": "shock",
+              "transform": "level"
+            },
+            {
+              "concept_id": "gdp_real",
+              "role": "endogenous",
+              "transform": "qoq_saar"
+            },
+            {
+              "concept_id": "cpi",
+              "role": "endogenous",
+              "transform": "qoq_saar"
+            },
+            {
+              "concept_id": "unemp",
+              "role": "endogenous",
+              "transform": "level"
+            },
+            {
+              "concept_id": "oil_brent",
+              "role": "exogenous",
+              "transform": "log"
+            }
+          ],
+          "frequency": "Q",
+          "aggregation": {
+            "policy_rate": "mean",
+            "gdp_real": "mean",
+            "cpi": "mean",
+            "unemp": "mean",
+            "oil_brent": "mean"
+          },
+          "sample": {
+            "start": "1999-Q1",
+            "end": "latest"
+          },
+          "special_periods": {
+            "covid": "dummy",
+            "covid_window": {
+              "start": "2020-Q1",
+              "end": "2020-Q3"
+            }
+          },
+          "model": {
+            "id": "var.ols",
+            "params": {
+              "lags": 2,
+              "lag_selection": "fixed",
+              "trend": "c",
+              "maxlags": 4
+            }
+          },
+          "identification": {
+            "id": "recursive",
+            "params": {
+              "order": ["gdp_real", "cpi", "unemp", "policy_rate"]
+            }
+          },
+          "outputs": {
+            "confidence": 0.95,
+            "irf": {
+              "horizon": 12,
+              "bands": 0.68,
+              "shock_size": 1,
+              "method": "bootstrap",
+              "draws": 200,
+              "shock_mode": "one_sd"
+            }
+          },
+          "comparison": {
+            "enabled": true,
+            "methods": [],
+            "identifications": [],
+            "scenarios": [
+              "extended_var",
+              "lag_criteria",
+              "covid_include",
+              "end_2019"
+            ]
+          },
+          "seed": 20261021
+        }
+      },
+      {
+        "id": "phillips_curve",
+        "config": {
+          "schema_version": 1,
+          "snapshot_id": "20261024-2040",
+          "countries": ["CAN"],
+          "series": [
+            {
+              "concept_id": "cpi",
+              "role": "dependent",
+              "transform": "yoy_pct"
+            },
+            {
+              "concept_id": "unemp",
+              "role": "regressor",
+              "transform": "level"
+            }
+          ],
+          "frequency": "Q",
+          "aggregation": {
+            "cpi": "mean",
+            "unemp": "mean"
+          },
+          "sample": {
+            "start": "1999-Q1",
+            "end": "latest"
+          },
+          "special_periods": {
+            "covid": "include"
+          },
+          "model": {
+            "id": "sing.ols",
+            "params": {
+              "covariance": "HAC",
+              "hac_lags": 4
+            }
+          },
+          "identification": null,
+          "outputs": {
+            "confidence": 0.95
+          },
+          "comparison": {
+            "enabled": true,
+            "methods": ["sing.rolling"],
+            "identifications": []
+          },
+          "seed": 20261021
+        }
+      },
+      {
+        "id": "same_ecb_shock",
+        "config": {
+          "schema_version": 1,
+          "snapshot_id": "20261024-2040",
+          "countries": ["DEU", "FRA", "ITA", "ESP"],
+          "series": [
+            {
+              "concept_id": "policy_rate",
+              "role": "endogenous",
+              "transform": "level",
+              "transform_params": {}
+            },
+            {
+              "concept_id": "gdp_real",
+              "role": "response",
+              "transform": "log",
+              "transform_params": {}
+            },
+            {
+              "concept_id": "cpi",
+              "role": "response",
+              "transform": "log",
+              "transform_params": {}
+            },
+            {
+              "concept_id": "unemp",
+              "role": "response",
+              "transform": "level",
+              "transform_params": {}
+            },
+            {
+              "concept_id": "oil_brent",
+              "role": "exogenous",
+              "transform": "log",
+              "transform_params": {}
+            },
+            {
+              "concept_id": "commod_idx",
+              "role": "exogenous",
+              "transform": "yoy_pct",
+              "transform_params": {}
+            },
+            {
+              "concept_id": "identified_impulse",
+              "role": "shock",
+              "transform": "level",
+              "transform_params": {}
+            }
+          ],
+          "frequency": "Q",
+          "aggregation": {
+            "policy_rate": "mean",
+            "gdp_real": "mean",
+            "cpi": "mean",
+            "unemp": "mean",
+            "oil_brent": "mean",
+            "commod_idx": "mean",
+            "identified_impulse": "mean"
+          },
+          "sample": {
+            "start": "1999-Q1",
+            "end": "latest"
+          },
+          "special_periods": {
+            "covid": "dummy",
+            "covid_window": {
+              "start": "2020-Q1",
+              "end": "2020-Q3"
+            },
+            "elb_threshold": 0.25
+          },
+          "model": {
+            "id": "cmp.common_shock",
+            "params": {
+              "template_id": "same_ecb_shock",
+              "policy_measure": "dfr",
+              "country_window": "own",
+              "displayed_band": "conditional",
+              "first_stage": {
+                "schema_version": 1,
+                "snapshot_id": "20261024-2040",
+                "countries": ["EA"],
+                "series": [
+                  {
+                    "concept_id": "policy_rate",
+                    "role": "shock",
+                    "transform": "level",
+                    "transform_params": {}
+                  },
+                  {
+                    "concept_id": "gdp_real",
+                    "role": "endogenous",
+                    "transform": "qoq_saar",
+                    "transform_params": {}
+                  },
+                  {
+                    "concept_id": "cpi",
+                    "role": "endogenous",
+                    "transform": "qoq_saar",
+                    "transform_params": {}
+                  },
+                  {
+                    "concept_id": "unemp",
+                    "role": "endogenous",
+                    "transform": "level",
+                    "transform_params": {}
+                  },
+                  {
+                    "concept_id": "oil_brent",
+                    "role": "exogenous",
+                    "transform": "log",
+                    "transform_params": {}
+                  },
+                  {
+                    "concept_id": "commod_idx",
+                    "role": "exogenous",
+                    "transform": "yoy_pct",
+                    "transform_params": {}
+                  }
+                ],
+                "frequency": "Q",
+                "aggregation": {
+                  "policy_rate": "mean",
+                  "gdp_real": "mean",
+                  "cpi": "mean",
+                  "unemp": "mean",
+                  "oil_brent": "mean",
+                  "commod_idx": "mean"
+                },
+                "sample": {
+                  "start": "1999-Q1",
+                  "end": "latest"
+                },
+                "special_periods": {
+                  "covid": "dummy",
+                  "covid_window": {
+                    "start": "2020-Q1",
+                    "end": "2020-Q3"
+                  },
+                  "elb_threshold": 0.25
+                },
+                "model": {
+                  "id": "ident.external_series",
+                  "params": {
+                    "lags": 2,
+                    "trend": "c",
+                    "lag_selection": "fixed",
+                    "maxlags": 4
+                  }
+                },
+                "identification": {
+                  "id": "recursive",
+                  "params": {
+                    "order": ["gdp_real", "cpi", "unemp", "policy_rate"]
+                  }
+                },
+                "outputs": {
+                  "confidence": 0.95,
+                  "irf": {
+                    "horizon": 12,
+                    "bands": 0.68,
+                    "shock_size": 1,
+                    "method": "bootstrap",
+                    "draws": 200,
+                    "shock_mode": "one_sd"
+                  }
+                },
+                "comparison": {
+                  "enabled": false,
+                  "identifications": [],
+                  "methods": [],
+                  "scenarios": []
+                },
+                "seed": 20261021
+              },
+              "horizon": 12,
+              "lags": 2,
+              "lag_augmented": true,
+              "covariance": "HC1",
+              "response_mode": "level",
+              "response_modes": {
+                "gdp_real": "cumulative_log",
+                "cpi": "cumulative_log",
+                "unemp": "change"
+              },
+              "lag_difference_scales": {
+                "gdp_real": 400,
+                "cpi": 400
+              },
+              "shared_controls": {
+                "policy_rate": "policy_rate"
+              },
+              "bootstrap_draws": 200,
+              "sample_mode": "common",
+              "seasonal": false,
+              "shock_size": 1,
+              "growth_scale": 1,
+              "joint_bootstrap": false
+            }
+          },
+          "identification": null,
+          "outputs": {
+            "confidence": 0.95
+          },
+          "comparison": {
+            "enabled": true,
+            "identifications": [],
+            "methods": [],
+            "scenarios": []
+          },
+          "seed": 20261021
+        }
+      }
+    ],
+    "models": [
+      {
+        "id": "desc.plot",
+        "params": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        }
+      },
+      {
+        "id": "desc.compare",
+        "params": {
+          "type": "object",
+          "properties": {
+            "statistic": {
+              "type": "string",
+              "enum": ["mean", "last"],
+              "default": "mean"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      {
+        "id": "sing.ols",
+        "params": {
+          "type": "object",
+          "properties": {
+            "covariance": {
+              "type": "string",
+              "enum": ["HAC", "HC1"],
+              "default": "HAC"
+            },
+            "hac_lags": {
+              "type": "integer",
+              "default": 4,
+              "minimum": 0,
+              "maximum": 120
+            },
+            "confidence": {
+              "type": "number",
+              "default": 0.95,
+              "minimum": 0.5,
+              "maximum": 0.999
+            },
+            "trend": {
+              "type": "string",
+              "enum": ["c", "n"],
+              "default": "c"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      {
+        "id": "var.ols",
+        "params": {
+          "type": "object",
+          "properties": {
+            "lags": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 24,
+              "default": 2
+            },
+            "lag_selection": {
+              "enum": ["fixed", "aic", "bic", "hq"],
+              "default": "fixed"
+            },
+            "maxlags": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 24,
+              "default": 8
+            },
+            "trend": {
+              "enum": ["c", "ct", "n"],
+              "default": "c"
+            }
+          }
+        }
+      },
+      {
+        "id": "ident.external_series",
+        "params": {
+          "type": "object",
+          "properties": {
+            "lags": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 24,
+              "default": 2
+            },
+            "lag_selection": {
+              "enum": ["fixed", "aic", "bic", "hq"],
+              "default": "fixed"
+            },
+            "maxlags": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 24,
+              "default": 8
+            },
+            "trend": {
+              "enum": ["c", "ct", "n"],
+              "default": "c"
+            },
+            "exclude_window": {
+              "type": "object",
+              "default": {}
+            }
+          }
+        }
+      },
+      {
+        "id": "cmp.common_shock",
+        "params": {
+          "type": "object",
+          "properties": {
+            "crisis_extension": {
+              "type": "boolean"
+            },
+            "crisis_mode": {
+              "type": "string",
+              "enum": ["dummies", "exclude"]
+            },
+            "template_id": {
+              "type": "string",
+              "enum": ["", "same_ecb_shock", "tur_pass_through"],
+              "default": ""
+            },
+            "policy_measure": {
+              "type": "string",
+              "enum": ["dfr", "rate_3m", "bis"],
+              "default": "dfr"
+            },
+            "country_window": {
+              "type": "string",
+              "enum": ["own", "common"],
+              "default": "own"
+            },
+            "displayed_band": {
+              "type": "string",
+              "enum": ["conditional", "joint"],
+              "default": "conditional"
+            },
+            "lag_difference_scales": {
+              "type": "object",
+              "default": {}
+            },
+            "shared_controls": {
+              "type": "object",
+              "default": {}
+            },
+            "lags": {
+              "type": "integer",
+              "default": 2,
+              "minimum": 0,
+              "maximum": 24
+            },
+            "horizon": {
+              "type": "integer",
+              "default": 12,
+              "minimum": 0,
+              "maximum": 60
+            },
+            "response_mode": {
+              "type": "string",
+              "enum": ["level", "change", "cumulative_log", "growth_log"],
+              "default": "level"
+            },
+            "sample_mode": {
+              "type": "string",
+              "enum": ["common", "horizon_specific"],
+              "default": "common"
+            },
+            "covariance": {
+              "type": "string",
+              "enum": ["HAC", "HC1"],
+              "default": "HAC"
+            },
+            "lag_augmented": {
+              "type": "boolean",
+              "default": false
+            },
+            "seasonal": {
+              "type": "boolean",
+              "default": false
+            },
+            "shock_size": {
+              "type": "number",
+              "default": 1
+            },
+            "growth_scale": {
+              "type": "number",
+              "default": 1,
+              "minimum": 1,
+              "maximum": 12
+            },
+            "first_stage": {
+              "type": "object"
+            },
+            "response_modes": {
+              "type": "object",
+              "default": {}
+            },
+            "joint_bootstrap": {
+              "type": "boolean",
+              "default": false
+            },
+            "bootstrap_draws": {
+              "type": "integer",
+              "default": 200,
+              "minimum": 20,
+              "maximum": 5000
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      {
+        "id": "uni.arima",
+        "params": {
+          "type": "object",
+          "properties": {
+            "horizon": {
+              "type": "integer",
+              "default": 8,
+              "minimum": 1,
+              "maximum": 24
+            },
+            "future_exog": {
+              "type": "string",
+              "enum": ["unspecified", "hold_last", "zero"],
+              "default": "unspecified"
+            },
+            "order_selection": {
+              "type": "string",
+              "enum": ["aicc", "fixed"],
+              "default": "aicc"
+            },
+            "p": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 0,
+              "maximum": 4
+            },
+            "d": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 0,
+              "maximum": 1
+            },
+            "q": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0,
+              "maximum": 4
+            },
+            "seasonal_p": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0,
+              "maximum": 1
+            },
+            "seasonal_q": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "describe-CAN",
+      "question": "describe",
+      "selection": {
+        "countries": ["CAN"],
+        "concepts": ["unemp"]
+      },
+      "fresh": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["CAN"],
+        "series": [
+          {
+            "concept_id": "unemp",
+            "role": "response",
+            "transform": "level"
+          }
+        ],
+        "frequency": "M",
+        "aggregation": {
+          "unemp": "mean"
+        },
+        "sample": {
+          "start": "1999-01",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "include"
+        },
+        "model": {
+          "id": "desc.plot",
+          "params": {}
+        },
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": false
+        },
+        "seed": 20261021
+      },
+      "completed": {
+        "aggregation": {
+          "unemp": "mean"
+        },
+        "comparison": {
+          "enabled": false,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "countries": ["CAN"],
+        "frequency": "M",
+        "identification": null,
+        "model": {
+          "id": "desc.plot",
+          "params": {}
+        },
+        "outputs": {
+          "confidence": 0.95
+        },
+        "sample": {
+          "end": "latest",
+          "start": "1999-01"
+        },
+        "schema_version": 1,
+        "seed": 20261021,
+        "series": [
+          {
+            "concept_id": "unemp",
+            "role": "response",
+            "transform": "level",
+            "transform_params": {}
+          }
+        ],
+        "snapshot_id": "20261024-2040",
+        "special_periods": {
+          "covid": "include",
+          "covid_window": {
+            "end": "2021-06",
+            "start": "2020-01"
+          },
+          "elb_threshold": 0.25
+        }
+      }
+    },
+    {
+      "name": "compare-CAN-GBR",
+      "question": "compare",
+      "selection": {
+        "countries": ["CAN", "GBR"],
+        "concepts": ["unemp"]
+      },
+      "fresh": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["CAN", "GBR"],
+        "series": [
+          {
+            "concept_id": "unemp",
+            "role": "response",
+            "transform": "level"
+          }
+        ],
+        "frequency": "M",
+        "aggregation": {
+          "unemp": "mean"
+        },
+        "sample": {
+          "start": "1999-01",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "include"
+        },
+        "model": {
+          "id": "desc.compare",
+          "params": {
+            "statistic": "mean"
+          }
+        },
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": false
+        },
+        "seed": 20261021
+      },
+      "completed": {
+        "aggregation": {
+          "unemp": "mean"
+        },
+        "comparison": {
+          "enabled": false,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "countries": ["CAN", "GBR"],
+        "frequency": "M",
+        "identification": null,
+        "model": {
+          "id": "desc.compare",
+          "params": {
+            "statistic": "mean"
+          }
+        },
+        "outputs": {
+          "confidence": 0.95
+        },
+        "sample": {
+          "end": "latest",
+          "start": "1999-01"
+        },
+        "schema_version": 1,
+        "seed": 20261021,
+        "series": [
+          {
+            "concept_id": "unemp",
+            "role": "response",
+            "transform": "level",
+            "transform_params": {}
+          }
+        ],
+        "snapshot_id": "20261024-2040",
+        "special_periods": {
+          "covid": "include",
+          "covid_window": {
+            "end": "2021-06",
+            "start": "2020-01"
+          },
+          "elb_threshold": 0.25
+        }
+      }
+    },
+    {
+      "name": "relate-CAN",
+      "question": "relate",
+      "selection": {
+        "countries": ["CAN"],
+        "concepts": ["cpi", "unemp"]
+      },
+      "fresh": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["CAN"],
+        "series": [
+          {
+            "concept_id": "cpi",
+            "role": "dependent",
+            "transform": "yoy_pct"
+          },
+          {
+            "concept_id": "unemp",
+            "role": "regressor",
+            "transform": "level"
+          }
+        ],
+        "frequency": "Q",
+        "aggregation": {
+          "cpi": "mean",
+          "unemp": "mean"
+        },
+        "sample": {
+          "start": "1999-Q1",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "include"
+        },
+        "model": {
+          "id": "sing.ols",
+          "params": {
+            "covariance": "HAC",
+            "hac_lags": 4
+          }
+        },
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": true,
+          "methods": ["sing.rolling"],
+          "identifications": []
+        },
+        "seed": 20261021
+      },
+      "completed": {
+        "aggregation": {
+          "cpi": "mean",
+          "unemp": "mean"
+        },
+        "comparison": {
+          "enabled": true,
+          "identifications": [],
+          "methods": ["sing.rolling"],
+          "scenarios": []
+        },
+        "countries": ["CAN"],
+        "frequency": "Q",
+        "identification": null,
+        "model": {
+          "id": "sing.ols",
+          "params": {
+            "confidence": 0.95,
+            "covariance": "HAC",
+            "hac_lags": 4,
+            "trend": "c"
+          }
+        },
+        "outputs": {
+          "confidence": 0.95
+        },
+        "sample": {
+          "end": "latest",
+          "start": "1999-Q1"
+        },
+        "schema_version": 1,
+        "seed": 20261021,
+        "series": [
+          {
+            "concept_id": "cpi",
+            "role": "dependent",
+            "transform": "yoy_pct",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "unemp",
+            "role": "regressor",
+            "transform": "level",
+            "transform_params": {}
+          }
+        ],
+        "snapshot_id": "20261024-2040",
+        "special_periods": {
+          "covid": "include",
+          "covid_window": {
+            "end": "2021-Q2",
+            "start": "2020-Q1"
+          },
+          "elb_threshold": 0.25
+        }
+      }
+    },
+    {
+      "name": "shock-DEU",
+      "question": "shock",
+      "selection": {
+        "countries": ["DEU"],
+        "concepts": [
+          "policy_rate",
+          "gdp_real",
+          "cpi",
+          "unemp",
+          "oil_brent",
+          "commod_idx",
+          "identified_impulse"
+        ],
+        "preset": "same_ecb_shock"
+      },
+      "fresh": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["DEU"],
+        "series": [
+          {
+            "concept_id": "policy_rate",
+            "role": "endogenous",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "gdp_real",
+            "role": "response",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "cpi",
+            "role": "response",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "unemp",
+            "role": "response",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "oil_brent",
+            "role": "exogenous",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "commod_idx",
+            "role": "exogenous",
+            "transform": "yoy_pct",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "identified_impulse",
+            "role": "shock",
+            "transform": "level",
+            "transform_params": {}
+          }
+        ],
+        "frequency": "Q",
+        "aggregation": {
+          "policy_rate": "mean",
+          "gdp_real": "mean",
+          "cpi": "mean",
+          "unemp": "mean",
+          "oil_brent": "mean",
+          "commod_idx": "mean",
+          "identified_impulse": "mean"
+        },
+        "sample": {
+          "start": "1999-Q1",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "dummy",
+          "covid_window": {
+            "start": "2020-Q1",
+            "end": "2020-Q3"
+          },
+          "elb_threshold": 0.25
+        },
+        "model": {
+          "id": "cmp.common_shock",
+          "params": {
+            "template_id": "same_ecb_shock",
+            "policy_measure": "dfr",
+            "country_window": "own",
+            "displayed_band": "conditional",
+            "first_stage": {
+              "schema_version": 1,
+              "snapshot_id": "20261024-2040",
+              "countries": ["EA"],
+              "series": [
+                {
+                  "concept_id": "policy_rate",
+                  "role": "shock",
+                  "transform": "level",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "gdp_real",
+                  "role": "endogenous",
+                  "transform": "qoq_saar",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "cpi",
+                  "role": "endogenous",
+                  "transform": "qoq_saar",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "unemp",
+                  "role": "endogenous",
+                  "transform": "level",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "oil_brent",
+                  "role": "exogenous",
+                  "transform": "log",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "commod_idx",
+                  "role": "exogenous",
+                  "transform": "yoy_pct",
+                  "transform_params": {}
+                }
+              ],
+              "frequency": "Q",
+              "aggregation": {
+                "policy_rate": "mean",
+                "gdp_real": "mean",
+                "cpi": "mean",
+                "unemp": "mean",
+                "oil_brent": "mean",
+                "commod_idx": "mean"
+              },
+              "sample": {
+                "start": "1999-Q1",
+                "end": "latest"
+              },
+              "special_periods": {
+                "covid": "dummy",
+                "covid_window": {
+                  "start": "2020-Q1",
+                  "end": "2020-Q3"
+                },
+                "elb_threshold": 0.25
+              },
+              "model": {
+                "id": "ident.external_series",
+                "params": {
+                  "lags": 2,
+                  "trend": "c",
+                  "lag_selection": "fixed",
+                  "maxlags": 4
+                }
+              },
+              "identification": {
+                "id": "recursive",
+                "params": {
+                  "order": ["gdp_real", "cpi", "unemp", "policy_rate"]
+                }
+              },
+              "outputs": {
+                "confidence": 0.95,
+                "irf": {
+                  "horizon": 12,
+                  "bands": 0.68,
+                  "shock_size": 1,
+                  "method": "bootstrap",
+                  "draws": 200,
+                  "shock_mode": "one_sd"
+                }
+              },
+              "comparison": {
+                "enabled": false,
+                "identifications": [],
+                "methods": [],
+                "scenarios": []
+              },
+              "seed": 20261021
+            },
+            "horizon": 12,
+            "lags": 2,
+            "lag_augmented": true,
+            "covariance": "HC1",
+            "response_mode": "level",
+            "response_modes": {
+              "gdp_real": "cumulative_log",
+              "cpi": "cumulative_log",
+              "unemp": "change"
+            },
+            "lag_difference_scales": {
+              "gdp_real": 400,
+              "cpi": 400
+            },
+            "shared_controls": {
+              "policy_rate": "policy_rate"
+            },
+            "bootstrap_draws": 200,
+            "sample_mode": "common",
+            "seasonal": false,
+            "shock_size": 1,
+            "growth_scale": 1,
+            "joint_bootstrap": false
+          }
+        },
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": true,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "seed": 20261021
+      },
+      "completed": {
+        "aggregation": {
+          "commod_idx": "mean",
+          "cpi": "mean",
+          "gdp_real": "mean",
+          "identified_impulse": "mean",
+          "oil_brent": "mean",
+          "policy_rate": "mean",
+          "unemp": "mean"
+        },
+        "comparison": {
+          "enabled": true,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "countries": ["DEU"],
+        "frequency": "Q",
+        "identification": null,
+        "model": {
+          "id": "cmp.common_shock",
+          "params": {
+            "bootstrap_draws": 200,
+            "country_window": "own",
+            "covariance": "HC1",
+            "displayed_band": "conditional",
+            "first_stage": {
+              "aggregation": {
+                "commod_idx": "mean",
+                "cpi": "mean",
+                "gdp_real": "mean",
+                "oil_brent": "mean",
+                "policy_rate": "mean",
+                "unemp": "mean"
+              },
+              "comparison": {
+                "enabled": false,
+                "identifications": [],
+                "methods": [],
+                "scenarios": []
+              },
+              "countries": ["EA"],
+              "frequency": "Q",
+              "identification": {
+                "id": "recursive",
+                "params": {
+                  "order": ["gdp_real", "cpi", "unemp", "policy_rate"]
+                }
+              },
+              "model": {
+                "id": "ident.external_series",
+                "params": {
+                  "exclude_window": {},
+                  "lag_selection": "fixed",
+                  "lags": 2,
+                  "maxlags": 4,
+                  "trend": "c"
+                }
+              },
+              "outputs": {
+                "confidence": 0.95,
+                "irf": {
+                  "bands": 0.68,
+                  "draws": 200,
+                  "horizon": 12,
+                  "method": "bootstrap",
+                  "shock_mode": "one_sd",
+                  "shock_size": 1
+                }
+              },
+              "sample": {
+                "end": "latest",
+                "start": "1999-Q1"
+              },
+              "schema_version": 1,
+              "seed": 20261021,
+              "series": [
+                {
+                  "concept_id": "policy_rate",
+                  "role": "shock",
+                  "transform": "level",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "gdp_real",
+                  "role": "endogenous",
+                  "transform": "qoq_saar",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "cpi",
+                  "role": "endogenous",
+                  "transform": "qoq_saar",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "unemp",
+                  "role": "endogenous",
+                  "transform": "level",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "oil_brent",
+                  "role": "exogenous",
+                  "transform": "log",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "commod_idx",
+                  "role": "exogenous",
+                  "transform": "yoy_pct",
+                  "transform_params": {}
+                }
+              ],
+              "snapshot_id": "20261024-2040",
+              "special_periods": {
+                "covid": "dummy",
+                "covid_window": {
+                  "end": "2020-Q3",
+                  "start": "2020-Q1"
+                },
+                "elb_threshold": 0.25
+              }
+            },
+            "growth_scale": 1,
+            "horizon": 12,
+            "joint_bootstrap": false,
+            "lag_augmented": true,
+            "lag_difference_scales": {
+              "cpi": 400,
+              "gdp_real": 400
+            },
+            "lags": 2,
+            "policy_measure": "dfr",
+            "response_mode": "level",
+            "response_modes": {
+              "cpi": "cumulative_log",
+              "gdp_real": "cumulative_log",
+              "unemp": "change"
+            },
+            "sample_mode": "common",
+            "seasonal": false,
+            "shared_controls": {
+              "policy_rate": "policy_rate"
+            },
+            "shock_size": 1,
+            "template_id": "same_ecb_shock"
+          }
+        },
+        "outputs": {
+          "confidence": 0.95
+        },
+        "sample": {
+          "end": "latest",
+          "start": "1999-Q1"
+        },
+        "schema_version": 1,
+        "seed": 20261021,
+        "series": [
+          {
+            "concept_id": "policy_rate",
+            "role": "endogenous",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "gdp_real",
+            "role": "response",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "cpi",
+            "role": "response",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "unemp",
+            "role": "response",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "oil_brent",
+            "role": "exogenous",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "commod_idx",
+            "role": "exogenous",
+            "transform": "yoy_pct",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "identified_impulse",
+            "role": "shock",
+            "transform": "level",
+            "transform_params": {}
+          }
+        ],
+        "snapshot_id": "20261024-2040",
+        "special_periods": {
+          "covid": "dummy",
+          "covid_window": {
+            "end": "2020-Q3",
+            "start": "2020-Q1"
+          },
+          "elb_threshold": 0.25
+        }
+      }
+    },
+    {
+      "name": "forecast-CAN",
+      "question": "forecast",
+      "selection": {
+        "countries": ["CAN"],
+        "concepts": ["unemp"]
+      },
+      "fresh": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["CAN"],
+        "series": [
+          {
+            "concept_id": "unemp",
+            "role": "dependent",
+            "transform": "level"
+          }
+        ],
+        "frequency": "M",
+        "aggregation": {
+          "unemp": "mean"
+        },
+        "sample": {
+          "start": "1999-01",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "include"
+        },
+        "model": {
+          "id": "uni.arima",
+          "params": {
+            "horizon": 8,
+            "future_exog": "unspecified",
+            "order_selection": "aicc",
+            "p": 1,
+            "d": 1,
+            "q": 0,
+            "seasonal_p": 0,
+            "seasonal_q": 0
+          }
+        },
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": false
+        },
+        "seed": 20261021
+      },
+      "completed": {
+        "aggregation": {
+          "unemp": "mean"
+        },
+        "comparison": {
+          "enabled": false,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "countries": ["CAN"],
+        "frequency": "M",
+        "identification": null,
+        "model": {
+          "id": "uni.arima",
+          "params": {
+            "d": 1,
+            "future_exog": "unspecified",
+            "horizon": 8,
+            "order_selection": "aicc",
+            "p": 1,
+            "q": 0,
+            "seasonal_p": 0,
+            "seasonal_q": 0
+          }
+        },
+        "outputs": {
+          "confidence": 0.95
+        },
+        "sample": {
+          "end": "latest",
+          "start": "1999-01"
+        },
+        "schema_version": 1,
+        "seed": 20261021,
+        "series": [
+          {
+            "concept_id": "unemp",
+            "role": "dependent",
+            "transform": "level",
+            "transform_params": {}
+          }
+        ],
+        "snapshot_id": "20261024-2040",
+        "special_periods": {
+          "covid": "include",
+          "covid_window": {
+            "end": "2021-06",
+            "start": "2020-01"
+          },
+          "elb_threshold": 0.25
+        }
+      }
+    },
+    {
+      "name": "describe-annual-CAN",
+      "question": "describe",
+      "selection": {
+        "countries": ["CAN"],
+        "concepts": ["gov_debt"]
+      },
+      "fresh": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["CAN"],
+        "series": [
+          {
+            "concept_id": "gov_debt",
+            "role": "response",
+            "transform": "level"
+          }
+        ],
+        "frequency": "A",
+        "aggregation": {
+          "gov_debt": "mean"
+        },
+        "sample": {
+          "start": "1999",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "include"
+        },
+        "model": {
+          "id": "desc.plot",
+          "params": {}
+        },
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": false
+        },
+        "seed": 20261021
+      },
+      "completed": {
+        "aggregation": {
+          "gov_debt": "mean"
+        },
+        "comparison": {
+          "enabled": false,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "countries": ["CAN"],
+        "frequency": "A",
+        "identification": null,
+        "model": {
+          "id": "desc.plot",
+          "params": {}
+        },
+        "outputs": {
+          "confidence": 0.95
+        },
+        "sample": {
+          "end": "latest",
+          "start": "1999"
+        },
+        "schema_version": 1,
+        "seed": 20261021,
+        "series": [
+          {
+            "concept_id": "gov_debt",
+            "role": "response",
+            "transform": "level",
+            "transform_params": {}
+          }
+        ],
+        "snapshot_id": "20261024-2040",
+        "special_periods": {
+          "covid": "include",
+          "covid_window": {
+            "end": "2021",
+            "start": "2020"
+          },
+          "elb_threshold": 0.25
+        }
+      }
+    },
+    {
+      "name": "compare-annual-CAN-GBR",
+      "question": "compare",
+      "selection": {
+        "countries": ["CAN", "GBR"],
+        "concepts": ["gov_debt"]
+      },
+      "fresh": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["CAN", "GBR"],
+        "series": [
+          {
+            "concept_id": "gov_debt",
+            "role": "response",
+            "transform": "level"
+          }
+        ],
+        "frequency": "A",
+        "aggregation": {
+          "gov_debt": "mean"
+        },
+        "sample": {
+          "start": "1999",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "include"
+        },
+        "model": {
+          "id": "desc.compare",
+          "params": {
+            "statistic": "mean"
+          }
+        },
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": false
+        },
+        "seed": 20261021
+      },
+      "completed": {
+        "aggregation": {
+          "gov_debt": "mean"
+        },
+        "comparison": {
+          "enabled": false,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "countries": ["CAN", "GBR"],
+        "frequency": "A",
+        "identification": null,
+        "model": {
+          "id": "desc.compare",
+          "params": {
+            "statistic": "mean"
+          }
+        },
+        "outputs": {
+          "confidence": 0.95
+        },
+        "sample": {
+          "end": "latest",
+          "start": "1999"
+        },
+        "schema_version": 1,
+        "seed": 20261021,
+        "series": [
+          {
+            "concept_id": "gov_debt",
+            "role": "response",
+            "transform": "level",
+            "transform_params": {}
+          }
+        ],
+        "snapshot_id": "20261024-2040",
+        "special_periods": {
+          "covid": "include",
+          "covid_window": {
+            "end": "2021",
+            "start": "2020"
+          },
+          "elb_threshold": 0.25
+        }
+      }
+    },
+    {
+      "name": "forecast-quarterly-CAN",
+      "question": "forecast",
+      "selection": {
+        "countries": ["CAN"],
+        "concepts": ["gdp_real"]
+      },
+      "fresh": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["CAN"],
+        "series": [
+          {
+            "concept_id": "gdp_real",
+            "role": "dependent",
+            "transform": "level"
+          }
+        ],
+        "frequency": "Q",
+        "aggregation": {
+          "gdp_real": "mean"
+        },
+        "sample": {
+          "start": "1999-Q1",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "include"
+        },
+        "model": {
+          "id": "uni.arima",
+          "params": {
+            "horizon": 8,
+            "future_exog": "unspecified",
+            "order_selection": "aicc",
+            "p": 1,
+            "d": 1,
+            "q": 0,
+            "seasonal_p": 0,
+            "seasonal_q": 0
+          }
+        },
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": false
+        },
+        "seed": 20261021
+      },
+      "completed": {
+        "aggregation": {
+          "gdp_real": "mean"
+        },
+        "comparison": {
+          "enabled": false,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "countries": ["CAN"],
+        "frequency": "Q",
+        "identification": null,
+        "model": {
+          "id": "uni.arima",
+          "params": {
+            "d": 1,
+            "future_exog": "unspecified",
+            "horizon": 8,
+            "order_selection": "aicc",
+            "p": 1,
+            "q": 0,
+            "seasonal_p": 0,
+            "seasonal_q": 0
+          }
+        },
+        "outputs": {
+          "confidence": 0.95
+        },
+        "sample": {
+          "end": "latest",
+          "start": "1999-Q1"
+        },
+        "schema_version": 1,
+        "seed": 20261021,
+        "series": [
+          {
+            "concept_id": "gdp_real",
+            "role": "dependent",
+            "transform": "level",
+            "transform_params": {}
+          }
+        ],
+        "snapshot_id": "20261024-2040",
+        "special_periods": {
+          "covid": "include",
+          "covid_window": {
+            "end": "2021-Q2",
+            "start": "2020-Q1"
+          },
+          "elb_threshold": 0.25
+        }
+      }
+    },
+    {
+      "name": "shock-USA",
+      "question": "shock",
+      "selection": {},
+      "fresh": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["USA"],
+        "series": [
+          {
+            "concept_id": "policy_rate",
+            "role": "shock",
+            "transform": "level"
+          },
+          {
+            "concept_id": "gdp_real",
+            "role": "endogenous",
+            "transform": "qoq_saar"
+          },
+          {
+            "concept_id": "cpi",
+            "role": "endogenous",
+            "transform": "qoq_saar"
+          },
+          {
+            "concept_id": "unemp",
+            "role": "endogenous",
+            "transform": "level"
+          },
+          {
+            "concept_id": "oil_brent",
+            "role": "exogenous",
+            "transform": "log"
+          }
+        ],
+        "frequency": "Q",
+        "aggregation": {
+          "policy_rate": "mean",
+          "gdp_real": "mean",
+          "cpi": "mean",
+          "unemp": "mean",
+          "oil_brent": "mean"
+        },
+        "sample": {
+          "start": "1999-Q1",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "dummy",
+          "covid_window": {
+            "start": "2020-Q1",
+            "end": "2020-Q3"
+          }
+        },
+        "model": {
+          "id": "var.ols",
+          "params": {
+            "lags": 2,
+            "lag_selection": "fixed",
+            "trend": "c",
+            "maxlags": 4
+          }
+        },
+        "identification": {
+          "id": "recursive",
+          "params": {
+            "order": ["gdp_real", "cpi", "unemp", "policy_rate"]
+          }
+        },
+        "outputs": {
+          "confidence": 0.95,
+          "irf": {
+            "horizon": 12,
+            "bands": 0.68,
+            "shock_size": 1,
+            "method": "bootstrap",
+            "draws": 200,
+            "shock_mode": "one_sd"
+          }
+        },
+        "comparison": {
+          "enabled": true,
+          "methods": [],
+          "identifications": [],
+          "scenarios": [
+            "extended_var",
+            "lag_criteria",
+            "covid_include",
+            "end_2019"
+          ]
+        },
+        "seed": 20261021
+      },
+      "completed": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["USA"],
+        "series": [
+          {
+            "concept_id": "policy_rate",
+            "role": "shock",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "gdp_real",
+            "role": "endogenous",
+            "transform": "qoq_saar",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "cpi",
+            "role": "endogenous",
+            "transform": "qoq_saar",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "unemp",
+            "role": "endogenous",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "oil_brent",
+            "role": "exogenous",
+            "transform": "log",
+            "transform_params": {}
+          }
+        ],
+        "frequency": "Q",
+        "aggregation": {
+          "policy_rate": "mean",
+          "gdp_real": "mean",
+          "cpi": "mean",
+          "unemp": "mean",
+          "oil_brent": "mean"
+        },
+        "sample": {
+          "start": "1999-Q1",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "dummy",
+          "covid_window": {
+            "start": "2020-Q1",
+            "end": "2020-Q3"
+          },
+          "elb_threshold": 0.25
+        },
+        "model": {
+          "id": "var.ols",
+          "params": {
+            "lags": 2,
+            "lag_selection": "fixed",
+            "trend": "c",
+            "maxlags": 4
+          }
+        },
+        "identification": {
+          "id": "recursive",
+          "params": {
+            "order": ["gdp_real", "cpi", "unemp", "policy_rate"]
+          }
+        },
+        "outputs": {
+          "confidence": 0.95,
+          "irf": {
+            "horizon": 12,
+            "bands": 0.68,
+            "shock_size": 1,
+            "method": "bootstrap",
+            "draws": 200,
+            "shock_mode": "one_sd"
+          }
+        },
+        "comparison": {
+          "enabled": true,
+          "methods": [],
+          "identifications": [],
+          "scenarios": [
+            "extended_var",
+            "lag_criteria",
+            "covid_include",
+            "end_2019"
+          ]
+        },
+        "seed": 20261021
+      }
+    }
+  ]
+}

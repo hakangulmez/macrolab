@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.5.0 — Simple Build and Data actions
+
+- Add five question-led Simple entries, configuration-preserving Advanced mode and a method drawer. Existing templates and scientific defaults remain unchanged.
+- Carry Data transform identifiers and parameters into explicit Advanced actions; incomplete comparisons and regressions require the next choice before running.
+- Fix annual COVID-window parsing at the pandas boundary while retaining public frequency A, observations, treatment and diagnostics. Rebuild the application wheel with updated integrity hashes; Python exports carry only this source-archive fix and its checksum.
+- Keep the snapshot and third-party runtime bytes unchanged; version text follows the interface build.
+
 ## 2.4.0 — layered results
 
 - Put Key facts, the main chart and the existing robustness summary first; retain all charts, controls, findings and tables in Details.

@@ -87,3 +87,63 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* G28: one configuration, two entry views; the full method library is a drawer. */
+.build-mode-bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  margin-block: 1rem;
+}
+.build-mode-bar button[aria-pressed="true"],
+.question-picker button[aria-pressed="true"] {
+  border-color: var(--blue);
+  background: var(--blue-tint);
+}
+.question-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.question-picker button {
+  flex: 1 1 145px;
+}
+.simple-builder {
+  max-width: 1000px;
+  margin-inline: auto;
+}
+.simple-builder select {
+  width: 100%;
+  min-width: 0;
+}
+.simple-builder .info-box ul {
+  padding-inline-start: 1.3rem;
+}
+.method-drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(900px, 96vw);
+  max-width: 96vw;
+  max-height: 100dvh;
+  height: 100dvh;
+  margin: 0;
+  padding: 1.2rem;
+  overflow: auto;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  background: var(--ground);
+}
+.method-drawer::backdrop {
+  background: #0009;
+}
+.method-drawer .model-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(270px, 100%), 1fr));
+}
+@media (max-width: 600px) {
+  .question-picker button {
+    flex-basis: 130px;
+  }
+  .method-drawer {
+    padding: 0.75rem;
+  }
+}

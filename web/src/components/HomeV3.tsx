@@ -15,6 +15,7 @@ export function Home({
   catalogue,
   about,
   recentResults,
+  questionPicker,
 }: {
   manifest: Manifest;
   select: (t: Template) => void;
@@ -28,6 +29,7 @@ export function Home({
   models?: () => void;
   about?: (section: string) => void;
   recentResults?: ReactNode;
+  questionPicker?: ReactNode;
 }) {
   const [filter, setFilter] = useState("All");
   const counts = datasetCounts(manifest);
@@ -94,6 +96,7 @@ export function Home({
           </div>
         ))}
       </dl>
+      {questionPicker}
       <section className="section-v3" id="templates">
         <div className="section-heading">
           <div>
