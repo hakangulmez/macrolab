@@ -1,5 +1,5 @@
 {
-  "version": "mixed: 2.5.0 Home/Data; 2.6.0 results",
+  "version": "mixed: 2.5.0 Home/Data; 2.6.0 gallery; 2.6.3 workspace",
   "snapshot_id": "20261024-2040",
   "site_commit": "f2eb4636fec22ced92eadaee7e2019738392b4d5",
   "site_tree_sha256": "fb73c2b7a1d2c4718d1b6037238a07fbb4f6cf78ee0d8cd9bc0fbe20d96383c6",
@@ -311,9 +311,53 @@
       "quality": null,
       "version": "2.6.0",
       "source_site_tree_sha256": "50c04a0a05527daeaddb1ea58984d68f2ab82a36f47cf8ee8d8a27feb0903e76"
+    },
+    {
+      "file": "workspace-light.webp",
+      "bytes": 88486,
+      "sha256": "166a7e5937ac11921e2021a100a7a399ac03b6d5d93fcaa71ab28da7359a27d1",
+      "capture_sha256": "8acd4420e28514a99c02cb1c1feb915a28d71bf1fe1dc565d6236c07902c732f",
+      "width": 1440,
+      "height": 1296,
+      "viewport_width": 1440,
+      "viewport_height": 1000,
+      "device_scale_factor": 1,
+      "theme": "light",
+      "encoding": "lossy WebP from browser JPEG",
+      "quality": 85,
+      "version": "2.6.3",
+      "source_site_tree_sha256": "4f67264a850dd9b085c45b25c6763bc9c06dab9da6467f8878cdea7a708feb09",
+      "crop": [
+        0,
+        0,
+        1440,
+        1296
+      ]
+    },
+    {
+      "file": "workspace-dark.webp",
+      "bytes": 91542,
+      "sha256": "a922b3529d2656bb01ff8909b9ed11879768446840b903fd715648651bc5553d",
+      "capture_sha256": "3a0cfc54e0f8b018362ccb9467d72c8cdbf3b656f36872373d2772faf045ecad",
+      "width": 1440,
+      "height": 1296,
+      "viewport_width": 1440,
+      "viewport_height": 1000,
+      "device_scale_factor": 1,
+      "theme": "dark",
+      "encoding": "lossy WebP from browser JPEG",
+      "quality": 85,
+      "version": "2.6.3",
+      "source_site_tree_sha256": "4f67264a850dd9b085c45b25c6763bc9c06dab9da6467f8878cdea7a708feb09",
+      "crop": [
+        0,
+        0,
+        1440,
+        1296
+      ]
     }
   ],
-  "total_bytes": 2011418,
+  "total_bytes": 2191446,
   "result_refresh": {
     "version": "2.6.0",
     "captured": "2026-10-28",
@@ -349,5 +393,10 @@
       "home-mobile-light.webp"
     ],
     "method": "Real Chrome at 2x; app controls only, no DOM edits; WebP encoding only."
+  },
+  "workspace_refresh": {
+    "version": "2.6.3",
+    "source_site_tree_sha256": "4f67264a850dd9b085c45b25c6763bc9c06dab9da6467f8878cdea7a708feb09",
+    "method": "Real 1x browser captures, cropped at the boundary before model checks; WebP quality 85. Other images preserve their documented earlier versions."
   }
 }

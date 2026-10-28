@@ -39,12 +39,17 @@ export function ResultSpecification({
           ),
         )}
       </div>
-      {spec.definitions.map((line) => (
-        <p className="small" key={line}>
-          {line}
-        </p>
-      ))}
       <p className="small mono">{spec.settings}</p>
+      {spec.definitions.length > 0 && (
+        <details className="specification-definitions">
+          <summary>Variables and controls</summary>
+          {spec.definitions.map((line) => (
+            <p className="small" key={line}>
+              {line}
+            </p>
+          ))}
+        </details>
+      )}
     </section>
   );
 }

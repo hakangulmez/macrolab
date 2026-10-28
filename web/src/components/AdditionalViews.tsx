@@ -3,7 +3,9 @@ import {
   forecastViewData,
   relationshipExtent,
 } from "../additionalViewData";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
+import { usePrimaryChart } from "./PrimaryChart";
 import * as echarts from "echarts/core";
 import { LineChart, ScatterChart } from "echarts/charts";
 import {
@@ -49,6 +51,8 @@ function ViewChart({
   rows,
   snapshot,
   exportWidth = 966,
+  primary = false,
+  controls,
 }: {
   name: string;
   summary: string;
@@ -59,7 +63,10 @@ function ViewChart({
   rows: JsonRecord[];
   snapshot: string;
   exportWidth?: 966 | 916;
+  primary?: boolean | number;
+  controls?: ReactNode;
 }) {
+  const primaryTarget = usePrimaryChart(primary);
   const ref = useRef<HTMLDivElement>(null),
     instance = useRef<echarts.EChartsType | null>(null),
     theme = useTheme();
@@ -109,7 +116,7 @@ function ViewChart({
       instance.current = null;
       c.dispose();
     };
-  }, [theme, option, name, summary, xTitle, yTitle]);
+  }, [theme, option, name, summary, xTitle, yTitle, primaryTarget]);
   const palette = chartTheme(theme);
   const colors = Array.isArray(option.color)
     ? (option.color as string[])
@@ -126,11 +133,12 @@ function ViewChart({
       marker: series.showSymbol !== false && series.type === "line",
     };
   });
-  return (
+  const figure = (
     <figure
       className="card stack additional-view"
       data-testid="additional-chart"
     >
+      {controls && <div className="row chart-controls">{controls}</div>}
       <h3>{name}</h3>
       <p className="small">
         X: {xTitle} · Y: {yTitle}
@@ -179,6 +187,7 @@ function ViewChart({
           Download chart data
         </button>
         <button
+          data-chart-export="png"
           onClick={() => {
             setError("");
             try {
@@ -282,6 +291,7 @@ function ViewChart({
       </details>
     </figure>
   );
+  return primaryTarget ? createPortal(figure, primaryTarget) : figure;
 }
 const axis = (values: number[], name: string, dataRange = false) => {
   const a = dataRange ? relationshipExtent(values) : niceScale(values);
@@ -460,23 +470,26 @@ function Relationship({
     : `${name(result.country)} · ${text(data.x_id) === "gdp_real" && text(data.y_id) === "unemp" ? "Okun relationship" : text(data.y_id) === "cpi" && text(data.x_id) === "unemp" ? "Phillips relationship" : "OLS relationship"}`;
   return (
     <section className="stack" aria-label={heading}>
-      {pooled && (
-        <Field label="Highlight">
-          <select
-            aria-label="Highlight country"
-            value={highlight}
-            onChange={(e) => setHighlight(e.target.value)}
-          >
-            <option value="">None</option>
-            {countries.map((c) => (
-              <option key={c} value={c}>
-                {name(c)}
-              </option>
-            ))}
-          </select>
-        </Field>
-      )}
       <ViewChart
+        primary={10}
+        controls={
+          pooled && (
+            <Field label="Highlight">
+              <select
+                aria-label="Highlight country"
+                value={highlight}
+                onChange={(e) => setHighlight(e.target.value)}
+              >
+                <option value="">None</option>
+                {countries.map((c) => (
+                  <option key={c} value={c}>
+                    {name(c)}
+                  </option>
+                ))}
+              </select>
+            </Field>
+          )
+        }
         name={heading}
         xTitle={xTitle}
         yTitle={yTitle}
@@ -649,6 +662,7 @@ export function ForecastViews({
         snapshot={snapshot}
       />
       <ViewChart
+        primary={10}
         name="RMSE by horizon"
         exportWidth={916}
         xTitle={`Forecast horizon (${result.actual_sample.frequency === "M" ? "months" : "quarters"})`}

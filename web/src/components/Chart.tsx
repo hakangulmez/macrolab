@@ -66,9 +66,11 @@ export function Chart({
   xAxisTitle,
   controls,
   primary = false,
+  insight = false,
 }: {
   controls?: ReactNode;
-  primary?: boolean;
+  primary?: boolean | number;
+  insight?: boolean;
   title: string;
   unit: string;
   points: ChartPoint[];
@@ -89,7 +91,7 @@ export function Chart({
   pngNote?: string;
   xAxisTitle?: string;
 }) {
-  const primaryTarget = usePrimaryChart(primary);
+  const primaryTarget = usePrimaryChart(primary, insight);
   const theme = useTheme();
   const inherited = useContext(ChartExportContext);
   const context = exportContext ?? inherited;
@@ -432,6 +434,7 @@ export function Chart({
       {context && (
         <button
           className="link"
+          data-chart-export="png"
           aria-label={`Export PNG: ${displayTitle}`}
           onClick={() => {
             setExportError("");

@@ -334,27 +334,35 @@ export function DiagnosticResults({
       )}
       {charts.length > 0 && (
         <>
-          <Field label="Diagnostic chart">
-            <select
-              value={selected}
-              onChange={(e) => setSelected(Number(e.target.value))}
-            >
-              {charts.map((c, i) => (
-                <option key={c.name} value={i}>
-                  {c.name}
-                </option>
-              ))}
-            </select>
-          </Field>
-          {result.vecm && Number(vecm.draws) > 0 && (
-            <Field label="VECM band">
-              <select value={band} onChange={(e) => setBand(e.target.value)}>
-                <option value="0.68">68% pointwise bootstrap</option>
-                <option value="0.9">90% pointwise bootstrap</option>
-              </select>
-            </Field>
-          )}
           <Chart
+            primary={first ? 4 : 0}
+            controls={
+              <>
+                <Field label="Diagnostic chart">
+                  <select
+                    value={selected}
+                    onChange={(e) => setSelected(Number(e.target.value))}
+                  >
+                    {charts.map((c, i) => (
+                      <option key={c.name} value={i}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+                {result.vecm && Number(vecm.draws) > 0 && (
+                  <Field label="VECM band">
+                    <select
+                      value={band}
+                      onChange={(e) => setBand(e.target.value)}
+                    >
+                      <option value="0.68">68% pointwise bootstrap</option>
+                      <option value="0.9">90% pointwise bootstrap</option>
+                    </select>
+                  </Field>
+                )}
+              </>
+            }
             {...(charts[selected] ?? charts[0])}
             title={(charts[selected] ?? charts[0]).name}
             comparisonLabel="95% critical value"

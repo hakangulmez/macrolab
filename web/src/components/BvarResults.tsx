@@ -55,65 +55,72 @@ export function BvarResults({
         physical shock. It compares shrinkage assumptions, not independent
         identification.
       </p>
-      <div
-        className="segmented"
-        role="group"
-        aria-label="BVAR and OLS comparison"
-      >
-        {["bvar", "var", "both"].map((m) => (
-          <button
-            key={m}
-            className={mode === m ? "primary" : ""}
-            aria-pressed={mode === m}
-            disabled={m !== "bvar" && ols.status !== "ok"}
-            onClick={() => setMode(m)}
-          >
-            {m === "both" ? "Both" : m === "bvar" ? "BVAR" : "OLS VAR"}
-          </button>
-        ))}
-      </div>
-      {ols.status !== "ok" && (
-        <p role="status">OLS comparison blocked: {text(ols.reason)}</p>
-      )}
-      <div className="two-fields">
-        <Field label="BVAR response variable">
-          <select
-            value={variable}
-            onChange={(e) => setVariable(Number(e.target.value))}
-          >
-            {charts.map((c, i) => (
-              <option key={c.variable} value={i}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </Field>
-        <Field label="Posterior band">
-          <select value={band} onChange={(e) => setBand(e.target.value)}>
-            <option value="0.68">68% posterior credible band</option>
-            <option value="0.9">90% posterior credible band</option>
-          </select>
-        </Field>
-      </div>
-      <div className="legend">
-        <span>
-          <i className="legend-line" />
-          {mode === "var" ? "OLS VAR point estimate" : "BVAR posterior median"}
-        </span>
-        {mode !== "var" && (
-          <span>
-            <i className="legend-band" />
-            {Number(band) * 100}% posterior credible band
-          </span>
-        )}
-        {mode === "both" && (
-          <span>
-            <i className="legend-line comparison" />
-            Matched OLS VAR point estimate
-          </span>
-        )}
-      </div>
       <Chart
+        primary={4}
+        controls={
+          <>
+            <div
+              className="segmented"
+              role="group"
+              aria-label="BVAR and OLS comparison"
+            >
+              {["bvar", "var", "both"].map((m) => (
+                <button
+                  key={m}
+                  className={mode === m ? "primary" : ""}
+                  aria-pressed={mode === m}
+                  disabled={m !== "bvar" && ols.status !== "ok"}
+                  onClick={() => setMode(m)}
+                >
+                  {m === "both" ? "Both" : m === "bvar" ? "BVAR" : "OLS VAR"}
+                </button>
+              ))}
+            </div>
+            {ols.status !== "ok" && (
+              <p role="status">OLS comparison blocked: {text(ols.reason)}</p>
+            )}
+            <div className="two-fields">
+              <Field label="BVAR response variable">
+                <select
+                  value={variable}
+                  onChange={(e) => setVariable(Number(e.target.value))}
+                >
+                  {charts.map((c, i) => (
+                    <option key={c.variable} value={i}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+              <Field label="Posterior band">
+                <select value={band} onChange={(e) => setBand(e.target.value)}>
+                  <option value="0.68">68% posterior credible band</option>
+                  <option value="0.9">90% posterior credible band</option>
+                </select>
+              </Field>
+            </div>
+            <div className="legend">
+              <span>
+                <i className="legend-line" />
+                {mode === "var"
+                  ? "OLS VAR point estimate"
+                  : "BVAR posterior median"}
+              </span>
+              {mode !== "var" && (
+                <span>
+                  <i className="legend-band" />
+                  {Number(band) * 100}% posterior credible band
+                </span>
+              )}
+              {mode === "both" && (
+                <span>
+                  <i className="legend-line comparison" />
+                  Matched OLS VAR point estimate
+                </span>
+              )}
+            </div>
+          </>
+        }
         estimateLabel={mode === "var" ? "OLS VAR" : "BVAR median"}
         comparisonShortLabel="OLS VAR"
         title={`${chart.name} · ${mode === "var" ? "OLS VAR" : "BVAR"}`}

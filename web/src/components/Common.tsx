@@ -37,6 +37,7 @@ export function Checks({
   countries = [],
   showEstimationPhase = false,
   previouslyDisplayedChecks,
+  compact = false,
 }: {
   checks: Check[];
   onFix?: (fix: JsonRecord) => void;
@@ -45,6 +46,7 @@ export function Checks({
   countries?: Country[];
   showEstimationPhase?: boolean;
   previouslyDisplayedChecks?: Check[];
+  compact?: boolean;
 }) {
   const tiers = warningTiers(checks);
   const disclosed = resultDisclosureChecks(checks, previouslyDisplayedChecks);
@@ -114,14 +116,26 @@ export function Checks({
   );
   return (
     <section className="analysis-checks" aria-label="Analysis checks">
-      {showEstimationPhase && checks.length > 0 && (
-        <p className="small muted">
-          Builder checks coverage first. Running adds prepared-data diagnostics
-          and fitted-model checks. The labels identify newly reported findings
-          or fitted-model checks; technical details record when each check was
-          computed.
-        </p>
-      )}
+      {showEstimationPhase &&
+        checks.length > 0 &&
+        (compact ? (
+          <details className="check-explanation">
+            <summary>About these checks</summary>
+            <p className="small muted">
+              Builder checks coverage first. Running adds prepared-data
+              diagnostics and fitted-model checks. The labels identify newly
+              reported findings or fitted-model checks; technical details record
+              when each check was computed.
+            </p>
+          </details>
+        ) : (
+          <p className="small muted">
+            Builder checks coverage first. Running adds prepared-data
+            diagnostics and fitted-model checks. The labels identify newly
+            reported findings or fitted-model checks; technical details record
+            when each check was computed.
+          </p>
+        ))}
       {tiers.blocking.length > 0 && (
         <section
           className="warning-tier warning-blocking"
@@ -217,6 +231,8 @@ export function DataTable({
   groups = [],
   expandGroups = false,
   stickyFirst = false,
+  columnLabels = {},
+  mobileRecords = false,
 }: {
   rows: JsonRecord[];
   columns?: string[];
@@ -226,6 +242,8 @@ export function DataTable({
   groups?: { label: string; rows: JsonRecord[] }[];
   expandGroups?: boolean;
   stickyFirst?: boolean;
+  columnLabels?: Record<string, string>;
+  mobileRecords?: boolean;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [overflow, setOverflow] = useState(false);
@@ -254,7 +272,19 @@ export function DataTable({
     data.map((r, i) => (
       <tr key={i}>
         {keys.map((k) => (
-          <td key={k}>
+          <td
+            key={k}
+            data-label={
+              mobileRecords
+                ? (columnLabels[k] ?? k.replaceAll("_", " "))
+                : undefined
+            }
+            className={
+              mobileRecords && typeof r[k] === "number"
+                ? "numeric-cell"
+                : undefined
+            }
+          >
             {renderCell
               ? renderCell(r, k)
               : /country/i.test(k) && typeof r[k] === "string"
@@ -270,7 +300,7 @@ export function DataTable({
       </tr>
     ));
   return (
-    <div className="data-table">
+    <div className={`data-table${mobileRecords ? " mobile-records" : ""}`}>
       {(overflow || stickyFirst) && (
         <p className="small muted table-scroll-cue">
           ↔ Scroll horizontally to see all columns.
@@ -290,7 +320,7 @@ export function DataTable({
             <tr>
               {keys.map((k) => (
                 <th scope="col" key={k}>
-                  {k.replaceAll("_", " ")}
+                  {columnLabels[k] ?? k.replaceAll("_", " ")}
                 </th>
               ))}
             </tr>

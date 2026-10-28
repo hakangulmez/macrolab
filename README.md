@@ -1,6 +1,6 @@
 # MacroLab
 
-Version 2.6.2.
+Version 2.6.3.
 
 Official macroeconomic data and validated econometrics in the browser, with assumptions, data gaps and sensitivity visible.
 
@@ -21,7 +21,7 @@ Official macroeconomic data and validated econometrics in the browser, with assu
 - Start from **9 templates** or five questions in **Simple Build**. Inspect every setting in **Advanced**, with Builder role guidance and the complete method drawer. Switching modes preserves the configuration.
 - Run entirely in the browser through **Pyodide**, with no account or analysis server. The published app uses a bundled snapshot and does not request new data from providers.
 - Carry a selected series and its display transform from Data into comparison, unit-root tests or regression, or open it in Advanced. Missing inputs and incomplete choices stay visible and block execution. Export results to **CSV, PNG, LaTeX tables and reproducible Python scripts**.
-- See scientific **charts and short result tables directly after running**. **Key facts** are followed by the **Econometric specification**, then relationship scatters, coefficient intervals and response curves. Warnings, units and concise samples stay visible; whole specification-sensitivity, covariance-sensitivity and detailed-evidence sections open through keyboard-accessible disclosures. Primary test results stay exposed, and opening sections never refits a model. Mobile views stack the visuals; every row and export remains available.
+- See scientific **charts and short result tables directly after running**. **Key facts** are followed by the **Econometric specification**, then relationship scatters, coefficient intervals and response curves. Warnings, units and concise samples stay visible; whole specification-sensitivity, covariance-sensitivity and detailed-evidence sections open through keyboard-accessible disclosures. Primary test results stay exposed, and opening sections never refits a model. The research workspace places the original principal chart beside its baseline estimate and descriptive robustness summary. Supporting charts stay visible in responsive grids, coefficient identifiers come first, and short coefficient tables retain every field as labelled mobile records. Every row and export remains available.
 
 ## Who it's for
 
@@ -29,6 +29,12 @@ MacroLab is for researchers and students exploring macroeconomic relationships,
 for teaching familiar methods, and for checking how results depend on samples
 and assumptions. It supports research exploration and robustness checks; it does
 not replace a study's identification strategy or expert judgement.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/workspace-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/workspace-light.webp">
+  <img src="docs/images/workspace-light.webp" alt="MacroLab v2.6.3 research workspace: Canada's Phillips relationship beside the coefficient interval and descriptive robustness summary." width="1440" height="1296">
+</picture>
 
 ## How results are validated
 
@@ -40,7 +46,7 @@ Passing these checks does not validate an economic interpretation. See
 
 ## Screenshots
 
-Result screenshots show real states of the local v2.6.0 build; unchanged Home and Data images retain their v2.5.0 captures. Desktop images switch with your colour-scheme preference. [Capture provenance and image sizes](docs/images/README.md).
+The research-workspace preview above shows a real local v2.6.3 result. The earlier gallery below shows real states of the local v2.6.0 build; unchanged Home and Data images retain their v2.5.0 captures. Desktop images switch with your colour-scheme preference. [Capture provenance and image sizes](docs/images/README.md).
 
 ### Dataset explorer
 
@@ -185,7 +191,7 @@ For a self-contained calculation, download the result's **Python script**, follo
 
 ## Citation
 
-Hakan Zeki Gülmez (2026). _MacroLab_, version 2.6.2. https://github.com/hakangulmez/macrolab.
+Hakan Zeki Gülmez (2026). _MacroLab_, version 2.6.3. https://github.com/hakangulmez/macrolab.
 
 Machine-readable citation: [CITATION.cff](CITATION.cff). No DOI has been assigned.
 

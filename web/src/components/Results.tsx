@@ -1,5 +1,12 @@
 import { ResultDataTable as DataTable } from "./ResultDataTable";
 import { keyFacts } from "../resultFacts";
+import { relationshipEligible } from "../additionalViewData";
+import { baselineResultChecks } from "../resultPresentation";
+import {
+  PrimaryChartProvider,
+  PrimaryChartSlot,
+  CoefficientChartSlot,
+} from "./PrimaryChart";
 import { ResultSpecification } from "./ResultSpecification";
 import { chartDisplay, resultDisplayLabel, screenText } from "../chartDisplay";
 import { sensitivityDisplayLabel } from "../sensitivityLabels";
@@ -41,6 +48,7 @@ import {
   download,
   number,
   significant,
+  tableValue,
   record,
   records,
   strings,
@@ -59,7 +67,6 @@ import {
   selectedPeakFootnote,
   sensitivityRows,
   shockHeading,
-  mobileSummaryLines,
   specificationLabel,
 } from "../resultData";
 import "../results.css";
@@ -264,6 +271,7 @@ export function ResultsCountry({
   analysisConfig,
   onSourceCard,
   previouslyDisplayedChecks,
+  insightCoefficient = false,
 }: {
   result: CountryResult;
   manifest: Manifest;
@@ -273,6 +281,7 @@ export function ResultsCountry({
   compact?: boolean;
   hideCharts?: boolean;
   hideChecks?: boolean;
+  insightCoefficient?: boolean;
   analysisConfig?: AnalysisConfig;
   onSourceCard?: (country: string, conceptId: string) => void;
   previouslyDisplayedChecks?: Check[];
@@ -484,6 +493,61 @@ export function ResultsCountry({
     selectedChart,
     variant,
   ]);
+  const responseControls = (
+    <>
+      {comparison && comparisonCurveVisible && alternatives.length > 0 && (
+        <Field
+          label={
+            result.pass_through
+              ? "Compare secondary CPI response with"
+              : "Compare response curves with"
+          }
+        >
+          <select
+            value={text(variant?.variant_id)}
+            onChange={(event) => setVariantId(event.target.value)}
+          >
+            {alternatives.map((item) => (
+              <option key={text(item.variant_id)} value={text(item.variant_id)}>
+                {sensitivityDisplayLabel(item)}
+              </option>
+            ))}
+          </select>
+        </Field>
+      )}
+      <div className="legend">
+        <span>
+          <i
+            className={charts[0]?.coefficient ? "legend-dot" : "legend-line"}
+          />
+          {charts[0]
+            ? chartDisplay(result, charts[0], indicators).estimateLabel
+            : "Reported value"}
+        </span>
+        {charts.some((chart) =>
+          chart.points.some((point) => point.lower !== undefined),
+        ) && (
+          <span>
+            <i className={result.irf ? "legend-band" : "legend-whisker"} />
+            {result.irf
+              ? `${Math.round(result.irf.band_level * 100)}% pointwise interval`
+              : coefficientInterval(result)}
+          </span>
+        )}
+        {comparison && comparisonCurveVisible && variant && (
+          <span>
+            <i className="legend-line comparison" />
+            {comparisonDisplayLabel} · point estimate
+          </span>
+        )}
+      </div>
+      {Boolean(result.pass_through) && comparison && (
+        <p className="small muted">
+          Specification comparisons below refer to the secondary CPI response.
+        </p>
+      )}
+    </>
+  );
   return (
     <section className="stack result-country">
       {exportError && <p role="alert">PNG export failed: {exportError}</p>}
@@ -523,67 +587,6 @@ export function ResultsCountry({
                   </select>
                 </Field>
               )}
-              {comparison &&
-                comparisonCurveVisible &&
-                alternatives.length > 0 && (
-                  <Field
-                    label={
-                      result.pass_through
-                        ? "Compare secondary CPI response with"
-                        : "Compare response curves with"
-                    }
-                  >
-                    <select
-                      value={text(variant?.variant_id)}
-                      onChange={(event) => setVariantId(event.target.value)}
-                    >
-                      {alternatives.map((item) => (
-                        <option
-                          key={text(item.variant_id)}
-                          value={text(item.variant_id)}
-                        >
-                          {sensitivityDisplayLabel(item)}
-                        </option>
-                      ))}
-                    </select>
-                  </Field>
-                )}
-              <div className="legend">
-                <span>
-                  <i
-                    className={
-                      charts[0]?.coefficient ? "legend-dot" : "legend-line"
-                    }
-                  />
-                  {charts[0]
-                    ? chartDisplay(result, charts[0], indicators).estimateLabel
-                    : "Reported value"}
-                </span>
-                {charts.some((chart) =>
-                  chart.points.some((point) => point.lower !== undefined),
-                ) && (
-                  <span>
-                    <i
-                      className={result.irf ? "legend-band" : "legend-whisker"}
-                    />
-                    {result.irf
-                      ? `${Math.round(result.irf.band_level * 100)}% pointwise interval`
-                      : coefficientInterval(result)}
-                  </span>
-                )}
-                {comparison && comparisonCurveVisible && variant && (
-                  <span>
-                    <i className="legend-line comparison" />
-                    {comparisonDisplayLabel} · point estimate
-                  </span>
-                )}
-              </div>
-              {Boolean(result.pass_through) && comparison && (
-                <p className="small muted">
-                  Specification comparisons below refer to the secondary CPI
-                  response.
-                </p>
-              )}
               <div
                 className={`charts-grid ${result.pass_through ? "pass-through-charts" : ""}`}
               >
@@ -593,6 +596,21 @@ export function ResultsCountry({
                     <Fragment key={chart.name}>
                       <Chart
                         {...chart}
+                        primary={first && index === 0 ? 3 : 0}
+                        controls={
+                          index ===
+                          (result.pass_through
+                            ? Math.max(
+                                0,
+                                charts.findIndex((c) => c.variable === "cpi"),
+                              )
+                            : 0)
+                            ? responseControls
+                            : undefined
+                        }
+                        insight={
+                          insightCoefficient && Boolean(chart.coefficient)
+                        }
                         title={chart.name}
                         {...chartDisplay(result, chart, indicators)}
                         comparisonShortLabel={
@@ -656,6 +674,11 @@ export function ResultsCountry({
                             countries={manifest.countries}
                             rows={inlineCoefficients.rows}
                             columns={inlineCoefficients.columns}
+                            renderCell={(row, column) =>
+                              column === "term"
+                                ? termLabel(text(row[column]), indicators)
+                                : tableValue(column, row[column])
+                            }
                           />
                         </section>
                       )}
@@ -978,7 +1001,7 @@ export function Results({
 }: Props) {
   const [comparison, setComparison] = useState(true);
   const [selectedCountry, setSelectedCountry] = useState("DEU");
-  const [pngMode, setPngMode] = useState("selected");
+  const [pngMode, setPngMode] = useState("primary");
   const compact = useSyncExternalStore(
     subscribeViewport,
     compactViewport,
@@ -995,6 +1018,7 @@ export function Results({
       </section>
     );
   const facts = keyFacts(result, manifest);
+  const baselineChecks = baselineResultChecks(result);
   const irf = result.results.find((r) => r.irf)?.irf;
   const config = result.config;
   const breakDiagnostic = breakConfig(result);
@@ -1032,641 +1056,670 @@ export function Results({
       "text/csv",
     );
   };
+  const exportDisplayedPng = () => {
+    if (pngMode === "primary") {
+      const button = document.querySelector<HTMLButtonElement>(
+        '[data-testid="primary-chart"] [data-chart-export="png"]',
+      );
+      if (button) {
+        button.click();
+        return;
+      }
+    }
+    window.dispatchEvent(
+      new CustomEvent("macrolab-export-png", {
+        detail: { mode: pngMode === "primary" ? "selected" : pngMode },
+      }),
+    );
+  };
   return (
-    <ChartExportContext.Provider
-      value={{
-        snapshot: result.snapshot_id,
-        analysis:
-          manifest.templates.find((t) => t.id === template)?.title ??
-          model?.title ??
-          "MacroLab analysis",
-        country: config.countries
-          .map(
-            (code) =>
-              manifest.countries.find((c) => c.iso3 === code)?.name ?? code,
-          )
-          .join(" / "),
-        sample: `Snapshot ${result.snapshot_id} · ${result.results.map((r) => `${r.country}: ${r.actual_sample.start}–${r.actual_sample.end}, n=${r.actual_sample.nobs}`).join("; ")}`,
-        sources: config.model.id.startsWith("panel.")
-          ? panelSourceNames(config, bundles)
-          : [
-              ...new Set([
-                ...Object.values(bundles).flatMap((b) =>
-                  b.cards
-                    .filter((c) =>
-                      config.series.some((s) => s.concept_id === c.concept_id),
-                    )
-                    .flatMap((c) =>
-                      records(c.source_segments).map((s) => text(s.source)),
-                    ),
-                ),
-                ...(config.model.id === "test.break" &&
-                config.model.params.source_variant &&
-                config.model.params.source_variant !== "none"
-                  ? ["ECB"] // All accepted first-stage variants use ECB SA HICP.
-                  : []),
-              ]),
-            ],
-        frequency: config.frequency,
-        horizon: Boolean(irf),
-        forecast: forecastModel(result.config.model.id),
-        bandLevel: irf?.band_level ?? config.outputs.confidence ?? 0.95,
-        comparisonLabel: "Comparison",
-      }}
-    >
-      <Fragment key={result.config_hash}>
-        <section
-          data-testid="screen-results"
-          className="stack results-screen visual-results"
-        >
-          <ResultOverview
-            result={result}
-            manifest={manifest}
-            edit={edit}
-            hideNumbers={facts.length > 0}
-          />
-          {result.status !== "ok" && (
-            <div
-              role="status"
-              data-testid="result-status"
-              data-config-hash={result.config_hash}
-              data-snapshot-id={result.snapshot_id}
-              data-model-id={config.model.id}
-              data-result-status={result.status}
-              className={result.status === "ok" ? "info-box" : "error-box"}
-            >
-              <strong>
-                {result.status === "ok"
-                  ? "Analysis complete"
-                  : "Analysis blocked or partly unavailable"}
-              </strong>{" "}
-              · {resultDisplayLabel(result.label)}
-            </div>
-          )}
-          <div className="row result-primary-actions">
-            <button className="link" onClick={edit}>
-              Edit assumptions
-            </button>
-            <button data-testid="share-link" disabled={busy} onClick={share}>
-              Share link
-            </button>
-          </div>
-          {shareUrl && (
-            <Field label="Local share link">
-              <input
-                data-testid="share-url"
-                readOnly
-                value={shareUrl}
-                onFocus={(e) => e.currentTarget.select()}
-              />
-            </Field>
-          )}
-          {facts.length > 0 && (
-            <section className="card key-facts" data-testid="key-facts">
-              <h2>Key facts</h2>
-              {facts.map((line) => (
-                <p key={line}>{line}</p>
-              ))}
-            </section>
-          )}
-          <ResultSpecification result={result} manifest={manifest} />
-          <section
-            className="result-details stack"
-            data-testid="result-details"
-          >
-            {compact && (
-              <div
-                className="mobile-result-summary"
-                data-testid="mobile-result-summary"
-                aria-label="Result summary"
-              >
-                {mobileSummaryLines(result).map((line, index) => (
-                  <p key={index}>{line}</p>
-                ))}
-              </div>
-            )}
-            <div className="row between result-actions">
-              <button className="link" onClick={edit}>
-                ← Edit this analysis
-              </button>
-              <div className="results-toolbar">
-                <label className="small">
-                  PNG scope{" "}
-                  <select
-                    aria-label="PNG scope"
-                    value={pngMode}
-                    onChange={(event) => setPngMode(event.target.value)}
-                  >
-                    <option value="selected">Selected chart</option>
-                    <option value="panel">All response charts</option>
-                  </select>
-                </label>
-                <button
-                  data-testid="export-png"
-                  disabled={
-                    Boolean(result.sensitivity_pending) ||
-                    !result.results.some((r) =>
-                      chartData(r, manifest.indicators).some(
-                        (c) => c.points.length,
-                      ),
-                    )
-                  }
-                  onClick={() =>
-                    window.dispatchEvent(
-                      new CustomEvent("macrolab-export-png", {
-                        detail: { mode: pngMode },
-                      }),
-                    )
-                  }
-                >
-                  Export PNG
-                </button>
-                <button
-                  data-testid="export-csv"
-                  disabled={Boolean(result.sensitivity_pending)}
-                  onClick={exportCsv}
-                >
-                  Download CSV
-                </button>
-                <button
-                  data-testid="export-python"
-                  disabled={busy || result.status !== "ok"}
-                  onClick={exportPython}
-                >
-                  Python script
-                </button>
-              </div>
-            </div>
-            <div className="result-detail-workspace">
-              <div className="result-main">
-                <div className="result-response-content stack">
-                  <div className="row comparison-control">
-                    <label className="row">
-                      <input
-                        type="checkbox"
-                        checked={comparison}
-                        onChange={(e) => setComparison(e.target.checked)}
-                      />
-                      Compare specifications
-                    </label>
-                    <span className="small muted">
-                      Exact samples and assumptions remain available below.
-                    </span>
-                  </div>
-                  {runtime && (
-                    <Suspense fallback={<p>Loading relationship view…</p>}>
-                      <RelationshipViews
-                        result={result}
-                        manifest={manifest}
-                        runtime={runtime}
-                      />
-                    </Suspense>
-                  )}
-                  <V2TemplateResults result={result} manifest={manifest} />
-                  {!v2Template(template) &&
-                    result.results
-                      .filter(
-                        (r) =>
-                          r.model_id.startsWith("panel.") ||
-                          r.model_id === "bvar.minn" ||
-                          diagnosticModel(r.model_id) ||
-                          forecastModel(r.model_id),
+    <PrimaryChartProvider>
+      <ChartExportContext.Provider
+        value={{
+          snapshot: result.snapshot_id,
+          analysis:
+            manifest.templates.find((t) => t.id === template)?.title ??
+            model?.title ??
+            "MacroLab analysis",
+          country: config.countries
+            .map(
+              (code) =>
+                manifest.countries.find((c) => c.iso3 === code)?.name ?? code,
+            )
+            .join(" / "),
+          sample: `Snapshot ${result.snapshot_id} · ${result.results.map((r) => `${r.country}: ${r.actual_sample.start}–${r.actual_sample.end}, n=${r.actual_sample.nobs}`).join("; ")}`,
+          sources: config.model.id.startsWith("panel.")
+            ? panelSourceNames(config, bundles)
+            : [
+                ...new Set([
+                  ...Object.values(bundles).flatMap((b) =>
+                    b.cards
+                      .filter((c) =>
+                        config.series.some(
+                          (s) => s.concept_id === c.concept_id,
+                        ),
                       )
-                      .map((r) => (
-                        <div key={`${r.country}-${text(r.outcome)}`}>
-                          <PanelResults result={r} manifest={manifest} />
-                          <DiagnosticResults
-                            result={r}
-                            manifest={manifest}
-                            first={r === result.results[0]}
-                          />
-                          <BvarResults result={r} manifest={manifest} />
-                          <ForecastResults
-                            result={r}
-                            manifest={manifest}
-                            first={r === result.results[0]}
-                          />
-                        </div>
-                      ))}
-                  {ecbTemplate && (
-                    <CountryComparison
-                      result={result}
-                      manifest={manifest}
-                      bundles={bundles}
-                      compact={false}
-                      country={
-                        result.results.some(
-                          (r) => r.country === selectedCountry,
-                        )
-                          ? selectedCountry
-                          : result.results[0].country
-                      }
-                      selectCountry={setSelectedCountry}
-                    />
-                  )}
-                  {result.results.map((r, index) => (
-                    <section
-                      key={`${r.country}-${text(r.outcome)}`}
-                      className={
-                        ecbTemplate ? "card country-details" : "result-wrapper"
-                      }
-                    >
-                      <h3>
-                        {manifest.countries.find((c) => c.iso3 === r.country)
-                          ?.name ?? r.country}{" "}
-                        {r.outcome
-                          ? ` · ${termLabel(text(r.outcome), manifest.indicators)}`
-                          : ""}
-                        · checks, sensitivity and technical details
-                      </h3>
-                      <ResultsCountry
-                        key={r.country}
-                        result={r}
-                        analysisConfig={config}
-                        manifest={manifest}
-                        comparison={comparison}
-                        first={
-                          !ecbTemplate &&
-                          !v2Template(template) &&
-                          index ===
-                            result.results.findIndex(
-                              (item) =>
-                                item.status === "ok" &&
-                                chartData(item, manifest.indicators).some(
-                                  (chart) => chart.points.length,
-                                ),
-                            )
-                        }
-                        cards={bundles[r.country]?.cards ?? []}
-                        compact={false}
-                        hideCharts={
-                          ecbTemplate ||
-                          r.model_id === "bvar.minn" ||
-                          diagnosticModel(r.model_id) ||
-                          forecastModel(r.model_id)
-                        }
-                        onSourceCard={onSourceCard}
-                        previouslyDisplayedChecks={previouslyDisplayedChecks}
-                      />
-                    </section>
-                  ))}
-                  {runtime &&
-                    !ecbTemplate &&
-                    ["var.ols", "ident.recursive", "lp.ols"].includes(
-                      config.model.id,
-                    ) &&
-                    result.results
-                      .filter((r) => r.status === "ok" && r.irf)
-                      .map((r) => (
-                        <MethodComparison
-                          key={`${result.config_hash}-${r.country}`}
-                          config={config}
-                          result={r}
-                          manifest={manifest}
-                          runtime={runtime}
-                          compact={compact}
-                          cards={bundles[r.country]?.cards ?? []}
-                          busy={busy}
-                        />
-                      ))}
-                  {config.model.id === "test.break" &&
-                    Boolean(config.model.params.source_variant) &&
-                    config.model.params.source_variant !== "none" && (
-                      <TemplateSources config={config} />
-                    )}
-                  {Boolean(template) && !v2Template(template) && (
-                    <section
-                      className="card stack"
-                      data-testid="v1-band-disclosure"
-                    >
-                      {ecbTemplate && <TemplateSources config={config} />}
-                      <strong>
-                        Displayed band:{" "}
-                        {ecbTemplate &&
-                        config.model.params.displayed_band === "joint"
-                          ? "joint bootstrap (both stages)"
-                          : `conditional (${config.model.params.lag_augmented ? "lag-augmented HC1" : "HAC"})`}{" "}
-                        · 68% pointwise
-                      </strong>
-                      <p>
-                        {ecbTemplate
-                          ? config.model.params.displayed_band === "joint"
-                            ? "Both stages are re-estimated on the common window. These bands rely on the auxiliary model and are not simultaneous across horizons."
-                            : "Conditional bands understate uncertainty: they ignore estimation of the first-stage EA shock."
-                          : "This is a conditional association, not an identified exchange-rate shock."}
-                      </p>
-                      <p>
-                        Prices and output: cumulative % change in the level by
-                        default. Unemployment: percentage-point change. Actual
-                        windows and transformations are recorded below.
-                      </p>
-                      {ecbTemplate &&
-                        config.model.params.displayed_band !== "joint" && (
-                          <button
-                            className="primary"
-                            data-testid="compute-joint"
-                            disabled={busy}
-                            onClick={() => {
-                              const next = structuredClone(config);
-                              next.model.params.displayed_band = "joint";
-                              next.model.params.country_window = "common";
-                              rerun(next);
-                            }}
-                          >
-                            Compute full uncertainty (joint bootstrap)
-                          </button>
-                        )}
-                    </section>
-                  )}
-                  <TemplateCorrectionSummary
-                    result={result}
-                    manifest={manifest}
-                  />
-                  <section
-                    className="result-tools stack"
-                    aria-label="Analysis tools and disclosures"
-                  >
-                    {breakDiagnostic && (
-                      <button
-                        disabled={busy}
-                        onClick={() => rerun(breakDiagnostic)}
-                      >
-                        Run break diagnostics for{" "}
-                        {ecbTemplate || template === "same_ecb_shock_pooled"
-                          ? "the ECB first-stage policy-rate equation"
-                          : "this equation"}
-                      </button>
-                    )}
-                    {runtime && (
-                      <Suspense fallback={<p>Loading technical view…</p>}>
-                        <TechnicalExtensions
-                          key={result.config_hash}
-                          config={config}
-                          runtime={runtime}
-                          busy={busy}
-                          manifest={manifest}
-                        />
-                      </Suspense>
-                    )}
-                  </section>
-                  {result.status === "ok" && (
-                    <div
-                      role="status"
-                      data-testid="result-status"
-                      data-config-hash={result.config_hash}
-                      data-snapshot-id={result.snapshot_id}
-                      data-model-id={config.model.id}
-                      data-result-status={result.status}
-                      className={
-                        result.status === "ok" ? "info-box" : "error-box"
-                      }
-                    >
-                      <strong>
-                        {result.status === "ok"
-                          ? "Analysis complete"
-                          : "Analysis blocked or partly unavailable"}
-                      </strong>{" "}
-                      · {resultDisplayLabel(result.label)}
-                    </div>
-                  )}
-                  <section id="all-findings" className="all-findings card">
-                    <h3>All findings, source notes and technical details</h3>
-                    <Checks
-                      checks={result.checks}
-                      showEstimationPhase
-                      previouslyDisplayedChecks={previouslyDisplayedChecks}
-                      onSourceCard={onSourceCard}
-                      indicators={
-                        config.countries.length === 1
-                          ? countryIndicators(
-                              manifest.indicators,
-                              config.countries[0],
-                            )
-                          : manifest.indicators
-                      }
-                      countries={manifest.countries}
-                    />
-                  </section>
-                  <section className="result-heading legacy-result-heading">
-                    <h3>Specification controls and runtime details</h3>
-                    <div>
-                      <span className="overline">Results · {model?.title}</span>
-                      <h1>
-                        {v2Template(template)
-                          ? manifest.templates.find((t) => t.id === template)
-                              ?.title
-                          : ecbTemplate
-                            ? `ECB ${config.model.params.policy_measure === "dfr" ? "DFR" : config.model.params.policy_measure === "bis" ? "BIS policy-rate" : "3-month rate"} shock: +${number(record(record(records(record(result.first_stage).results)[0]).identified_shock).requested_physical_size, 2)} pp`
-                            : template === "tur_pass_through"
-                              ? "Türkiye: cumulative pass-through ratio"
-                              : irf
-                                ? shockHeading(irf, config, manifest.indicators)
-                                : `${model?.title ?? config.model.id}: the estimated relationship`}
-                      </h1>
-                      <p className="muted">
-                        {config.countries
-                          .map(
-                            (c) =>
-                              manifest.countries.find((x) => x.iso3 === c)
-                                ?.name ?? c,
-                          )
-                          .join(" · ")}{" "}
-                        ·{" "}
-                        {config.frequency === "Q"
-                          ? "Quarterly"
-                          : config.frequency === "M"
-                            ? "Monthly"
-                            : "Annual"}{" "}
-                        ·{" "}
-                        {irf
-                          ? `${Math.round(irf.band_level * 100)}% pointwise bands`
-                          : config.model.id.startsWith("sing.")
-                            ? `${Math.round((config.outputs.confidence ?? 0.95) * 100)}% coefficient intervals`
-                            : "Descriptive output; see method assumptions"}
-                      </p>
-                      <div className="result-meta">
-                        {ecbTemplate && (
-                          <span data-testid="first-stage-root">
-                            First-stage largest companion root:{" "}
-                            {number(result.first_stage_largest_root, 4)}
-                          </span>
-                        )}
-                        <span>Snapshot {result.snapshot_id}</span>
-                        <span>Code {result.code_version}</span>
-                        <span>{number(result.runtime_ms, 0)} ms</span>
-                        <span title={result.config_hash}>
-                          Config {result.config_hash.slice(0, 12)}
-                        </span>
-                      </div>
-                    </div>
-                    {irf && !template && (
-                      <section className="card result-controls">
-                        <h3>Shock size and interval precision</h3>
-                        <div className="stack">
-                          <Field
-                            label={policyShock ? "Policy shock" : "Shock size"}
-                          >
-                            <select
-                              disabled={busy}
-                              value={
-                                config.outputs.irf?.shock_mode === "one_sd"
-                                  ? "sd"
-                                  : String(config.outputs.irf?.shock_size)
-                              }
-                              onChange={(e) =>
-                                shock(
-                                  e.target.value === "sd" ? "one_sd" : "fixed",
-                                  e.target.value === "sd"
-                                    ? 1
-                                    : Number(e.target.value),
-                                )
-                              }
-                            >
-                              <option value="sd">
-                                One identified standard deviation
-                              </option>
-                              <option value="0.25">
-                                {policyShock
-                                  ? "+25 bp"
-                                  : "+0.25 transformed units"}
-                              </option>
-                              <option value="1">
-                                {policyShock ? "+1 pp" : "+1 transformed unit"}
-                              </option>
-                              {!["sd", "0.25", "1"].includes(
-                                config.outputs.irf?.shock_mode === "one_sd"
-                                  ? "sd"
-                                  : String(config.outputs.irf?.shock_size),
-                              ) && (
-                                <option
-                                  value={String(config.outputs.irf?.shock_size)}
-                                >
-                                  Custom shock
-                                </option>
-                              )}
-                            </select>
-                          </Field>
-                          <Field
-                            label={`Custom shock (${shockUnits}; release to rerun)`}
-                          >
-                            <input
-                              disabled={busy}
-                              type="range"
-                              min="-2"
-                              max="2"
-                              step="0.25"
-                              key={irf.shock_size}
-                              defaultValue={irf.shock_size}
-                              onPointerUp={(e) => {
-                                const value = Number(e.currentTarget.value);
-                                if (value !== 0) shock("fixed", value);
-                              }}
-                              onKeyUp={(e) => {
-                                if (
-                                  [
-                                    "ArrowLeft",
-                                    "ArrowRight",
-                                    "Home",
-                                    "End",
-                                  ].includes(e.key) &&
-                                  Number(e.currentTarget.value) !== 0
-                                )
-                                  shock("fixed", Number(e.currentTarget.value));
-                              }}
-                            />
-                          </Field>
-                          <Field label="Bootstrap precision">
-                            <select
-                              data-testid="bootstrap-precision"
-                              disabled={busy}
-                              value={String(config.outputs.irf?.draws)}
-                              onChange={(event) =>
-                                precision(Number(event.target.value))
-                              }
-                            >
-                              <option value="200">
-                                Interactive · 200 draws
-                              </option>
-                              <option value="1000">
-                                Precise · 1,000 draws
-                              </option>
-                              {![200, 1000].includes(
-                                config.outputs.irf?.draws ?? 0,
-                              ) && (
-                                <option value={config.outputs.irf?.draws}>
-                                  Current ·{" "}
-                                  {number(config.outputs.irf?.draws, 0)} draws
-                                </option>
-                              )}
-                            </select>
-                          </Field>
-                          <p className="small muted">
-                            Precision changes rerun the seeded bootstrap. Slider
-                            limits do not establish historical support.
-                          </p>
-                        </div>
-                      </section>
-                    )}
-                  </section>
-                </div>
-              </div>
-            </div>
-            {facts.length > 0 && (
+                      .flatMap((c) =>
+                        records(c.source_segments).map((s) => text(s.source)),
+                      ),
+                  ),
+                  ...(config.model.id === "test.break" &&
+                  config.model.params.source_variant &&
+                  config.model.params.source_variant !== "none"
+                    ? ["ECB"] // All accepted first-stage variants use ECB SA HICP.
+                    : []),
+                ]),
+              ],
+          frequency: config.frequency,
+          horizon: Boolean(irf),
+          forecast: forecastModel(result.config.model.id),
+          bandLevel: irf?.band_level ?? config.outputs.confidence ?? 0.95,
+          comparisonLabel: "Comparison",
+        }}
+      >
+        <Fragment key={result.config_hash}>
+          <section
+            data-testid="screen-results"
+            className="stack results-screen visual-results research-results"
+            data-result-family={config.model.id}
+          >
+            <div className="result-title-row">
               <ResultOverview
                 result={result}
                 manifest={manifest}
                 edit={edit}
-                numbersOnly
+                hideNumbers
               />
-            )}
-            <details className="secondary-section ">
-              <summary>
-                Detailed diagnostics, samples, sources and provenance
-              </summary>
-              <ResultTableView
-                result={result}
-                manifest={manifest}
-                tab="samples"
-              />
-            </details>
-          </section>
-          <div className="result-workspace">
-            <div className="result-main">
-              <ResultExports
-                result={result}
-                busy={busy || Boolean(result.sensitivity_pending)}
-                exportCsv={exportCsv}
-                exportPython={exportPython}
-                exportLatex={() =>
-                  download(
-                    latexTables(result, manifest),
-                    "macrolab-results.tex",
-                    "application/x-tex",
-                  )
-                }
-                exportPng={() =>
-                  window.dispatchEvent(
-                    new CustomEvent("macrolab-export-png", {
-                      detail: { mode: pngMode },
-                    }),
-                  )
-                }
-              />
+              <div className="row result-primary-actions">
+                <button className="link" onClick={edit}>
+                  Edit assumptions
+                </button>
+                <button
+                  data-testid="share-link"
+                  disabled={busy}
+                  onClick={share}
+                >
+                  Share link
+                </button>
+                <details
+                  className="result-export-menu"
+                  onKeyDown={(event) => {
+                    if (event.key === "Escape") {
+                      event.currentTarget.open = false;
+                      event.currentTarget.querySelector("summary")?.focus();
+                    }
+                  }}
+                >
+                  <summary>Export results</summary>
+                  <div className="result-export-popover">
+                    <label className="field">
+                      <span>PNG scope</span>
+                      <select
+                        aria-label="PNG scope"
+                        value={pngMode}
+                        onChange={(e) => setPngMode(e.target.value)}
+                      >
+                        <option value="primary">Main chart</option>
+                        <option value="selected">Selected chart below</option>
+                        <option value="panel">All response charts</option>
+                      </select>
+                    </label>
+                    <ResultExports
+                      result={result}
+                      busy={busy || Boolean(result.sensitivity_pending)}
+                      exportCsv={exportCsv}
+                      exportPython={exportPython}
+                      exportLatex={() =>
+                        download(
+                          latexTables(result, manifest),
+                          "macrolab-results.tex",
+                          "application/x-tex",
+                        )
+                      }
+                      exportPng={exportDisplayedPng}
+                    />
+                    <p className="small muted">
+                      Each figure also has its own PNG download. The model-chart
+                      selector remains beside the corresponding result table or
+                      chart.
+                    </p>
+                  </div>
+                </details>
+              </div>
             </div>
-            <ResultRail
-              previouslyDisplayedChecks={previouslyDisplayedChecks}
-              result={result}
-              manifest={manifest}
-              showResponse={() => {}}
-              busy={busy}
-              exportCsv={exportCsv}
-              exportPython={exportPython}
-              exportLatex={() => {}}
-              exportPng={() => {}}
-            />
-          </div>
-        </section>
-      </Fragment>
-    </ChartExportContext.Provider>
+            {result.status !== "ok" && (
+              <div
+                role="status"
+                data-testid="result-status"
+                data-config-hash={result.config_hash}
+                data-snapshot-id={result.snapshot_id}
+                data-model-id={config.model.id}
+                data-result-status={result.status}
+                className={result.status === "ok" ? "info-box" : "error-box"}
+              >
+                <strong>
+                  {result.status === "ok"
+                    ? "Analysis complete"
+                    : "Analysis blocked or partly unavailable"}
+                </strong>{" "}
+                · {resultDisplayLabel(result.label)}
+              </div>
+            )}
+            {shareUrl && (
+              <Field label="Local share link">
+                <input
+                  data-testid="share-url"
+                  readOnly
+                  value={shareUrl}
+                  onFocus={(e) => e.currentTarget.select()}
+                />
+              </Field>
+            )}
+            {facts.length > 0 && (
+              <section className="card key-facts" data-testid="key-facts">
+                <h2>Key facts</h2>
+                {facts.map((line) => (
+                  <p key={line}>{line}</p>
+                ))}
+              </section>
+            )}
+            <ResultSpecification result={result} manifest={manifest} />
+            <div className="row comparison-control">
+              <label className="row">
+                <input
+                  type="checkbox"
+                  checked={comparison}
+                  onChange={(e) => setComparison(e.target.checked)}
+                />
+                Compare specifications
+              </label>
+              <span className="small muted">
+                Exact samples and assumptions remain available below.
+              </span>
+            </div>
+            <section
+              className="result-hero-workspace"
+              aria-label="Main result and interpretation"
+            >
+              <PrimaryChartSlot />
+              <aside
+                className="result-insight-stack"
+                aria-label="Estimate and robustness summary"
+              >
+                <ResultOverview
+                  result={result}
+                  manifest={manifest}
+                  edit={edit}
+                  numbersOnly
+                  conciseNumbers={facts.length > 0}
+                />
+                <CoefficientChartSlot />
+                <ResultRail
+                  compact
+                  result={result}
+                  manifest={manifest}
+                  previouslyDisplayedChecks={previouslyDisplayedChecks}
+                  showResponse={() => {}}
+                  busy={busy}
+                  exportCsv={exportCsv}
+                  exportPython={exportPython}
+                  exportLatex={() => {}}
+                  exportPng={() => {}}
+                />
+              </aside>
+            </section>
+            <section
+              id="all-findings"
+              className="baseline-findings"
+              data-testid="baseline-findings"
+            >
+              <h2>Model checks and data notes</h2>
+              <Checks
+                compact
+                checks={baselineChecks}
+                showEstimationPhase
+                previouslyDisplayedChecks={previouslyDisplayedChecks}
+                onSourceCard={onSourceCard}
+                indicators={
+                  config.countries.length === 1
+                    ? countryIndicators(
+                        manifest.indicators,
+                        config.countries[0],
+                      )
+                    : manifest.indicators
+                }
+                countries={manifest.countries}
+              />
+            </section>
+
+            <section
+              className="result-details stack"
+              data-testid="result-details"
+            >
+              <div className="result-detail-workspace">
+                <div className="result-main">
+                  <div className="result-response-content stack">
+                    {runtime && (
+                      <Suspense fallback={<p>Loading relationship view…</p>}>
+                        <RelationshipViews
+                          result={result}
+                          manifest={manifest}
+                          runtime={runtime}
+                        />
+                      </Suspense>
+                    )}
+                    <V2TemplateResults result={result} manifest={manifest} />
+                    {!v2Template(template) &&
+                      result.results
+                        .filter(
+                          (r) =>
+                            r.model_id.startsWith("panel.") ||
+                            r.model_id === "bvar.minn" ||
+                            diagnosticModel(r.model_id) ||
+                            forecastModel(r.model_id),
+                        )
+                        .map((r) => (
+                          <div key={`${r.country}-${text(r.outcome)}`}>
+                            <PanelResults result={r} manifest={manifest} />
+                            <DiagnosticResults
+                              result={r}
+                              manifest={manifest}
+                              first={r === result.results[0]}
+                            />
+                            <BvarResults result={r} manifest={manifest} />
+                            <ForecastResults
+                              result={r}
+                              manifest={manifest}
+                              first={r === result.results[0]}
+                            />
+                          </div>
+                        ))}
+                    {ecbTemplate && (
+                      <CountryComparison
+                        result={result}
+                        manifest={manifest}
+                        bundles={bundles}
+                        compact={false}
+                        country={
+                          result.results.some(
+                            (r) => r.country === selectedCountry,
+                          )
+                            ? selectedCountry
+                            : result.results[0].country
+                        }
+                        selectCountry={setSelectedCountry}
+                      />
+                    )}
+                    <div
+                      className={`country-output-grid ${result.results.length > 1 ? "multiple-country-outputs" : ""}`}
+                    >
+                      {result.results.map((r, index) => (
+                        <section
+                          key={`${r.country}-${text(r.outcome)}`}
+                          className={
+                            ecbTemplate
+                              ? "card country-details"
+                              : "result-wrapper"
+                          }
+                        >
+                          <ResultsCountry
+                            key={r.country}
+                            result={r}
+                            analysisConfig={config}
+                            manifest={manifest}
+                            comparison={comparison}
+                            hideChecks
+                            insightCoefficient={
+                              Boolean(runtime) &&
+                              result.results.length === 1 &&
+                              r.model_id === "sing.ols" &&
+                              relationshipEligible(config, r)
+                            }
+                            first={
+                              !ecbTemplate &&
+                              !v2Template(template) &&
+                              index ===
+                                result.results.findIndex(
+                                  (item) =>
+                                    item.status === "ok" &&
+                                    chartData(item, manifest.indicators).some(
+                                      (chart) => chart.points.length,
+                                    ),
+                                )
+                            }
+                            cards={bundles[r.country]?.cards ?? []}
+                            compact={false}
+                            hideCharts={
+                              ecbTemplate ||
+                              r.model_id === "bvar.minn" ||
+                              diagnosticModel(r.model_id) ||
+                              forecastModel(r.model_id)
+                            }
+                            onSourceCard={onSourceCard}
+                            previouslyDisplayedChecks={
+                              previouslyDisplayedChecks
+                            }
+                          />
+                        </section>
+                      ))}
+                    </div>
+                    {runtime &&
+                      !ecbTemplate &&
+                      ["var.ols", "ident.recursive", "lp.ols"].includes(
+                        config.model.id,
+                      ) &&
+                      result.results
+                        .filter((r) => r.status === "ok" && r.irf)
+                        .map((r) => (
+                          <MethodComparison
+                            key={`${result.config_hash}-${r.country}`}
+                            config={config}
+                            result={r}
+                            manifest={manifest}
+                            runtime={runtime}
+                            compact={compact}
+                            cards={bundles[r.country]?.cards ?? []}
+                            busy={busy}
+                          />
+                        ))}
+                    {config.model.id === "test.break" &&
+                      Boolean(config.model.params.source_variant) &&
+                      config.model.params.source_variant !== "none" && (
+                        <TemplateSources config={config} />
+                      )}
+                    {Boolean(template) && !v2Template(template) && (
+                      <section
+                        className="card stack"
+                        data-testid="v1-band-disclosure"
+                      >
+                        {ecbTemplate && <TemplateSources config={config} />}
+                        <strong>
+                          Displayed band:{" "}
+                          {ecbTemplate &&
+                          config.model.params.displayed_band === "joint"
+                            ? "joint bootstrap (both stages)"
+                            : `conditional (${config.model.params.lag_augmented ? "lag-augmented HC1" : "HAC"})`}{" "}
+                          · 68% pointwise
+                        </strong>
+                        <p>
+                          {ecbTemplate
+                            ? config.model.params.displayed_band === "joint"
+                              ? "Both stages are re-estimated on the common window. These bands rely on the auxiliary model and are not simultaneous across horizons."
+                              : "Conditional bands understate uncertainty: they ignore estimation of the first-stage EA shock."
+                            : "This is a conditional association, not an identified exchange-rate shock."}
+                        </p>
+                        <p>
+                          Prices and output: cumulative % change in the level by
+                          default. Unemployment: percentage-point change. Actual
+                          windows and transformations are recorded below.
+                        </p>
+                        {ecbTemplate &&
+                          config.model.params.displayed_band !== "joint" && (
+                            <button
+                              className="primary"
+                              data-testid="compute-joint"
+                              disabled={busy}
+                              onClick={() => {
+                                const next = structuredClone(config);
+                                next.model.params.displayed_band = "joint";
+                                next.model.params.country_window = "common";
+                                rerun(next);
+                              }}
+                            >
+                              Compute full uncertainty (joint bootstrap)
+                            </button>
+                          )}
+                      </section>
+                    )}
+                    <TemplateCorrectionSummary
+                      result={result}
+                      manifest={manifest}
+                    />
+                    <section
+                      className="result-tools stack"
+                      aria-label="Analysis tools and disclosures"
+                    >
+                      {breakDiagnostic && (
+                        <button
+                          disabled={busy}
+                          onClick={() => rerun(breakDiagnostic)}
+                        >
+                          Run break diagnostics for{" "}
+                          {ecbTemplate || template === "same_ecb_shock_pooled"
+                            ? "the ECB first-stage policy-rate equation"
+                            : "this equation"}
+                        </button>
+                      )}
+                      {runtime && (
+                        <Suspense fallback={<p>Loading technical view…</p>}>
+                          <TechnicalExtensions
+                            key={result.config_hash}
+                            config={config}
+                            runtime={runtime}
+                            busy={busy}
+                            manifest={manifest}
+                          />
+                        </Suspense>
+                      )}
+                    </section>
+                    {result.status === "ok" && (
+                      <div
+                        role="status"
+                        data-testid="result-status"
+                        data-config-hash={result.config_hash}
+                        data-snapshot-id={result.snapshot_id}
+                        data-model-id={config.model.id}
+                        data-result-status={result.status}
+                        className={
+                          result.status === "ok" ? "info-box" : "error-box"
+                        }
+                      >
+                        <strong>
+                          {result.status === "ok"
+                            ? "Analysis complete"
+                            : "Analysis blocked or partly unavailable"}
+                        </strong>{" "}
+                        · {resultDisplayLabel(result.label)}
+                      </div>
+                    )}
+                    <section className="result-heading legacy-result-heading">
+                      <details className="result-reproducibility">
+                        <summary>Runtime and reproducibility</summary>
+                        <div>
+                          <span className="overline">
+                            Results · {model?.title}
+                          </span>
+                          <p className="runtime-result-name">
+                            {v2Template(template)
+                              ? manifest.templates.find(
+                                  (t) => t.id === template,
+                                )?.title
+                              : ecbTemplate
+                                ? `ECB ${config.model.params.policy_measure === "dfr" ? "DFR" : config.model.params.policy_measure === "bis" ? "BIS policy-rate" : "3-month rate"} shock: +${number(record(record(records(record(result.first_stage).results)[0]).identified_shock).requested_physical_size, 2)} pp`
+                                : template === "tur_pass_through"
+                                  ? "Türkiye: cumulative pass-through ratio"
+                                  : irf
+                                    ? shockHeading(
+                                        irf,
+                                        config,
+                                        manifest.indicators,
+                                      )
+                                    : `${model?.title ?? config.model.id}: the estimated relationship`}
+                          </p>
+                          <p className="muted">
+                            {config.countries
+                              .map(
+                                (c) =>
+                                  manifest.countries.find((x) => x.iso3 === c)
+                                    ?.name ?? c,
+                              )
+                              .join(" · ")}{" "}
+                            ·{" "}
+                            {config.frequency === "Q"
+                              ? "Quarterly"
+                              : config.frequency === "M"
+                                ? "Monthly"
+                                : "Annual"}{" "}
+                            ·{" "}
+                            {irf
+                              ? `${Math.round(irf.band_level * 100)}% pointwise bands`
+                              : config.model.id.startsWith("sing.")
+                                ? `${Math.round((config.outputs.confidence ?? 0.95) * 100)}% coefficient intervals`
+                                : "Descriptive output; see method assumptions"}
+                          </p>
+                          <div className="result-meta">
+                            {ecbTemplate && (
+                              <span data-testid="first-stage-root">
+                                First-stage largest companion root:{" "}
+                                {number(result.first_stage_largest_root, 4)}
+                              </span>
+                            )}
+                            <span>Snapshot {result.snapshot_id}</span>
+                            <span>Code {result.code_version}</span>
+                            <span>{number(result.runtime_ms, 0)} ms</span>
+                            <span title={result.config_hash}>
+                              Config {result.config_hash.slice(0, 12)}
+                            </span>
+                          </div>
+                        </div>
+                      </details>
+                      {irf && !template && (
+                        <section className="card result-controls">
+                          <h3>Shock size and interval precision</h3>
+                          <div className="stack">
+                            <Field
+                              label={
+                                policyShock ? "Policy shock" : "Shock size"
+                              }
+                            >
+                              <select
+                                disabled={busy}
+                                value={
+                                  config.outputs.irf?.shock_mode === "one_sd"
+                                    ? "sd"
+                                    : String(config.outputs.irf?.shock_size)
+                                }
+                                onChange={(e) =>
+                                  shock(
+                                    e.target.value === "sd"
+                                      ? "one_sd"
+                                      : "fixed",
+                                    e.target.value === "sd"
+                                      ? 1
+                                      : Number(e.target.value),
+                                  )
+                                }
+                              >
+                                <option value="sd">
+                                  One identified standard deviation
+                                </option>
+                                <option value="0.25">
+                                  {policyShock
+                                    ? "+25 bp"
+                                    : "+0.25 transformed units"}
+                                </option>
+                                <option value="1">
+                                  {policyShock
+                                    ? "+1 pp"
+                                    : "+1 transformed unit"}
+                                </option>
+                                {!["sd", "0.25", "1"].includes(
+                                  config.outputs.irf?.shock_mode === "one_sd"
+                                    ? "sd"
+                                    : String(config.outputs.irf?.shock_size),
+                                ) && (
+                                  <option
+                                    value={String(
+                                      config.outputs.irf?.shock_size,
+                                    )}
+                                  >
+                                    Custom shock
+                                  </option>
+                                )}
+                              </select>
+                            </Field>
+                            <Field
+                              label={`Custom shock (${shockUnits}; release to rerun)`}
+                            >
+                              <input
+                                disabled={busy}
+                                type="range"
+                                min="-2"
+                                max="2"
+                                step="0.25"
+                                key={irf.shock_size}
+                                defaultValue={irf.shock_size}
+                                onPointerUp={(e) => {
+                                  const value = Number(e.currentTarget.value);
+                                  if (value !== 0) shock("fixed", value);
+                                }}
+                                onKeyUp={(e) => {
+                                  if (
+                                    [
+                                      "ArrowLeft",
+                                      "ArrowRight",
+                                      "Home",
+                                      "End",
+                                    ].includes(e.key) &&
+                                    Number(e.currentTarget.value) !== 0
+                                  )
+                                    shock(
+                                      "fixed",
+                                      Number(e.currentTarget.value),
+                                    );
+                                }}
+                              />
+                            </Field>
+                            <Field label="Bootstrap precision">
+                              <select
+                                data-testid="bootstrap-precision"
+                                disabled={busy}
+                                value={String(config.outputs.irf?.draws)}
+                                onChange={(event) =>
+                                  precision(Number(event.target.value))
+                                }
+                              >
+                                <option value="200">
+                                  Interactive · 200 draws
+                                </option>
+                                <option value="1000">
+                                  Precise · 1,000 draws
+                                </option>
+                                {![200, 1000].includes(
+                                  config.outputs.irf?.draws ?? 0,
+                                ) && (
+                                  <option value={config.outputs.irf?.draws}>
+                                    Current ·{" "}
+                                    {number(config.outputs.irf?.draws, 0)} draws
+                                  </option>
+                                )}
+                              </select>
+                            </Field>
+                            <p className="small muted">
+                              Precision changes rerun the seeded bootstrap.
+                              Slider limits do not establish historical support.
+                            </p>
+                          </div>
+                        </section>
+                      )}
+                    </section>
+                  </div>
+                </div>
+              </div>
+              <details className="secondary-section ">
+                <summary>
+                  Detailed diagnostics, samples, sources and provenance
+                </summary>
+                <ResultTableView
+                  result={result}
+                  manifest={manifest}
+                  tab="samples"
+                />
+              </details>
+            </section>
+          </section>
+        </Fragment>
+      </ChartExportContext.Provider>
+    </PrimaryChartProvider>
   );
 }

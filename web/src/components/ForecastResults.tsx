@@ -265,37 +265,49 @@ export function ForecastResults({
               {significant(record(arima.ljung_box).p_value)}.
             </p>
           )}
-          <Field label="Predictive interval">
-            <select value={band} onChange={(e) => setBand(e.target.value)}>
-              <option value="0.68">68% predictive interval</option>
-              <option value="0.9">90% predictive interval</option>
-            </select>
-          </Field>
-          <p className="small">{text(f.interval_scope)}</p>
         </>
-      )}
-      {charts.length > 1 && (
-        <Field
-          label={
-            result.model_id === "fc.eval"
-              ? "Evaluation horizon"
-              : "Forecast variable"
-          }
-        >
-          <select
-            value={variable}
-            onChange={(e) => setVariable(Number(e.target.value))}
-          >
-            {charts.map((c, i) => (
-              <option key={i} value={i}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-        </Field>
       )}
       {chart && (
         <Chart
+          primary={!result.evaluation && first ? 4 : 0}
+          controls={
+            <>
+              {charts.length > 1 && (
+                <Field
+                  label={
+                    result.model_id === "fc.eval"
+                      ? "Evaluation horizon"
+                      : "Forecast variable"
+                  }
+                >
+                  <select
+                    value={variable}
+                    onChange={(e) => setVariable(Number(e.target.value))}
+                  >
+                    {charts.map((c, i) => (
+                      <option key={i} value={i}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+              )}
+              {!result.evaluation && (
+                <>
+                  <Field label="Predictive interval">
+                    <select
+                      value={band}
+                      onChange={(e) => setBand(e.target.value)}
+                    >
+                      <option value="0.68">68% predictive interval</option>
+                      <option value="0.9">90% predictive interval</option>
+                    </select>
+                  </Field>
+                  <p className="small">{text(f.interval_scope)}</p>
+                </>
+              )}
+            </>
+          }
           title={chart.name}
           unit={chart.unit}
           points={points}

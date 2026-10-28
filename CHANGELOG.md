@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.6.3 — Research result workspace
+
+- Put each method's principal chart beside its existing estimate and descriptive robustness summary. Keep every supporting chart visible.
+- Give coefficient tables readable identifiers and headers, and retain all short-table values in mobile records.
+- Show baseline checks once with their full contexts and severity; retain variant checks inside their sensitivity section.
+- Keep the equation near the top, expose its variable definitions on demand, and consolidate export actions and reproducibility metadata.
+- Scientific calculations, defaults, snapshot, runtime and canonical export values are unchanged.
+
 ## 2.6.2 — Consistent secondary-result sections
 
 - Group sensitivity introductions, variants, warnings and tables inside initially collapsed section-level disclosures.

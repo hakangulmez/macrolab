@@ -17,7 +17,6 @@ import {
   readableCheckMessage,
   resultDisclosureChecks,
 } from "./warnings";
-import { Checks } from "./Common";
 function resultName(result: AnalysisResult, manifest: Manifest) {
   const config = result.config;
   const template =
@@ -46,12 +45,14 @@ export function ResultOverview({
   edit,
   numbersOnly = false,
   hideNumbers = false,
+  conciseNumbers = false,
 }: {
   result: AnalysisResult;
   manifest: Manifest;
   edit: () => void;
   numbersOnly?: boolean;
   hideNumbers?: boolean;
+  conciseNumbers?: boolean;
 }) {
   const r = result.results[0],
     title = resultName(result, manifest),
@@ -168,8 +169,15 @@ export function ResultOverview({
   ]);
   const numbers = (
     <dl className="result-kpis">
-      {kpis.map(([label, value, note]) => (
-        <div key={label}>
+      {(conciseNumbers
+        ? kpis
+            .filter(
+              ([label]) => !["Standard error", "Observations"].includes(label),
+            )
+            .slice(0, 2)
+        : kpis
+      ).map(([label, value, note]) => (
+        <div key={label} data-metric={label}>
           <dt>{label}</dt>
           <dd>
             {value}
@@ -228,13 +236,6 @@ export function ResultOverview({
       </div>
       <p className="result-label">{resultDisplayLabel(result.label)}</p>
       {!hideNumbers && numbers}
-      {result.checks.some((c) => c.level === "block") && (
-        <Checks
-          checks={result.checks.filter((c) => c.level === "block")}
-          countries={manifest.countries}
-          indicators={manifest.indicators}
-        />
-      )}
     </header>
   );
 }
@@ -254,6 +255,7 @@ export function ResultRail({
   manifest,
   showResponse,
   previouslyDisplayedChecks,
+  compact = false,
 }: {
   result: AnalysisResult;
   manifest: Manifest;
@@ -264,6 +266,7 @@ export function ResultRail({
   exportPng: () => void;
   busy: boolean;
   previouslyDisplayedChecks?: Check[];
+  compact?: boolean;
 }) {
   const tiers = warningTiers(result.checks);
   const headlines = robustnessHeadlines(result, manifest);
@@ -305,118 +308,123 @@ export function ResultRail({
             <p className="small muted">{headline.scope}</p>
           </div>
         ))}
-        <div className="robust-row">
-          <strong>Current specification</strong>
-          <span className="badge">Default</span>
-        </div>
-        {unique.map((v, i) => {
-          const comparisons = records(v.comparison);
-          const material = comparisons.some((c) => c.material === true);
-          const affected = [
-            ...new Set(
-              comparisons
-                .filter((c) => c.material === true)
-                .map((c) => text(c.outcome ?? c.term, "")),
-            ),
-          ].filter(Boolean);
-          const different =
-            v.same_estimand === false ||
-            v.include_in_agreement_counts === false;
-          const label = material
-            ? "Changes the answer"
-            : different
-              ? "Different estimand"
-              : comparisons.length
-                ? "Holds"
-                : v.variant_id === "baseline"
-                  ? "Default"
-                  : v.status === "ok"
-                    ? "Reported"
-                    : text(v.status, "Reported");
-          return (
-            <button
-              className="robust-row"
-              key={i}
-              onClick={() =>
-                jump(
-                  '[data-testid="v2-template-sensitivity"], .sensitivity-section, [data-testid="forecast-results"]',
-                )
-              }
-            >
-              <span>
-                {sensitivityDisplayLabel(v)}
-                {affected.length > 0 && (
-                  <small>
-                    {affected
-                      .map((id) =>
-                        termLabel(
-                          id,
-                          countryIndicators(
-                            manifest.indicators,
-                            result.config.countries[0],
+        <details className="robustness-comparisons" open={!compact}>
+          <summary>Specification comparisons</summary>
+          <div className="robust-row">
+            <strong>Current specification</strong>
+            <span className="badge">Default</span>
+          </div>
+          {unique.map((v, i) => {
+            const comparisons = records(v.comparison);
+            const material = comparisons.some((c) => c.material === true);
+            const affected = [
+              ...new Set(
+                comparisons
+                  .filter((c) => c.material === true)
+                  .map((c) => text(c.outcome ?? c.term, "")),
+              ),
+            ].filter(Boolean);
+            const different =
+              v.same_estimand === false ||
+              v.include_in_agreement_counts === false;
+            const label = material
+              ? "Changes the answer"
+              : different
+                ? "Different estimand"
+                : comparisons.length
+                  ? "Holds"
+                  : v.variant_id === "baseline"
+                    ? "Default"
+                    : v.status === "ok"
+                      ? "Reported"
+                      : text(v.status, "Reported");
+            return (
+              <button
+                className="robust-row"
+                key={i}
+                onClick={() =>
+                  jump(
+                    '[data-testid="v2-template-sensitivity"], .sensitivity-section, [data-testid="forecast-results"]',
+                  )
+                }
+              >
+                <span>
+                  {sensitivityDisplayLabel(v)}
+                  {affected.length > 0 && (
+                    <small>
+                      {affected
+                        .map((id) =>
+                          termLabel(
+                            id,
+                            countryIndicators(
+                              manifest.indicators,
+                              result.config.countries[0],
+                            ),
                           ),
-                        ),
-                      )
-                      .join(" · ")}
-                  </small>
-                )}
-                {different && (
-                  <small>Excluded from same-estimand agreement</small>
-                )}
-              </span>
-              <span className={material ? "material-badge" : "small muted"}>
-                {label}
-              </span>
-            </button>
-          );
-        })}
-        {!unique.length && (
-          <p className="small">
-            {result.sensitivity_pending
-              ? "Sensitivity is computing in the background."
-              : "See the method-specific comparisons below."}
-          </p>
-        )}
-        <button
-          className="link"
-          onClick={() =>
-            jump(
-              '[data-testid="v2-template-sensitivity"], .sensitivity-section, [data-testid="forecast-results"]',
-            )
-          }
-        >
-          All sensitivity details ↗
-        </button>
-        <p className="small muted">
-          “Changes the answer” is descriptive, not a significance test.
-          Alternative methods or estimands are never combined into one agreement
-          count.
-        </p>
-      </section>
-      <section className="card stack">
-        <p className="overline">Read before citing</p>
-        <h2>{findings.length} findings in total</h2>
-        <p className="small muted">
-          {tiers.importantCount} important findings · complete list below
-        </p>
-        {(firstFinding ? [firstFinding] : []).map((c, i) => (
-          <p className="compact-finding" key={i}>
-            {c.instances.some((instance) => disclosed.has(instance)) && (
-              <span className="warning-phase">Found after estimation</span>
-            )}
-            {readableCheckMessage(c, manifest.indicators)}
-          </p>
-        ))}
-        {!findings.length && (
+                        )
+                        .join(" · ")}
+                    </small>
+                  )}
+                  {different && (
+                    <small>Excluded from same-estimand agreement</small>
+                  )}
+                </span>
+                <span className={material ? "material-badge" : "small muted"}>
+                  {label}
+                </span>
+              </button>
+            );
+          })}
+          {!unique.length && (
+            <p className="small">
+              {result.sensitivity_pending
+                ? "Sensitivity is computing in the background."
+                : "See the method-specific comparisons below."}
+            </p>
+          )}
+          <button
+            className="link"
+            onClick={() =>
+              jump(
+                '[data-testid="v2-template-sensitivity"], .sensitivity-section, [data-testid="forecast-results"]',
+              )
+            }
+          >
+            All sensitivity details ↗
+          </button>
           <p className="small muted">
-            No important findings for this specification. Source notes and
-            technical details remain below.
+            “Changes the answer” is descriptive, not a significance test.
+            Alternative methods or estimands are never combined into one
+            agreement count.
           </p>
-        )}
-        <button className="link" onClick={() => jump("#all-findings")}>
-          All findings, source notes & technical details ↗
-        </button>
+        </details>
       </section>
+      {!compact && (
+        <section className="card stack">
+          <p className="overline">Read before citing</p>
+          <h2>{findings.length} findings in total</h2>
+          <p className="small muted">
+            {tiers.importantCount} important findings · complete list below
+          </p>
+          {(firstFinding ? [firstFinding] : []).map((c, i) => (
+            <p className="compact-finding" key={i}>
+              {c.instances.some((instance) => disclosed.has(instance)) && (
+                <span className="warning-phase">Found after estimation</span>
+              )}
+              {readableCheckMessage(c, manifest.indicators)}
+            </p>
+          ))}
+          {!findings.length && (
+            <p className="small muted">
+              No important findings for this specification. Source notes and
+              technical details remain below.
+            </p>
+          )}
+          <button className="link" onClick={() => jump("#all-findings")}>
+            All findings, source notes & technical details ↗
+          </button>
+        </section>
+      )}
     </aside>
   );
 }
@@ -524,10 +532,14 @@ export function ResultExports({
       <p className="overline">Take it with you</p>
       <h2>Export this result</h2>
       <div className="export-grid">
-        <button disabled={busy || result.status !== "ok"} onClick={exportPng}>
+        <button
+          data-testid="export-png"
+          disabled={busy || result.status !== "ok"}
+          onClick={exportPng}
+        >
           PNG
         </button>
-        <button disabled={busy} onClick={exportCsv}>
+        <button data-testid="export-csv" disabled={busy} onClick={exportCsv}>
           CSV
         </button>
         <button disabled={busy} onClick={exportLatex}>
@@ -536,6 +548,7 @@ export function ResultExports({
         <button
           disabled={busy || result.status !== "ok"}
           onClick={exportPython}
+          data-testid="export-python"
         >
           Python
         </button>
