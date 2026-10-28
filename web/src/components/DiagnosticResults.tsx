@@ -192,8 +192,8 @@ export function DiagnosticResults({
                 caption="Adjustment speeds α · asymptotic standard errors in parentheses"
                 rows={matrix(v.alpha, v.alpha_std_error)}
               />
-              <details>
-                <summary>Short-run Γ and deterministic coefficients</summary>
+              <section>
+                <h3>Short-run Γ and deterministic coefficients</h3>
                 <DataTable
                   rows={((v.gamma ?? []) as number[][]).flatMap((row, i) =>
                     row.map((value, j) => ({
@@ -210,7 +210,7 @@ export function DiagnosticResults({
                     })),
                   )}
                 />
-              </details>
+              </section>
               <p>
                 {text(v.draws)} seeded bootstrap draws.{" "}
                 {Number(v.draws)

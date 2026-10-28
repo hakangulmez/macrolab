@@ -160,8 +160,8 @@ export function CountryComparison({
         {...ranking}
         title={ranking.name}
       />
-      <details open={!compact}>
-        <summary>Per-country estimation samples</summary>
+      <section>
+        <h3>Per-country estimation samples</h3>
         <DataTable
           countries={manifest.countries}
           rows={summary.map((r) => {
@@ -176,7 +176,7 @@ export function CountryComparison({
             };
           })}
         />
-      </details>
+      </section>
       {error && <p role="alert">PNG export failed: {error}</p>}
     </section>
   );

@@ -167,6 +167,7 @@ export function PanelResults({
             .map(displayRow)}
           columns={["Term", "Pooled", ...countries.map(name)]}
           renderCell={cell}
+          expandGroups
           stickyFirst
           groups={
             covid.length
@@ -233,8 +234,8 @@ export function PanelResults({
           Observations: record(samples[c]).nobs,
         }))}
       />
-      <details>
-        <summary>Fixed effects and sample details</summary>
+      <section>
+        <h3>Fixed effects and sample details</h3>
         {!lp && (
           <DataTable
             caption={`Full pooled coefficients, including COVID dummies · ${Number(coefficients[0]?.confidence_level ?? 0.95) * 100}% confidence intervals (${text(panel.covariance)})`}
@@ -252,12 +253,15 @@ export function PanelResults({
           countries={manifest.countries}
           rows={records(panel.fixed_effect_summary)}
         />
-        <pre>{JSON.stringify(samples, null, 2)}</pre>
-      </details>
+        <details>
+          <summary>Exact country sample metadata</summary>
+          <pre>{JSON.stringify(samples, null, 2)}</pre>
+        </details>
+      </section>
       <h3>Covariance sensitivity · same point estimates</h3>
       {result.sensitivity.variants.map((variant, i) => (
-        <details key={i}>
-          <summary>{sensitivityDisplayLabel(variant)}</summary>
+        <section key={i}>
+          <h3>{sensitivityDisplayLabel(variant)}</h3>
           <Checks
             countries={manifest.countries}
             checks={(variant.checks ?? []) as CountryResult["checks"]}
@@ -268,7 +272,7 @@ export function PanelResults({
             label={sensitivityDisplayLabel(variant)}
             indicators={manifest.indicators}
           />
-        </details>
+        </section>
       ))}
     </section>
   );

@@ -155,8 +155,8 @@ export function BvarResults({
           }))}
         />
       )}
-      <details>
-        <summary>FEVD · posterior mean variance shares</summary>
+      <section>
+        <h3>FEVD · posterior mean variance shares</h3>
         <DataTable
           rows={(record(result.fevd).values as number[][][]).flatMap(
             (period, h) =>
@@ -172,7 +172,7 @@ export function BvarResults({
               })),
           )}
         />
-      </details>
+      </section>
     </section>
   );
 }

@@ -396,7 +396,7 @@ export function ResultRail({
         <p className="overline">Read before citing</p>
         <h2>{findings.length} findings in total</h2>
         <p className="small muted">
-          {tiers.importantCount} important findings · complete list in Details
+          {tiers.importantCount} important findings · complete list below
         </p>
         {(firstFinding ? [firstFinding] : []).map((c, i) => (
           <p className="compact-finding" key={i}>

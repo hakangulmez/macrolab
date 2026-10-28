@@ -82,7 +82,7 @@ it("keeps all country columns and integer fields, while estimates retain three s
   expect(tableValue("std_error", 1)).toBe("1.00");
 });
 
-it("states FE uncertainty, collapses only COVID rows, and orders covariance columns", () => {
+it("states FE uncertainty, exposes COVID rows, and orders covariance columns", () => {
   const row = {
     term: "oil_brent",
     estimate: 0.012390218053531398,
@@ -125,9 +125,17 @@ it("states FE uncertainty, collapses only COVID rows, and orders covariance colu
   expect(main).toContain("Pooled: Driscoll-Kraay; country OLS: HAC(4)");
   expect(main).toContain("(0.00582)");
   expect(main).toContain("<sup>**</sup>");
-  expect(main).toContain('aria-expanded="false"');
+  expect(main).toContain('aria-expanded="true"');
   expect(main).toContain("COVID dummies (6)");
-  expect(main).not.toContain("COVID dummy 2020 Q1");
+  for (const period of [
+    "2020 Q1",
+    "2020 Q2",
+    "2020 Q3",
+    "2020 Q4",
+    "2021 Q1",
+    "2021 Q2",
+  ])
+    expect(main).toContain(`COVID dummy ${period}`);
   expect(html).toContain("COVID dummy 2020 Q1");
   expect(html).toContain(
     "95% confidence intervals (Conventional standard errors)",

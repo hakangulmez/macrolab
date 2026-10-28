@@ -459,7 +459,7 @@ export function Chart({
         </button>
       )}
       {exportError && <p role="alert">{exportError}</p>}
-      <details>
+      <details className="chart-values">
         <summary>Show chart data</summary>
         <DataTable rows={points.map((p) => ({ ...p }))} />
       </details>

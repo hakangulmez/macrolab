@@ -187,8 +187,8 @@ export function ForecastResults({
             ]}
             rows={metricRows(e.metrics)}
           />
-          <details>
-            <summary>Pairwise Diebold–Mariano / HLN tests</summary>
+          <section>
+            <h3>Pairwise Diebold–Mariano / HLN tests</h3>
             <p>
               Squared-error loss; h−1 calendar autocovariances, HLN correction
               and t reference. Several pairwise tests are not a joint test.
@@ -208,16 +208,16 @@ export function ForecastResults({
                 Status: r.status,
               }))}
             />
-          </details>
+          </section>
           {result.sensitivity.variants.map((v) => (
-            <details key={text(v.id)}>
-              <summary>{text(v.label)}</summary>
+            <section key={text(v.id)}>
+              <h3>{text(v.label)}</h3>
               <p>
                 Only the scoring rows are excluded. Training prefixes and
                 forecasts are unchanged.
               </p>
               <DataTable rows={metricRows(v.metrics)} />
-            </details>
+            </section>
           ))}
           <Field label="Evaluation chart">
             <select
@@ -348,8 +348,8 @@ export function ForecastResults({
       {result.sensitivity.variants
         .filter((v) => v.id === "d0")
         .map((v) => (
-          <details key="d0">
-            <summary>d = 0 sensitivity · {text(v.status)}</summary>
+          <section key="d0">
+            <h3>d = 0 sensitivity · {text(v.status)}</h3>
             {v.status === "ok" ? (
               <DataTable
                 rows={(record(v.distribution).mean as number[]).map(
@@ -371,7 +371,7 @@ export function ForecastResults({
             ) : (
               <p>{text(v.reason)}</p>
             )}
-          </details>
+          </section>
         ))}
     </section>
   );

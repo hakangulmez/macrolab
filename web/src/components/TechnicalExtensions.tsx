@@ -376,7 +376,7 @@ export function TechnicalExtensions({
                 <summary>
                   Full samples, excluded periods, controls and all horizons
                 </summary>
-                <pre>{JSON.stringify(extension, null, 2)}</pre>
+                <pre tabIndex={0}>{JSON.stringify(extension, null, 2)}</pre>
               </details>
             </>
           )}

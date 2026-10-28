@@ -1,4 +1,3 @@
-import { PrimaryChartProvider, PrimaryChartSlot } from "./PrimaryChart";
 import { keyFacts } from "../resultFacts";
 import { ResultSpecification } from "./ResultSpecification";
 import { chartDisplay, resultDisplayLabel, screenText } from "../chartDisplay";
@@ -18,6 +17,7 @@ import { breakConfig, diagnosticModel } from "../diagnosticModels";
 import { forecastModel } from "../forecast";
 import { BvarResults } from "./BvarResults";
 import {
+  Fragment,
   lazy,
   Suspense,
   useContext,
@@ -146,8 +146,8 @@ function TemplateCorrectionSummary({
           identification warrant caution.
         </p>
       )}
-      <details open>
-        <summary>Peak responses: one standard deviation and +25 bp</summary>
+      <section>
+        <h3>Peak responses: one standard deviation and +25 bp</h3>
         <DataTable
           countries={manifest.countries}
           rows={records(result.scaled_peaks).map((r) => ({
@@ -167,7 +167,7 @@ function TemplateCorrectionSummary({
           GDP/HICP: cumulative % change in the level; unemployment: percentage
           points. Linear rescaling of the same response.
         </p>
-      </details>
+      </section>
       {result.config.comparison?.enabled !== false && (
         <div aria-live="polite" data-testid="sensitivity-progress">
           <strong>
@@ -282,6 +282,15 @@ export function ResultsCountry({
     result.country,
   );
   const charts = chartData(result, indicators);
+  const blocks = resultTableBlocks(result);
+  const inlineCoefficients =
+    !hideCharts && charts.some((chart) => chart.coefficient)
+      ? blocks.find(
+          (block) =>
+            block.title.includes("coefficients") ||
+            block.title === "Coefficients and intervals",
+        )
+      : undefined;
   const [variantId, setVariantId] = useState("");
   const [chartName, setChartName] = useState("");
   const selectedChart =
@@ -298,7 +307,7 @@ export function ResultsCountry({
   const comparisonLabel = specificationLabel(variant ?? {});
   const comparisonDisplayLabel = sensitivityDisplayLabel(variant ?? {});
   const comparisonCurveVisible =
-    !result.pass_through || !compact || Boolean(selectedChart?.variable);
+    !result.pass_through || Boolean(charts.some((chart) => chart.variable));
   const sensitivity = result.sensitivity;
   const lagCriteria = record(record(sensitivity).lag_criteria);
   const selectedLags = record(lagCriteria.selected_lags);
@@ -480,17 +489,9 @@ export function ResultsCountry({
           {!hideCharts && (
             <>
               {charts.length > 1 && (
-                <Field
-                  label={
-                    compact ? "Response chart" : "Chart for selected PNG export"
-                  }
-                >
+                <Field label={"Chart for selected PNG export"}>
                   <select
-                    data-testid={
-                      compact
-                        ? "mobile-chart-selector"
-                        : "export-chart-selector"
-                    }
+                    data-testid="export-chart-selector"
                     value={selectedChart?.name}
                     onChange={(event) => setChartName(event.target.value)}
                   >
@@ -566,15 +567,11 @@ export function ResultsCountry({
               <div
                 className={`charts-grid ${result.pass_through ? "pass-through-charts" : ""}`}
               >
-                {charts
-                  .filter(
-                    (chart) => !compact || chart.name === selectedChart?.name,
-                  )
-                  .map((chart) => {
-                    const index = charts.indexOf(chart);
-                    return (
+                {charts.map((chart) => {
+                  const index = charts.indexOf(chart);
+                  return (
+                    <Fragment key={chart.name}>
                       <Chart
-                        key={chart.name}
                         {...chart}
                         title={chart.name}
                         {...chartDisplay(result, chart, indicators)}
@@ -629,8 +626,22 @@ export function ResultsCountry({
                         })}
                         first={first && (compact || index === 0)}
                       />
-                    );
-                  })}
+                      {chart.coefficient && inlineCoefficients && (
+                        <section
+                          className="card stack"
+                          data-testid="coefficient-table"
+                        >
+                          <h3>{inlineCoefficients.title}</h3>
+                          <DataTable
+                            countries={manifest.countries}
+                            rows={inlineCoefficients.rows}
+                            columns={inlineCoefficients.columns}
+                          />
+                        </section>
+                      )}
+                    </Fragment>
+                  );
+                })}
               </div>
               {!charts.length && (
                 <div className="info-box">
@@ -663,11 +674,11 @@ export function ResultsCountry({
                           data-testid="mobile-sensitivity-cards"
                         >
                           {rows.map((row, index) => (
-                            <details
+                            <section
                               key={index}
                               className="sensitivity-mini-card"
                             >
-                              <summary>
+                              <h3>
                                 <strong>
                                   {text(row.Response ?? row.Term)}
                                 </strong>
@@ -677,7 +688,7 @@ export function ResultsCountry({
                                       row["Baseline estimate"],
                                   )}
                                 </span>
-                              </summary>
+                              </h3>
                               <dl>
                                 {Object.entries(row)
                                   .filter(
@@ -691,7 +702,7 @@ export function ResultsCountry({
                                     </div>
                                   ))}
                               </dl>
-                            </details>
+                            </section>
                           ))}
                         </div>
                       ) : (
@@ -705,8 +716,8 @@ export function ResultsCountry({
                         )}
                       </p>
                     )}
-                    <details className="specification-details">
-                      <summary>Every specification and its sample</summary>
+                    <section className="specification-details">
+                      <h3>Every specification and its sample</h3>
                       <div className="stack">
                         {sensitivity.variants.map((v, index) => {
                           const s = record(v.sample ?? v.actual_sample);
@@ -727,8 +738,8 @@ export function ResultsCountry({
                                 </p>
                               ))}
                               {Object.keys(record(v.metrics)).length > 0 && (
-                                <details>
-                                  <summary>Variant estimates</summary>
+                                <section>
+                                  <h3>Variant estimates</h3>
                                   <DataTable
                                     countries={manifest.countries}
                                     rows={records(
@@ -736,13 +747,13 @@ export function ResultsCountry({
                                         record(v.metrics).coefficients,
                                     )}
                                   />
-                                </details>
+                                </section>
                               )}
                             </div>
                           );
                         })}
                       </div>
-                    </details>
+                    </section>
                   </>
                 ) : (
                   <p className="muted">
@@ -750,11 +761,11 @@ export function ResultsCountry({
                   </p>
                 )}
                 {comparison && Object.keys(lagCriteria).length > 0 && (
-                  <details className="lag-criteria-details">
-                    <summary>
+                  <section className="lag-criteria-details">
+                    <h3>
                       Lag selection · AIC {text(selectedLags.aic)} · BIC{" "}
                       {text(selectedLags.bic)} · HQIC {text(selectedLags.hqic)}
-                    </summary>
+                    </h3>
                     <p className="small">
                       {text(
                         lagCriteria.interpretation ?? lagCriteria.reason,
@@ -778,7 +789,7 @@ export function ResultsCountry({
                         }),
                       )}
                     />
-                  </details>
+                  </section>
                 )}
               </section>
               <aside className="card stack reading">
@@ -791,46 +802,48 @@ export function ResultsCountry({
               </aside>
             </div>
           )}
-          <details className="card technical-details">
-            <summary>Tables, diagnostics and full method notes</summary>
+          <section className="card technical-details">
+            <h3>Tables, diagnostics and full method notes</h3>
             <div className="stack">
-              {resultTableBlocks(result).map((block) => (
-                <details
-                  key={block.title}
-                  open={block.title.includes("Test") || !charts.length}
-                >
-                  <summary>{block.title}</summary>
-                  {result.model_id.startsWith("panel.") &&
-                  block.title.startsWith("Covariance sensitivity: ") ? (
-                    <PanelCovarianceTable
-                      rows={block.rows}
-                      lp={result.model_id === "panel.lp"}
-                      label={block.title.replace(
-                        "Covariance sensitivity: ",
-                        "",
-                      )}
-                      indicators={indicators}
-                    />
-                  ) : (
-                    <DataTable
-                      countries={manifest.countries}
-                      rows={
-                        result.model_id.startsWith("panel.")
-                          ? block.rows.map((r) =>
-                              typeof r.term === "string"
-                                ? { ...r, term: termLabel(r.term, indicators) }
-                                : r,
-                            )
-                          : block.rows
-                      }
-                      columns={block.columns}
-                    />
-                  )}
-                </details>
-              ))}
+              {blocks
+                .filter((block) => block !== inlineCoefficients)
+                .map((block) => (
+                  <section key={block.title}>
+                    <h3>{block.title}</h3>
+                    {result.model_id.startsWith("panel.") &&
+                    block.title.startsWith("Covariance sensitivity: ") ? (
+                      <PanelCovarianceTable
+                        rows={block.rows}
+                        lp={result.model_id === "panel.lp"}
+                        label={block.title.replace(
+                          "Covariance sensitivity: ",
+                          "",
+                        )}
+                        indicators={indicators}
+                      />
+                    ) : (
+                      <DataTable
+                        countries={manifest.countries}
+                        rows={
+                          result.model_id.startsWith("panel.")
+                            ? block.rows.map((r) =>
+                                typeof r.term === "string"
+                                  ? {
+                                      ...r,
+                                      term: termLabel(r.term, indicators),
+                                    }
+                                  : r,
+                              )
+                            : block.rows
+                        }
+                        columns={block.columns}
+                      />
+                    )}
+                  </section>
+                ))}
               {Boolean(result.fevd) && (
-                <details>
-                  <summary>Forecast-error variance decomposition</summary>
+                <section>
+                  <h3>Forecast-error variance decomposition</h3>
                   <p className="small">
                     Shares by response, horizon and identified shock. Point
                     estimates only.
@@ -852,10 +865,10 @@ export function ResultsCountry({
                       );
                     })()}
                   />
-                </details>
+                </section>
               )}
-              <details>
-                <summary>Actual sample, conversions and diagnostics</summary>
+              <section>
+                <h3>Actual sample, conversions and diagnostics</h3>
                 <p>
                   {sample.nobs} estimation observations from{" "}
                   {sample.common_nobs} complete common observations.{" "}
@@ -886,7 +899,7 @@ export function ResultsCountry({
                     .filter(([, value]) => typeof value !== "object")
                     .map(([diagnostic, value]) => ({ diagnostic, value }))}
                 />
-              </details>
+              </section>
               <details>
                 <summary>Full method notes and sensitivity definition</summary>
                 {strings(result.notes).map((note, index) => (
@@ -898,7 +911,7 @@ export function ResultsCountry({
                 ))}
               </details>
             </div>
-          </details>
+          </section>
         </>
       )}
     </section>
@@ -919,15 +932,7 @@ export function Results({
   onSourceCard,
   previouslyDisplayedChecks,
 }: Props) {
-  const [detailsOpen, setDetailsOpen] = useState(() => {
-    try {
-      return sessionStorage.getItem("macrolab-result-details") === "open";
-    } catch {
-      return false;
-    }
-  });
   const [comparison, setComparison] = useState(true);
-  const [resultTab, setResultTab] = useState("response");
   const [selectedCountry, setSelectedCountry] = useState("DEU");
   const [pngMode, setPngMode] = useState("selected");
   const compact = useSyncExternalStore(
@@ -1025,8 +1030,11 @@ export function Results({
         comparisonLabel: "Comparison",
       }}
     >
-      <PrimaryChartProvider key={result.config_hash}>
-        <section data-testid="screen-results" className="stack results-screen">
+      <Fragment key={result.config_hash}>
+        <section
+          data-testid="screen-results"
+          className="stack results-screen visual-results"
+        >
           <ResultOverview
             result={result}
             manifest={manifest}
@@ -1077,71 +1085,10 @@ export function Results({
               ))}
             </section>
           )}
-          <div className="result-workspace">
-            <div className="result-main">
-              <PrimaryChartSlot />
-              <ResultExports
-                result={result}
-                busy={busy || Boolean(result.sensitivity_pending)}
-                exportCsv={exportCsv}
-                exportPython={exportPython}
-                exportLatex={() =>
-                  download(
-                    latexTables(result, manifest),
-                    "macrolab-results.tex",
-                    "application/x-tex",
-                  )
-                }
-                exportPng={() =>
-                  window.dispatchEvent(
-                    new CustomEvent("macrolab-export-png", {
-                      detail: { mode: pngMode },
-                    }),
-                  )
-                }
-              />
-            </div>
-            <ResultRail
-              previouslyDisplayedChecks={previouslyDisplayedChecks}
-              result={result}
-              manifest={manifest}
-              showResponse={() => setResultTab("response")}
-              busy={busy}
-              exportCsv={exportCsv}
-              exportPython={exportPython}
-              exportLatex={() => {}}
-              exportPng={() => {}}
-            />
-          </div>
-          <details
-            className="result-details card"
+          <section
+            className="result-details stack"
             data-testid="result-details"
-            open={detailsOpen}
-            onToggle={(event) => {
-              const open = event.currentTarget.open;
-              setDetailsOpen(open);
-              try {
-                sessionStorage.setItem(
-                  "macrolab-result-details",
-                  open ? "open" : "closed",
-                );
-              } catch {
-                /* In-memory state still works. */
-              }
-            }}
           >
-            <summary>
-              Details · specifications, charts, tables and all findings
-            </summary>
-            <ResultSpecification result={result} manifest={manifest} />
-            {facts.length > 0 && (
-              <ResultOverview
-                result={result}
-                manifest={manifest}
-                edit={edit}
-                numbersOnly
-              />
-            )}
             {compact && (
               <div
                 className="mobile-result-summary"
@@ -1207,30 +1154,20 @@ export function Results({
             </div>
             <div className="result-detail-workspace">
               <div className="result-main">
-                <div className="result-tabs" aria-label="Result panels">
-                  {[
-                    ["response", "Response / Estimates"],
-                    ["coefficients", "Coefficients"],
-                    ["samples", "Samples & data"],
-                  ].map(([id, label]) => (
-                    <button
-                      key={id}
-                      aria-pressed={resultTab === id}
-                      onClick={() => setResultTab(id)}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-                <ResultTableView
-                  result={result}
-                  manifest={manifest}
-                  tab={resultTab}
-                />
-                <div
-                  className="result-response-content"
-                  hidden={resultTab !== "response"}
-                >
+                <div className="result-response-content stack">
+                  <div className="row comparison-control">
+                    <label className="row">
+                      <input
+                        type="checkbox"
+                        checked={comparison}
+                        onChange={(e) => setComparison(e.target.checked)}
+                      />
+                      Compare specifications
+                    </label>
+                    <span className="small muted">
+                      Exact samples and assumptions remain available below.
+                    </span>
+                  </div>
                   {runtime && (
                     <Suspense fallback={<p>Loading relationship view…</p>}>
                       <RelationshipViews
@@ -1271,7 +1208,7 @@ export function Results({
                       result={result}
                       manifest={manifest}
                       bundles={bundles}
-                      compact={compact}
+                      compact={false}
                       country={
                         result.results.some(
                           (r) => r.country === selectedCountry,
@@ -1282,68 +1219,52 @@ export function Results({
                       selectCountry={setSelectedCountry}
                     />
                   )}
-                  {result.results
-                    .filter(
-                      (r) =>
-                        !ecbTemplate ||
-                        !compact ||
-                        r.country ===
-                          (result.results.some(
-                            (c) => c.country === selectedCountry,
-                          )
-                            ? selectedCountry
-                            : result.results[0].country),
-                    )
-                    .map((r, index) => (
-                      <details
-                        key={`${r.country}-${text(r.outcome)}`}
-                        open={!ecbTemplate && !v2Template(template)}
-                        className={
-                          ecbTemplate
-                            ? "card country-details"
-                            : "result-wrapper"
+                  {result.results.map((r, index) => (
+                    <section
+                      key={`${r.country}-${text(r.outcome)}`}
+                      className={
+                        ecbTemplate ? "card country-details" : "result-wrapper"
+                      }
+                    >
+                      <h3>
+                        {manifest.countries.find((c) => c.iso3 === r.country)
+                          ?.name ?? r.country}{" "}
+                        {r.outcome
+                          ? ` · ${termLabel(text(r.outcome), manifest.indicators)}`
+                          : ""}
+                        · checks, sensitivity and technical details
+                      </h3>
+                      <ResultsCountry
+                        key={r.country}
+                        result={r}
+                        analysisConfig={config}
+                        manifest={manifest}
+                        comparison={comparison}
+                        first={
+                          !ecbTemplate &&
+                          !v2Template(template) &&
+                          index ===
+                            result.results.findIndex(
+                              (item) =>
+                                item.status === "ok" &&
+                                chartData(item, manifest.indicators).some(
+                                  (chart) => chart.points.length,
+                                ),
+                            )
                         }
-                      >
-                        <summary>
-                          {manifest.countries.find((c) => c.iso3 === r.country)
-                            ?.name ?? r.country}{" "}
-                          {r.outcome
-                            ? ` · ${termLabel(text(r.outcome), manifest.indicators)}`
-                            : ""}
-                          · checks, sensitivity and technical details
-                        </summary>
-                        <ResultsCountry
-                          key={r.country}
-                          result={r}
-                          analysisConfig={config}
-                          manifest={manifest}
-                          comparison={comparison}
-                          first={
-                            !ecbTemplate &&
-                            !v2Template(template) &&
-                            index ===
-                              result.results.findIndex(
-                                (item) =>
-                                  item.status === "ok" &&
-                                  chartData(item, manifest.indicators).some(
-                                    (chart) => chart.points.length,
-                                  ),
-                              )
-                          }
-                          cards={bundles[r.country]?.cards ?? []}
-                          compact={compact}
-                          hideCharts={
-                            ecbTemplate ||
-                            r.model_id === "bvar.minn" ||
-                            diagnosticModel(r.model_id) ||
-                            forecastModel(r.model_id)
-                          }
-                          hideChecks
-                          onSourceCard={onSourceCard}
-                          previouslyDisplayedChecks={previouslyDisplayedChecks}
-                        />
-                      </details>
-                    ))}
+                        cards={bundles[r.country]?.cards ?? []}
+                        compact={false}
+                        hideCharts={
+                          ecbTemplate ||
+                          r.model_id === "bvar.minn" ||
+                          diagnosticModel(r.model_id) ||
+                          forecastModel(r.model_id)
+                        }
+                        onSourceCard={onSourceCard}
+                        previouslyDisplayedChecks={previouslyDisplayedChecks}
+                      />
+                    </section>
+                  ))}
                   {runtime &&
                     !ecbTemplate &&
                     ["var.ols", "ident.recursive", "lp.ols"].includes(
@@ -1420,19 +1341,6 @@ export function Results({
                     className="result-tools stack"
                     aria-label="Analysis tools and disclosures"
                   >
-                    <div className="row comparison-control">
-                      <label className="row">
-                        <input
-                          type="checkbox"
-                          checked={comparison}
-                          onChange={(e) => setComparison(e.target.checked)}
-                        />
-                        Compare specifications
-                      </label>
-                      <span className="small muted">
-                        Exact samples and assumptions remain available below.
-                      </span>
-                    </div>
                     {breakDiagnostic && (
                       <button
                         disabled={busy}
@@ -1476,10 +1384,8 @@ export function Results({
                       · {resultDisplayLabel(result.label)}
                     </div>
                   )}
-                  <details id="all-findings" className="all-findings card">
-                    <summary>
-                      All findings, source notes and technical details
-                    </summary>
+                  <section id="all-findings" className="all-findings card">
+                    <h3>All findings, source notes and technical details</h3>
                     <Checks
                       checks={result.checks}
                       showEstimationPhase
@@ -1495,11 +1401,9 @@ export function Results({
                       }
                       countries={manifest.countries}
                     />
-                  </details>
-                  <details className="result-heading legacy-result-heading">
-                    <summary>
-                      Specification controls and runtime details
-                    </summary>
+                  </section>
+                  <section className="result-heading legacy-result-heading">
+                    <h3>Specification controls and runtime details</h3>
                     <div>
                       <span className="overline">Results · {model?.title}</span>
                       <h1>
@@ -1551,8 +1455,8 @@ export function Results({
                       </div>
                     </div>
                     {irf && !template && (
-                      <details className="card result-controls" open={!compact}>
-                        <summary>Shock size and interval precision</summary>
+                      <section className="card result-controls">
+                        <h3>Shock size and interval precision</h3>
                         <div className="stack">
                           <Field
                             label={policyShock ? "Policy shock" : "Shock size"}
@@ -1656,15 +1560,64 @@ export function Results({
                             limits do not establish historical support.
                           </p>
                         </div>
-                      </details>
+                      </section>
                     )}
-                  </details>
+                  </section>
                 </div>
               </div>
             </div>
-          </details>
+            {facts.length > 0 && (
+              <ResultOverview
+                result={result}
+                manifest={manifest}
+                edit={edit}
+                numbersOnly
+              />
+            )}
+            <ResultSpecification result={result} manifest={manifest} />
+            <ResultTableView
+              result={result}
+              manifest={manifest}
+              tab="samples"
+            />
+          </section>
+          <div className="result-workspace">
+            <div className="result-main">
+              <ResultExports
+                result={result}
+                busy={busy || Boolean(result.sensitivity_pending)}
+                exportCsv={exportCsv}
+                exportPython={exportPython}
+                exportLatex={() =>
+                  download(
+                    latexTables(result, manifest),
+                    "macrolab-results.tex",
+                    "application/x-tex",
+                  )
+                }
+                exportPng={() =>
+                  window.dispatchEvent(
+                    new CustomEvent("macrolab-export-png", {
+                      detail: { mode: pngMode },
+                    }),
+                  )
+                }
+              />
+            </div>
+            <ResultRail
+              previouslyDisplayedChecks={previouslyDisplayedChecks}
+              result={result}
+              manifest={manifest}
+              showResponse={() => {}}
+              busy={busy}
+              exportCsv={exportCsv}
+              exportPython={exportPython}
+              exportLatex={() => {}}
+              exportPng={() => {}}
+            />
+          </div>
         </section>
-      </PrimaryChartProvider>
+      </Fragment>
     </ChartExportContext.Provider>
   );
 }

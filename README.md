@@ -1,6 +1,6 @@
 # MacroLab
 
-Version 2.5.0.
+Version 2.6.0.
 
 Official macroeconomic data and validated econometrics in the browser, with assumptions, data gaps and sensitivity visible.
 
@@ -21,7 +21,7 @@ Official macroeconomic data and validated econometrics in the browser, with assu
 - Start from **9 templates** or five questions in **Simple Build**. Inspect every setting in **Advanced**, with Builder role guidance and the complete method drawer. Switching modes preserves the configuration.
 - Run entirely in the browser through **Pyodide**, with no account or analysis server. The published app uses a bundled snapshot and does not request new data from providers.
 - Carry a selected series and its display transform from Data into comparison, unit-root tests or regression, or open it in Advanced. Missing inputs and incomplete choices stay visible and block execution. Export results to **CSV, PNG, LaTeX tables and reproducible Python scripts**.
-- Read a layered result page: **Key facts**, the main chart and a **robustness summary** appear first. **Details** retains every finding, chart and table, plus a **Specification box** with the equation, inference and actual sample. Forecast-evaluation charts compare actual paths with forecasts and RMSE across horizons.
+- See scientific **charts and result tables directly after running**: relationship scatters, coefficient intervals, response curves and sensitivity are grouped in the normal page flow. **Key facts**, warnings, actual samples and the **Specification box** retain the assumptions behind each result. Mobile views stack the visuals; raw observations and exhaustive technical evidence remain available.
 
 ## Who it's for
 
@@ -40,7 +40,7 @@ Passing these checks does not validate an economic interpretation. See
 
 ## Screenshots
 
-Home and Data screenshots show real states of v2.5.0; unchanged result views retain the v2.4.0 captures. Desktop images switch with your colour-scheme preference. [Capture provenance and image sizes](docs/images/README.md).
+Result screenshots show real states of the local v2.6.0 build; unchanged Home and Data images retain their v2.5.0 captures. Desktop images switch with your colour-scheme preference. [Capture provenance and image sizes](docs/images/README.md).
 
 ### Dataset explorer
 
@@ -59,7 +59,7 @@ Pooled and country responses use identical estimation dates. Sensitivity and the
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/ecb-pooled-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/ecb-pooled-light.webp">
-  <img src="docs/images/ecb-pooled-light.webp" alt="Pooled ECB shock result: HICP response, Germany overlay, actual sample and sensitivity." width="1440" height="1281">
+  <img src="docs/images/ecb-pooled-light.webp" alt="Pooled ECB shock result: HICP response, Germany overlay, actual sample and sensitivity." width="1440" height="1700">
 </picture>
 
 ### Türkiye exchange-rate pass-through
@@ -69,23 +69,23 @@ The cumulative CPI-to-NEER response ratio is the headline measure; it is a condi
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/turkiye-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/turkiye-light.webp">
-  <img src="docs/images/turkiye-light.webp" alt="Türkiye pass-through result with the cumulative price-to-exchange-rate response ratio and sensitivity." width="1440" height="1173">
+  <img src="docs/images/turkiye-light.webp" alt="Türkiye pass-through result with the cumulative price-to-exchange-rate response ratio and sensitivity." width="1440" height="1700">
 </picture>
 
 ### Euro-area inflation forecast horse race
 
-Forecast errors are shown by target date; RMSE by horizon compares each model with the random-walk benchmark. Crisis-period sensitivity stays beside the main chart, and Details retains the actual-versus-forecast paths.
+Forecast errors are shown by target date; RMSE by horizon compares each model with the random-walk benchmark. Actual-versus-forecast paths, forecast errors, horizon metrics and crisis-period sensitivity are visible on the result page.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/horse-race-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/horse-race-light.webp">
-  <img src="docs/images/horse-race-light.webp" alt="Euro-area inflation evaluation: Key facts, forecast errors against the random walk, and crisis sensitivities." width="1440" height="1216">
+  <img src="docs/images/horse-race-light.webp" alt="Euro-area inflation evaluation: Key facts, forecast errors against the random walk, and crisis sensitivities." width="1440" height="1700">
 </picture>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/horse-race-rmse-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/horse-race-rmse-light.webp">
-  <img src="docs/images/horse-race-rmse-light.webp" alt="Inflation forecast RMSE at horizons 1, 4 and 8, with proportional spacing and a dashed random-walk reference." width="1440" height="700">
+  <img src="docs/images/horse-race-rmse-light.webp" alt="Inflation forecast RMSE at horizons 1, 4 and 8, with proportional spacing and a dashed random-walk reference." width="1440" height="800">
 </picture>
 
 ### Phillips relationship
@@ -95,7 +95,7 @@ Canada's observed inflation and unemployment pairs use the actual estimation sam
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/phillips-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/phillips-light.webp">
-  <img src="docs/images/phillips-light.webp" alt="Canada Phillips relationship scatter, with observations before and after 2020 and the existing OLS line." width="1440" height="717">
+  <img src="docs/images/phillips-light.webp" alt="Canada Phillips relationship scatter, with observations before and after 2020 and the existing OLS line." width="1440" height="1700">
 </picture>
 
 ### Mobile
@@ -112,7 +112,7 @@ Home and the pooled ECB result at 375 px, also available in both themes.
     <td><picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/ecb-pooled-mobile-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/ecb-pooled-mobile-light.webp">
-  <img src="docs/images/ecb-pooled-mobile-light.webp" alt="Pooled ECB response at 375 px, with the sample and conditional-band caveat." width="375" height="1790">
+  <img src="docs/images/ecb-pooled-mobile-light.webp" alt="Pooled ECB response at 375 px, with the sample and conditional-band caveat." width="375" height="2000">
 </picture></td>
   </tr>
 </table>
@@ -185,7 +185,7 @@ For a self-contained calculation, download the result's **Python script**, follo
 
 ## Citation
 
-Hakan Zeki Gülmez (2026). _MacroLab_, version 2.5.0. https://github.com/hakangulmez/macrolab.
+Hakan Zeki Gülmez (2026). _MacroLab_, version 2.6.0. https://github.com/hakangulmez/macrolab.
 
 Machine-readable citation: [CITATION.cff](CITATION.cff). No DOI has been assigned.
 

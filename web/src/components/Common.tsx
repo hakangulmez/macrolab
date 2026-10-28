@@ -215,6 +215,7 @@ export function DataTable({
   caption,
   renderCell,
   groups = [],
+  expandGroups = false,
   stickyFirst = false,
 }: {
   rows: JsonRecord[];
@@ -223,11 +224,14 @@ export function DataTable({
   caption?: string;
   renderCell?: (row: JsonRecord, column: string) => ReactNode;
   groups?: { label: string; rows: JsonRecord[] }[];
+  expandGroups?: boolean;
   stickyFirst?: boolean;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [overflow, setOverflow] = useState(false);
-  const [expanded, setExpanded] = useState<string[]>([]);
+  const [expanded, setExpanded] = useState<string[]>(() =>
+    expandGroups ? groups.map((group) => group.label) : [],
+  );
   useEffect(() => {
     const element = wrap.current;
     if (!element) return;

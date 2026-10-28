@@ -240,11 +240,11 @@ describe("G3.1 result interpretation", () => {
       "puzzle",
     );
   });
-  it("renders one selectable mobile chart and expandable sensitivity cards while retaining desktop curves", () => {
+  it("stacks all existing mobile charts and visible sensitivity cards without hiding scientific output", () => {
     const mobile = renderCountry(true);
     const desktop = renderCountry(false);
-    expect(mobile.match(/data-testid="result-chart"/g)).toHaveLength(1);
-    expect(mobile).toContain('data-testid="mobile-chart-selector"');
+    expect(mobile.match(/data-testid="result-chart"/g)).toHaveLength(4);
+    expect(mobile).toContain('data-testid="export-chart-selector"');
     expect(mobile).toContain('data-testid="mobile-sensitivity-cards"');
     expect(mobile).toContain(
       "Full technical method note retained for inspection.",
@@ -252,6 +252,11 @@ describe("G3.1 result interpretation", () => {
     expect(mobile).toContain("Tables, diagnostics and full method notes");
     expect(desktop.match(/data-testid="result-chart"/g)).toHaveLength(4);
     expect(desktop).not.toContain('data-testid="mobile-chart-selector"');
+    expect(mobile).toContain(
+      "<h3>Tables, diagnostics and full method notes</h3>",
+    );
+    expect(mobile).toContain("<h3>Every specification and its sample</h3>");
+    expect(mobile).not.toContain("<summary>Variant estimates</summary>");
   });
   it("offers explicit interactive and precise bootstrap choices", () => {
     const html = renderToStaticMarkup(
@@ -270,6 +275,10 @@ describe("G3.1 result interpretation", () => {
     expect(html).toContain("Interactive · 200 draws");
     expect(html).toContain("Precise · 1,000 draws");
     expect(html).toContain('data-testid="bootstrap-precision"');
+    expect(html).toContain('data-testid="result-details"');
+    expect(html).not.toContain('<details class="result-details');
+    expect(html).not.toContain('aria-label="Result panels"');
+    expect(html).not.toContain('class="result-response-content" hidden');
   });
   it("exports the first available chart when an earlier country is blocked", () => {
     const mixed = structuredClone(result);

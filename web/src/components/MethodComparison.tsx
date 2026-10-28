@@ -270,26 +270,27 @@ export function MethodComparison({
             {rows.length}. These are descriptive counts; estimates are never
             averaged.
           </p>
-          <details>
-            <summary>
-              Every horizon, dates, dropped periods and shock definition
-            </summary>
+          <section>
+            <h3>Every horizon, dates, dropped periods and shock definition</h3>
             <DataTable rows={rows} />
-            <pre>
-              {JSON.stringify(
-                {
-                  sample: pair.sample,
-                  shock: {
-                    ...record(pair.shock),
-                    values: "Included at full precision in the JSON export",
+            <details>
+              <summary>Full comparison metadata</summary>
+              <pre tabIndex={0}>
+                {JSON.stringify(
+                  {
+                    sample: pair.sample,
+                    shock: {
+                      ...record(pair.shock),
+                      values: "Included at full precision in the JSON export",
+                    },
+                    shock_fingerprint: pair.shock_fingerprint,
                   },
-                  shock_fingerprint: pair.shock_fingerprint,
-                },
-                null,
-                2,
-              )}
-            </pre>
-          </details>
+                  null,
+                  2,
+                )}
+              </pre>
+            </details>
+          </section>
           <p className="small muted">{text(pair.note)}</p>
           <div className="row">
             <button

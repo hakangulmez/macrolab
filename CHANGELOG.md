@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.0 — Visible scientific results
+
+- Scientific charts, coefficient tables, sensitivity and diagnostics appear in normal page flow after a run; result tabs and the outer Details gate are removed.
+- Existing mobile response panels stack vertically. Controls, scientific values, canonical PNG geometry and the v2.5.0 data/runtime payload are preserved.
+- Updated result screenshots and documentation; no new method, default, observation, dependency or estimate.
+
 ## 2.5.0 — Simple Build and Data actions
 
 - Add five question-led Simple entries, configuration-preserving Advanced mode and a method drawer. Existing templates and scientific defaults remain unchanged.

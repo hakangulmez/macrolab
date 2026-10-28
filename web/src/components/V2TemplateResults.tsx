@@ -198,15 +198,15 @@ export function V2TemplateResults({
                 )
               : comparison;
             return (
-              <details key={text(variant.id)}>
-                <summary>
+              <section key={text(variant.id)}>
+                <h3>
                   {sensitivityDisplayLabel(variant)} ·{" "}
                   {variant.status === "ok"
                     ? material.length
                       ? "changes the answer materially"
                       : "within the descriptive threshold"
                     : text(variant.status)}
-                </summary>
+                </h3>
                 {lp && (
                   <p className="small">
                     Shock: +
@@ -251,7 +251,7 @@ export function V2TemplateResults({
                   <summary>Exact specification, sample and full result</summary>
                   <pre>{JSON.stringify(variant, null, 2)}</pre>
                 </details>
-              </details>
+              </section>
             );
           })}
         </section>
