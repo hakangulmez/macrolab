@@ -1,6 +1,6 @@
 # MacroLab
 
-Version 2.6.3.
+Version 2.6.4.
 
 Official macroeconomic data and validated econometrics in the browser, with assumptions, data gaps and sensitivity visible.
 
@@ -18,7 +18,7 @@ Official macroeconomic data and validated econometrics in the browser, with assu
 
 - Explore **39 economies × 36 indicators** (33 national + 3 global factors), with every gap visible in the dataset explorer. Relationship scatters show the recorded sample and existing fitted line.
 - Use **25 validated methods in 8 families**, from descriptive analysis to panel models and forecasting.
-- Start from **9 templates** or five questions in **Simple Build**. Inspect every setting in **Advanced**, with Builder role guidance and the complete method drawer. Switching modes preserves the configuration.
+- Start from **9 templates**, five questions on Explore, or a **single-page custom analysis**: choose the variable of interest, other variables, the econometric model and countries. The labels adapt to regression, forecasts and shock analysis. **Simple** keeps sample and technical settings collapsed; **Advanced** opens those same settings without changing the configuration. The complete method guide remains available.
 - Run entirely in the browser through **Pyodide**, with no account or analysis server. The published app uses a bundled snapshot and does not request new data from providers.
 - Carry a selected series and its display transform from Data into comparison, unit-root tests or regression, or open it in Advanced. Missing inputs and incomplete choices stay visible and block execution. Export results to **CSV, PNG, LaTeX tables and reproducible Python scripts**.
 - See scientific **charts and short result tables directly after running**. **Key facts** are followed by the **Econometric specification**, then relationship scatters, coefficient intervals and response curves. Warnings, units and concise samples stay visible; whole specification-sensitivity, covariance-sensitivity and detailed-evidence sections open through keyboard-accessible disclosures. Primary test results stay exposed, and opening sections never refits a model. The research workspace places the original principal chart beside its baseline estimate and descriptive robustness summary. Supporting charts stay visible in responsive grids, coefficient identifiers come first, and short coefficient tables retain every field as labelled mobile records. Every row and export remains available.
@@ -191,7 +191,7 @@ For a self-contained calculation, download the result's **Python script**, follo
 
 ## Citation
 
-Hakan Zeki Gülmez (2026). _MacroLab_, version 2.6.3. https://github.com/hakangulmez/macrolab.
+Hakan Zeki Gülmez (2026). _MacroLab_, version 2.6.4. https://github.com/hakangulmez/macrolab.
 
 Machine-readable citation: [CITATION.cff](CITATION.cff). No DOI has been assigned.
 

@@ -1,0 +1,631 @@
+[
+  {
+    "version": "v2.0.1",
+    "config": {
+      "aggregation": {
+        "cpi": "mean",
+        "gdp_real": "mean",
+        "oil_brent": "mean",
+        "policy_rate": "mean",
+        "unemp": "mean"
+      },
+      "comparison": {
+        "enabled": true,
+        "identifications": [],
+        "methods": [],
+        "scenarios": [
+          "extended_var",
+          "lag_criteria",
+          "covid_include",
+          "end_2019"
+        ]
+      },
+      "countries": ["USA"],
+      "frequency": "Q",
+      "identification": {
+        "id": "recursive",
+        "params": {
+          "order": ["gdp_real", "cpi", "unemp", "policy_rate"]
+        }
+      },
+      "model": {
+        "id": "var.ols",
+        "params": {
+          "lag_selection": "fixed",
+          "lags": 2,
+          "maxlags": 4,
+          "trend": "c"
+        }
+      },
+      "outputs": {
+        "confidence": 0.95,
+        "irf": {
+          "bands": 0.68,
+          "draws": 200,
+          "horizon": 12,
+          "method": "bootstrap",
+          "shock_mode": "one_sd",
+          "shock_size": 1
+        }
+      },
+      "sample": {
+        "end": "latest",
+        "start": "1999-Q1"
+      },
+      "schema_version": 1,
+      "seed": 20261021,
+      "series": [
+        {
+          "concept_id": "policy_rate",
+          "role": "shock",
+          "transform": "level",
+          "transform_params": {}
+        },
+        {
+          "concept_id": "gdp_real",
+          "role": "endogenous",
+          "transform": "qoq_saar",
+          "transform_params": {}
+        },
+        {
+          "concept_id": "cpi",
+          "role": "endogenous",
+          "transform": "qoq_saar",
+          "transform_params": {}
+        },
+        {
+          "concept_id": "unemp",
+          "role": "endogenous",
+          "transform": "level",
+          "transform_params": {}
+        },
+        {
+          "concept_id": "oil_brent",
+          "role": "exogenous",
+          "transform": "log",
+          "transform_params": {}
+        }
+      ],
+      "snapshot_id": "20261024-2040",
+      "special_periods": {
+        "covid": "dummy",
+        "covid_window": {
+          "end": "2020-Q3",
+          "start": "2020-Q1"
+        },
+        "elb_threshold": 0.25
+      }
+    }
+  },
+  {
+    "version": "v2.1.1",
+    "config": {
+      "aggregation": {
+        "cpi": "mean",
+        "unemp": "mean"
+      },
+      "comparison": {
+        "enabled": true,
+        "identifications": [],
+        "methods": ["sing.rolling"],
+        "scenarios": []
+      },
+      "countries": ["CAN"],
+      "frequency": "Q",
+      "identification": null,
+      "model": {
+        "id": "sing.ols",
+        "params": {
+          "confidence": 0.95,
+          "covariance": "HAC",
+          "hac_lags": 4,
+          "trend": "c"
+        }
+      },
+      "outputs": {
+        "confidence": 0.95
+      },
+      "sample": {
+        "end": "latest",
+        "start": "1999-Q1"
+      },
+      "schema_version": 1,
+      "seed": 20261021,
+      "series": [
+        {
+          "concept_id": "cpi",
+          "role": "dependent",
+          "transform": "yoy_pct",
+          "transform_params": {}
+        },
+        {
+          "concept_id": "unemp",
+          "role": "regressor",
+          "transform": "level",
+          "transform_params": {}
+        }
+      ],
+      "snapshot_id": "20261024-2040",
+      "special_periods": {
+        "covid": "include",
+        "covid_window": {
+          "end": "2021-Q2",
+          "start": "2020-Q1"
+        },
+        "elb_threshold": 0.25
+      }
+    }
+  },
+  {
+    "version": "v2.2.0",
+    "config": {
+      "aggregation": {
+        "cpi": "mean",
+        "unemp": "mean"
+      },
+      "comparison": {
+        "enabled": true,
+        "identifications": [],
+        "methods": ["sing.rolling"],
+        "scenarios": []
+      },
+      "countries": ["CAN"],
+      "frequency": "Q",
+      "identification": null,
+      "model": {
+        "id": "sing.ols",
+        "params": {
+          "confidence": 0.95,
+          "covariance": "HAC",
+          "hac_lags": 4,
+          "trend": "c"
+        }
+      },
+      "outputs": {
+        "confidence": 0.95
+      },
+      "sample": {
+        "end": "latest",
+        "start": "1999-Q1"
+      },
+      "schema_version": 1,
+      "seed": 20261021,
+      "series": [
+        {
+          "concept_id": "cpi",
+          "role": "dependent",
+          "transform": "yoy_pct",
+          "transform_params": {}
+        },
+        {
+          "concept_id": "unemp",
+          "role": "regressor",
+          "transform": "level",
+          "transform_params": {}
+        }
+      ],
+      "snapshot_id": "20261024-2040",
+      "special_periods": {
+        "covid": "include",
+        "covid_window": {
+          "end": "2021-Q2",
+          "start": "2020-Q1"
+        },
+        "elb_threshold": 0.25
+      }
+    }
+  },
+  {
+    "version": "v2.2.2",
+    "config": {
+      "aggregation": {
+        "cpi": "mean",
+        "unemp": "mean"
+      },
+      "comparison": {
+        "enabled": true,
+        "identifications": [],
+        "methods": ["sing.rolling"],
+        "scenarios": []
+      },
+      "countries": ["CAN"],
+      "frequency": "Q",
+      "identification": null,
+      "model": {
+        "id": "sing.ols",
+        "params": {
+          "confidence": 0.95,
+          "covariance": "HAC",
+          "hac_lags": 4,
+          "trend": "c"
+        }
+      },
+      "outputs": {
+        "confidence": 0.95
+      },
+      "sample": {
+        "end": "latest",
+        "start": "1999-Q1"
+      },
+      "schema_version": 1,
+      "seed": 20261021,
+      "series": [
+        {
+          "concept_id": "cpi",
+          "role": "dependent",
+          "transform": "yoy_pct",
+          "transform_params": {}
+        },
+        {
+          "concept_id": "unemp",
+          "role": "regressor",
+          "transform": "level",
+          "transform_params": {}
+        }
+      ],
+      "snapshot_id": "20261024-2040",
+      "special_periods": {
+        "covid": "include",
+        "covid_window": {
+          "end": "2021-Q2",
+          "start": "2020-Q1"
+        },
+        "elb_threshold": 0.25
+      }
+    }
+  },
+  {
+    "version": "v2.3.0",
+    "config": {
+      "aggregation": {
+        "cpi": "mean",
+        "unemp": "mean"
+      },
+      "comparison": {
+        "enabled": true,
+        "identifications": [],
+        "methods": ["sing.rolling"],
+        "scenarios": []
+      },
+      "countries": ["CAN"],
+      "frequency": "Q",
+      "identification": null,
+      "model": {
+        "id": "sing.ols",
+        "params": {
+          "confidence": 0.95,
+          "covariance": "HAC",
+          "hac_lags": 4,
+          "trend": "c"
+        }
+      },
+      "outputs": {
+        "confidence": 0.95
+      },
+      "sample": {
+        "end": "latest",
+        "start": "1999-Q1"
+      },
+      "schema_version": 1,
+      "seed": 20261021,
+      "series": [
+        {
+          "concept_id": "cpi",
+          "role": "dependent",
+          "transform": "yoy_pct",
+          "transform_params": {}
+        },
+        {
+          "concept_id": "unemp",
+          "role": "regressor",
+          "transform": "level",
+          "transform_params": {}
+        }
+      ],
+      "snapshot_id": "20261024-2040",
+      "special_periods": {
+        "covid": "include",
+        "covid_window": {
+          "end": "2021-Q2",
+          "start": "2020-Q1"
+        },
+        "elb_threshold": 0.25
+      }
+    }
+  },
+  {
+    "version": "v2.4.0",
+    "config": {
+      "aggregation": {
+        "cpi": "mean",
+        "unemp": "mean"
+      },
+      "comparison": {
+        "enabled": true,
+        "identifications": [],
+        "methods": ["sing.rolling"],
+        "scenarios": []
+      },
+      "countries": ["CAN"],
+      "frequency": "Q",
+      "identification": null,
+      "model": {
+        "id": "sing.ols",
+        "params": {
+          "confidence": 0.95,
+          "covariance": "HAC",
+          "hac_lags": 4,
+          "trend": "c"
+        }
+      },
+      "outputs": {
+        "confidence": 0.95
+      },
+      "sample": {
+        "end": "latest",
+        "start": "1999-Q1"
+      },
+      "schema_version": 1,
+      "seed": 20261021,
+      "series": [
+        {
+          "concept_id": "cpi",
+          "role": "dependent",
+          "transform": "yoy_pct",
+          "transform_params": {}
+        },
+        {
+          "concept_id": "unemp",
+          "role": "regressor",
+          "transform": "level",
+          "transform_params": {}
+        }
+      ],
+      "snapshot_id": "20261024-2040",
+      "special_periods": {
+        "covid": "include",
+        "covid_window": {
+          "end": "2021-Q2",
+          "start": "2020-Q1"
+        },
+        "elb_threshold": 0.25
+      }
+    }
+  },
+  {
+    "version": "v2.5.0",
+    "config": {
+      "aggregation": {
+        "cpi": "mean",
+        "unemp": "mean"
+      },
+      "comparison": {
+        "enabled": true,
+        "identifications": [],
+        "methods": ["sing.rolling"],
+        "scenarios": []
+      },
+      "countries": ["CAN"],
+      "frequency": "Q",
+      "identification": null,
+      "model": {
+        "id": "sing.ols",
+        "params": {
+          "confidence": 0.95,
+          "covariance": "HAC",
+          "hac_lags": 4,
+          "trend": "c"
+        }
+      },
+      "outputs": {
+        "confidence": 0.95
+      },
+      "sample": {
+        "end": "latest",
+        "start": "1999-Q1"
+      },
+      "schema_version": 1,
+      "seed": 20261021,
+      "series": [
+        {
+          "concept_id": "cpi",
+          "role": "dependent",
+          "transform": "yoy_pct",
+          "transform_params": {}
+        },
+        {
+          "concept_id": "unemp",
+          "role": "regressor",
+          "transform": "level",
+          "transform_params": {}
+        }
+      ],
+      "snapshot_id": "20261024-2040",
+      "special_periods": {
+        "covid": "include",
+        "covid_window": {
+          "end": "2021-Q2",
+          "start": "2020-Q1"
+        },
+        "elb_threshold": 0.25
+      }
+    }
+  },
+  {
+    "version": "v2.6.0",
+    "config": {
+      "aggregation": {
+        "cpi": "mean",
+        "unemp": "mean"
+      },
+      "comparison": {
+        "enabled": true,
+        "identifications": [],
+        "methods": ["sing.rolling"],
+        "scenarios": []
+      },
+      "countries": ["CAN"],
+      "frequency": "Q",
+      "identification": null,
+      "model": {
+        "id": "sing.ols",
+        "params": {
+          "confidence": 0.95,
+          "covariance": "HAC",
+          "hac_lags": 4,
+          "trend": "c"
+        }
+      },
+      "outputs": {
+        "confidence": 0.95
+      },
+      "sample": {
+        "end": "latest",
+        "start": "1999-Q1"
+      },
+      "schema_version": 1,
+      "seed": 20261021,
+      "series": [
+        {
+          "concept_id": "cpi",
+          "role": "dependent",
+          "transform": "yoy_pct",
+          "transform_params": {}
+        },
+        {
+          "concept_id": "unemp",
+          "role": "regressor",
+          "transform": "level",
+          "transform_params": {}
+        }
+      ],
+      "snapshot_id": "20261024-2040",
+      "special_periods": {
+        "covid": "include",
+        "covid_window": {
+          "end": "2021-Q2",
+          "start": "2020-Q1"
+        },
+        "elb_threshold": 0.25
+      }
+    }
+  },
+  {
+    "version": "v2.6.1",
+    "config": {
+      "aggregation": {
+        "cpi": "mean",
+        "unemp": "mean"
+      },
+      "comparison": {
+        "enabled": true,
+        "identifications": [],
+        "methods": ["sing.rolling"],
+        "scenarios": []
+      },
+      "countries": ["CAN"],
+      "frequency": "Q",
+      "identification": null,
+      "model": {
+        "id": "sing.ols",
+        "params": {
+          "confidence": 0.95,
+          "covariance": "HAC",
+          "hac_lags": 4,
+          "trend": "c"
+        }
+      },
+      "outputs": {
+        "confidence": 0.95
+      },
+      "sample": {
+        "end": "latest",
+        "start": "1999-Q1"
+      },
+      "schema_version": 1,
+      "seed": 20261021,
+      "series": [
+        {
+          "concept_id": "cpi",
+          "role": "dependent",
+          "transform": "yoy_pct",
+          "transform_params": {}
+        },
+        {
+          "concept_id": "unemp",
+          "role": "regressor",
+          "transform": "level",
+          "transform_params": {}
+        }
+      ],
+      "snapshot_id": "20261024-2040",
+      "special_periods": {
+        "covid": "include",
+        "covid_window": {
+          "end": "2021-Q2",
+          "start": "2020-Q1"
+        },
+        "elb_threshold": 0.25
+      }
+    }
+  },
+  {
+    "version": "v2.6.2",
+    "config": {
+      "aggregation": {
+        "cpi": "mean",
+        "unemp": "mean"
+      },
+      "comparison": {
+        "enabled": true,
+        "identifications": [],
+        "methods": ["sing.rolling"],
+        "scenarios": []
+      },
+      "countries": ["CAN"],
+      "frequency": "Q",
+      "identification": null,
+      "model": {
+        "id": "sing.ols",
+        "params": {
+          "confidence": 0.95,
+          "covariance": "HAC",
+          "hac_lags": 4,
+          "trend": "c"
+        }
+      },
+      "outputs": {
+        "confidence": 0.95
+      },
+      "sample": {
+        "end": "latest",
+        "start": "1999-Q1"
+      },
+      "schema_version": 1,
+      "seed": 20261021,
+      "series": [
+        {
+          "concept_id": "cpi",
+          "role": "dependent",
+          "transform": "yoy_pct",
+          "transform_params": {}
+        },
+        {
+          "concept_id": "unemp",
+          "role": "regressor",
+          "transform": "level",
+          "transform_params": {}
+        }
+      ],
+      "snapshot_id": "20261024-2040",
+      "special_periods": {
+        "covid": "include",
+        "covid_window": {
+          "end": "2021-Q2",
+          "start": "2020-Q1"
+        },
+        "elb_threshold": 0.25
+      }
+    }
+  }
+]

@@ -1,11 +1,9 @@
-import { SimpleBuilder } from "./components/SimpleBuilder";
+import { blankAnalysis, changeFlowModel } from "./builderFlow";
 import { MethodDrawer } from "./components/MethodDrawer";
 import { QuestionPicker } from "./components/QuestionPicker";
 import {
   freshSimple,
   dataActionConfig,
-  entryUnits,
-  seriesQuantity,
   type DataAction,
   readBuildMode,
   saveBuildMode,
@@ -52,8 +50,8 @@ import { useTheme, setTheme } from "./theme";
 import { SeriesSearch } from "./components/SeriesSearch";
 const DatasetExplorer = lazy(() => import("./components/DatasetExplorer"));
 const Builder = lazy(() =>
-  import("./components/Builder").then((module) => ({
-    default: module.Builder,
+  import("./components/VariableFirstBuilder").then((module) => ({
+    default: module.VariableFirstBuilder,
   })),
 );
 const loadResults = () => import("./components/Results");
@@ -170,9 +168,7 @@ export function App() {
           readRecentResults((value) => Boolean(validator.current?.(value))),
         );
         const token = new URL(location.href).searchParams.get("c");
-        let initial = m.templates.find(
-          (t) => t.id === "monetary_policy",
-        )!.config;
+        let initial = blankAnalysis(m);
         if (token) {
           setBusy(true);
           try {
@@ -440,29 +436,7 @@ export function App() {
     setEntryPolicy(false);
     forceAdvanced();
     if (!config) return;
-    const next = structuredClone(config);
-    next.model = { id: m.id, params: {} };
-    if (!["var.ols", "ident.recursive"].includes(m.id)) {
-      next.identification = null;
-      delete next.outputs.irf;
-    } else if (m.id === "ident.recursive") {
-      next.identification = {
-        id: "recursive",
-        params: {
-          order: next.series
-            .filter((s) => ["shock", "response", "endogenous"].includes(s.role))
-            .map((s) => s.concept_id),
-        },
-      };
-      next.outputs.irf ??= {
-        horizon: 12,
-        bands: 0.68,
-        shock_mode: "one_sd",
-        shock_size: 1,
-        method: "bootstrap",
-        draws: 500,
-      };
-    }
+    const next = changeFlowModel(config, m.id);
     setConfig(next);
     navigate("builder");
   }
@@ -750,96 +724,32 @@ export function App() {
                   embedded
                 />
               </MethodDrawer>
-              {entryPolicy && buildMode === "advanced" && (
-                <section
-                  className="info-box stack"
-                  aria-label="Entry settings"
-                  data-testid="entry-settings"
-                >
-                  <h2>Selected analysis settings</h2>
-                  <p>
-                    Frequency: {config.frequency}. Requested sample:{" "}
-                    {config.sample.start}–{config.sample.end}. Actual common
-                    sample and dropped periods appear in Results → Details →
-                    Samples & data.
-                  </p>
-                  {config.series.map((s) => (
-                    <p key={s.concept_id}>
-                      {seriesQuantity(manifest, config, s)} · {s.role} · units:{" "}
-                      {entryUnits(bundles, config, s)} · aggregation:{" "}
-                      {config.aggregation[s.concept_id] ?? "mean"}
-                    </p>
-                  ))}
-                  <p>
-                    The engine converts the original observations to this
-                    frequency and applies each selected transform once. A
-                    different frequency can produce different values from Data's
-                    plot. Definitions, source units and comparability notes
-                    remain in the selected series cards.
-                  </p>
-                  {config.model.id === "desc.compare" && (
-                    <p>
-                      Compare transformed means over the actual common sample,
-                      ranked highest to lowest. No currency conversion or
-                      normalisation is added. Shared global factors repeat the
-                      same series and do not measure national variation.
-                    </p>
-                  )}
-                </section>
-              )}
-              {buildMode === "simple" ? (
-                <SimpleBuilder
-                  manifest={manifest}
-                  config={config}
-                  setConfig={(next) => {
-                    setEntryPolicy(true);
-                    setConfig(next);
-                  }}
-                  start={startQuestion}
-                  checks={displayedBuilderChecks}
-                  bundles={bundles}
-                  busy={busy}
-                  run={() => void execute(config)}
-                  advanced={() => chooseMode("advanced")}
-                  browse={() => navigate("library")}
-                  check={() => void execute(config, true)}
-                  openSource={openSource}
-                  recentResults={
-                    <RecentResults
-                      entries={recent}
-                      manifest={manifest}
-                      busy={busy}
-                      reopen={reopenRecent}
-                    />
-                  }
-                />
-              ) : (
-                <Builder
-                  browseMethods={() => navigate("library")}
-                  methodsOpen={methodsOpen}
-                  recentResults={
-                    <RecentResults
-                      entries={recent}
-                      manifest={manifest}
-                      busy={busy}
-                      reopen={reopenRecent}
-                    />
-                  }
-                  openSource={openSource}
-                  manifest={manifest}
-                  config={config}
-                  setConfig={setConfig}
-                  bundles={bundles}
-                  models={compatible}
-                  checks={displayedBuilderChecks}
-                  entryBlocked={entryChecks.some((c) => c.level === "block")}
-                  busy={busy}
-                  runtimeStatus={runtimeStatus}
-                  run={() => void execute(config)}
-                  check={() => void execute(config, true)}
-                  fix={applyFix}
-                />
-              )}
+              <Builder
+                mode={buildMode}
+                browseMethods={() => navigate("library")}
+                methodsOpen={methodsOpen}
+                recentResults={
+                  <RecentResults
+                    entries={recent}
+                    manifest={manifest}
+                    busy={busy}
+                    reopen={reopenRecent}
+                  />
+                }
+                openSource={openSource}
+                manifest={manifest}
+                config={config}
+                setConfig={setConfig}
+                bundles={bundles}
+                models={compatible}
+                checks={displayedBuilderChecks}
+                entryBlocked={entryChecks.some((c) => c.level === "block")}
+                busy={busy}
+                runtimeStatus={runtimeStatus}
+                run={() => void execute(config)}
+                check={() => void execute(config, true)}
+                fix={applyFix}
+              />
             </>
           ) : screen === "results" ? (
             <>

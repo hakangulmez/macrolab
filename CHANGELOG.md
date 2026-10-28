@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.6.4 — Variable-first analysis form
+
+- Build a custom analysis on one page: variable of interest, other variables, model and countries, with terminology that follows the selected method.
+- Keep sample, transformations, roles, identification and method settings in the same form. Simple and Advanced preserve one configuration; templates and shared configurations remain intact.
+- Require an explicit shock choice where needed. Adding countries retains the selected model; panel estimation is selected explicitly.
+- A fresh custom form starts empty with quarterly frequency and linear regression selected. Existing template and shared configurations retain their original defaults and settings.
+- Scientific calculations, accepted data/runtime payloads, result displays and export values are unchanged apart from interface-version text.
+
 ## 2.6.3 — Research result workspace
 
 - Put each method's principal chart beside its existing estimate and descriptive robustness summary. Keep every supporting chart visible.

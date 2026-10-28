@@ -1,3 +1,4 @@
+import { reconcileOrder } from "../builderFlow";
 import { builderGuidance, suggestedRoles } from "../builderGuidance";
 import { parameterDisplayLabel } from "../chartDisplay";
 import { FirstStageInput } from "./FirstStageInput";
@@ -31,7 +32,8 @@ import { Checks, Field, Status } from "./Common";
 import "./builder.css";
 import { PanelControls } from "./PanelControls";
 import { TemplateControls } from "./TemplateControls";
-interface Props {
+export interface BuilderProps {
+  settingsOnly?: boolean;
   entryBlocked?: boolean;
   browseMethods?: () => void;
   methodsOpen?: boolean;
@@ -51,6 +53,7 @@ interface Props {
   openSource?: (country: string, conceptId: string) => void;
 }
 export function Builder({
+  settingsOnly = false,
   entryBlocked = false,
   browseMethods,
   methodsOpen,
@@ -68,7 +71,7 @@ export function Builder({
   check,
   fix,
   openSource,
-}: Props) {
+}: BuilderProps) {
   const browserSlot = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (methodsOpen) {
@@ -119,10 +122,7 @@ export function Builder({
           changes.transform === "index_to_base"
             ? { base_period: c.sample.start }
             : {};
-      if (c.identification)
-        c.identification.params.order = c.series
-          .filter((s) => ["shock", "response", "endogenous"].includes(s.role))
-          .map((s) => s.concept_id);
+      if (c.identification) reconcileOrder(c);
     });
   }
   function selectModel(id: string) {
@@ -150,105 +150,118 @@ export function Builder({
   const card = (iso: string, id: string): Card | undefined =>
     bundles[iso]?.cards.find((c) => c.concept_id === id);
   return (
-    <section data-testid="screen-builder" className="compact-builder">
-      <div className="page-heading">
-        <span className="overline">Your workspace</span>
-        <h1>Build an analysis</h1>
-        <p>
-          Choose the sample and assumptions. We’ll check what the data can
-          support.
-        </p>
-      </div>
-      <nav className="stepper" aria-label="Analysis steps">
-        {["Countries", "Indicators", "Model", "Results"].map((name, i) => (
-          <button
-            key={name}
-            className={step === name ? "active" : ""}
-            onClick={() => {
-              setStep(name);
-              if (name === "Results") {
-                document
-                  .querySelector("[data-testid=run-analysis]")
-                  ?.scrollIntoView({ block: "center" });
-              } else
-                document
-                  .getElementById(`step-${name}`)
-                  ?.scrollIntoView({ block: "start" });
-            }}
-          >
-            {i + 1} · {name}
-          </button>
-        ))}
-      </nav>
-      <div ref={browserSlot}>{methodBrowser}</div>
+    <section
+      data-testid={settingsOnly ? undefined : "screen-builder"}
+      className={`compact-builder ${settingsOnly ? "builder-settings" : ""}`}
+    >
+      {!settingsOnly && (
+        <>
+          <div className="page-heading">
+            <span className="overline">Your workspace</span>
+            <h1>Build an analysis</h1>
+            <p>
+              Choose the sample and assumptions. We’ll check what the data can
+              support.
+            </p>
+          </div>
+          <nav className="stepper" aria-label="Analysis steps">
+            {["Countries", "Indicators", "Model", "Results"].map((name, i) => (
+              <button
+                key={name}
+                className={step === name ? "active" : ""}
+                onClick={() => {
+                  setStep(name);
+                  if (name === "Results") {
+                    document
+                      .querySelector("[data-testid=run-analysis]")
+                      ?.scrollIntoView({ block: "center" });
+                  } else
+                    document
+                      .getElementById(`step-${name}`)
+                      ?.scrollIntoView({ block: "start" });
+                }}
+              >
+                {i + 1} · {name}
+              </button>
+            ))}
+          </nav>
+          <div ref={browserSlot}>{methodBrowser}</div>
+        </>
+      )}
       <div className="builder-grid">
         <div className="stack">
-          <section id="step-Countries" className="card stack">
-            <h2>1 · Countries</h2>
-            <div className="country-chips">
-              {config.countries.map((iso) => (
-                <button
-                  key={iso}
-                  disabled={config.countries.length === 1}
-                  aria-label={`Remove ${iso} · ${manifest.countries.find((c) => c.iso3 === iso)?.name}`}
-                  onClick={() =>
-                    update((c) => {
-                      c.countries = c.countries.filter((x) => x !== iso);
-                    })
-                  }
-                >
-                  {iso} · {manifest.countries.find((c) => c.iso3 === iso)?.name}{" "}
-                  <span aria-hidden="true">×</span>
-                </button>
-              ))}
-            </div>
-            <div className="two-fields country-picker">
-              <Field label="Find a country">
-                <input
-                  placeholder="Search countries"
-                  type="search"
-                  value={countrySearch}
-                  onChange={(e) => setCountrySearch(e.target.value)}
-                />
-              </Field>
-              <Field label="Add country">
-                <select
-                  value=""
-                  onChange={(e) => {
-                    if (e.target.value)
+          {!settingsOnly && (
+            <section id="step-Countries" className="card stack">
+              <h2>1 · Countries</h2>
+              <div className="country-chips">
+                {config.countries.map((iso) => (
+                  <button
+                    key={iso}
+                    disabled={config.countries.length === 1}
+                    aria-label={`Remove ${iso} · ${manifest.countries.find((c) => c.iso3 === iso)?.name}`}
+                    onClick={() =>
                       update((c) => {
-                        c.countries.push(e.target.value);
-                      });
-                  }}
-                >
-                  <option value="">Choose a country…</option>
-                  {manifest.countries
-                    .filter(
-                      (c) =>
-                        !config.countries.includes(c.iso3) &&
-                        (config.model.params.template_id !== "same_ecb_shock" ||
-                          (c.monetary_union === "EA" && c.iso3 !== "EA")) &&
-                        `${c.name} ${c.iso3}`
-                          .toLowerCase()
-                          .includes(countrySearch.toLowerCase()),
-                    )
-                    .map((c) => (
-                      <option key={c.iso3} value={c.iso3}>
-                        {c.name}
-                        {c.monetary_union === "EA" ? " · ECB rate shared" : ""}
-                      </option>
-                    ))}
-                </select>
-              </Field>
-            </div>
-            <p className="small muted">
-              Each country retains its own actual sample. Euro-area policy
-              shocks use the shared ECB rate and respect adoption dates.
-            </p>
-          </section>
+                        c.countries = c.countries.filter((x) => x !== iso);
+                      })
+                    }
+                  >
+                    {iso} ·{" "}
+                    {manifest.countries.find((c) => c.iso3 === iso)?.name}{" "}
+                    <span aria-hidden="true">×</span>
+                  </button>
+                ))}
+              </div>
+              <div className="two-fields country-picker">
+                <Field label="Find a country">
+                  <input
+                    placeholder="Search countries"
+                    type="search"
+                    value={countrySearch}
+                    onChange={(e) => setCountrySearch(e.target.value)}
+                  />
+                </Field>
+                <Field label="Add country">
+                  <select
+                    value=""
+                    onChange={(e) => {
+                      if (e.target.value)
+                        update((c) => {
+                          c.countries.push(e.target.value);
+                        });
+                    }}
+                  >
+                    <option value="">Choose a country…</option>
+                    {manifest.countries
+                      .filter(
+                        (c) =>
+                          !config.countries.includes(c.iso3) &&
+                          (config.model.params.template_id !==
+                            "same_ecb_shock" ||
+                            (c.monetary_union === "EA" && c.iso3 !== "EA")) &&
+                          `${c.name} ${c.iso3}`
+                            .toLowerCase()
+                            .includes(countrySearch.toLowerCase()),
+                      )
+                      .map((c) => (
+                        <option key={c.iso3} value={c.iso3}>
+                          {c.name}
+                          {c.monetary_union === "EA"
+                            ? " · ECB rate shared"
+                            : ""}
+                        </option>
+                      ))}
+                  </select>
+                </Field>
+              </div>
+              <p className="small muted">
+                Each country retains its own actual sample. Euro-area policy
+                shocks use the shared ECB rate and respect adoption dates.
+              </p>
+            </section>
+          )}
           <section id="step-Indicators" className="card stack">
             <div className="row between">
-              <h2>2 · Indicators</h2>
+              <h2>{settingsOnly ? "Variable settings" : "2 · Indicators"}</h2>
               <span className="small muted">
                 {config.series.length} selected
               </span>
@@ -425,61 +438,67 @@ export function Builder({
                 </article>
               ))}
             </div>
-            <hr className="divider" />
-            <h3>Add an indicator</h3>
-            <div className="category-tabs">
-              {categories.map((c) => (
-                <button
-                  key={c}
-                  aria-pressed={category === c}
-                  onClick={() => setCategory(c)}
-                >
-                  {c}
-                </button>
-              ))}
-            </div>
-            <input
-              aria-label={`Search ${indicatorSummary(manifest)}`}
-              placeholder={`Search ${indicatorSummary(manifest)}`}
-              type="search"
-              value={indicatorSearch}
-              onChange={(e) => setIndicatorSearch(e.target.value)}
-            />
-            <div className="scroll-list stack">
-              {candidates.map((i) => (
-                <button
-                  key={i.concept_id}
-                  className="row between"
-                  onClick={() =>
-                    update((c) => {
-                      const role =
-                        i.scope === "global"
-                          ? "exogenous"
-                          : isVar
-                            ? "endogenous"
-                            : c.series.some((s) => s.role === "dependent")
-                              ? "regressor"
-                              : "dependent";
-                      c.series.push({
-                        concept_id: i.concept_id,
-                        role,
-                        transform: i.default_transform ?? "level",
-                        transform_params: {},
-                      });
-                      c.aggregation[i.concept_id] = "mean";
-                      if (c.identification && role === "endogenous")
-                        c.identification.params.order.push(i.concept_id);
-                    })
-                  }
-                >
-                  <span>{i.title}</span>
-                  <span className="small muted">
-                    {i.scope === "global" ? "Global factor" : text(i.frequency)}{" "}
-                    · Add +
-                  </span>
-                </button>
-              ))}
-            </div>
+            {!settingsOnly && (
+              <>
+                <hr className="divider" />
+                <h3>Add an indicator</h3>
+                <div className="category-tabs">
+                  {categories.map((c) => (
+                    <button
+                      key={c}
+                      aria-pressed={category === c}
+                      onClick={() => setCategory(c)}
+                    >
+                      {c}
+                    </button>
+                  ))}
+                </div>
+                <input
+                  aria-label={`Search ${indicatorSummary(manifest)}`}
+                  placeholder={`Search ${indicatorSummary(manifest)}`}
+                  type="search"
+                  value={indicatorSearch}
+                  onChange={(e) => setIndicatorSearch(e.target.value)}
+                />
+                <div className="scroll-list stack">
+                  {candidates.map((i) => (
+                    <button
+                      key={i.concept_id}
+                      className="row between"
+                      onClick={() =>
+                        update((c) => {
+                          const role =
+                            i.scope === "global"
+                              ? "exogenous"
+                              : isVar
+                                ? "endogenous"
+                                : c.series.some((s) => s.role === "dependent")
+                                  ? "regressor"
+                                  : "dependent";
+                          c.series.push({
+                            concept_id: i.concept_id,
+                            role,
+                            transform: i.default_transform ?? "level",
+                            transform_params: {},
+                          });
+                          c.aggregation[i.concept_id] = "mean";
+                          if (c.identification && role === "endogenous")
+                            c.identification.params.order.push(i.concept_id);
+                        })
+                      }
+                    >
+                      <span>{i.title}</span>
+                      <span className="small muted">
+                        {i.scope === "global"
+                          ? "Global factor"
+                          : text(i.frequency)}{" "}
+                        · Add +
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </section>
           {model.id === "cmp.common_shock" && !isTemplate && (
             <FirstStageInput
@@ -491,71 +510,77 @@ export function Builder({
         </div>
         <aside className="stack sidebar">
           <section id="step-Model" className="card stack">
-            <h2>3 · Model &amp; sample</h2>
-            <div className="method-picker-row">
-              <Field label="Method">
-                <select
-                  value={config.model.id}
-                  disabled={isTemplate}
-                  onChange={(e) => selectModel(e.target.value)}
-                >
-                  {manifest.models.map((m) => (
-                    <option
-                      key={m.id}
-                      value={m.id}
-                      disabled={
-                        !m.id.startsWith("panel.") &&
-                        !forecastModel(m.id) &&
-                        m.id !== "bvar.minn" &&
-                        !diagnosticModel(m.id) &&
-                        models?.find((x) => x.id === m.id)?.available === false
-                      }
+            <h2>{settingsOnly ? "Model & sample" : "3 · Model & sample"}</h2>
+            {!settingsOnly && (
+              <>
+                <div className="method-picker-row">
+                  <Field label="Method">
+                    <select
+                      value={config.model.id}
+                      disabled={isTemplate}
+                      onChange={(e) => selectModel(e.target.value)}
                     >
-                      {m.title}
-                    </option>
-                  ))}
-                </select>
-              </Field>
-              {browseMethods && (
-                <button
-                  onClick={browseMethods}
-                  aria-expanded={Boolean(methodsOpen)}
-                  aria-controls="browse-methods"
-                >
-                  Browse methods
-                </button>
-              )}
-            </div>
-            <p className="small muted">{model.summary}</p>
-            {blocked && (
-              <section
-                className="warning-box stack"
-                data-testid="builder-guidance"
-                aria-label="Before you run"
-              >
-                <h3>Before you run</h3>
-                <ul>
-                  {guidance.map((p) => (
-                    <li key={p}>{p}</li>
-                  ))}
-                </ul>
-                {suggestion && (
-                  <>
-                    <p className="small">
-                      Suggested roles (same indicators, order and transforms):{" "}
-                      {suggestion.series
-                        .map(
-                          (s) =>
-                            `${title(s.concept_id, countryIndicators(manifest.indicators, config.countries[0]))} → ${s.role}`,
-                        )
-                        .join("; ")}
-                    </p>
-                    <button onClick={() => setConfig(suggestion)}>
-                      Apply suggested roles
+                      {manifest.models.map((m) => (
+                        <option
+                          key={m.id}
+                          value={m.id}
+                          disabled={
+                            !m.id.startsWith("panel.") &&
+                            !forecastModel(m.id) &&
+                            m.id !== "bvar.minn" &&
+                            !diagnosticModel(m.id) &&
+                            models?.find((x) => x.id === m.id)?.available ===
+                              false
+                          }
+                        >
+                          {m.title}
+                        </option>
+                      ))}
+                    </select>
+                  </Field>
+                  {browseMethods && (
+                    <button
+                      onClick={browseMethods}
+                      aria-expanded={Boolean(methodsOpen)}
+                      aria-controls="browse-methods"
+                    >
+                      Browse methods
                     </button>
-                  </>
+                  )}
+                </div>
+                <p className="small muted">{model.summary}</p>
+                {blocked && (
+                  <section
+                    className="warning-box stack"
+                    data-testid="builder-guidance"
+                    aria-label="Before you run"
+                  >
+                    <h3>Before you run</h3>
+                    <ul>
+                      {guidance.map((p) => (
+                        <li key={p}>{p}</li>
+                      ))}
+                    </ul>
+                    {suggestion && (
+                      <>
+                        <p className="small">
+                          Suggested roles (same indicators, order and
+                          transforms):{" "}
+                          {suggestion.series
+                            .map(
+                              (s) =>
+                                `${title(s.concept_id, countryIndicators(manifest.indicators, config.countries[0]))} → ${s.role}`,
+                            )
+                            .join("; ")}
+                        </p>
+                        <button onClick={() => setConfig(suggestion)}>
+                          Apply suggested roles
+                        </button>
+                      </>
+                    )}
+                  </section>
                 )}
-              </section>
+              </>
             )}
             <div className="two-fields">
               <Field label="Frequency">
@@ -902,61 +927,65 @@ export function Builder({
               <strong>{model.label}</strong>
             </p>
           </section>
-          <button onClick={check} disabled={busy}>
-            Check compatibility
-          </button>
-          <Checks
-            checks={checks}
-            onFix={fix}
-            onSourceCard={openSource}
-            countries={manifest.countries}
-            indicators={manifest.indicators}
-          />
-          <p
-            className="small muted"
-            role="status"
-            data-testid="runtime-readiness"
-            data-runtime-status={runtimeStatus}
-          >
-            {busy
-              ? "Working locally…"
-              : runtimeStatus === "preparing"
-                ? "Preparing the analysis engine… You can keep editing."
-                : runtimeStatus === "ready"
-                  ? "Ready to calculate locally."
-                  : "The analysis engine will prepare when you run."}
-          </p>
-          <button
-            data-testid="run-analysis"
-            className="primary run-button"
-            onClick={run}
-            disabled={
-              busy ||
-              blocked ||
-              !config.series.length ||
-              !config.countries.length
-            }
-            aria-describedby="run-reason"
-          >
-            Run analysis →
-          </button>
-          <p id="run-reason" className="small muted">
-            {busy
-              ? "An operation is running."
-              : blocked
-                ? `Cannot run yet: ${guidance.join(" ")}`
-                : "Configuration roles are ready; data compatibility is checked at estimation."}
-          </p>
-          <p className="small muted">
-            Runs locally in your browser. Actual sample, uncertainty and
-            sensitivity accompany every result.
-          </p>
-          <span className="visually-hidden">
-            {number(config.series.length)} selected series
-          </span>
+          {!settingsOnly && (
+            <>
+              <button onClick={check} disabled={busy}>
+                Check compatibility
+              </button>
+              <Checks
+                checks={checks}
+                onFix={fix}
+                onSourceCard={openSource}
+                countries={manifest.countries}
+                indicators={manifest.indicators}
+              />
+              <p
+                className="small muted"
+                role="status"
+                data-testid="runtime-readiness"
+                data-runtime-status={runtimeStatus}
+              >
+                {busy
+                  ? "Working locally…"
+                  : runtimeStatus === "preparing"
+                    ? "Preparing the analysis engine… You can keep editing."
+                    : runtimeStatus === "ready"
+                      ? "Ready to calculate locally."
+                      : "The analysis engine will prepare when you run."}
+              </p>
+              <button
+                data-testid="run-analysis"
+                className="primary run-button"
+                onClick={run}
+                disabled={
+                  busy ||
+                  blocked ||
+                  !config.series.length ||
+                  !config.countries.length
+                }
+                aria-describedby="run-reason"
+              >
+                Run analysis →
+              </button>
+              <p id="run-reason" className="small muted">
+                {busy
+                  ? "An operation is running."
+                  : blocked
+                    ? `Cannot run yet: ${guidance.join(" ")}`
+                    : "Configuration roles are ready; data compatibility is checked at estimation."}
+              </p>
+              <p className="small muted">
+                Runs locally in your browser. Actual sample, uncertainty and
+                sensitivity accompany every result.
+              </p>
+              <span className="visually-hidden">
+                {number(config.series.length)} selected series
+              </span>
+            </>
+          )}
         </aside>
       </div>
-      {recentResults}
+      {!settingsOnly && recentResults}
     </section>
   );
 }

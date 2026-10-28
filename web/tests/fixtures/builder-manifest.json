@@ -1,0 +1,2911 @@
+{
+  "snapshot_id": "20261024-2040",
+  "as_of_date": "2026-10-24",
+  "schema_url": "schemas/analysis_config.schema.json",
+  "countries": [
+    {
+      "iso3": "AUS",
+      "name": "Australia",
+      "monetary_union": null
+    },
+    {
+      "iso3": "AUT",
+      "name": "Austria",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "BEL",
+      "name": "Belgium",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "CAN",
+      "name": "Canada",
+      "monetary_union": null
+    },
+    {
+      "iso3": "CHL",
+      "name": "Chile",
+      "monetary_union": null
+    },
+    {
+      "iso3": "COL",
+      "name": "Colombia",
+      "monetary_union": null
+    },
+    {
+      "iso3": "CRI",
+      "name": "Costa Rica",
+      "monetary_union": null
+    },
+    {
+      "iso3": "CZE",
+      "name": "Czechia",
+      "monetary_union": null
+    },
+    {
+      "iso3": "DNK",
+      "name": "Denmark",
+      "monetary_union": null
+    },
+    {
+      "iso3": "EST",
+      "name": "Estonia",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "EA",
+      "name": "Euro area",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "FIN",
+      "name": "Finland",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "FRA",
+      "name": "France",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "DEU",
+      "name": "Germany",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "GRC",
+      "name": "Greece",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "HUN",
+      "name": "Hungary",
+      "monetary_union": null
+    },
+    {
+      "iso3": "ISL",
+      "name": "Iceland",
+      "monetary_union": null
+    },
+    {
+      "iso3": "IRL",
+      "name": "Ireland",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "ISR",
+      "name": "Israel",
+      "monetary_union": null
+    },
+    {
+      "iso3": "ITA",
+      "name": "Italy",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "JPN",
+      "name": "Japan",
+      "monetary_union": null
+    },
+    {
+      "iso3": "KOR",
+      "name": "Korea",
+      "monetary_union": null
+    },
+    {
+      "iso3": "LVA",
+      "name": "Latvia",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "LTU",
+      "name": "Lithuania",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "LUX",
+      "name": "Luxembourg",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "MEX",
+      "name": "Mexico",
+      "monetary_union": null
+    },
+    {
+      "iso3": "NLD",
+      "name": "Netherlands",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "NZL",
+      "name": "New Zealand",
+      "monetary_union": null
+    },
+    {
+      "iso3": "NOR",
+      "name": "Norway",
+      "monetary_union": null
+    },
+    {
+      "iso3": "POL",
+      "name": "Poland",
+      "monetary_union": null
+    },
+    {
+      "iso3": "PRT",
+      "name": "Portugal",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "SVK",
+      "name": "Slovak Republic",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "SVN",
+      "name": "Slovenia",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "ESP",
+      "name": "Spain",
+      "monetary_union": "EA"
+    },
+    {
+      "iso3": "SWE",
+      "name": "Sweden",
+      "monetary_union": null
+    },
+    {
+      "iso3": "CHE",
+      "name": "Switzerland",
+      "monetary_union": null
+    },
+    {
+      "iso3": "TUR",
+      "name": "T\u00fcrkiye",
+      "monetary_union": null
+    },
+    {
+      "iso3": "GBR",
+      "name": "United Kingdom",
+      "monetary_union": null
+    },
+    {
+      "iso3": "USA",
+      "name": "United States",
+      "monetary_union": null
+    }
+  ],
+  "indicators": [
+    {
+      "concept_id": "gdp_real",
+      "title": "Real GDP (volume, SA)",
+      "category": "Real activity",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "Q",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "cons_priv",
+      "title": "Private consumption (volume)",
+      "category": "Real activity",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "Q",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "gfcf",
+      "title": "Gross fixed capital formation (volume)",
+      "category": "Real activity",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "Q",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "cons_gov",
+      "title": "Government consumption (volume)",
+      "category": "Real activity",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "Q",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "exports_real",
+      "title": "Exports of goods and services (volume)",
+      "category": "Real activity",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "Q",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "imports_real",
+      "title": "Imports of goods and services (volume)",
+      "category": "Real activity",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "Q",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "ind_prod",
+      "title": "Industrial production",
+      "category": "Real activity",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "retail_vol",
+      "title": "Retail trade volume",
+      "category": "Real activity",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "cli",
+      "title": "OECD composite leading indicator",
+      "category": "Business cycle and confidence",
+      "scope": "national",
+      "default_transform": "level",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "cpi",
+      "title": "Consumer prices, headline (HICP for EU members)",
+      "category": "Prices",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "cpi_core",
+      "title": "Consumer prices excl. food and energy",
+      "category": "Prices",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "ppi",
+      "title": "Producer prices",
+      "category": "Prices",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "gdp_defl",
+      "title": "GDP deflator",
+      "category": "Prices",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "Q",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "house_real",
+      "title": "Real residential property prices",
+      "category": "Prices",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "Q",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "ulc",
+      "title": "Unit labour costs",
+      "category": "Prices",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "Q",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "unemp",
+      "title": "Unemployment rate (harmonised where available)",
+      "category": "Labour",
+      "scope": "national",
+      "default_transform": "level",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "employment",
+      "title": "Employment",
+      "category": "Labour",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "Q",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "lfpr",
+      "title": "Labour force participation rate",
+      "category": "Labour",
+      "scope": "national",
+      "default_transform": "level",
+      "frequency": "Q",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "policy_rate",
+      "title": "Central bank policy rate (ECB for EA members, shared)",
+      "category": "Interest rates",
+      "scope": "national",
+      "default_transform": "level",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "rate_3m",
+      "title": "3-month interbank rate",
+      "category": "Interest rates",
+      "scope": "national",
+      "default_transform": "level",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "rate_10y",
+      "title": "10-year government bond yield",
+      "category": "Interest rates",
+      "scope": "national",
+      "default_transform": "level",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "term_spread",
+      "title": "10-year minus 3-month",
+      "category": "Interest rates",
+      "scope": "national",
+      "default_transform": "level",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "credit_pnfs",
+      "title": "Credit to private non-financial sector, % of GDP",
+      "category": "Money and credit",
+      "scope": "national",
+      "default_transform": "level",
+      "frequency": "Q",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "money_broad",
+      "title": "Broad money",
+      "category": "Money and credit",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "equity_idx",
+      "title": "Share price index",
+      "category": "Financial markets",
+      "scope": "national",
+      "default_transform": "yoy_pct",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "reer",
+      "title": "Real effective exchange rate (broad)",
+      "category": "External sector",
+      "scope": "national",
+      "default_transform": "log",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "neer",
+      "title": "Nominal effective exchange rate (broad)",
+      "category": "External sector",
+      "scope": "national",
+      "default_transform": "log",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "fx_usd",
+      "title": "National currency per USD",
+      "category": "External sector",
+      "scope": "national",
+      "default_transform": "log",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "ca_gdp",
+      "title": "Current account balance, % of GDP",
+      "category": "External sector",
+      "scope": "national",
+      "default_transform": "level",
+      "frequency": "Q",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "gov_debt",
+      "title": "General government gross debt, % of GDP",
+      "category": "Public finances",
+      "scope": "national",
+      "default_transform": "level",
+      "frequency": "A",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "gov_balance",
+      "title": "General government net lending, % of GDP",
+      "category": "Public finances",
+      "scope": "national",
+      "default_transform": "level",
+      "frequency": "A",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "conf_cons",
+      "title": "Consumer confidence",
+      "category": "Business cycle and confidence",
+      "scope": "national",
+      "default_transform": "level",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "conf_bus",
+      "title": "Business confidence",
+      "category": "Business cycle and confidence",
+      "scope": "national",
+      "default_transform": "level",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "oil_brent",
+      "title": "Europe Brent spot price (EIA), USD/bbl",
+      "category": "Global factors",
+      "scope": "global",
+      "default_transform": "log",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "commod_idx",
+      "title": "Primary commodity price index (IMF, non-fuel)",
+      "category": "Global factors",
+      "scope": "global",
+      "default_transform": "yoy_pct",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    },
+    {
+      "concept_id": "us_policy_rate",
+      "title": "US policy rate (global factor)",
+      "category": "Global factors",
+      "scope": "global",
+      "default_transform": "level",
+      "frequency": "M",
+      "publication": {
+        "included": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "desc.plot",
+      "title": "Time-series plots",
+      "family": "descriptive",
+      "summary": "Compare selected series over their actual observed sample.",
+      "label": "Descriptive",
+      "inputs": {
+        "min_series": 1,
+        "max_series": 6,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": true
+      },
+      "params": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "desc.corr",
+      "title": "Correlation and rolling correlation",
+      "family": "descriptive",
+      "summary": "Describe contemporaneous co-movement and its change across trailing windows.",
+      "label": "Descriptive",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 6,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "window": {
+            "type": "integer",
+            "default": 20,
+            "minimum": 3,
+            "maximum": 120
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "desc.compare",
+      "title": "Country comparison and ranking",
+      "family": "descriptive",
+      "summary": "Rank country averages or latest observations over explicitly recorded samples.",
+      "label": "Descriptive",
+      "inputs": {
+        "min_series": 1,
+        "max_series": 6,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": true
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "statistic": {
+            "type": "string",
+            "enum": ["mean", "last"],
+            "default": "mean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "test.adf_kpss_pp",
+      "title": "Unit-root and stationarity tests",
+      "family": "descriptive",
+      "summary": "Compare ADF and Phillips-Perron unit-root tests with the KPSS stationarity test.",
+      "label": "Descriptive",
+      "inputs": {
+        "min_series": 1,
+        "max_series": 6,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "trend": {
+            "type": "string",
+            "enum": ["c", "ct"],
+            "default": "c"
+          },
+          "adf_lags": {
+            "type": "integer",
+            "default": 4,
+            "minimum": 0,
+            "maximum": 120
+          },
+          "kpss_lags": {
+            "type": "integer",
+            "default": 4,
+            "minimum": 0,
+            "maximum": 120
+          },
+          "pp_lags": {
+            "type": "integer",
+            "default": 4,
+            "minimum": 0,
+            "maximum": 120
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "sing.ols",
+      "title": "Linear regression",
+      "family": "single_eq",
+      "summary": "Estimate a conditional linear association with HAC or HC1 uncertainty.",
+      "label": "Association, not causation",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 6,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false,
+        "required_roles": {
+          "dependent": 1
+        },
+        "min_regressors": 1
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "covariance": {
+            "type": "string",
+            "enum": ["HAC", "HC1"],
+            "default": "HAC"
+          },
+          "hac_lags": {
+            "type": "integer",
+            "default": 4,
+            "minimum": 0,
+            "maximum": 120
+          },
+          "confidence": {
+            "type": "number",
+            "default": 0.95,
+            "minimum": 0.5,
+            "maximum": 0.999
+          },
+          "trend": {
+            "type": "string",
+            "enum": ["c", "n"],
+            "default": "c"
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "sing.ardl",
+      "title": "Autoregressive distributed lag regression",
+      "family": "single_eq",
+      "summary": "Estimate lagged responses and show their equivalent error-correction parameterisation.",
+      "label": "Association, not causation",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 6,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false,
+        "required_roles": {
+          "dependent": 1
+        },
+        "min_regressors": 1
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "covariance": {
+            "type": "string",
+            "enum": ["HAC", "HC1"],
+            "default": "HAC"
+          },
+          "hac_lags": {
+            "type": "integer",
+            "default": 4,
+            "minimum": 0,
+            "maximum": 120
+          },
+          "confidence": {
+            "type": "number",
+            "default": 0.95,
+            "minimum": 0.5,
+            "maximum": 0.999
+          },
+          "trend": {
+            "type": "string",
+            "enum": ["c", "n"],
+            "default": "c"
+          },
+          "lags": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 24
+          },
+          "order": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 24
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "sing.rolling",
+      "title": "Rolling and recursive regression",
+      "family": "single_eq",
+      "summary": "Track coefficient estimates in trailing windows or an expanding historical sample.",
+      "label": "Association, not causation",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 6,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false,
+        "required_roles": {
+          "dependent": 1
+        },
+        "min_regressors": 1
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "covariance": {
+            "type": "string",
+            "enum": ["HAC", "HC1"],
+            "default": "HAC"
+          },
+          "hac_lags": {
+            "type": "integer",
+            "default": 4,
+            "minimum": 0,
+            "maximum": 120
+          },
+          "confidence": {
+            "type": "number",
+            "default": 0.95,
+            "minimum": 0.5,
+            "maximum": 0.999
+          },
+          "trend": {
+            "type": "string",
+            "enum": ["c", "n"],
+            "default": "c"
+          },
+          "window": {
+            "type": "integer",
+            "default": 40,
+            "minimum": 6,
+            "maximum": 1000
+          },
+          "mode": {
+            "type": "string",
+            "enum": ["rolling", "recursive"],
+            "default": "rolling"
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "test.granger",
+      "title": "Granger predictive-content test",
+      "family": "descriptive",
+      "summary": "Test whether lagged values of one series help predict another, conditional on its own lags.",
+      "label": "Descriptive",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 2,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false,
+        "required_roles": {
+          "dependent": 1
+        },
+        "min_regressors": 1
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "lags": {
+            "type": "integer",
+            "default": 4,
+            "minimum": 1,
+            "maximum": 24
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "filter.hp",
+      "title": "Hodrick-Prescott filter",
+      "family": "filter",
+      "summary": "Separate a smooth trend from a cycle using an explicit smoothing penalty.",
+      "label": "Descriptive",
+      "inputs": {
+        "min_series": 1,
+        "max_series": 6,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "lambda": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 1000000000.0
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "filter.hamilton",
+      "title": "Hamilton regression filter",
+      "family": "filter",
+      "summary": "Define the cycle as the error in a long-horizon projection on past observations.",
+      "label": "Descriptive",
+      "inputs": {
+        "min_series": 1,
+        "max_series": 6,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "horizon": {
+            "type": "integer",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 120
+          },
+          "lags": {
+            "type": "integer",
+            "default": 4,
+            "minimum": 1,
+            "maximum": 48
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "var.ols",
+      "title": "Vector autoregression",
+      "family": "multivariate",
+      "summary": "Estimate joint dynamics and, with recursive assumptions, responses to a chosen shock.",
+      "label": "Association, not causation",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 6,
+        "required_roles": {},
+        "min_regressors": 0,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "lags": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 24,
+            "default": 2
+          },
+          "lag_selection": {
+            "enum": ["fixed", "aic", "bic", "hq"],
+            "default": "fixed"
+          },
+          "maxlags": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 24,
+            "default": 8
+          },
+          "trend": {
+            "enum": ["c", "ct", "n"],
+            "default": "c"
+          }
+        }
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "ident.recursive",
+      "title": "Recursive identification",
+      "family": "identification",
+      "summary": "Identify ordered shocks with Cholesky restrictions and explicit shock units.",
+      "label": "Model-based scenario, not a forecast",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 6,
+        "required_roles": {
+          "shock": 1
+        },
+        "min_regressors": 0,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "lags": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 24,
+            "default": 2
+          },
+          "lag_selection": {
+            "enum": ["fixed", "aic", "bic", "hq"],
+            "default": "fixed"
+          },
+          "maxlags": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 24,
+            "default": 8
+          },
+          "trend": {
+            "enum": ["c", "ct", "n"],
+            "default": "c"
+          }
+        }
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "lp.ols",
+      "title": "Local projections",
+      "family": "multivariate",
+      "summary": "Estimate a separate response at each horizon with explicit controls and samples.",
+      "label": "Conditional association, unless an identified shock is supplied",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 20,
+        "required_roles": {
+          "shock": 1
+        },
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "crisis_extension": {
+            "type": "boolean"
+          },
+          "crisis_mode": {
+            "type": "string",
+            "enum": ["dummies", "exclude"]
+          },
+          "template_id": {
+            "type": "string",
+            "enum": ["", "same_ecb_shock", "tur_pass_through"],
+            "default": ""
+          },
+          "policy_measure": {
+            "type": "string",
+            "enum": ["dfr", "rate_3m", "bis"],
+            "default": "dfr"
+          },
+          "country_window": {
+            "type": "string",
+            "enum": ["own", "common"],
+            "default": "own"
+          },
+          "displayed_band": {
+            "type": "string",
+            "enum": ["conditional", "joint"],
+            "default": "conditional"
+          },
+          "lag_difference_scales": {
+            "type": "object",
+            "default": {}
+          },
+          "shared_controls": {
+            "type": "object",
+            "default": {}
+          },
+          "lags": {
+            "type": "integer",
+            "default": 2,
+            "minimum": 0,
+            "maximum": 24
+          },
+          "horizon": {
+            "type": "integer",
+            "default": 12,
+            "minimum": 0,
+            "maximum": 60
+          },
+          "response_mode": {
+            "type": "string",
+            "enum": ["level", "change", "cumulative_log", "growth_log"],
+            "default": "level"
+          },
+          "sample_mode": {
+            "type": "string",
+            "enum": ["common", "horizon_specific"],
+            "default": "common"
+          },
+          "covariance": {
+            "type": "string",
+            "enum": ["HAC", "HC1"],
+            "default": "HAC"
+          },
+          "lag_augmented": {
+            "type": "boolean",
+            "default": false
+          },
+          "seasonal": {
+            "type": "boolean",
+            "default": false
+          },
+          "shock_size": {
+            "type": "number",
+            "default": 1.0
+          },
+          "growth_scale": {
+            "type": "number",
+            "default": 1.0,
+            "minimum": 1,
+            "maximum": 12
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "out.hd",
+      "title": "Historical decomposition",
+      "family": "output",
+      "summary": "Account for past movements under an explicitly ordered stable recursive VAR.",
+      "label": "Model-based accounting of the past under the recursive identification, not evidence of what caused each movement.",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 6,
+        "required_roles": {},
+        "min_regressors": 0,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "lags": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 24,
+            "default": 2
+          },
+          "lag_selection": {
+            "enum": ["fixed", "aic", "bic", "hq"],
+            "default": "fixed"
+          },
+          "maxlags": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 24,
+            "default": 8
+          },
+          "trend": {
+            "enum": ["c", "ct", "n"],
+            "default": "c"
+          },
+          "hd_match_var": {
+            "type": "boolean"
+          }
+        }
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "ident.external_series",
+      "title": "Reusable identified shock",
+      "family": "identification",
+      "summary": "Expose dated orthogonalised residuals from a first-stage recursive VAR.",
+      "label": "Generated shock; conditional on the stated recursive identification",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 6,
+        "required_roles": {},
+        "min_regressors": 0,
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "lags": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 24,
+            "default": 2
+          },
+          "lag_selection": {
+            "enum": ["fixed", "aic", "bic", "hq"],
+            "default": "fixed"
+          },
+          "maxlags": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 24,
+            "default": 8
+          },
+          "trend": {
+            "enum": ["c", "ct", "n"],
+            "default": "c"
+          },
+          "exclude_window": {
+            "type": "object",
+            "default": {}
+          }
+        }
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "cmp.common_shock",
+      "title": "Common-shock country comparison",
+      "family": "comparison",
+      "summary": "Reuse one identified shock in country-specific LPs and show actual samples.",
+      "label": "Conditional association, unless an identified shock is supplied",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 20,
+        "required_roles": {
+          "shock": 1
+        },
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "crisis_extension": {
+            "type": "boolean"
+          },
+          "crisis_mode": {
+            "type": "string",
+            "enum": ["dummies", "exclude"]
+          },
+          "template_id": {
+            "type": "string",
+            "enum": ["", "same_ecb_shock", "tur_pass_through"],
+            "default": ""
+          },
+          "policy_measure": {
+            "type": "string",
+            "enum": ["dfr", "rate_3m", "bis"],
+            "default": "dfr"
+          },
+          "country_window": {
+            "type": "string",
+            "enum": ["own", "common"],
+            "default": "own"
+          },
+          "displayed_band": {
+            "type": "string",
+            "enum": ["conditional", "joint"],
+            "default": "conditional"
+          },
+          "lag_difference_scales": {
+            "type": "object",
+            "default": {}
+          },
+          "shared_controls": {
+            "type": "object",
+            "default": {}
+          },
+          "lags": {
+            "type": "integer",
+            "default": 2,
+            "minimum": 0,
+            "maximum": 24
+          },
+          "horizon": {
+            "type": "integer",
+            "default": 12,
+            "minimum": 0,
+            "maximum": 60
+          },
+          "response_mode": {
+            "type": "string",
+            "enum": ["level", "change", "cumulative_log", "growth_log"],
+            "default": "level"
+          },
+          "sample_mode": {
+            "type": "string",
+            "enum": ["common", "horizon_specific"],
+            "default": "common"
+          },
+          "covariance": {
+            "type": "string",
+            "enum": ["HAC", "HC1"],
+            "default": "HAC"
+          },
+          "lag_augmented": {
+            "type": "boolean",
+            "default": false
+          },
+          "seasonal": {
+            "type": "boolean",
+            "default": false
+          },
+          "shock_size": {
+            "type": "number",
+            "default": 1.0
+          },
+          "growth_scale": {
+            "type": "number",
+            "default": 1.0,
+            "minimum": 1,
+            "maximum": 12
+          },
+          "first_stage": {
+            "type": "object"
+          },
+          "response_modes": {
+            "type": "object",
+            "default": {}
+          },
+          "joint_bootstrap": {
+            "type": "boolean",
+            "default": false
+          },
+          "bootstrap_draws": {
+            "type": "integer",
+            "default": 200,
+            "minimum": 20,
+            "maximum": 5000
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "panel.fe",
+      "title": "Panel fixed effects",
+      "family": "panel",
+      "summary": "Pooled within-country associations beside country OLS, with robust panel inference.",
+      "label": "Conditional pooled association",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 20,
+        "required_roles": {
+          "dependent": 1
+        },
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": true
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "enum": ["ea_phillips_pooled"]
+          },
+          "effects": {
+            "type": "string",
+            "enum": ["country", "two_way"],
+            "default": "country"
+          },
+          "covariance": {
+            "type": "string",
+            "enum": ["Driscoll-Kraay", "country-clustered", "conventional"],
+            "default": "Driscoll-Kraay"
+          },
+          "dependent_lags": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 12
+          },
+          "seasonal": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "panel.lp",
+      "title": "Panel local projections",
+      "family": "panel",
+      "summary": "Pool lag-augmented responses to a common or country-specific impulse.",
+      "label": "Conditional pooled association",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 20,
+        "required_roles": {
+          "shock": 1
+        },
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": true
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "enum": ["same_ecb_shock_pooled"]
+          },
+          "effects": {
+            "type": "string",
+            "enum": ["country", "two_way"],
+            "default": "country"
+          },
+          "covariance": {
+            "type": "string",
+            "enum": [
+              "Driscoll-Kraay",
+              "country-clustered",
+              "conventional",
+              "HC1",
+              "HAC"
+            ],
+            "default": "Driscoll-Kraay"
+          },
+          "shock_type": {
+            "type": "string",
+            "enum": ["common", "country_specific"],
+            "default": "common"
+          },
+          "first_stage": {
+            "type": "object"
+          },
+          "first_stage_source": {
+            "type": "string",
+            "enum": ["selected", "ecb_dfr"],
+            "default": "selected"
+          },
+          "lags": {
+            "type": "integer",
+            "default": 2,
+            "minimum": 0,
+            "maximum": 24
+          },
+          "horizon": {
+            "type": "integer",
+            "default": 20,
+            "minimum": 0,
+            "maximum": 60
+          },
+          "lag_augmented": {
+            "type": "boolean",
+            "default": true
+          },
+          "response_mode": {
+            "type": "string",
+            "enum": ["change", "level", "cumulative_log", "growth_log"],
+            "default": "change"
+          },
+          "sample_mode": {
+            "type": "string",
+            "enum": ["common", "horizon_specific"],
+            "default": "common"
+          },
+          "country_window": {
+            "type": "string",
+            "enum": ["own", "common"],
+            "default": "own"
+          },
+          "shock_size": {
+            "type": "number",
+            "default": 1
+          },
+          "growth_scale": {
+            "type": "number",
+            "default": 1
+          },
+          "lag_difference_scales": {
+            "type": "object",
+            "default": {}
+          },
+          "seasonal": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "bvar.minn",
+      "title": "Bayesian VAR \u00b7 Minnesota prior",
+      "family": "multivariate",
+      "summary": "Conjugate shrinkage with seeded posterior bands and a matched OLS comparison.",
+      "label": "Model-based scenario, not a forecast",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 8,
+        "required_roles": {
+          "shock": 1
+        },
+        "frequencies": ["M", "Q", "A"],
+        "cross_country": false
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "lags": {
+            "type": "integer",
+            "default": 4,
+            "minimum": 1,
+            "maximum": 12
+          },
+          "lambda": {
+            "type": "number",
+            "default": 0.2,
+            "minimum": 0.001,
+            "maximum": 100000000.0
+          },
+          "lag_decay": {
+            "type": "number",
+            "default": 2,
+            "minimum": 0,
+            "maximum": 4
+          },
+          "lambda_selection": {
+            "type": "string",
+            "enum": ["fixed", "grid"],
+            "default": "fixed"
+          },
+          "lambda_grid": {
+            "type": "array",
+            "default": [0.05, 0.1, 0.2, 0.3, 0.5, 1.0, 2.0, 5.0]
+          },
+          "draws": {
+            "type": "integer",
+            "default": 1000,
+            "enum": [1000, 5000]
+          },
+          "sum_of_coefficients": {
+            "type": "boolean",
+            "default": false
+          },
+          "co_persistence": {
+            "type": "boolean",
+            "default": false
+          },
+          "sum_tightness": {
+            "type": "number",
+            "default": 1,
+            "minimum": 0.01,
+            "maximum": 100
+          },
+          "co_persistence_tightness": {
+            "type": "number",
+            "default": 1,
+            "minimum": 0.01,
+            "maximum": 100
+          },
+          "drop_explosive": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "uni.arima",
+      "title": "ARIMA / SARIMA",
+      "family": "Forecasting",
+      "summary": "SARIMAX forecasts, explicit ADF/KPSS differencing and AICc order search.",
+      "label": "Forecast",
+      "inputs": {
+        "min_series": 1,
+        "max_series": 8,
+        "frequencies": ["M", "Q"]
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "horizon": {
+            "type": "integer",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 24
+          },
+          "future_exog": {
+            "type": "string",
+            "enum": ["unspecified", "hold_last", "zero"],
+            "default": "unspecified"
+          },
+          "order_selection": {
+            "type": "string",
+            "enum": ["aicc", "fixed"],
+            "default": "aicc"
+          },
+          "p": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 0,
+            "maximum": 4
+          },
+          "d": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 0,
+            "maximum": 1
+          },
+          "q": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 4
+          },
+          "seasonal_p": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 1
+          },
+          "seasonal_q": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "fc.var",
+      "title": "VAR / BVAR forecasts",
+      "family": "Forecasting",
+      "summary": "Iterated forecasts with re-estimated bootstrap or posterior predictive uncertainty.",
+      "label": "Forecast",
+      "inputs": {
+        "min_series": 1,
+        "max_series": 8,
+        "frequencies": ["M", "Q"]
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "horizon": {
+            "type": "integer",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 24
+          },
+          "future_exog": {
+            "type": "string",
+            "enum": ["unspecified", "hold_last", "zero"],
+            "default": "unspecified"
+          },
+          "estimator": {
+            "type": "string",
+            "enum": ["ols", "bvar"],
+            "default": "ols"
+          },
+          "lags": {
+            "type": "integer",
+            "default": 2,
+            "minimum": 1,
+            "maximum": 12
+          },
+          "draws": {
+            "type": "integer",
+            "default": 500,
+            "minimum": 100,
+            "maximum": 5000
+          },
+          "lambda": {
+            "type": "number",
+            "default": 0.2,
+            "minimum": 0.001,
+            "maximum": 100
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "fc.eval",
+      "title": "Expanding-window evaluation",
+      "family": "Forecasting",
+      "summary": "RW, AR(BIC), ARIMA and BVAR, paired errors and DM/HLN comparisons.",
+      "label": "Forecast evaluation",
+      "inputs": {
+        "min_series": 1,
+        "max_series": 8,
+        "frequencies": ["M", "Q"]
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string",
+            "enum": ["ea_inflation_horse_race"]
+          },
+          "evaluation_scale": {
+            "type": "string",
+            "enum": ["original", "transformed"]
+          },
+          "horizon": {
+            "type": "integer",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 24
+          },
+          "future_exog": {
+            "type": "string",
+            "enum": ["unspecified", "hold_last", "zero"],
+            "default": "unspecified"
+          },
+          "order_selection": {
+            "type": "string",
+            "enum": ["aicc", "fixed"],
+            "default": "aicc"
+          },
+          "p": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 0,
+            "maximum": 4
+          },
+          "d": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 0,
+            "maximum": 1
+          },
+          "q": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 4
+          },
+          "seasonal_p": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 1
+          },
+          "seasonal_q": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 1
+          },
+          "lags": {
+            "type": "integer",
+            "default": 2,
+            "minimum": 1,
+            "maximum": 12
+          },
+          "draws": {
+            "type": "integer",
+            "default": 500,
+            "minimum": 100,
+            "maximum": 5000
+          },
+          "reselect": {
+            "type": "boolean",
+            "default": false
+          },
+          "lambda": {
+            "type": "number",
+            "default": 0.2,
+            "minimum": 0.001,
+            "maximum": 100
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "test.coint",
+      "title": "Cointegration tests",
+      "family": "tests",
+      "summary": "Two Engle\u2013Granger normalisations and Johansen rank tests on levels.",
+      "label": "Long-run association; not causation",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 12,
+        "frequencies": ["M", "Q", "A"]
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "lags": {
+            "type": "integer",
+            "default": 2,
+            "minimum": 1,
+            "maximum": 12
+          },
+          "deterministic": {
+            "type": "string",
+            "enum": ["none", "constant", "linear_trend"],
+            "default": "constant"
+          },
+          "eg_trend": {
+            "type": "string",
+            "enum": ["n", "c", "ct", "ctt"],
+            "default": "c"
+          },
+          "eg_lags": {
+            "type": "integer",
+            "default": 4,
+            "minimum": 0,
+            "maximum": 24
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "vecm",
+      "title": "Vector error-correction model",
+      "family": "tests",
+      "summary": "User-chosen rank, normalised long-run relations and rank-fixed bootstrap responses.",
+      "label": "Long-run association; not causation",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 12,
+        "frequencies": ["M", "Q", "A"]
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "lags": {
+            "type": "integer",
+            "default": 2,
+            "minimum": 1,
+            "maximum": 12
+          },
+          "deterministic": {
+            "type": "string",
+            "enum": ["none", "constant", "linear_trend"],
+            "default": "constant"
+          },
+          "eg_trend": {
+            "type": "string",
+            "enum": ["n", "c", "ct", "ctt"],
+            "default": "c"
+          },
+          "eg_lags": {
+            "type": "integer",
+            "default": 4,
+            "minimum": 0,
+            "maximum": 24
+          },
+          "rank": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 0,
+            "maximum": 12
+          },
+          "horizon": {
+            "type": "integer",
+            "default": 20,
+            "minimum": 1,
+            "maximum": 48
+          },
+          "draws": {
+            "type": "integer",
+            "default": 200,
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "shock": {
+            "type": "string",
+            "default": ""
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    },
+    {
+      "id": "test.break",
+      "title": "Structural-break diagnostics",
+      "family": "tests",
+      "summary": "Chow, 15%-trimmed sup-F, recursive CUSUM and CUSUM-of-squares for a host equation.",
+      "label": "Parameter stability diagnostic; not causation",
+      "inputs": {
+        "min_series": 2,
+        "max_series": 12,
+        "frequencies": ["M", "Q", "A"]
+      },
+      "params": {
+        "type": "object",
+        "properties": {
+          "host": {
+            "type": "string",
+            "enum": ["sing.ols", "sing.ardl", "ident.external_series"],
+            "default": "sing.ols"
+          },
+          "covariance": {
+            "type": "string",
+            "enum": ["HAC", "HC1", "conventional"],
+            "default": "HAC"
+          },
+          "inference": {
+            "type": "string",
+            "enum": [
+              "hac_bootstrap",
+              "hc_bootstrap",
+              "hac_asymptotic",
+              "conventional_asymptotic"
+            ],
+            "default": "hac_bootstrap"
+          },
+          "hac_lags": {
+            "type": "integer",
+            "default": 4,
+            "minimum": 0,
+            "maximum": 24
+          },
+          "trend": {
+            "type": "string",
+            "enum": ["c", "n"],
+            "default": "c"
+          },
+          "lags": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 24
+          },
+          "order": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 24
+          },
+          "break_date": {
+            "type": "string",
+            "default": ""
+          },
+          "source_variant": {
+            "type": "string",
+            "enum": ["none", "dfr", "bis", "rate_3m"],
+            "default": "none"
+          }
+        },
+        "additionalProperties": false
+      },
+      "runtime": "browser"
+    }
+  ],
+  "templates": [
+    {
+      "id": "monetary_policy",
+      "title": "Monetary policy",
+      "config": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["USA"],
+        "series": [
+          {
+            "concept_id": "policy_rate",
+            "role": "shock",
+            "transform": "level"
+          },
+          {
+            "concept_id": "gdp_real",
+            "role": "endogenous",
+            "transform": "qoq_saar"
+          },
+          {
+            "concept_id": "cpi",
+            "role": "endogenous",
+            "transform": "qoq_saar"
+          },
+          {
+            "concept_id": "unemp",
+            "role": "endogenous",
+            "transform": "level"
+          },
+          {
+            "concept_id": "oil_brent",
+            "role": "exogenous",
+            "transform": "log"
+          }
+        ],
+        "frequency": "Q",
+        "aggregation": {
+          "policy_rate": "mean",
+          "gdp_real": "mean",
+          "cpi": "mean",
+          "unemp": "mean",
+          "oil_brent": "mean"
+        },
+        "sample": {
+          "start": "1999-Q1",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "dummy",
+          "covid_window": {
+            "start": "2020-Q1",
+            "end": "2020-Q3"
+          }
+        },
+        "model": {
+          "id": "var.ols",
+          "params": {
+            "lags": 2,
+            "lag_selection": "fixed",
+            "trend": "c",
+            "maxlags": 4
+          }
+        },
+        "identification": {
+          "id": "recursive",
+          "params": {
+            "order": ["gdp_real", "cpi", "unemp", "policy_rate"]
+          }
+        },
+        "outputs": {
+          "confidence": 0.95,
+          "irf": {
+            "horizon": 12,
+            "bands": 0.68,
+            "shock_size": 1.0,
+            "method": "bootstrap",
+            "draws": 200,
+            "shock_mode": "one_sd"
+          }
+        },
+        "comparison": {
+          "enabled": true,
+          "methods": [],
+          "identifications": [],
+          "scenarios": [
+            "extended_var",
+            "lag_criteria",
+            "covid_include",
+            "end_2019"
+          ]
+        },
+        "seed": 20261021
+      }
+    },
+    {
+      "id": "taylor_rule",
+      "title": "Taylor rule",
+      "config": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["GBR"],
+        "series": [
+          {
+            "concept_id": "policy_rate",
+            "role": "dependent",
+            "transform": "level"
+          },
+          {
+            "concept_id": "cpi",
+            "role": "regressor",
+            "transform": "yoy_pct"
+          },
+          {
+            "concept_id": "gdp_real",
+            "role": "regressor",
+            "transform": "hp_cycle",
+            "transform_params": {
+              "log": true,
+              "lamb": 1600
+            }
+          }
+        ],
+        "frequency": "Q",
+        "aggregation": {
+          "policy_rate": "mean",
+          "cpi": "mean",
+          "gdp_real": "mean"
+        },
+        "sample": {
+          "start": "1999-Q1",
+          "end": "2008-Q4"
+        },
+        "special_periods": {
+          "covid": "include"
+        },
+        "model": {
+          "id": "sing.ols",
+          "params": {
+            "covariance": "HAC",
+            "hac_lags": 4
+          }
+        },
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": true,
+          "methods": [],
+          "identifications": [],
+          "scenarios": ["full_sample", "recent_half_full_sample"]
+        },
+        "seed": 20261021
+      }
+    },
+    {
+      "id": "phillips_curve",
+      "title": "Phillips curve",
+      "config": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["CAN"],
+        "series": [
+          {
+            "concept_id": "cpi",
+            "role": "dependent",
+            "transform": "yoy_pct"
+          },
+          {
+            "concept_id": "unemp",
+            "role": "regressor",
+            "transform": "level"
+          }
+        ],
+        "frequency": "Q",
+        "aggregation": {
+          "cpi": "mean",
+          "unemp": "mean"
+        },
+        "sample": {
+          "start": "1999-Q1",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "include"
+        },
+        "model": {
+          "id": "sing.ols",
+          "params": {
+            "covariance": "HAC",
+            "hac_lags": 4
+          }
+        },
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": true,
+          "methods": ["sing.rolling"],
+          "identifications": []
+        },
+        "seed": 20261021
+      }
+    },
+    {
+      "id": "okuns_law",
+      "title": "Okun's law",
+      "config": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["ESP"],
+        "series": [
+          {
+            "concept_id": "unemp",
+            "role": "dependent",
+            "transform": "yoy_diff"
+          },
+          {
+            "concept_id": "gdp_real",
+            "role": "regressor",
+            "transform": "yoy_pct"
+          }
+        ],
+        "frequency": "Q",
+        "aggregation": {
+          "unemp": "mean",
+          "gdp_real": "mean"
+        },
+        "sample": {
+          "start": "1999-Q1",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "include"
+        },
+        "model": {
+          "id": "sing.ols",
+          "params": {
+            "covariance": "HAC",
+            "hac_lags": 4
+          }
+        },
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": true,
+          "methods": [],
+          "identifications": [],
+          "scenarios": ["quarterly_okun"]
+        },
+        "seed": 20261021
+      }
+    },
+    {
+      "id": "same_ecb_shock",
+      "title": "Same ECB shock",
+      "config": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["DEU", "FRA", "ITA", "ESP"],
+        "series": [
+          {
+            "concept_id": "policy_rate",
+            "role": "endogenous",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "gdp_real",
+            "role": "response",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "cpi",
+            "role": "response",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "unemp",
+            "role": "response",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "oil_brent",
+            "role": "exogenous",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "commod_idx",
+            "role": "exogenous",
+            "transform": "yoy_pct",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "identified_impulse",
+            "role": "shock",
+            "transform": "level",
+            "transform_params": {}
+          }
+        ],
+        "frequency": "Q",
+        "aggregation": {
+          "policy_rate": "mean",
+          "gdp_real": "mean",
+          "cpi": "mean",
+          "unemp": "mean",
+          "oil_brent": "mean",
+          "commod_idx": "mean",
+          "identified_impulse": "mean"
+        },
+        "sample": {
+          "start": "1999-Q1",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "dummy",
+          "covid_window": {
+            "start": "2020-Q1",
+            "end": "2020-Q3"
+          },
+          "elb_threshold": 0.25
+        },
+        "model": {
+          "id": "cmp.common_shock",
+          "params": {
+            "template_id": "same_ecb_shock",
+            "policy_measure": "dfr",
+            "country_window": "own",
+            "displayed_band": "conditional",
+            "first_stage": {
+              "schema_version": 1,
+              "snapshot_id": "20261024-2040",
+              "countries": ["EA"],
+              "series": [
+                {
+                  "concept_id": "policy_rate",
+                  "role": "shock",
+                  "transform": "level",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "gdp_real",
+                  "role": "endogenous",
+                  "transform": "qoq_saar",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "cpi",
+                  "role": "endogenous",
+                  "transform": "qoq_saar",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "unemp",
+                  "role": "endogenous",
+                  "transform": "level",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "oil_brent",
+                  "role": "exogenous",
+                  "transform": "log",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "commod_idx",
+                  "role": "exogenous",
+                  "transform": "yoy_pct",
+                  "transform_params": {}
+                }
+              ],
+              "frequency": "Q",
+              "aggregation": {
+                "policy_rate": "mean",
+                "gdp_real": "mean",
+                "cpi": "mean",
+                "unemp": "mean",
+                "oil_brent": "mean",
+                "commod_idx": "mean"
+              },
+              "sample": {
+                "start": "1999-Q1",
+                "end": "latest"
+              },
+              "special_periods": {
+                "covid": "dummy",
+                "covid_window": {
+                  "start": "2020-Q1",
+                  "end": "2020-Q3"
+                },
+                "elb_threshold": 0.25
+              },
+              "model": {
+                "id": "ident.external_series",
+                "params": {
+                  "lags": 2,
+                  "trend": "c",
+                  "lag_selection": "fixed",
+                  "maxlags": 4
+                }
+              },
+              "identification": {
+                "id": "recursive",
+                "params": {
+                  "order": ["gdp_real", "cpi", "unemp", "policy_rate"]
+                }
+              },
+              "outputs": {
+                "confidence": 0.95,
+                "irf": {
+                  "horizon": 12,
+                  "bands": 0.68,
+                  "shock_size": 1,
+                  "method": "bootstrap",
+                  "draws": 200,
+                  "shock_mode": "one_sd"
+                }
+              },
+              "comparison": {
+                "enabled": false,
+                "identifications": [],
+                "methods": [],
+                "scenarios": []
+              },
+              "seed": 20261021
+            },
+            "horizon": 12,
+            "lags": 2,
+            "lag_augmented": true,
+            "covariance": "HC1",
+            "response_mode": "level",
+            "response_modes": {
+              "gdp_real": "cumulative_log",
+              "cpi": "cumulative_log",
+              "unemp": "change"
+            },
+            "lag_difference_scales": {
+              "gdp_real": 400,
+              "cpi": 400
+            },
+            "shared_controls": {
+              "policy_rate": "policy_rate"
+            },
+            "bootstrap_draws": 200,
+            "sample_mode": "common",
+            "seasonal": false,
+            "shock_size": 1,
+            "growth_scale": 1,
+            "joint_bootstrap": false
+          }
+        },
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": true,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "seed": 20261021
+      }
+    },
+    {
+      "id": "tur_pass_through",
+      "title": "T\u00fcrkiye exchange-rate pass-through",
+      "config": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["TUR"],
+        "frequency": "M",
+        "series": [
+          {
+            "concept_id": "cpi",
+            "role": "response",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "neer",
+            "role": "shock",
+            "transform": "log_diff",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "oil_brent",
+            "role": "exogenous",
+            "transform": "log_diff",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "commod_idx",
+            "role": "exogenous",
+            "transform": "log_diff",
+            "transform_params": {}
+          }
+        ],
+        "sample": {
+          "start": "1999-01",
+          "end": "latest"
+        },
+        "aggregation": {
+          "cpi": "mean",
+          "neer": "mean",
+          "oil_brent": "mean",
+          "commod_idx": "mean"
+        },
+        "special_periods": {
+          "covid": "include",
+          "covid_window": {
+            "start": "2020-01",
+            "end": "2021-06"
+          },
+          "elb_threshold": 0.25
+        },
+        "model": {
+          "id": "lp.ols",
+          "params": {
+            "template_id": "tur_pass_through",
+            "lags": 12,
+            "horizon": 24,
+            "lag_augmented": true,
+            "covariance": "HC1",
+            "response_mode": "cumulative_log",
+            "lag_difference_scales": {
+              "cpi": 100
+            },
+            "shock_size": -1,
+            "policy_measure": "dfr",
+            "country_window": "own",
+            "displayed_band": "conditional",
+            "shared_controls": {},
+            "sample_mode": "common",
+            "seasonal": false,
+            "growth_scale": 1
+          }
+        },
+        "comparison": {
+          "enabled": true,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "seed": 20261023,
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        }
+      }
+    },
+    {
+      "id": "ea_phillips_pooled",
+      "title": "Euro-area Phillips curve \u00b7 pooled",
+      "config": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": [
+          "AUT",
+          "BEL",
+          "FIN",
+          "FRA",
+          "DEU",
+          "IRL",
+          "ITA",
+          "LUX",
+          "NLD",
+          "PRT",
+          "ESP"
+        ],
+        "frequency": "Q",
+        "series": [
+          {
+            "concept_id": "cpi",
+            "role": "dependent",
+            "transform": "yoy_pct",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "unemp",
+            "role": "regressor",
+            "transform": "hp_cycle",
+            "transform_params": {
+              "lamb": 1600,
+              "log": false
+            }
+          },
+          {
+            "concept_id": "oil_brent",
+            "role": "exogenous",
+            "transform": "yoy_pct",
+            "transform_params": {}
+          }
+        ],
+        "aggregation": {
+          "cpi": "mean",
+          "unemp": "mean",
+          "oil_brent": "mean"
+        },
+        "sample": {
+          "start": "1999-Q1",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "include",
+          "covid_window": {
+            "start": "2020-Q1",
+            "end": "2021-Q2"
+          },
+          "elb_threshold": 0.25
+        },
+        "model": {
+          "id": "panel.fe",
+          "params": {
+            "template_id": "ea_phillips_pooled",
+            "effects": "country",
+            "covariance": "Driscoll-Kraay",
+            "dependent_lags": 0,
+            "seasonal": false
+          }
+        },
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": false,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "seed": 20261021,
+        "identification": null
+      }
+    },
+    {
+      "id": "same_ecb_shock_pooled",
+      "title": "Same ECB shock \u00b7 pooled",
+      "config": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["DEU", "FRA", "ITA", "ESP"],
+        "series": [
+          {
+            "concept_id": "policy_rate",
+            "role": "endogenous",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "gdp_real",
+            "role": "endogenous",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "cpi",
+            "role": "response",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "unemp",
+            "role": "endogenous",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "oil_brent",
+            "role": "exogenous",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "commod_idx",
+            "role": "exogenous",
+            "transform": "yoy_pct",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "identified_impulse",
+            "role": "shock",
+            "transform": "level",
+            "transform_params": {}
+          }
+        ],
+        "frequency": "Q",
+        "aggregation": {
+          "policy_rate": "mean",
+          "gdp_real": "mean",
+          "cpi": "mean",
+          "unemp": "mean",
+          "oil_brent": "mean",
+          "commod_idx": "mean",
+          "identified_impulse": "mean"
+        },
+        "sample": {
+          "start": "1999-Q1",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "dummy",
+          "covid_window": {
+            "start": "2020-Q1",
+            "end": "2020-Q3"
+          },
+          "elb_threshold": 0.25
+        },
+        "model": {
+          "id": "panel.lp",
+          "params": {
+            "country_window": "common",
+            "first_stage": {
+              "schema_version": 1,
+              "snapshot_id": "20261024-2040",
+              "countries": ["EA"],
+              "series": [
+                {
+                  "concept_id": "policy_rate",
+                  "role": "shock",
+                  "transform": "level",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "gdp_real",
+                  "role": "endogenous",
+                  "transform": "qoq_saar",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "cpi",
+                  "role": "endogenous",
+                  "transform": "qoq_saar",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "unemp",
+                  "role": "endogenous",
+                  "transform": "level",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "oil_brent",
+                  "role": "exogenous",
+                  "transform": "log",
+                  "transform_params": {}
+                },
+                {
+                  "concept_id": "commod_idx",
+                  "role": "exogenous",
+                  "transform": "yoy_pct",
+                  "transform_params": {}
+                }
+              ],
+              "frequency": "Q",
+              "aggregation": {
+                "policy_rate": "mean",
+                "gdp_real": "mean",
+                "cpi": "mean",
+                "unemp": "mean",
+                "oil_brent": "mean",
+                "commod_idx": "mean"
+              },
+              "sample": {
+                "start": "1999-Q1",
+                "end": "latest"
+              },
+              "special_periods": {
+                "covid": "dummy",
+                "covid_window": {
+                  "start": "2020-Q1",
+                  "end": "2020-Q3"
+                },
+                "elb_threshold": 0.25
+              },
+              "model": {
+                "id": "ident.external_series",
+                "params": {
+                  "lags": 2,
+                  "trend": "c",
+                  "lag_selection": "fixed",
+                  "maxlags": 4,
+                  "exclude_window": {}
+                }
+              },
+              "identification": {
+                "id": "recursive",
+                "params": {
+                  "order": ["gdp_real", "cpi", "unemp", "policy_rate"]
+                }
+              },
+              "outputs": {
+                "confidence": 0.95,
+                "irf": {
+                  "horizon": 12,
+                  "bands": 0.68,
+                  "shock_size": 1,
+                  "method": "bootstrap",
+                  "draws": 200,
+                  "shock_mode": "one_sd"
+                }
+              },
+              "comparison": {
+                "enabled": false,
+                "identifications": [],
+                "methods": [],
+                "scenarios": []
+              },
+              "seed": 20261021
+            },
+            "horizon": 20,
+            "lags": 2,
+            "lag_augmented": true,
+            "covariance": "Driscoll-Kraay",
+            "response_mode": "cumulative_log",
+            "lag_difference_scales": {
+              "cpi": 400,
+              "gdp_real": 400
+            },
+            "sample_mode": "common",
+            "seasonal": false,
+            "shock_size": 1,
+            "growth_scale": 1,
+            "template_id": "same_ecb_shock_pooled",
+            "first_stage_source": "ecb_dfr",
+            "effects": "country",
+            "shock_type": "common"
+          }
+        },
+        "identification": null,
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": false,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "seed": 20261021
+      }
+    },
+    {
+      "id": "ea_inflation_horse_race",
+      "title": "Euro-area inflation forecast horse race",
+      "config": {
+        "schema_version": 1,
+        "snapshot_id": "20261024-2040",
+        "countries": ["EA"],
+        "frequency": "Q",
+        "series": [
+          {
+            "concept_id": "cpi",
+            "role": "endogenous",
+            "transform": "yoy_pct",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "unemp",
+            "role": "endogenous",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "rate_3m",
+            "role": "endogenous",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "gdp_real",
+            "role": "endogenous",
+            "transform": "qoq_saar",
+            "transform_params": {}
+          }
+        ],
+        "aggregation": {
+          "cpi": "mean",
+          "unemp": "mean",
+          "rate_3m": "mean",
+          "gdp_real": "mean"
+        },
+        "sample": {
+          "start": "1999-Q1",
+          "end": "latest"
+        },
+        "special_periods": {
+          "covid": "include",
+          "covid_window": {
+            "start": "2020-Q1",
+            "end": "2021-Q2"
+          },
+          "elb_threshold": 0.25
+        },
+        "model": {
+          "id": "fc.eval",
+          "params": {
+            "template_id": "ea_inflation_horse_race",
+            "evaluation_scale": "transformed",
+            "lags": 2,
+            "draws": 500,
+            "lambda": 0.2,
+            "reselect": false,
+            "horizon": 8,
+            "future_exog": "unspecified",
+            "order_selection": "aicc",
+            "p": 1,
+            "d": 1,
+            "q": 0,
+            "seasonal_p": 0,
+            "seasonal_q": 0
+          }
+        },
+        "outputs": {
+          "confidence": 0.95
+        },
+        "comparison": {
+          "enabled": false,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "seed": 20261021,
+        "identification": null
+      }
+    }
+  ],
+  "validation": {},
+  "sources": []
+}
