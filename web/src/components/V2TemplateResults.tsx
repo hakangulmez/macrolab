@@ -1,8 +1,9 @@
+import { ResultDataTable as DataTable } from "./ResultDataTable";
 import { sensitivityDisplayLabel } from "../sensitivityLabels";
 import { useContext, useEffect, useState } from "react";
 import type { AnalysisResult, Manifest } from "../types";
 import { records, strings, text, record } from "../format";
-import { Checks, DataTable, Field } from "./Common";
+import { Checks, Field } from "./Common";
 import { PanelResults } from "./PanelResults";
 import { ForecastResults } from "./ForecastResults";
 import { chartData, termLabel } from "../resultData";
@@ -231,6 +232,7 @@ export function V2TemplateResults({
                   </p>
                 )}
                 <DataTable
+                  detailsLabel="Detailed sensitivity estimates"
                   caption={`${lp ? "68% pointwise intervals" : "95% confidence intervals"} · ${text(record(record(variant.config).model).id)} · ${text(record(record(record(variant.config).model).params).covariance)}`}
                   rows={shown.map((r) => ({
                     [lp ? "Horizon" : "Term"]: lp

@@ -76,6 +76,6 @@ it("CPI-only comparison is absent from the shared PNG legend", () => {
 });
 
 it("release badge uses the build version and the selected data date", () => {
-  expect(buildVersion).toBe("v2.6.0");
+  expect(buildVersion).toBe("v2.6.1");
   expect(snapshotDate("2026-10-23")).toBe("23 Oct 2026");
 });

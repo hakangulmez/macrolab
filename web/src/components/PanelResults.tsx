@@ -1,9 +1,10 @@
+import { ResultDataTable as DataTable } from "./ResultDataTable";
 import { sensitivityDisplayLabel } from "../sensitivityLabels";
 import { useState, type ReactNode } from "react";
 import type { CountryResult, Indicator, JsonRecord, Manifest } from "../types";
 import { record, records, significant, text } from "../format";
 import { Chart } from "./Chart";
-import { Checks, DataTable, Field } from "./Common";
+import { Checks, Field } from "./Common";
 import { chartData, termLabel } from "../resultData";
 import { countryIndicators } from "../displayLabels";
 import { coefficientStars, reportedDF } from "../coefficientDisplay";
@@ -22,6 +23,7 @@ export function PanelCovarianceTable({
 }) {
   return (
     <DataTable
+      detailsLabel="Covariance sensitivity estimates"
       caption={`${lp ? "90% pointwise intervals" : `${Number(rows[0]?.confidence_level ?? 0.95) * 100}% confidence intervals`} (${label})`}
       columns={[
         lp ? "Horizon" : "Term",
@@ -234,21 +236,21 @@ export function PanelResults({
           Observations: record(samples[c]).nobs,
         }))}
       />
-      <section>
-        <h3>Fixed effects and sample details</h3>
-        {!lp && (
-          <DataTable
-            caption={`Full pooled coefficients, including COVID dummies · ${Number(coefficients[0]?.confidence_level ?? 0.95) * 100}% confidence intervals (${text(panel.covariance)})`}
-            columns={["Term", "Estimate", "Std. error", "Lower", "Upper"]}
-            rows={coefficients.map((r) => ({
-              Term: termLabel(text(r.term), manifest.indicators),
-              Estimate: r.estimate,
-              "Std. error": r.std_error,
-              Lower: r.lower,
-              Upper: r.upper,
-            }))}
-          />
-        )}
+      {!lp && (
+        <DataTable
+          caption={`Full pooled coefficients, including COVID dummies · ${Number(coefficients[0]?.confidence_level ?? 0.95) * 100}% confidence intervals (${text(panel.covariance)})`}
+          columns={["Term", "Estimate", "Std. error", "Lower", "Upper"]}
+          rows={coefficients.map((r) => ({
+            Term: termLabel(text(r.term), manifest.indicators),
+            Estimate: r.estimate,
+            "Std. error": r.std_error,
+            Lower: r.lower,
+            Upper: r.upper,
+          }))}
+        />
+      )}
+      <details>
+        <summary>Fixed effects and sample details</summary>
         <DataTable
           countries={manifest.countries}
           rows={records(panel.fixed_effect_summary)}
@@ -257,7 +259,7 @@ export function PanelResults({
           <summary>Exact country sample metadata</summary>
           <pre>{JSON.stringify(samples, null, 2)}</pre>
         </details>
-      </section>
+      </details>
       <h3>Covariance sensitivity · same point estimates</h3>
       {result.sensitivity.variants.map((variant, i) => (
         <section key={i}>

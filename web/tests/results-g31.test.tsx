@@ -160,6 +160,37 @@ const renderCountry = (compact: boolean, output: CountryResult = country) =>
   );
 
 describe("G3.1 result interpretation", () => {
+  it("keeps short descriptive rankings outside technical disclosures", () => {
+    const output = structuredClone(country);
+    output.model_id = "desc.compare";
+    delete output.irf;
+    output.test_results = [
+      {
+        country: "USA",
+        series: "policy_rate",
+        method: "mean",
+        statistic: 2,
+        rank: 1,
+      },
+      {
+        country: "CAN",
+        series: "policy_rate",
+        method: "mean",
+        statistic: 1,
+        rank: 2,
+      },
+    ];
+    const before = structuredClone(output);
+    const html = renderCountry(false, output);
+    expect(html.indexOf('data-testid="short-result-summary"')).toBeGreaterThan(
+      0,
+    );
+    expect(html.indexOf('data-testid="short-result-summary"')).toBeLessThan(
+      html.indexOf('<details class="card technical-details">'),
+    );
+    expect(html.match(/Country comparison and rankings/g)).toHaveLength(1);
+    expect(output).toEqual(before);
+  });
   it("rounds the resolved standard-deviation shock only for display", () => {
     expect(shockHeading(country.irf!, config, manifest.indicators)).toBe(
       "Policy-rate shock: +0.27 pp (one standard deviation)",
@@ -240,7 +271,7 @@ describe("G3.1 result interpretation", () => {
       "puzzle",
     );
   });
-  it("stacks all existing mobile charts and visible sensitivity cards without hiding scientific output", () => {
+  it("stacks all mobile charts and short summaries while disclosing detailed tables", () => {
     const mobile = renderCountry(true);
     const desktop = renderCountry(false);
     expect(mobile.match(/data-testid="result-chart"/g)).toHaveLength(4);
@@ -253,9 +284,11 @@ describe("G3.1 result interpretation", () => {
     expect(desktop.match(/data-testid="result-chart"/g)).toHaveLength(4);
     expect(desktop).not.toContain('data-testid="mobile-chart-selector"');
     expect(mobile).toContain(
-      "<h3>Tables, diagnostics and full method notes</h3>",
+      "<summary>Tables, diagnostics and full method notes</summary>",
     );
-    expect(mobile).toContain("<h3>Every specification and its sample</h3>");
+    expect(mobile).toContain(
+      "<summary>Every specification and its sample</summary>",
+    );
     expect(mobile).not.toContain("<summary>Variant estimates</summary>");
   });
   it("offers explicit interactive and precise bootstrap choices", () => {

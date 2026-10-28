@@ -1,3 +1,4 @@
+import { ResultDataTable as DataTable } from "./ResultDataTable";
 import { robustnessHeadlines } from "../resultFacts";
 import {
   parameterDisplayLabel,
@@ -16,7 +17,7 @@ import {
   readableCheckMessage,
   resultDisclosureChecks,
 } from "./warnings";
-import { Checks, DataTable } from "./Common";
+import { Checks } from "./Common";
 function resultName(result: AnalysisResult, manifest: Manifest) {
   const config = result.config;
   const template =

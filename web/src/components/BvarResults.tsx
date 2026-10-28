@@ -1,10 +1,11 @@
+import { ResultDataTable as DataTable } from "./ResultDataTable";
 import { useState } from "react";
 import { countryIndicators } from "../displayLabels";
 import type { CountryResult, Manifest } from "../types";
 import { record, records, significant, text, title } from "../format";
 import { chartData } from "../resultData";
 import { Chart } from "./Chart";
-import { DataTable, Field } from "./Common";
+import { Field } from "./Common";
 
 export function BvarResults({
   result,
@@ -155,8 +156,8 @@ export function BvarResults({
           }))}
         />
       )}
-      <section>
-        <h3>FEVD · posterior mean variance shares</h3>
+      <details>
+        <summary>FEVD · posterior mean variance shares</summary>
         <DataTable
           rows={(record(result.fevd).values as number[][][]).flatMap(
             (period, h) =>
@@ -172,7 +173,7 @@ export function BvarResults({
               })),
           )}
         />
-      </section>
+      </details>
     </section>
   );
 }

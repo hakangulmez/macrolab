@@ -1,3 +1,4 @@
+import { ResultDataTable as DataTable } from "./ResultDataTable";
 import { useContext, useEffect, useRef, useState } from "react";
 import { ChartExportContext } from "../chartExportContext";
 import { AnalysisRuntime, buildBundle } from "../runtime";
@@ -24,7 +25,7 @@ import { countryIndicators } from "../displayLabels";
 import { chartData, type ResultChart } from "../resultData";
 import { exportPng } from "../pngExport";
 import { Chart } from "./Chart";
-import { Checks, DataTable, Field } from "./Common";
+import { Checks, Field } from "./Common";
 
 export function MethodComparison({
   config,
@@ -270,8 +271,10 @@ export function MethodComparison({
             {rows.length}. These are descriptive counts; estimates are never
             averaged.
           </p>
-          <section>
-            <h3>Every horizon, dates, dropped periods and shock definition</h3>
+          <details>
+            <summary>
+              Every horizon, dates, dropped periods and shock definition
+            </summary>
             <DataTable rows={rows} />
             <details>
               <summary>Full comparison metadata</summary>
@@ -290,7 +293,7 @@ export function MethodComparison({
                 )}
               </pre>
             </details>
-          </section>
+          </details>
           <p className="small muted">{text(pair.note)}</p>
           <div className="row">
             <button

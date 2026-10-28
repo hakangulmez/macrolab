@@ -14,7 +14,7 @@ export function ResultSpecification({
       className="card stack specification-box"
       data-testid="specification-box"
     >
-      <h2>Specification</h2>
+      <h2>Econometric specification</h2>
       <div
         className="equation-scroll"
         tabIndex={0}

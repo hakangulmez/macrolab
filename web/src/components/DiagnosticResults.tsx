@@ -1,3 +1,4 @@
+import { ResultDataTable as DataTable } from "./ResultDataTable";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { ChartExportContext } from "../chartExportContext";
 import { diagnosticModel } from "../diagnosticModels";
@@ -5,7 +6,7 @@ import { Chart } from "./Chart";
 import { exportPng } from "../pngExport";
 import type { CountryResult, Manifest } from "../types";
 import { record, records, significant, text, title } from "../format";
-import { DataTable, Field } from "./Common";
+import { Field } from "./Common";
 import { countryIndicators } from "../displayLabels";
 import { chartData, termLabel } from "../resultData";
 const probability = (value: unknown) =>
@@ -192,8 +193,8 @@ export function DiagnosticResults({
                 caption="Adjustment speeds α · asymptotic standard errors in parentheses"
                 rows={matrix(v.alpha, v.alpha_std_error)}
               />
-              <section>
-                <h3>Short-run Γ and deterministic coefficients</h3>
+              <details>
+                <summary>Short-run Γ and deterministic coefficients</summary>
                 <DataTable
                   rows={((v.gamma ?? []) as number[][]).flatMap((row, i) =>
                     row.map((value, j) => ({
@@ -210,7 +211,7 @@ export function DiagnosticResults({
                     })),
                   )}
                 />
-              </section>
+              </details>
               <p>
                 {text(v.draws)} seeded bootstrap draws.{" "}
                 {Number(v.draws)

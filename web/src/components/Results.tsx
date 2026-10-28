@@ -1,3 +1,4 @@
+import { ResultDataTable as DataTable } from "./ResultDataTable";
 import { keyFacts } from "../resultFacts";
 import { ResultSpecification } from "./ResultSpecification";
 import { chartDisplay, resultDisplayLabel, screenText } from "../chartDisplay";
@@ -45,7 +46,7 @@ import {
   strings,
   text,
 } from "../format";
-import { Checks, DataTable, Field } from "./Common";
+import { Checks, Field } from "./Common";
 import { Chart } from "./Chart";
 import {
   chartData,
@@ -283,6 +284,17 @@ export function ResultsCountry({
   );
   const charts = chartData(result, indicators);
   const blocks = resultTableBlocks(result);
+  const shortDescriptiveTables = blocks.filter(
+    (block) =>
+      result.model_id.startsWith("desc.") &&
+      [
+        "Country comparison and rankings",
+        "Full-sample correlations",
+        "Tests, null hypotheses and effective samples",
+      ].includes(block.title) &&
+      block.rows.length <= 12 &&
+      (block.columns?.length ?? Object.keys(block.rows[0] ?? {}).length) <= 8,
+  );
   const inlineCoefficients =
     !hideCharts && charts.some((chart) => chart.coefficient)
       ? blocks.find(
@@ -716,8 +728,8 @@ export function ResultsCountry({
                         )}
                       </p>
                     )}
-                    <section className="specification-details">
-                      <h3>Every specification and its sample</h3>
+                    <details className="specification-details">
+                      <summary>Every specification and its sample</summary>
                       <div className="stack">
                         {sensitivity.variants.map((v, index) => {
                           const s = record(v.sample ?? v.actual_sample);
@@ -753,7 +765,7 @@ export function ResultsCountry({
                           );
                         })}
                       </div>
-                    </section>
+                    </details>
                   </>
                 ) : (
                   <p className="muted">
@@ -761,11 +773,11 @@ export function ResultsCountry({
                   </p>
                 )}
                 {comparison && Object.keys(lagCriteria).length > 0 && (
-                  <section className="lag-criteria-details">
-                    <h3>
+                  <details className="lag-criteria-details">
+                    <summary>
                       Lag selection · AIC {text(selectedLags.aic)} · BIC{" "}
                       {text(selectedLags.bic)} · HQIC {text(selectedLags.hqic)}
-                    </h3>
+                    </summary>
                     <p className="small">
                       {text(
                         lagCriteria.interpretation ?? lagCriteria.reason,
@@ -789,7 +801,7 @@ export function ResultsCountry({
                         }),
                       )}
                     />
-                  </section>
+                  </details>
                 )}
               </section>
               <aside className="card stack reading">
@@ -802,11 +814,29 @@ export function ResultsCountry({
               </aside>
             </div>
           )}
-          <section className="card technical-details">
-            <h3>Tables, diagnostics and full method notes</h3>
+          {shortDescriptiveTables.map((block) => (
+            <section
+              className="card stack"
+              key={block.title}
+              data-testid="short-result-summary"
+            >
+              <h3>{block.title}</h3>
+              <DataTable
+                countries={manifest.countries}
+                rows={block.rows}
+                columns={block.columns}
+              />
+            </section>
+          ))}
+          <details className="card technical-details">
+            <summary>Tables, diagnostics and full method notes</summary>
             <div className="stack">
               {blocks
-                .filter((block) => block !== inlineCoefficients)
+                .filter(
+                  (block) =>
+                    block !== inlineCoefficients &&
+                    !shortDescriptiveTables.includes(block),
+                )
                 .map((block) => (
                   <section key={block.title}>
                     <h3>{block.title}</h3>
@@ -911,7 +941,7 @@ export function ResultsCountry({
                 ))}
               </details>
             </div>
-          </section>
+          </details>
         </>
       )}
     </section>
@@ -1085,6 +1115,7 @@ export function Results({
               ))}
             </section>
           )}
+          <ResultSpecification result={result} manifest={manifest} />
           <section
             className="result-details stack"
             data-testid="result-details"
@@ -1574,7 +1605,6 @@ export function Results({
                 numbersOnly
               />
             )}
-            <ResultSpecification result={result} manifest={manifest} />
             <ResultTableView
               result={result}
               manifest={manifest}

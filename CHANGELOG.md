@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.1 — Result disclosures and econometric specification
+
+- Keep charts and controls exposed; collapse detailed tables, diagnostics and full method notes while retaining short summaries and warnings.
+- Move the existing equations, definitions and settings directly after Key facts, labelled Econometric specification.
+- Scientific calculations, runtime, data and defaults are unchanged.
+
 ## 2.6.0 — Visible scientific results
 
 - Scientific charts, coefficient tables, sensitivity and diagnostics appear in normal page flow after a run; result tabs and the outer Details gate are removed.

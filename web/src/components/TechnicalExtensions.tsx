@@ -1,3 +1,4 @@
+import { ResultDataTable as DataTable } from "./ResultDataTable";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AnalysisRuntime, buildBundle } from "../runtime";
 import type {
@@ -20,7 +21,7 @@ import {
 import { ChartExportContext } from "../chartExportContext";
 import { countryIndicators } from "../displayLabels";
 import { Chart } from "./Chart";
-import { Checks, DataTable, Field } from "./Common";
+import { Checks, Field } from "./Common";
 
 export function TechnicalExtensions({
   config,
