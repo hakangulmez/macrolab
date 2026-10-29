@@ -1,8 +1,8 @@
 {
   "snapshot_id": "20261024-2040",
   "manifest_url": "https://hakangulmez.github.io/macrolab/data/manifest.json",
-  "manifest_sha256": "cdd90f2eb036f9e8619a3ec886b166672ad51cca1d5bd3fd27db2ec860b9e069",
-  "site_commit": "f2eb4636fec22ced92eadaee7e2019738392b4d5",
+  "manifest_sha256": "d895788e8966c949a7beaad8cd6191d9bd0fb5ac4cb742488c84ea16ad4128bb",
+  "site_commit": "9edcc09f236b86f1285e8d23a9adb824c33be0c0",
   "counts": {
     "economies": 39,
     "indicators": 36,
@@ -44,58 +44,43 @@
     {
       "name": "Monetary policy",
       "question": "How do output and prices respond to a recursive US policy-rate shock?",
-      "method": "VAR · Recursive",
-      "countries": [
-        "United States"
-      ]
+      "method": "VAR \u00b7 Recursive",
+      "countries": ["United States"]
     },
     {
       "name": "Taylor rule",
       "question": "How is the policy rate associated with inflation and activity?",
-      "method": "OLS · HAC",
-      "countries": [
-        "United Kingdom"
-      ]
+      "method": "OLS \u00b7 HAC",
+      "countries": ["United Kingdom"]
     },
     {
       "name": "Phillips curve",
-      "question": "How does the inflation–unemployment relationship vary across samples?",
-      "method": "OLS · Rolling",
-      "countries": [
-        "Canada"
-      ]
+      "question": "How does the inflation\u2013unemployment relationship vary across samples?",
+      "method": "OLS \u00b7 Rolling",
+      "countries": ["Canada"]
     },
     {
       "name": "Okun's law",
       "question": "How are output growth and unemployment changes related?",
-      "method": "OLS · HAC",
-      "countries": [
-        "Spain"
-      ]
+      "method": "OLS \u00b7 HAC",
+      "countries": ["Spain"]
     },
     {
       "name": "Same ECB shock",
       "question": "How do national responses differ after the same ECB shock?",
-      "method": "Local projections · HC1",
-      "countries": [
-        "Germany",
-        "France",
-        "Italy",
-        "Spain"
-      ]
+      "method": "Local projections \u00b7 HC1",
+      "countries": ["Germany", "France", "Italy", "Spain"]
     },
     {
-      "name": "Türkiye exchange-rate pass-through",
+      "name": "T\u00fcrkiye exchange-rate pass-through",
       "question": "How much exchange-rate depreciation passes through to prices?",
-      "method": "Local projections · HC1",
-      "countries": [
-        "Türkiye"
-      ]
+      "method": "Local projections \u00b7 HC1",
+      "countries": ["T\u00fcrkiye"]
     },
     {
-      "name": "Euro-area Phillips curve · pooled",
-      "question": "What inflation–slack relationship emerges when euro-area countries are pooled?",
-      "method": "Panel FE · Driscoll–Kraay",
+      "name": "Euro-area Phillips curve \u00b7 pooled",
+      "question": "What inflation\u2013slack relationship emerges when euro-area countries are pooled?",
+      "method": "Panel FE \u00b7 Driscoll\u2013Kraay",
       "countries": [
         "Austria",
         "Belgium",
@@ -111,32 +96,32 @@
       ]
     },
     {
-      "name": "Same ECB shock · pooled",
+      "name": "Same ECB shock \u00b7 pooled",
       "question": "What is the pooled response to the same ECB shock?",
-      "method": "Panel LP · Driscoll–Kraay",
-      "countries": [
-        "Germany",
-        "France",
-        "Italy",
-        "Spain"
-      ]
+      "method": "Panel LP \u00b7 Driscoll\u2013Kraay",
+      "countries": ["Germany", "France", "Italy", "Spain"]
     },
     {
       "name": "Euro-area inflation forecast horse race",
       "question": "Which model predicts euro-area inflation most accurately in expanding-window evaluation?",
-      "method": "Forecast · RW, AR, ARIMA, BVAR",
-      "countries": [
-        "Euro area"
-      ]
+      "method": "Forecast \u00b7 RW, AR, ARIMA, BVAR",
+      "countries": ["Euro area"]
     }
   ],
   "current_build_verification": {
-    "version": "2.5.0",
+    "version": "2.6.4",
     "snapshot_id": "20261024-2040",
     "manifest_sha256": "d895788e8966c949a7beaad8cd6191d9bd0fb5ac4cb742488c84ea16ad4128bb",
-    "source_site_tree_sha256": "baa34e5551271ca2369dd8f862c018133ac74b38be68d8fde4b70c06fd83e6f2",
+    "source_site_tree_sha256": "1386f2fc69c5a9d15e8f99561db1c3ad379b491869b2b4ed7d8029d72ccba747",
     "counts_unchanged": true,
     "runtime_version": "2.0.0",
-    "application_wheel_sha256": "a719d9f1dfdb8c7224c227ecde95d1ed4d43fd4d45bba2cfb6c28e311db88a57"
+    "application_wheel_sha256": "a719d9f1dfdb8c7224c227ecde95d1ed4d43fd4d45bba2cfb6c28e311db88a57",
+    "verified": "2026-10-29",
+    "source_commit": "a0ac8013046f13e2b16b1e664ec8e881e1a8c3e8",
+    "site_commit": "9edcc09f236b86f1285e8d23a9adb824c33be0c0"
+  },
+  "initial_count_verification": {
+    "manifest_sha256": "cdd90f2eb036f9e8619a3ec886b166672ad51cca1d5bd3fd27db2ec860b9e069",
+    "site_commit": "f2eb4636fec22ced92eadaee7e2019738392b4d5"
   }
 }

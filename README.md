@@ -2,126 +2,144 @@
 
 Version 2.6.4.
 
-Official macroeconomic data and validated econometrics in the browser, with assumptions, data gaps and sensitivity visible.
+Explore official macroeconomic data and econometric models in your browser. For students, researchers and teaching, with assumptions and data gaps in view.
 
-[Live app](https://hakangulmez.github.io/macrolab/) · [Documentation / Methods](https://hakangulmez.github.io/macrolab/#methods) · [Data licences](DATA.md)
+[Open MacroLab](https://hakangulmez.github.io/macrolab/) · [Methods and documentation](https://hakangulmez.github.io/macrolab/#methods) · [Data licences](DATA.md)
+
+## Build an analysis
+
+Choose your **outcome variable → explanatory variables → model → country or countries**, then select **Run analysis**. The variable labels adapt to forecasts, systems and shock analysis.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/builder-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/builder-light.webp">
+  <img src="docs/images/builder-light.webp" alt="MacroLab v2.6.4: the outcome, explanatory variables, model and country on one screen, with Simple and Advanced controls." width="1440">
+</picture>
+
+**Simple** keeps sample and technical settings collapsed. **Advanced** opens those same settings and preserves your choices. You can also start from one of **9 reviewed templates** or the five question types on Explore.
+
+The first analysis may take a few extra seconds while the browser prepares the calculation engine. No account is required.
+
+## What you can do
+
+<!-- Counts verified against the shipped manifest; provenance in docs/README_MANIFEST.json. -->
+
+- Explore **39 economies × 36 indicators**: 33 national concepts and 3 shared global factors. Coverage, gaps and official source citations stay attached to each series.
+- Use **25 validated methods in 8 families**, from descriptive analysis and regression to panel models, shock analysis and forecasting.
+- Inspect charts, estimates, intervals and the **Econometric specification**. Longer tables, sensitivity checks and technical notes open when needed.
+- Take a selected series from Data into comparison, stationarity tests or regression. Missing inputs remain visible and block execution.
+- Export **CSV, PNG, LaTeX tables and reproducible Python scripts**. Use either light or dark mode.
+
+Calculations run locally through **Pyodide**, using the bundled snapshot. The published app does not request new data from providers or send your analysis to an analysis server.
+
+## Results at a glance
+
+### Inflation and unemployment
+
+Canada's Phillips template places the observed relationship beside the coefficient interval and descriptive robustness summary. The line is the existing OLS fit; the relationship is an association, not a causal estimate.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/workspace-current-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/workspace-current-light.webp">
+  <img src="docs/images/workspace-current-light.webp" alt="Canada's Phillips relationship in v2.6.4, with the baseline coefficient interval and descriptive robustness summary beside the chart." width="1440">
+</picture>
+
+### One ECB shock, country responses
+
+Run **Same ECB shock · pooled**, then choose **Spain** in the overlay selector. The pooled and country responses use identical estimation dates. The panel band is conditional on the estimated shock and omits first-stage shock-estimation uncertainty.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/ecb-current-dark.webp">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/ecb-current-light.webp">
+  <img src="docs/images/ecb-current-light.webp" alt="MacroLab v2.6.4 pooled ECB HICP response with Spain selected, chart controls and the conditional-band caveat." width="1440">
+</picture>
+
+These featured captures show the published v2.6.4 interface. Images follow your colour-scheme preference. [Capture versions, provenance and image sizes](docs/images/README.md).
+
+<details>
+<summary>More screenshots: data, forecasting and mobile</summary>
+
+The earlier captures below retain their original version labels: Home and Data are from v2.5.0; the result views are from v2.6.0. They use the same accepted data snapshot.
+
+### Explore the snapshot
+
+Home compares inflation across economies. In Data, Germany's HICP cell shows its observations, coverage and source citation together.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/home-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/home-light.webp">
-  <img src="docs/images/home-light.webp" alt="MacroLab Home: inflation across economies and snapshot statistics, version 2.5.0." width="1440" height="1200">
+  <img src="docs/images/home-light.webp" alt="MacroLab v2.5.0 Home with inflation across economies and snapshot statistics." width="1440">
 </picture>
-
-## What it does
-
-<!-- Counts verified against the shipped manifest; provenance in docs/README_MANIFEST.json. -->
-
-- Explore **39 economies × 36 indicators** (33 national + 3 global factors), with every gap visible in the dataset explorer. Relationship scatters show the recorded sample and existing fitted line.
-- Use **25 validated methods in 8 families**, from descriptive analysis to panel models and forecasting.
-- Start from **9 templates**, five questions on Explore, or a **single-page custom analysis**: choose the variable of interest, other variables, the econometric model and countries. The labels adapt to regression, forecasts and shock analysis. **Simple** keeps sample and technical settings collapsed; **Advanced** opens those same settings without changing the configuration. The complete method guide remains available.
-- Run entirely in the browser through **Pyodide**, with no account or analysis server. The published app uses a bundled snapshot and does not request new data from providers.
-- Carry a selected series and its display transform from Data into comparison, unit-root tests or regression, or open it in Advanced. Missing inputs and incomplete choices stay visible and block execution. Export results to **CSV, PNG, LaTeX tables and reproducible Python scripts**.
-- See scientific **charts and short result tables directly after running**. **Key facts** are followed by the **Econometric specification**, then relationship scatters, coefficient intervals and response curves. Warnings, units and concise samples stay visible; whole specification-sensitivity, covariance-sensitivity and detailed-evidence sections open through keyboard-accessible disclosures. Primary test results stay exposed, and opening sections never refits a model. The research workspace places the original principal chart beside its baseline estimate and descriptive robustness summary. Supporting charts stay visible in responsive grids, coefficient identifiers come first, and short coefficient tables retain every field as labelled mobile records. Every row and export remains available.
-
-## Who it's for
-
-MacroLab is for researchers and students exploring macroeconomic relationships,
-for teaching familiar methods, and for checking how results depend on samples
-and assumptions. It supports research exploration and robustness checks; it does
-not replace a study's identification strategy or expert judgement.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/workspace-dark.webp">
-  <source media="(prefers-color-scheme: light)" srcset="docs/images/workspace-light.webp">
-  <img src="docs/images/workspace-light.webp" alt="MacroLab v2.6.3 research workspace: Canada's Phillips relationship beside the coefficient interval and descriptive robustness summary." width="1440" height="1296">
-</picture>
-
-## How results are validated
-
-Calculations are cross-checked against reference implementations and independent
-formulas, with stated tolerances. Simulations examine bias and interval coverage;
-frozen native/browser regressions and export checks detect unintended changes.
-Passing these checks does not validate an economic interpretation. See
-[how methods are validated](docs/VALIDATION.md) and the [method guide](docs/METHODS.md).
-
-## Screenshots
-
-The research-workspace preview above shows a real local v2.6.3 result. The earlier gallery below shows real states of the local v2.6.0 build; unchanged Home and Data images retain their v2.5.0 captures. Desktop images switch with your colour-scheme preference. [Capture provenance and image sizes](docs/images/README.md).
-
-### Dataset explorer
-
-Germany's HICP cell is selected; its observations, coverage and source citation are shown together.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/dataset-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/dataset-light.webp">
-  <img src="docs/images/dataset-light.webp" alt="Dataset explorer with Germany's HICP cell selected, coverage matrix and official source citation." width="1440" height="2253">
-</picture>
-
-### Same ECB shock · pooled
-
-Pooled and country responses use identical estimation dates. Sensitivity and the conditional-band caveat remain alongside the chart.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/ecb-pooled-dark.webp">
-  <source media="(prefers-color-scheme: light)" srcset="docs/images/ecb-pooled-light.webp">
-  <img src="docs/images/ecb-pooled-light.webp" alt="Pooled ECB shock result: HICP response, Germany overlay, actual sample and sensitivity." width="1440" height="1700">
+  <img src="docs/images/dataset-light.webp" alt="MacroLab v2.5.0 dataset explorer with Germany's HICP cell selected and its official source citation." width="1440">
 </picture>
 
 ### Türkiye exchange-rate pass-through
 
-The cumulative CPI-to-NEER response ratio is the headline measure; it is a conditional association, not a causal estimate.
+The cumulative CPI-to-NEER response ratio is the headline measure. It is a conditional association, not a causal estimate.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/turkiye-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/turkiye-light.webp">
-  <img src="docs/images/turkiye-light.webp" alt="Türkiye pass-through result with the cumulative price-to-exchange-rate response ratio and sensitivity." width="1440" height="1700">
+  <img src="docs/images/turkiye-light.webp" alt="MacroLab v2.6.0 Türkiye pass-through result, showing the cumulative response ratio and sensitivity." width="1440">
 </picture>
 
-### Euro-area inflation forecast horse race
+### Compare forecasting models
 
-Forecast errors are shown by target date; RMSE by horizon compares each model with the random-walk benchmark. Actual-versus-forecast paths, forecast errors, horizon metrics and crisis-period sensitivity are visible on the result page.
+Euro-area inflation forecasts are evaluated against a random-walk benchmark. RMSE by horizon compares models on matched forecast origins within each horizon; this uses final-vintage data and is not a claim about future performance.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/horse-race-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/horse-race-light.webp">
-  <img src="docs/images/horse-race-light.webp" alt="Euro-area inflation evaluation: Key facts, forecast errors against the random walk, and crisis sensitivities." width="1440" height="1700">
+  <img src="docs/images/horse-race-light.webp" alt="MacroLab v2.6.0 euro-area inflation evaluation with forecast errors and crisis sensitivities." width="1440">
 </picture>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/horse-race-rmse-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/horse-race-rmse-light.webp">
-  <img src="docs/images/horse-race-rmse-light.webp" alt="Inflation forecast RMSE at horizons 1, 4 and 8, with proportional spacing and a dashed random-walk reference." width="1440" height="800">
+  <img src="docs/images/horse-race-rmse-light.webp" alt="Inflation forecast RMSE at horizons 1, 4 and 8, with a dashed random-walk reference, captured in v2.6.0." width="1440">
 </picture>
 
-### Phillips relationship
+### Additional Phillips view
 
-Canada's observed inflation and unemployment pairs use the actual estimation sample. The line comes from the existing regression; the scatter does not estimate a new model or establish causation.
+Canada's recorded inflation and unemployment observations, split before and after 2020, with the existing fitted line.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/phillips-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/phillips-light.webp">
-  <img src="docs/images/phillips-light.webp" alt="Canada Phillips relationship scatter, with observations before and after 2020 and the existing OLS line." width="1440" height="1700">
+  <img src="docs/images/phillips-light.webp" alt="Canada's Phillips relationship in v2.6.0; the scatter uses the actual estimation sample and does not establish causation." width="1440">
 </picture>
 
 ### Mobile
 
-Home and the pooled ECB result at 375 px, also available in both themes.
+Home at 375 CSS pixels (v2.5.0):
 
-<table>
-  <tr>
-    <td><picture>
+<picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/home-mobile-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/home-mobile-light.webp">
-  <img src="docs/images/home-mobile-light.webp" alt="MacroLab Home at 375 px: inflation chart and snapshot statistics." width="375" height="2000">
-</picture></td>
-    <td><picture>
+  <img src="docs/images/home-mobile-light.webp" alt="MacroLab v2.5.0 Home at 375 CSS pixels." width="280">
+</picture>
+
+Pooled ECB result at 375 CSS pixels (v2.6.0):
+
+<picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/ecb-pooled-mobile-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset="docs/images/ecb-pooled-mobile-light.webp">
-  <img src="docs/images/ecb-pooled-mobile-light.webp" alt="Pooled ECB response at 375 px, with the sample and conditional-band caveat." width="375" height="2000">
-</picture></td>
-  </tr>
-</table>
+  <img src="docs/images/ecb-pooled-mobile-light.webp" alt="MacroLab v2.6.0 pooled ECB result at 375 CSS pixels, including the conditional-band caveat." width="280">
+</picture>
+
+</details>
+
+## Who it's for
+
+MacroLab supports research exploration, teaching and checks of how results depend on samples and assumptions. It does not replace a study's identification strategy or expert judgement.
+
+## How results are validated
+
+Calculations are cross-checked against reference implementations and independent formulas, with stated tolerances. Simulations examine bias and interval coverage; frozen native/browser regressions and export checks detect unintended changes. Passing these checks does not validate an economic interpretation. See [method validation](docs/VALIDATION.md) and the [method guide](docs/METHODS.md).
 
 ## Templates
 
@@ -165,12 +183,9 @@ MacroLab is a **non-commercial research and teaching tool**. Source revisions an
 
 ## Limitations and roadmap
 
-Shock identification is currently recursive: the ordering supplies the
-contemporaneous restrictions. MacroLab does not include high-frequency or
-external-instrument shock series such as EA-MPD; adding one requires separate
-approval of a new data source. The bundled data are a fixed snapshot, not a live
-feed. Double/debiased machine learning for shock identification is planned and
-is not an available method or a substitute for identification assumptions.
+Shock identification is currently recursive: the ordering supplies the contemporaneous restrictions. MacroLab does not include high-frequency or external-instrument shock series such as EA-MPD. The bundled data are a fixed snapshot, not a live feed.
+
+A future extension under consideration is an LLM-based view of monthly hawkish/dovish signals in ECB, Fed and other central-bank communications. It is not available in this release; communication scores would not by themselves identify monetary-policy shocks.
 
 ## Run locally and reproduce
 
