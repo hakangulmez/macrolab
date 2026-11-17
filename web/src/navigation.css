@@ -10,6 +10,10 @@
 .site-nav {
   flex-wrap: nowrap;
 }
+.site-nav--reports button,
+.site-nav--timeline button {
+  white-space: nowrap;
+}
 .explore-reference-links {
   margin-top: 12px;
 }
@@ -79,6 +83,16 @@
   .site-nav button {
     font-size: 14px;
     padding: 8px 14px;
+  }
+  .site-nav--reports,
+  .site-nav--timeline {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .site-nav--reports button,
+  .site-nav--timeline button {
+    font-size: 13px;
+    padding-inline: 10px;
   }
   .method-browser {
     padding: 16px;

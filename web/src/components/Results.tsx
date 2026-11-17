@@ -33,6 +33,7 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
+
 import { ChartExportContext } from "../chartExportContext";
 import type {
   AnalysisConfig,
@@ -77,6 +78,13 @@ import { getTemplateSources, type AnalysisRuntime } from "../runtime";
 import { CountryComparison } from "./CountryComparison";
 import { PanelResults, PanelCovarianceTable } from "./PanelResults";
 import { MethodComparison } from "./MethodComparison";
+const ReportTimeline = import.meta.env.MACROLAB_TIMELINE_ENABLED
+  ? lazy(() =>
+      import("./ReportTimeline").then((module) => ({
+        default: module.ReportTimeline,
+      })),
+    )
+  : null;
 const RelationshipViews = lazy(() =>
   import("./AdditionalViews").then((m) => ({ default: m.RelationshipViews })),
 );
@@ -1717,6 +1725,11 @@ export function Results({
                 />
               </details>
             </section>
+            {ReportTimeline && (
+              <Suspense fallback={null}>
+                <ReportTimeline key={result.config_hash} result={result} />
+              </Suspense>
+            )}
           </section>
         </Fragment>
       </ChartExportContext.Provider>

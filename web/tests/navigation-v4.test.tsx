@@ -55,6 +55,19 @@ describe("navigation compatibility", () => {
     expect(screenHash("library")).toBe("models");
     expect(screenHash("methods")).toBe("about");
   });
+  it("opens the report workspace from its own direct link", () => {
+    expect(routeFromHash(`#${screenHash("reports")}`)).toEqual({
+      screen: "reports",
+      methodsOpen: false,
+    });
+  });
+  it("opens the economic timeline directly without routing through Build", () => {
+    expect(screenHash("timeline")).toBe("timeline");
+    expect(routeFromHash("#timeline")).toEqual({
+      screen: "timeline",
+      methodsOpen: false,
+    });
+  });
 });
 describe("recent result configurations", () => {
   it("keeps five exact configurations, deduplicates reruns, and does not mutate inputs", () => {

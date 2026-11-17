@@ -25,7 +25,7 @@ export function routeFromHash(hash: string): Route | null {
     ].includes(name)
   )
     return { screen: "methods", methodsOpen: false };
-  if (["data", "catalogue", "results"].includes(name))
+  if (["data", "catalogue", "results", "reports", "timeline"].includes(name))
     return { screen: name as Screen, methodsOpen: false };
   // In-page anchors (including Skip to content) do not change screens.
   return null;

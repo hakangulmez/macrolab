@@ -1,0 +1,283 @@
+.report-context {
+  margin-top: 24px;
+  padding: clamp(18px, 3vw, 32px);
+  min-width: 0;
+  overflow: hidden;
+}
+.report-context-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+.report-context-eyebrow {
+  color: var(--blue);
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin: 0 0 9px;
+}
+.report-context h1,
+.report-context h2 {
+  margin: 0;
+  font-size: clamp(23px, 2.6vw, 30px);
+  letter-spacing: -0.035em;
+}
+.report-context-intro {
+  margin: 9px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.report-context-pilot {
+  flex-shrink: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  padding: 6px 10px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.report-context-scope,
+.report-context-topics,
+.report-context-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.report-context-scope {
+  gap: 8px 18px;
+  padding: 18px 0;
+  color: var(--text);
+  font-size: 12px;
+}
+.report-context-topics {
+  margin-bottom: 16px;
+}
+.report-context-topics button,
+.report-context-modes button,
+.report-context-expand {
+  min-height: 36px;
+  padding: 7px 12px;
+  font-size: 12px;
+}
+.report-context-topics button[aria-pressed="true"] {
+  color: var(--blue);
+  border-color: var(--blue);
+  background: var(--blue-tint);
+}
+.report-context-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+.report-context-modes button[aria-pressed="true"] {
+  color: var(--blue);
+  border-color: var(--blue);
+  background: var(--blue-tint);
+}
+.report-context-filters {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 0.7fr 1.8fr;
+  gap: 12px;
+  margin: 8px 0 16px;
+}
+.report-context-filters label {
+  min-width: 0;
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.report-context-filters select,
+.report-context-filters input {
+  width: 100%;
+  min-width: 0;
+  min-height: 40px;
+}
+.report-context-reset {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+.report-context-list > .report-context-year-label {
+  display: block;
+  padding: 8px 0 20px 118px;
+}
+.report-context-year-label h2,
+.report-context-year-label h3 {
+  margin: 0;
+  font-size: 22px;
+  font-family: var(--mono);
+}
+.report-context-list > .report-context-year-label::before,
+.report-context-list > .report-context-year-label::after {
+  display: none;
+}
+.report-context-note > .report-context-reference {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+.report-context-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 0 0 18px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border-strong);
+}
+.report-context-toolbar > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.report-context-year-picker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+.report-context-year-picker select {
+  width: auto;
+  min-width: 128px;
+}
+.report-context-expand {
+  margin: 0 0 24px;
+}
+.report-context-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.report-context-list > li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  column-gap: 28px;
+  padding-bottom: 24px;
+}
+.report-context-list > li::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: -8px;
+  left: 103px;
+  width: 1px;
+  background: var(--border-strong);
+}
+.report-context-list > li:last-child::before {
+  bottom: 24px;
+}
+.report-context-list > li::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 100px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 4px var(--surface);
+}
+.report-context-list time {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 12px;
+  padding-top: 2px;
+}
+.report-context-meta {
+  gap: 10px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.report-context-institution {
+  font-weight: 700;
+  color: var(--blue);
+}
+.report-context-institution.oecd {
+  color: var(--green);
+}
+.report-context-note h2,
+.report-context-note h3,
+.report-context-note h4 {
+  color: var(--ink);
+  font-size: 17px;
+  margin: 7px 0 8px;
+  line-height: 1.35;
+}
+.report-context-note > p {
+  margin: 0;
+  max-width: 85ch;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.report-context-note details {
+  margin-top: 12px;
+  font-size: 12px;
+}
+.report-context-note summary {
+  color: var(--blue);
+  cursor: pointer;
+}
+.report-context-note blockquote {
+  margin: 14px 0;
+  border-left: 2px solid var(--border-strong);
+  padding: 0 0 0 14px;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.report-context-note a {
+  overflow-wrap: anywhere;
+}
+.report-context-date-source {
+  display: block;
+  margin-top: 12px;
+}
+.report-context-source-meta {
+  color: var(--muted);
+  font-size: 11px;
+}
+.report-context-cutoff,
+.report-context-footnote {
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.report-context-footnote {
+  border-top: 1px solid var(--border);
+  margin: 0;
+  padding-top: 16px;
+}
+@media (max-width: 600px) {
+  .report-context-filters {
+    grid-template-columns: 1fr 1fr;
+  }
+  .report-context-search {
+    grid-column: 1 / -1;
+  }
+  .report-context-list > .report-context-year-label {
+    padding-left: 18px;
+  }
+  .report-context-heading {
+    display: block;
+  }
+  .report-context-pilot {
+    display: inline-block;
+    margin-top: 12px;
+  }
+  .report-context-list > li {
+    grid-template-columns: minmax(0, 1fr);
+    padding-left: 18px;
+    gap: 10px;
+  }
+  .report-context-list > li::before {
+    left: 1px;
+  }
+  .report-context-list > li::after {
+    left: -2px;
+  }
+}

@@ -4,6 +4,18 @@ import { describe, expect, it, vi } from "vitest";
 import { App } from "../src/App";
 
 describe("G3 application boot", () => {
+  it("keeps the experimental reports route closed when no backend is enabled", () => {
+    if (import.meta.env.MACROLAB_REPORTS_PATH) return;
+    vi.stubGlobal("location", { hash: "#reports", search: "" });
+    try {
+      const markup = renderToStaticMarkup(<App />);
+      expect(markup).toContain("Preparing your workspace");
+      expect(markup).not.toContain("Ask the reports");
+      expect(markup).not.toContain('data-testid="nav-reports"');
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
   it("renders labelled navigation and honest pending state before local assets load", () => {
     const fetch = vi.spyOn(globalThis, "fetch");
     try {
@@ -16,6 +28,12 @@ describe("G3 application boot", () => {
       }
       expect(markup).not.toContain('data-testid="nav-library"');
       expect(markup).not.toContain('data-testid="nav-results"');
+      expect(markup.includes('data-testid="nav-reports"')).toBe(
+        Boolean(import.meta.env.MACROLAB_REPORTS_PATH),
+      );
+      expect(markup.includes('data-testid="nav-timeline"')).toBe(
+        Boolean(import.meta.env.MACROLAB_TIMELINE_ENABLED),
+      );
       expect(markup).toContain(">About</button>");
       expect(markup).toContain("Preparing your workspace");
       expect(markup).toContain(`${buildVersion} · Data snapshot …`);

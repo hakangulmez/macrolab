@@ -1,6 +1,6 @@
 # MacroLab
 
-Version 2.6.4.
+Version 2.7.0.
 
 Explore official macroeconomic data and econometric models in your browser. For students, researchers and teaching, with assumptions and data gaps in view.
 
@@ -29,6 +29,7 @@ The first analysis may take a few extra seconds while the browser prepares the c
 - Inspect charts, estimates, intervals and the **Econometric specification**. Longer tables, sensitivity checks and technical notes open when needed.
 - Take a selected series from Data into comparison, stationarity tests or regression. Missing inputs remain visible and block execution.
 - Export **CSV, PNG, LaTeX tables and reproducible Python scripts**. Use either light or dark mode.
+- Browse **Economic timeline** without running an analysis: 801 selected report notes across all 39 economies, with country, year and topic filters, original quotations and official source links. [Coverage and source notes](docs/ECONOMIC_TIMELINE.md).
 
 Calculations run locally through **Pyodide**, using the bundled snapshot. The published app does not request new data from providers or send your analysis to an analysis server.
 
@@ -54,7 +55,7 @@ Run **Same ECB shock · pooled**, then choose **Spain** in the overlay selector.
   <img src="docs/images/ecb-current-light.webp" alt="MacroLab v2.6.4 pooled ECB HICP response with Spain selected, chart controls and the conditional-band caveat." width="1440">
 </picture>
 
-These featured captures show the published v2.6.4 interface. Images follow your colour-scheme preference. [Capture versions, provenance and image sizes](docs/images/README.md).
+These featured captures retain their v2.6.4 labels; the analysis interface is unchanged in v2.7.0. Images follow your colour-scheme preference. [Capture versions, provenance and image sizes](docs/images/README.md).
 
 <details>
 <summary>More screenshots: data, forecasting and mobile</summary>
@@ -206,7 +207,7 @@ For a self-contained calculation, download the result's **Python script**, follo
 
 ## Citation
 
-Hakan Zeki Gülmez (2026). _MacroLab_, version 2.6.4. https://github.com/hakangulmez/macrolab.
+Hakan Zeki Gülmez (2026). _MacroLab_, version 2.7.0. https://github.com/hakangulmez/macrolab.
 
 Machine-readable citation: [CITATION.cff](CITATION.cff). No DOI has been assigned.
 

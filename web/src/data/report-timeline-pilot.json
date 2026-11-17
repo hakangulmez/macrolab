@@ -1,0 +1,573 @@
+{
+  "coverage": {
+    "start": "2009-01-14",
+    "end": "2026-11-02",
+    "documents": 675,
+    "chunks": 31236,
+    "country": "USA",
+    "scope": "Selected source-backed notes, not an exhaustive economic history.",
+    "preparation": "Curated from the existing frozen corpus; no model inference or paid API calls."
+  },
+  "notes": [
+    {
+      "id": "note-01",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "title": "A risk of inflation remaining too low",
+      "summary": "The Committee saw a risk that inflation could remain below rates consistent with longer-run growth and price stability.",
+      "publishedOn": "2009-01-28",
+      "eventOn": "2009-01-28",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2009-01-28",
+        "url": "https://www.federalreserve.gov/newsevents/press/monetary/20090128a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2009.htm",
+        "documentId": "fed-statement-20090128",
+        "chunkId": "fed-statement-20090128:v1:00001",
+        "section": "Policy statement",
+        "quote": "Moreover, the Committee sees some risk that inflation could persist for a time below rates that best foster economic growth and price stability in the longer term."
+      }
+    },
+    {
+      "id": "note-02",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "title": "Underlying inflation trended lower",
+      "summary": "The Committee expected subdued inflation while substantial economic slack continued to restrain cost pressures.",
+      "publishedOn": "2010-08-10",
+      "eventOn": "2010-08-10",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2010-08-10",
+        "url": "https://www.federalreserve.gov/newsevents/press/monetary/20100810a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2010.htm",
+        "documentId": "fed-statement-20100810",
+        "chunkId": "fed-statement-20100810:v1:00001",
+        "section": "Policy statement",
+        "quote": "Measures of underlying inflation have trended lower in recent quarters and, with substantial resource slack continuing to restrain cost pressures and longer-term inflation expectations stable, inflation is likely to be subdued for some time."
+      }
+    },
+    {
+      "id": "note-03",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "title": "Inflation moderated as commodity prices eased",
+      "summary": "The Committee reported that inflation had moderated as energy and some commodity prices declined from earlier peaks.",
+      "publishedOn": "2011-08-09",
+      "eventOn": "2011-08-09",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2011-08-09",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20110809a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2011.htm",
+        "documentId": "fed-statement-20110809",
+        "chunkId": "fed-statement-20110809:v1:00001",
+        "section": "Policy statement",
+        "quote": "More recently, inflation has moderated as prices of energy and some commodities have declined from their earlier peaks."
+      }
+    },
+    {
+      "id": "note-04",
+      "country": "USA",
+      "topics": ["inflation", "policy_rate"],
+      "kind": "Guidance",
+      "title": "Low-rate guidance extended into late 2014",
+      "summary": "The Committee kept the range at 0–0.25% and anticipated that economic conditions would likely warrant exceptionally low rates at least through late 2014.",
+      "publishedOn": "2012-01-25",
+      "eventOn": "2012-01-25",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2012-01-25",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20120125a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2012.htm",
+        "documentId": "fed-statement-20120125",
+        "chunkId": "fed-statement-20120125:v1:00001",
+        "section": "Policy statement",
+        "quote": "In particular, the Committee decided today to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that economic conditions--including low rates of resource utilization and a subdued outlook for inflation over the medium run--are likely to warrant exceptionally low levels for the federal funds rate at least through late 2014."
+      }
+    },
+    {
+      "id": "note-05",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "title": "Asset-purchase pace reduced",
+      "summary": "Citing progress toward maximum employment and an improved labour-market outlook, the Committee decided to reduce its asset-purchase pace.",
+      "publishedOn": "2013-12-18",
+      "eventOn": "2013-12-18",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2013-12-18",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20131218a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2013.htm",
+        "documentId": "fed-statement-20131218",
+        "chunkId": "fed-statement-20131218:v1:00001",
+        "section": "Policy statement",
+        "quote": "In light of the cumulative progress toward maximum employment and the improvement in the outlook for labor market conditions, the Committee decided to modestly reduce the pace of its asset purchases."
+      }
+    },
+    {
+      "id": "note-06",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "title": "Asset-purchase programme concluded",
+      "summary": "The Committee decided to conclude its asset-purchase programme that month. This was a balance-sheet decision, not a rate increase.",
+      "publishedOn": "2014-10-29",
+      "eventOn": "2014-10-29",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2014-10-29",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20141029a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2014.htm",
+        "documentId": "fed-statement-20141029",
+        "chunkId": "fed-statement-20141029:v1:00002",
+        "section": "Policy statement",
+        "quote": "Accordingly, the Committee decided to conclude its asset purchase program this month."
+      }
+    },
+    {
+      "id": "note-07",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "title": "Rate range raised to 0.25–0.50%",
+      "summary": "The Committee raised the federal funds target range to 0.25–0.50%.",
+      "publishedOn": "2015-12-16",
+      "eventOn": "2015-12-16",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2015-12-16",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20151216a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2015.htm",
+        "documentId": "fed-statement-20151216",
+        "chunkId": "fed-statement-20151216:v1:00002",
+        "section": "Policy statement",
+        "quote": "Given the economic outlook, and recognizing the time it takes for policy actions to affect future economic outcomes, the Committee decided to raise the target range for the federal funds rate to 1/4 to 1/2 percent."
+      }
+    },
+    {
+      "id": "note-08",
+      "country": "USA",
+      "topics": ["inflation", "policy_rate"],
+      "kind": "Decision",
+      "title": "Rate range raised to 0.50–0.75%",
+      "summary": "The Committee raised the federal funds target range to 0.50–0.75%, referring to realised and expected labour-market conditions and inflation.",
+      "publishedOn": "2016-12-14",
+      "eventOn": "2016-12-14",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2016-12-14",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20161214a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20161214a.htm",
+        "documentId": "fed-statement-20161214",
+        "chunkId": "fed-statement-20161214:v1:00001",
+        "section": "Policy statement",
+        "quote": "In view of realized and expected labor market conditions and inflation, the Committee decided to raise the target range for the federal funds rate to 1/2 to 3/4 percent."
+      }
+    },
+    {
+      "id": "note-09",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "title": "Headline and core inflation remained below 2%",
+      "summary": "The statement reported that both headline inflation and inflation excluding food and energy had declined during the year and were below 2%.",
+      "publishedOn": "2017-12-13",
+      "eventOn": "2017-12-13",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2017-12-13",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20171213a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20171213a.htm",
+        "documentId": "fed-statement-20171213",
+        "chunkId": "fed-statement-20171213:v1:00001",
+        "section": "Policy statement",
+        "quote": "On a 12-month basis, both overall inflation and inflation for items other than food and energy have declined this year and are running below 2 percent."
+      }
+    },
+    {
+      "id": "note-10",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "title": "Rate range raised to 2.25–2.50%",
+      "summary": "The Committee raised the federal funds target range to 2.25–2.50%.",
+      "publishedOn": "2018-12-19",
+      "eventOn": "2018-12-19",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2018-12-19",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20181219a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20181219a.htm",
+        "documentId": "fed-statement-20181219",
+        "chunkId": "fed-statement-20181219:v1:00001",
+        "section": "Policy statement",
+        "quote": "In view of realized and expected labor market conditions and inflation, the Committee decided to raise the target range for the federal funds rate to 2-1/4 to 2‑1/2 percent."
+      }
+    },
+    {
+      "id": "note-11",
+      "country": "USA",
+      "topics": ["inflation", "policy_rate"],
+      "kind": "Decision",
+      "title": "Rate range lowered amid muted inflation",
+      "summary": "The Committee lowered the range to 2.00–2.25%, citing global developments and muted inflation pressures.",
+      "publishedOn": "2019-07-31",
+      "eventOn": "2019-07-31",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2019-07-31",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20190731a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20190731a.htm",
+        "documentId": "fed-statement-20190731",
+        "chunkId": "fed-statement-20190731:v1:00001",
+        "section": "Policy statement",
+        "quote": "In light of the implications of global developments for the economic outlook as well as muted inflation pressures, the Committee decided to lower the target range for the federal funds rate to 2 to 2-1/4 percent."
+      }
+    },
+    {
+      "id": "note-12",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "title": "Emergency cut to 0–0.25%",
+      "summary": "The Committee lowered the federal funds target range to 0–0.25%.",
+      "publishedOn": "2020-03-15",
+      "eventOn": "2020-03-15",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2020-03-15",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20200315a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20200315a.htm",
+        "documentId": "fed-statement-20200315",
+        "chunkId": "fed-statement-20200315:v1:00001",
+        "section": "Policy statement",
+        "quote": "In light of these developments, the Committee decided to lower the target range for the federal funds rate to 0 to 1/4 percent."
+      }
+    },
+    {
+      "id": "note-13",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "title": "Weak demand and oil prices held inflation down",
+      "summary": "The Committee reported that weaker demand and earlier oil-price declines were holding down consumer-price inflation.",
+      "publishedOn": "2020-12-16",
+      "eventOn": "2020-12-16",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2020-12-16",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20201216a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20201216a.htm",
+        "documentId": "fed-statement-20201216",
+        "chunkId": "fed-statement-20201216:v1:00001",
+        "section": "Policy statement",
+        "quote": "Weaker demand and earlier declines in oil prices have been holding down consumer price inflation."
+      }
+    },
+    {
+      "id": "note-14",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Forecast",
+      "title": "Supply constraints expected to lift inflation temporarily",
+      "summary": "Fed staff expected production bottlenecks and supply constraints to temporarily boost inflation in 2021. This was a forecast, not a realised outcome.",
+      "publishedOn": "2021-04-07",
+      "eventOn": "2021-03-17",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2021-03-17",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20210317.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+        "documentId": "fed-minutes-20210317",
+        "chunkId": "fed-minutes-20210317:v2:00023",
+        "section": "Staff Economic Outlook",
+        "quote": "In addition, inflation was forecast to be temporarily boosted this year by the expected emergence of some production bottlenecks and supply constraints."
+      }
+    },
+    {
+      "id": "note-15",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "title": "Transitory factors remained the assessment",
+      "summary": "The Committee described inflation as elevated, largely reflecting factors it expected to be transitory.",
+      "publishedOn": "2021-11-03",
+      "eventOn": "2021-11-03",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2021-11-03",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20211103a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20211103a.htm",
+        "documentId": "fed-statement-20211103",
+        "chunkId": "fed-statement-20211103:v1:00001",
+        "section": "Policy statement",
+        "quote": "Inflation is elevated, largely reflecting factors that are expected to be transitory."
+      }
+    },
+    {
+      "id": "note-16",
+      "country": "USA",
+      "topics": ["inflation", "policy_rate"],
+      "kind": "Decision",
+      "title": "Asset-purchase reductions accelerated",
+      "summary": "The Committee decided to reduce the monthly purchase pace by $20 billion for Treasuries and $10 billion for agency mortgage-backed securities.",
+      "publishedOn": "2021-12-15",
+      "eventOn": "2021-12-15",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2021-12-15",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20211215a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20211215a.htm",
+        "documentId": "fed-statement-20211215",
+        "chunkId": "fed-statement-20211215:v1:00002",
+        "section": "Policy statement",
+        "quote": "In light of inflation developments and the further improvement in the labor market, the Committee decided to reduce the monthly pace of its net asset purchases by $20 billion for Treasury securities and $10 billion for agency mortgage-backed securities."
+      }
+    },
+    {
+      "id": "note-17",
+      "country": "USA",
+      "topics": ["inflation", "policy_rate"],
+      "kind": "Decision",
+      "title": "Rate range raised to 0.25–0.50%",
+      "summary": "The Committee raised the range to 0.25–0.50% and anticipated that ongoing increases would be appropriate. The anticipated path was guidance, not a completed future decision.",
+      "publishedOn": "2022-03-16",
+      "eventOn": "2022-03-16",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2022-03-16",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220316a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220316a.htm",
+        "documentId": "fed-statement-20220316",
+        "chunkId": "fed-statement-20220316:v1:00001",
+        "section": "Policy statement",
+        "quote": "In support of these goals, the Committee decided to raise the target range for the federal funds rate to 1/4 to 1/2 percent and anticipates that ongoing increases in the target range will be appropriate."
+      }
+    },
+    {
+      "id": "note-18",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "title": "Rate range raised to 2.25–2.50%",
+      "summary": "The Committee raised the range to 2.25–2.50% and anticipated that further increases would be appropriate.",
+      "publishedOn": "2022-07-27",
+      "eventOn": "2022-07-27",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2022-07-27",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220727a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220727a.htm",
+        "documentId": "fed-statement-20220727",
+        "chunkId": "fed-statement-20220727:v1:00001",
+        "section": "Policy statement",
+        "quote": "In support of these goals, the Committee decided to raise the target range for the federal funds rate to 2-1/4 to 2-1/2 percent and anticipates that ongoing increases in the target range will be appropriate."
+      }
+    },
+    {
+      "id": "note-19",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Forecast",
+      "title": "US core inflation projected to ease in 2023",
+      "summary": "The OECD projected US core inflation, measured with the private-consumption deflator, at around 3% on average in 2023 and around 2.75% at year-end. These were projections.",
+      "publishedOn": "2022-09-26",
+      "eventOn": null,
+      "source": {
+        "institution": "OECD",
+        "title": "OECD Economic Outlook, Interim Report September 2022",
+        "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/09/oecd-economic-outlook-interim-report-september-2022_76a917c4/ae8c39ec-en.pdf#page=13",
+        "publicationEvidenceUrl": "https://doi.org/10.1787/ae8c39ec-en",
+        "documentId": "10.1787/ae8c39ec-en",
+        "chunkId": "10.1787/ae8c39ec-en:v2:00014",
+        "section": "Paying the Price of War > Global growth is projected to weaken further in 2023 with inflation easing gradually",
+        "quote": "US core inflation (based on the private consumption deflator) is projected to average around 3% in 2023 (Table 3), and to be around 2¾ per cent by the end of the year."
+      }
+    },
+    {
+      "id": "note-20",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "title": "Rate range raised to 5.25–5.50%",
+      "summary": "The Committee raised the federal funds target range to 5.25–5.50%.",
+      "publishedOn": "2023-07-26",
+      "eventOn": "2023-07-26",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2023-07-26",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20230726a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20230726a.htm",
+        "documentId": "fed-statement-20230726",
+        "chunkId": "fed-statement-20230726:v1:00001",
+        "section": "Policy statement",
+        "quote": "In support of these goals, the Committee decided to raise the target range for the federal funds rate to 5-1/4 to 5-1/2 percent."
+      }
+    },
+    {
+      "id": "note-21",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "title": "Rate range held at 5.25–5.50%",
+      "summary": "The Committee maintained the federal funds target range at 5.25–5.50%.",
+      "publishedOn": "2023-09-20",
+      "eventOn": "2023-09-20",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2023-09-20",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20230920a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20230920a.htm",
+        "documentId": "fed-statement-20230920",
+        "chunkId": "fed-statement-20230920:v1:00001",
+        "section": "Policy statement",
+        "quote": "In support of these goals, the Committee decided to maintain the target range for the federal funds rate at 5-1/4 to 5-1/2 percent."
+      }
+    },
+    {
+      "id": "note-22",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "title": "Modest further progress on inflation",
+      "summary": "The Committee reported modest further progress toward its 2% inflation objective in recent months.",
+      "publishedOn": "2024-06-12",
+      "eventOn": "2024-06-12",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2024-06-12",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240612a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240612a.htm",
+        "documentId": "fed-statement-20240612",
+        "chunkId": "fed-statement-20240612:v1:00001",
+        "section": "Policy statement",
+        "quote": "In recent months, there has been modest further progress toward the Committee's 2 percent inflation objective."
+      }
+    },
+    {
+      "id": "note-23",
+      "country": "USA",
+      "topics": ["inflation", "policy_rate"],
+      "kind": "Decision",
+      "title": "Half-point reduction to 4.75–5.00%",
+      "summary": "Citing inflation progress and the balance of risks, the Committee cut the range by 0.50 percentage points to 4.75–5.00%.",
+      "publishedOn": "2024-09-18",
+      "eventOn": "2024-09-18",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2024-09-18",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240918a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240918a.htm",
+        "documentId": "fed-statement-20240918",
+        "chunkId": "fed-statement-20240918:v1:00001",
+        "section": "Policy statement",
+        "quote": "In light of the progress on inflation and the balance of risks, the Committee decided to lower the target range for the federal funds rate by 1/2 percentage point to 4-3/4 to 5 percent."
+      }
+    },
+    {
+      "id": "note-24",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Forecast",
+      "title": "Core inflation projected above target under tariff assumptions",
+      "summary": "The OECD projected US core inflation above target in 2026. The projection assumed additional 25-percentage-point tariffs on almost all US–Canada and US–Mexico merchandise imports from April.",
+      "publishedOn": "2025-03-17",
+      "eventOn": null,
+      "source": {
+        "institution": "OECD",
+        "title": "OECD Economic Outlook, Interim Report March 2025",
+        "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/03/oecd-economic-outlook-interim-report-march-2025_47a36021/89af4857-en.pdf#page=6",
+        "publicationEvidenceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook-interim-report-march-2025_89af4857-en.html",
+        "documentId": "10.1787/89af4857-en",
+        "chunkId": "10.1787/89af4857-en:v2:00005",
+        "section": "Summary",
+        "quote": "Core inflation is now projected to remain above central bank targets in many countries in 2026, including the United States. These projections are based on an assumption that bilateral tariffs between Canada and the United States and between Mexico and the United States are raised by an additional 25 percentage points on almost all merchandise imports from April."
+      }
+    },
+    {
+      "id": "note-25",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "title": "Quarter-point reduction to 3.50–3.75%",
+      "summary": "The Committee lowered the range by 0.25 percentage points to 3.50–3.75%, citing a shift in the balance of risks.",
+      "publishedOn": "2025-12-10",
+      "eventOn": "2025-12-10",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2025-12-10",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20251210a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20251210a.htm",
+        "documentId": "fed-statement-20251210",
+        "chunkId": "fed-statement-20251210:v1:00001",
+        "section": "Policy statement",
+        "quote": "In support of its goals and in light of the shift in the balance of risks, the Committee decided to lower the target range for the federal funds rate by 1/4 percentage point to 3-1/2 to 3‑3/4 percent."
+      }
+    },
+    {
+      "id": "note-26",
+      "country": "USA",
+      "topics": ["inflation", "policy_rate"],
+      "kind": "Forecast",
+      "title": "OECD projected US rates unchanged through 2027",
+      "summary": "The OECD projected unchanged US policy rates through the rest of 2026 and 2027, reflecting its inflation and growth outlook. This was a conditional projection.",
+      "publishedOn": "2026-03-26",
+      "eventOn": null,
+      "source": {
+        "institution": "OECD",
+        "title": "OECD Economic Outlook, Interim Report March 2026",
+        "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/03/oecd-economic-outlook-interim-report-march-2026_254a8d56/d4623013-en.pdf#page=24",
+        "publicationEvidenceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook-interim-report-march-2026_d4623013-en.html",
+        "documentId": "10.1787/d4623013-en",
+        "chunkId": "10.1787/d4623013-en:v2:00033",
+        "section": "Testing resilience > Policy requirements > Monetary policy should remain vigilant",
+        "quote": "In the United States, policy rates are projected to remain unchanged through the remainder of 2026 and 2027, reflecting rising headline inflation in the near-term, core inflation projected to remain above target through 2027, and solid projected GDP growth (Figure 13)."
+      }
+    },
+    {
+      "id": "note-27",
+      "country": "USA",
+      "topics": ["inflation", "policy_rate"],
+      "kind": "Forecast",
+      "title": "OECD projected one further US rate increase",
+      "summary": "The OECD projected one further increase in the fourth quarter of 2026, followed by a 4.00–4.25% range through 2027. This was an outlook, not an announced Fed decision.",
+      "publishedOn": "2026-09-23",
+      "eventOn": null,
+      "source": {
+        "institution": "OECD",
+        "title": "OECD Economic Outlook, Interim Report September 2026",
+        "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/09/oecd-economic-outlook-interim-report-september-2026_8312492f/f751d02b-en.pdf#page=21",
+        "publicationEvidenceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook-interim-report-september-2026_f751d02b-en.html",
+        "documentId": "10.1787/f751d02b-en",
+        "chunkId": "10.1787/f751d02b-en:v2:00032",
+        "section": "Policy requirements > Further monetary policy rate adjustments may be needed",
+        "quote": "In the United States, one further policy rate increase is projected in the fourth quarter of 2026, with the federal funds target range then remaining unchanged at 4-4¼ per cent through 2027, reflecting continued inflationary pressures and solid projected GDP growth (Figure 11)."
+      }
+    },
+    {
+      "id": "note-28",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "title": "Rate range held at 3.75–4.00%",
+      "summary": "The Committee maintained the federal funds target range at 3.75–4.00%.",
+      "publishedOn": "2026-10-28",
+      "eventOn": "2026-10-28",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2026-10-28",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+        "documentId": "fed-statement-20261028",
+        "chunkId": "fed-statement-20261028:v1:00001",
+        "section": "Policy statement",
+        "quote": "The Federal Open Market Committee approved the following statement for release by a 10 – 2 vote: The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate."
+      }
+    }
+  ]
+}

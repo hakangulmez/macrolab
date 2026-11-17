@@ -1,0 +1,1013 @@
+{
+  "review": {
+    "status": "local_preview_pending_user_review",
+    "reviewedOn": "2026-11-17",
+    "source": "Preserved Qwen9B V2 candidates, editorially checked against original source chunks.",
+    "publicationDates": "Only day-verified dates; no event-date substitutions.",
+    "historicalVintageVerified": false,
+    "originalNotesPreserved": 28,
+    "additionalNotes": 29
+  },
+  "notes": [
+    {
+      "id": "reviewed-c01p01-v2-n03",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "actor": "FOMC",
+      "title": "Committee maintains federal funds rate at 0 to 1/4 percent",
+      "summary": "The Committee decides to keep the target range for the federal funds rate at 0 to 1/4 percent.",
+      "publishedOn": "2009-03-18",
+      "eventOn": "2009-03-18",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2009-03-18",
+        "url": "https://www.federalreserve.gov/newsevents/press/monetary/20090318a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2009.htm",
+        "documentId": "fed-statement-20090318",
+        "chunkId": "fed-statement-20090318:v1:00001",
+        "section": "Policy statement",
+        "quote": "The Committee will maintain the target range for the federal funds rate at 0 to 1/4 percent and anticipates that economic conditions are likely to warrant exceptionally low levels of the federal funds rate for an extended period.",
+        "passages": [
+          {
+            "chunkId": "fed-statement-20090318:v1:00001",
+            "quote": "The Committee will maintain the target range for the federal funds rate at 0 to 1/4 percent and anticipates that economic conditions are likely to warrant exceptionally low levels of the federal funds rate for an extended period.",
+            "url": "https://www.federalreserve.gov/newsevents/press/monetary/20090318a.htm",
+            "section": "Policy statement",
+            "start": 1153,
+            "end": 1382,
+            "sourceTextSha256": "619a58b9a4e194d92de368f62108602d6ad30d340149e5eb9fc82c6d0f2304da"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c02p01-v2-n01",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Forecast",
+      "actor": "FOMC",
+      "title": "Fed anticipates inflation running at or below 2% objective",
+      "summary": "The Committee anticipates medium-term inflation likely running at or below its 2 percent objective, noting subdued recent inflation despite commodity price increases.",
+      "publishedOn": "2012-09-13",
+      "eventOn": "2012-09-13",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2012-09-13",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20120913a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2012.htm",
+        "documentId": "fed-statement-20120913",
+        "chunkId": "fed-statement-20120913:v1:00001",
+        "section": "Policy statement",
+        "quote": "Inflation has been subdued, although the prices of some key commodities have increased recently.",
+        "passages": [
+          {
+            "chunkId": "fed-statement-20120913:v1:00001",
+            "quote": "Inflation has been subdued, although the prices of some key commodities have increased recently.",
+            "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20120913a.htm",
+            "section": "Policy statement",
+            "start": 452,
+            "end": 548,
+            "sourceTextSha256": "15aa07788a73c2b46bca92a0f439a2cb2d9e00b525ef76752d2ae49de4bc90c2"
+          },
+          {
+            "chunkId": "fed-statement-20120913:v1:00001",
+            "quote": "The Committee also anticipates that inflation over the medium term likely would run at or below its 2 percent objective.",
+            "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20120913a.htm",
+            "section": "Policy statement",
+            "start": 1009,
+            "end": 1129,
+            "sourceTextSha256": "15aa07788a73c2b46bca92a0f439a2cb2d9e00b525ef76752d2ae49de4bc90c2"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c02p01-v2-n03",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "actor": "FOMC",
+      "title": "Rate range held; low-rate guidance extended to mid-2015",
+      "summary": "The Committee kept the target range at 0–0.25%. It anticipated that exceptionally low rates were likely to be warranted at least through mid-2015.",
+      "publishedOn": "2012-09-13",
+      "eventOn": "2012-09-13",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2012-09-13",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20120913a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2012.htm",
+        "documentId": "fed-statement-20120913",
+        "chunkId": "fed-statement-20120913:v1:00002",
+        "section": "Policy statement",
+        "quote": "In particular, the Committee also decided today to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that exceptionally low levels for the federal funds rate are likely to be warranted at least through mid-2015.",
+        "passages": [
+          {
+            "chunkId": "fed-statement-20120913:v1:00002",
+            "quote": "In particular, the Committee also decided today to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that exceptionally low levels for the federal funds rate are likely to be warranted at least through mid-2015.",
+            "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20120913a.htm",
+            "section": "Policy statement",
+            "start": 1145,
+            "end": 1401,
+            "sourceTextSha256": "04c2ea45dbf577114fc63b53fd4261f08c34ae2bd0be18af432d748c77beee87"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c03p01-v2-n02",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "actor": "Fed staff",
+      "title": "Core PCE inflation remained near very low levels despite a slight January uptick",
+      "summary": "The core PCE price index rose slightly in January due to core goods, but the 12-month change stayed near very low levels seen in late 2010.",
+      "publishedOn": "2011-04-05",
+      "eventOn": "2011-03-15",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2011-03-15",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20110315.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2011.htm",
+        "documentId": "fed-minutes-20110315",
+        "chunkId": "fed-minutes-20110315:v2:00009",
+        "section": "Staff Review of the Economic Situation",
+        "quote": "The price index for PCE excluding food and energy (the core PCE price index) rose slightly in January, boosted by an uptick in prices of core goods after four months of declines; the 12-month change in this core price index stayed near the very low levels seen in late 2010.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20110315:v2:00009",
+            "quote": "The price index for PCE excluding food and energy (the core PCE price index) rose slightly in January, boosted by an uptick in prices of core goods after four months of declines; the 12-month change in this core price index stayed near the very low levels seen in late 2010.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20110315.htm",
+            "section": "Staff Review of the Economic Situation",
+            "start": 1075,
+            "end": 1349,
+            "sourceTextSha256": "afab3d7818f84b77f740c66b6bf86e65fb1e9c2a5a3f5f538b96181b07bb80bf"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c03p01-v2-n03",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "actor": "Fed staff",
+      "title": "Household near-term inflation expectations rose",
+      "summary": "The staff review reported a substantial rise in households’ near-term inflation expectations in early March, likely because of higher gasoline prices. Longer-term expectations remained within their recent range.",
+      "publishedOn": "2011-04-05",
+      "eventOn": "2011-03-15",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2011-03-15",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20110315.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2011.htm",
+        "documentId": "fed-minutes-20110315",
+        "chunkId": "fed-minutes-20110315:v2:00010",
+        "section": "Staff Review of the Economic Situation",
+        "quote": "According to the Thomson Reuters/University of Michigan Surveys of Consumers, households' near-term inflation expectations increased substantially in early March, likely because of the run-up in gasoline prices; longer-term inflation expectations moved up somewhat in the early March survey but were still within the range that prevailed over the preceding few years.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20110315:v2:00010",
+            "quote": "According to the Thomson Reuters/University of Michigan Surveys of Consumers, households' near-term inflation expectations increased substantially in early March, likely because of the run-up in gasoline prices; longer-term inflation expectations moved up somewhat in the early March survey but were still within the range that prevailed over the preceding few years.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20110315.htm",
+            "section": "Staff Review of the Economic Situation",
+            "start": 0,
+            "end": 367,
+            "sourceTextSha256": "09034b09deb8e8a11028c2df2e198f3cd4dd0e5077d7845a8b841ef16d0bf7dc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c03p02-v2-n01",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Forecast",
+      "actor": "Fed staff",
+      "title": "Staff raised its near-term inflation projection",
+      "summary": "Fed staff revised up its near-term consumer price inflation projection, largely because of recent increases in energy and food prices.",
+      "publishedOn": "2011-04-05",
+      "eventOn": "2011-03-15",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2011-03-15",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20110315.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2011.htm",
+        "documentId": "fed-minutes-20110315",
+        "chunkId": "fed-minutes-20110315:v2:00017",
+        "section": "Staff Economic Outlook",
+        "quote": "The staff revised up its projection for consumer price inflation in the near term, largely because of the recent increases in the prices of energy and food.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20110315:v2:00017",
+            "quote": "The staff revised up its projection for consumer price inflation in the near term, largely because of the recent increases in the prices of energy and food.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20110315.htm",
+            "section": "Staff Economic Outlook",
+            "start": 1296,
+            "end": 1452,
+            "sourceTextSha256": "d8f50ca8df5af6a688ebc6d99cccdd66ccc7a12adc17fc9c3df918ccc163afc3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c03p04-v2-n01",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "actor": "FOMC",
+      "title": "Treasury purchase programme reaffirmed",
+      "summary": "The Committee maintained principal reinvestment and reaffirmed its intention to purchase $600 billion of longer-term Treasuries by the end of Q2 2011.",
+      "publishedOn": "2011-04-05",
+      "eventOn": "2011-03-15",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2011-03-15",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20110315.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2011.htm",
+        "documentId": "fed-minutes-20110315",
+        "chunkId": "fed-minutes-20110315:v2:00027",
+        "section": "Committee Policy Action",
+        "quote": "Specifically, the Committee maintained its existing policy of reinvesting principal payments from its securities holdings and reaffirmed its intention to purchase $600 billion of longer-term Treasury securities by the end of the second quarter of 2011.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20110315:v2:00027",
+            "quote": "Specifically, the Committee maintained its existing policy of reinvesting principal payments from its securities holdings and reaffirmed its intention to purchase $600 billion of longer-term Treasury securities by the end of the second quarter of 2011.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20110315.htm",
+            "section": "Committee Policy Action",
+            "start": 1372,
+            "end": 1624,
+            "sourceTextSha256": "92606ba5594aecedb5ccd4221cada36d76f571db2086e5e0b31b103f461996f1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c04p01-v2-n01",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "actor": "Fed staff",
+      "title": "US inflation running below 2 percent target",
+      "summary": "Staff review noted total and core PCE inflation were running below 2 percent in May, with June data suggesting similar pace.",
+      "publishedOn": "2017-08-16",
+      "eventOn": "2017-07-26",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2017-07-26",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+        "documentId": "fed-minutes-20170726",
+        "chunkId": "fed-minutes-20170726:v2:00006",
+        "section": "Staff Review of the Economic Situation",
+        "quote": "The 12-month change in overall consumer prices, as measured by the price index for personal consumption expenditures (PCE), slowed again in May; both total consumer price inflation and core inflation, which excludes consumer food and energy prices, were running below 2 percent.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20170726:v2:00006",
+            "quote": "The 12-month change in overall consumer prices, as measured by the price index for personal consumption expenditures (PCE), slowed again in May; both total consumer price inflation and core inflation, which excludes consumer food and energy prices, were running below 2 percent.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+            "section": "Staff Review of the Economic Situation",
+            "start": 245,
+            "end": 523,
+            "sourceTextSha256": "f5ee0be599415b4ca28b53f60e363e4d96944ab98116d818fb4433de6bd3e08f"
+          },
+          {
+            "chunkId": "fed-minutes-20170726:v2:00006",
+            "quote": "Data from the consumer and producer price indexes for June suggested that both total and core PCE price inflation (on a 12-month change basis) remained at a pace similar to that seen in the previous month.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+            "section": "Staff Review of the Economic Situation",
+            "start": 524,
+            "end": 729,
+            "sourceTextSha256": "f5ee0be599415b4ca28b53f60e363e4d96944ab98116d818fb4433de6bd3e08f"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c04p02-v2-n01",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Forecast",
+      "actor": "Fed staff",
+      "title": "Staff projected PCE inflation at 2% in 2019",
+      "summary": "After revising its 2017 PCE inflation forecast down slightly, Fed staff still projected inflation near the longer-run objective in 2018 and at 2% in 2019.",
+      "publishedOn": "2017-08-16",
+      "eventOn": "2017-07-26",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2017-07-26",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+        "documentId": "fed-minutes-20170726",
+        "chunkId": "fed-minutes-20170726:v2:00016",
+        "section": "Staff Economic Outlook",
+        "quote": "The staff's forecast for consumer price inflation, as measured by the change in the PCE price index, was revised down slightly for 2017 in response to weaker-than-expected incoming data for inflation.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20170726:v2:00016",
+            "quote": "The staff's forecast for consumer price inflation, as measured by the change in the PCE price index, was revised down slightly for 2017 in response to weaker-than-expected incoming data for inflation.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+            "section": "Staff Economic Outlook",
+            "start": 1043,
+            "end": 1243,
+            "sourceTextSha256": "cfabbe81195536620f3548aacc5d931efdb43dd13508444f53287bc84c64a828"
+          },
+          {
+            "chunkId": "fed-minutes-20170726:v2:00016",
+            "quote": "As a result, inflation this year was expected to be similar in magnitude to last year, with an upturn in the prices for food and non-energy imports offset by a slower increase in core PCE prices and weaker energy prices.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+            "section": "Staff Economic Outlook",
+            "start": 1244,
+            "end": 1464,
+            "sourceTextSha256": "cfabbe81195536620f3548aacc5d931efdb43dd13508444f53287bc84c64a828"
+          },
+          {
+            "chunkId": "fed-minutes-20170726:v2:00017",
+            "quote": "The staff continued to project that inflation would increase in the next couple of years and that it would be close to the Committee's longer-run objective in 2018 and at 2 percent in 2019.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+            "section": "Staff Economic Outlook",
+            "start": 137,
+            "end": 326,
+            "sourceTextSha256": "ea73fa06517ef42c29f29d0a5ef8eb4746aa9733c15a5165863ca8c60e60c24f"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c04p02-v2-n03",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Risk",
+      "actor": "Fed staff",
+      "title": "Staff judged inflation risks broadly balanced",
+      "summary": "Fed staff weighed downside risks, including persistent soft inflation readings, against a possible upside surprise in an economy projected to operate above potential.",
+      "publishedOn": "2017-08-16",
+      "eventOn": "2017-07-26",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2017-07-26",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+        "documentId": "fed-minutes-20170726",
+        "chunkId": "fed-minutes-20170726:v2:00017",
+        "section": "Staff Economic Outlook",
+        "quote": "The risks to the projection for inflation also were seen as balanced.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20170726:v2:00017",
+            "quote": "The risks to the projection for inflation also were seen as balanced.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+            "section": "Staff Economic Outlook",
+            "start": 890,
+            "end": 959,
+            "sourceTextSha256": "ea73fa06517ef42c29f29d0a5ef8eb4746aa9733c15a5165863ca8c60e60c24f"
+          },
+          {
+            "chunkId": "fed-minutes-20170726:v2:00017",
+            "quote": "Downside risks included the possibilities that longer-term inflation expectations may have edged down, that the dollar could appreciate substantially, or that the recent run of soft inflation readings could prove to be more persistent than the staff expected.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+            "section": "Staff Economic Outlook",
+            "start": 960,
+            "end": 1219,
+            "sourceTextSha256": "ea73fa06517ef42c29f29d0a5ef8eb4746aa9733c15a5165863ca8c60e60c24f"
+          },
+          {
+            "chunkId": "fed-minutes-20170726:v2:00017",
+            "quote": "These downside risks were seen as essentially counterbalanced by the upside risk that inflation could increase more than expected in an economy that was projected to continue operating above its longer-run potential.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+            "section": "Staff Economic Outlook",
+            "start": 1220,
+            "end": 1436,
+            "sourceTextSha256": "ea73fa06517ef42c29f29d0a5ef8eb4746aa9733c15a5165863ca8c60e60c24f"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c04p03-v2-n01",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Decision",
+      "actor": "FOMC",
+      "title": "Committee maintains federal funds rate target range at 1 to 1-1/4 percent",
+      "summary": "FOMC members decided to keep the federal funds rate target range unchanged at 1 to 1-1/4 percent after assessing economic conditions and inflation data.",
+      "publishedOn": "2017-08-16",
+      "eventOn": "2017-07-26",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2017-07-26",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+        "documentId": "fed-minutes-20170726",
+        "chunkId": "fed-minutes-20170726:v2:00029",
+        "section": "Committee Policy Action",
+        "quote": "After assessing current conditions and the outlook for economic activity, the labor market, and inflation, members decided to maintain the target range for the federal funds rate at 1 to 1-1/4 percent.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20170726:v2:00029",
+            "quote": "After assessing current conditions and the outlook for economic activity, the labor market, and inflation, members decided to maintain the target range for the federal funds rate at 1 to 1-1/4 percent.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+            "section": "Committee Policy Action",
+            "start": 1417,
+            "end": 1618,
+            "sourceTextSha256": "1a822f92a4b6f81839bed0d0d17ba75805ecae5338280a3757dcfab530b5bbd7"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c04p03-v2-n03",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Guidance",
+      "actor": "FOMC",
+      "title": "Committee to monitor slowing inflation closely",
+      "summary": "Committee members agreed to keep monitoring inflation closely in light of the recent slowing, while judging near-term economic risks roughly balanced.",
+      "publishedOn": "2017-08-16",
+      "eventOn": "2017-07-26",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2017-07-26",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+        "documentId": "fed-minutes-20170726",
+        "chunkId": "fed-minutes-20170726:v2:00029",
+        "section": "Committee Policy Action",
+        "quote": "Members saw the near-term risks to the economic outlook as roughly balanced, but, in light of their concern about the recent slowing in inflation, they agreed to continue to monitor inflation developments closely.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20170726:v2:00029",
+            "quote": "Members saw the near-term risks to the economic outlook as roughly balanced, but, in light of their concern about the recent slowing in inflation, they agreed to continue to monitor inflation developments closely.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+            "section": "Committee Policy Action",
+            "start": 1203,
+            "end": 1416,
+            "sourceTextSha256": "1a822f92a4b6f81839bed0d0d17ba75805ecae5338280a3757dcfab530b5bbd7"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c04p04-v2-n02",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Forecast",
+      "actor": "FOMC",
+      "title": "Committee expected inflation to return toward 2%",
+      "summary": "Committee members expected 12-month inflation to stay somewhat below 2% in the near term, then stabilize around the 2% objective over the medium term.",
+      "publishedOn": "2017-08-16",
+      "eventOn": "2017-07-26",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2017-07-26",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+        "documentId": "fed-minutes-20170726",
+        "chunkId": "fed-minutes-20170726:v2:00029",
+        "section": "Committee Policy Action",
+        "quote": "Inflation on a 12‑month basis was expected to remain somewhat below 2 percent in the near term but to stabilize around the Committee's 2 percent objective over the medium term.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20170726:v2:00029",
+            "quote": "Inflation on a 12‑month basis was expected to remain somewhat below 2 percent in the near term but to stabilize around the Committee's 2 percent objective over the medium term.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+            "section": "Committee Policy Action",
+            "start": 1026,
+            "end": 1202,
+            "sourceTextSha256": "1a822f92a4b6f81839bed0d0d17ba75805ecae5338280a3757dcfab530b5bbd7"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c04p04-v2-n03",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Guidance",
+      "actor": "FOMC",
+      "title": "Balance-sheet normalization planned, subject to the outlook",
+      "summary": "The Committee intended to begin balance-sheet normalization relatively soon, provided the economy evolved broadly as anticipated.",
+      "publishedOn": "2017-08-16",
+      "eventOn": "2017-07-26",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2017-07-26",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2017.htm",
+        "documentId": "fed-minutes-20170726",
+        "chunkId": "fed-minutes-20170726:v2:00031",
+        "section": "Committee Policy Action",
+        "quote": "They updated the postmeeting statement to indicate that while the Committee was, for the time being, maintaining its existing reinvestment policy, it intended to begin implementing the balance sheet normalization program relatively soon, provided that the economy evolved broadly as anticipated.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20170726:v2:00031",
+            "quote": "They updated the postmeeting statement to indicate that while the Committee was, for the time being, maintaining its existing reinvestment policy, it intended to begin implementing the balance sheet normalization program relatively soon, provided that the economy evolved broadly as anticipated.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+            "section": "Committee Policy Action",
+            "start": 0,
+            "end": 295,
+            "sourceTextSha256": "98cb37f99bfed60cb45cd7cc0c52447f64dabd9230bbb1f89a8f2df7143c0711"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c05p02-v2-n01",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "actor": "Beige Book contacts",
+      "title": "Contacts reported minimal price pressures",
+      "summary": "The Beige Book reported that overall price pressures remained minimal in a majority of Districts during the reporting period.",
+      "publishedOn": "2013-04-17",
+      "eventOn": null,
+      "source": {
+        "institution": "Fed",
+        "title": "Beige Book — 2013-04-17",
+        "url": "https://www.federalreserve.gov/monetarypolicy/beigebook/beigebook201304.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/beigebook2013.htm",
+        "documentId": "fed-beige-2013-04-17",
+        "chunkId": "fed-beige-2013-04-17:v1:00014",
+        "section": "Summary of Commentary on Current Economic Conditions by Federal Reserve District",
+        "quote": "The majority of Districts said overall price pressures remained minimal during the reporting period.",
+        "passages": [
+          {
+            "chunkId": "fed-beige-2013-04-17:v1:00014",
+            "quote": "The majority of Districts said overall price pressures remained minimal during the reporting period.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/beigebook/beigebook201304.htm",
+            "section": "Summary of Commentary on Current Economic Conditions by Federal Reserve District",
+            "start": 0,
+            "end": 100,
+            "sourceTextSha256": "b2b34d8aab80abdd61f3a964263918b54c19f3e80156a3907257cbd1b149791c"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c05p02-v2-n02",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "actor": "Beige Book contacts",
+      "title": "Modest wage pressures, with sector exceptions",
+      "summary": "The Beige Book reported fairly modest upward wage pressures overall, with exceptions in sectors experiencing labour shortages.",
+      "publishedOn": "2013-04-17",
+      "eventOn": null,
+      "source": {
+        "institution": "Fed",
+        "title": "Beige Book — 2013-04-17",
+        "url": "https://www.federalreserve.gov/monetarypolicy/beigebook/beigebook201304.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/beigebook2013.htm",
+        "documentId": "fed-beige-2013-04-17",
+        "chunkId": "fed-beige-2013-04-17:v1:00013",
+        "section": "Summary of Commentary on Current Economic Conditions by Federal Reserve District",
+        "quote": "Overall upward wage pressures continued to be fairly modest.",
+        "passages": [
+          {
+            "chunkId": "fed-beige-2013-04-17:v1:00013",
+            "quote": "Overall upward wage pressures continued to be fairly modest.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/beigebook/beigebook201304.htm",
+            "section": "Summary of Commentary on Current Economic Conditions by Federal Reserve District",
+            "start": 1097,
+            "end": 1157,
+            "sourceTextSha256": "3aa77f7399369d3673202cf377d81137d14f534f92e0093a1bc567a30b5566e4"
+          },
+          {
+            "chunkId": "fed-beige-2013-04-17:v1:00013",
+            "quote": "Several Districts reported wage pressures in sectors experiencing labor shortages, such as information technology, construction, and engineering.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/beigebook/beigebook201304.htm",
+            "section": "Summary of Commentary on Current Economic Conditions by Federal Reserve District",
+            "start": 1196,
+            "end": 1341,
+            "sourceTextSha256": "3aa77f7399369d3673202cf377d81137d14f534f92e0093a1bc567a30b5566e4"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c05p02-v2-n03",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "actor": "Beige Book contacts",
+      "title": "Limited reported pass-through of construction costs",
+      "summary": "Several Districts reported rising prices for some construction materials, but few reports of pass-through to final prices.",
+      "publishedOn": "2013-04-17",
+      "eventOn": null,
+      "source": {
+        "institution": "Fed",
+        "title": "Beige Book — 2013-04-17",
+        "url": "https://www.federalreserve.gov/monetarypolicy/beigebook/beigebook201304.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/beigebook2013.htm",
+        "documentId": "fed-beige-2013-04-17",
+        "chunkId": "fed-beige-2013-04-17:v1:00014",
+        "section": "Summary of Commentary on Current Economic Conditions by Federal Reserve District",
+        "quote": "Several Districts, including Boston, Philadelphia, Cleveland, Minneapolis, Kansas City, and San Francisco, said prices for some construction materials rose since the last report, but there were few reports of pass-through.",
+        "passages": [
+          {
+            "chunkId": "fed-beige-2013-04-17:v1:00014",
+            "quote": "Several Districts, including Boston, Philadelphia, Cleveland, Minneapolis, Kansas City, and San Francisco, said prices for some construction materials rose since the last report, but there were few reports of pass-through.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/beigebook/beigebook201304.htm",
+            "section": "Summary of Commentary on Current Economic Conditions by Federal Reserve District",
+            "start": 101,
+            "end": 323,
+            "sourceTextSha256": "b2b34d8aab80abdd61f3a964263918b54c19f3e80156a3907257cbd1b149791c"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c06p01-v2-n01",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "actor": "Beige Book contacts",
+      "title": "Price increases moderated across Districts",
+      "summary": "The Beige Book reported that price increases largely moderated across Districts, although price levels remained elevated.",
+      "publishedOn": "2023-11-29",
+      "eventOn": null,
+      "source": {
+        "institution": "Fed",
+        "title": "Beige Book — 2023-11-29",
+        "url": "https://www.federalreserve.gov/monetarypolicy/beigebook202311.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/beigebook2023.htm",
+        "documentId": "fed-beige-2023-11-29",
+        "chunkId": "fed-beige-2023-11-29:v2:00004",
+        "section": "Prices",
+        "quote": "Price increases largely moderated across Districts, though prices remained elevated.",
+        "passages": [
+          {
+            "chunkId": "fed-beige-2023-11-29:v2:00004",
+            "quote": "Price increases largely moderated across Districts, though prices remained elevated.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/beigebook202311.htm",
+            "section": "Prices",
+            "start": 0,
+            "end": 84,
+            "sourceTextSha256": "d090fd933eec0c48c1e4447d42631cb3826daa5fe5f43ac9749b37bed172dd74"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c06p01-v2-n02",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "actor": "Philadelphia District contacts",
+      "title": "Philadelphia: wage and price inflation subsided",
+      "summary": "In the Philadelphia District summary, wage and price inflation had subsided significantly, while price levels remained high for many items.",
+      "publishedOn": "2023-11-29",
+      "eventOn": null,
+      "source": {
+        "institution": "Fed",
+        "title": "Beige Book — 2023-11-29",
+        "url": "https://www.federalreserve.gov/monetarypolicy/beigebook202311.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/beigebook2023.htm",
+        "documentId": "fed-beige-2023-11-29",
+        "chunkId": "fed-beige-2023-11-29:v2:00006",
+        "section": "Philadelphia",
+        "quote": "Wage and price inflation subsided significantly – but price levels remain high for many items.",
+        "passages": [
+          {
+            "chunkId": "fed-beige-2023-11-29:v2:00006",
+            "quote": "Wage and price inflation subsided significantly – but price levels remain high for many items.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/beigebook202311.htm",
+            "section": "Philadelphia",
+            "start": 86,
+            "end": 180,
+            "sourceTextSha256": "df7d53219c3bfa6d97a3eb8472493711d6580879a46d7514c6caca2832c0b4d1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c06p01-v2-n03",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Forecast",
+      "actor": "Beige Book contacts",
+      "title": "District reports expected moderate price increases",
+      "summary": "The Beige Book reported that most Districts expected moderate price increases to continue into 2024.",
+      "publishedOn": "2023-11-29",
+      "eventOn": null,
+      "source": {
+        "institution": "Fed",
+        "title": "Beige Book — 2023-11-29",
+        "url": "https://www.federalreserve.gov/monetarypolicy/beigebook202311.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/beigebook2023.htm",
+        "documentId": "fed-beige-2023-11-29",
+        "chunkId": "fed-beige-2023-11-29:v2:00004",
+        "section": "Prices",
+        "quote": "Most Districts expect moderate price increases to continue into next year.",
+        "passages": [
+          {
+            "chunkId": "fed-beige-2023-11-29:v2:00004",
+            "quote": "Most Districts expect moderate price increases to continue into next year.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/beigebook202311.htm",
+            "section": "Prices",
+            "start": 545,
+            "end": 619,
+            "sourceTextSha256": "d090fd933eec0c48c1e4447d42631cb3826daa5fe5f43ac9749b37bed172dd74"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c15p01-v2-n02",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Assessment",
+      "actor": "OECD",
+      "title": "OECD saw US unconventional easing nearing its end",
+      "summary": "The OECD described the United States as moving toward the end of unconventional monetary easing.",
+      "publishedOn": "2014-09-16",
+      "eventOn": null,
+      "source": {
+        "institution": "OECD",
+        "title": "OECD Economic Outlook, Interim Report September 2014",
+        "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2014/09/oecd-economic-outlook-interim-report-september-2014_g1g49527/eco_outlook-v2014-sup1-en.pdf#page=6",
+        "publicationEvidenceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook-interim-report-september-2014_eco_outlook-v2014-sup1-en.html",
+        "documentId": "10.1787/eco_outlook-v2014-sup1-en",
+        "chunkId": "10.1787/eco_outlook-v2014-sup1-en:v1:00010",
+        "section": "Important risks hang over the recovery, despite financial market bullishness",
+        "quote": "The euro area needs more vigorous monetary stimulus, whereas the United States and the United Kingdom are moving to the end of their unconventional monetary easing.",
+        "passages": [
+          {
+            "chunkId": "10.1787/eco_outlook-v2014-sup1-en:v1:00010",
+            "quote": "The euro area needs more vigorous monetary stimulus, whereas the United States and the United Kingdom are moving to the end of their unconventional monetary easing.",
+            "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2014/09/oecd-economic-outlook-interim-report-september-2014_g1g49527/eco_outlook-v2014-sup1-en.pdf#page=6",
+            "section": "Important risks hang over the recovery, despite financial market bullishness",
+            "start": 0,
+            "end": 164,
+            "sourceTextSha256": "d0ddff9abc47fb29f68bc3855a4071c63c337d3f0c2c0a0b05dbe0f48360d27b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c19p03-v2-n01",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Recommendation",
+      "actor": "OECD",
+      "title": "OECD recommended gradual US monetary tightening",
+      "summary": "The OECD recommended that the Federal Reserve continue gradual rate increases and balance-sheet reduction.",
+      "publishedOn": "2018-03-15",
+      "eventOn": null,
+      "source": {
+        "institution": "OECD",
+        "title": "OECD Economic Outlook, Interim Report March 2018",
+        "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2018/03/oecd-economic-outlook-interim-report-march-2018_g1g8b738/eco_outlook-v2017-sup3-en.pdf#page=10",
+        "publicationEvidenceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook-interim-report-march-2018_eco_outlook-v2017-sup3-en.html",
+        "documentId": "10.1787/eco_outlook-v2017-sup3-en",
+        "chunkId": "10.1787/eco_outlook-v2017-sup3-en:v2:00015",
+        "section": null,
+        "quote": "In the United States, the Federal Reserve should continue to increase policy rates gradually and progress with balance sheet reduction.",
+        "passages": [
+          {
+            "chunkId": "10.1787/eco_outlook-v2017-sup3-en:v2:00015",
+            "quote": "In the United States, the Federal Reserve should continue to increase policy rates gradually and progress with balance sheet reduction.",
+            "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2018/03/oecd-economic-outlook-interim-report-march-2018_g1g8b738/eco_outlook-v2017-sup3-en.pdf#page=10",
+            "section": null,
+            "start": 1151,
+            "end": 1286,
+            "sourceTextSha256": "8111e668c6711687b130af3673f52e18431faccc423f6a35e7f20bddc4a41cd8"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c19p03-v2-n03",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Forecast",
+      "actor": "OECD",
+      "title": "OECD: fiscal stimulus could raise the US rate path",
+      "summary": "The OECD judged that 2018–19 fiscal stimulus was likely to raise the policy-rate path and could push the federal funds target upper bound to 3.25% by end-2019.",
+      "publishedOn": "2018-03-15",
+      "eventOn": null,
+      "source": {
+        "institution": "OECD",
+        "title": "OECD Economic Outlook, Interim Report March 2018",
+        "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2018/03/oecd-economic-outlook-interim-report-march-2018_g1g8b738/eco_outlook-v2017-sup3-en.pdf#page=10",
+        "publicationEvidenceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook-interim-report-march-2018_eco_outlook-v2017-sup3-en.html",
+        "documentId": "10.1787/eco_outlook-v2017-sup3-en",
+        "chunkId": "10.1787/eco_outlook-v2017-sup3-en:v2:00015",
+        "section": null,
+        "quote": "The additional fiscal stimulus being implemented in 2018-19 is likely to raise the path for policy interest rates over the next two years, which could push the upper bound of the target federal funds rate to 3¼ per cent by the end of 2019.",
+        "passages": [
+          {
+            "chunkId": "10.1787/eco_outlook-v2017-sup3-en:v2:00015",
+            "quote": "The additional fiscal stimulus being implemented in 2018-19 is likely to raise the path for policy interest rates over the next two years, which could push the upper bound of the target federal funds rate to 3¼ per cent by the end of 2019.",
+            "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2018/03/oecd-economic-outlook-interim-report-march-2018_g1g8b738/eco_outlook-v2017-sup3-en.pdf#page=10",
+            "section": null,
+            "start": 1287,
+            "end": 1526,
+            "sourceTextSha256": "8111e668c6711687b130af3673f52e18431faccc423f6a35e7f20bddc4a41cd8"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c21p01-v2-n02",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Forecast",
+      "actor": "FOMC",
+      "title": "Inflation expected to settle as commodity effects faded",
+      "summary": "The Committee anticipated inflation settling over coming quarters at or below levels consistent with its dual mandate, as past commodity-price effects dissipated.",
+      "publishedOn": "2011-08-09",
+      "eventOn": "2011-08-09",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC statement — 2011-08-09",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20110809a.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2011.htm",
+        "documentId": "fed-statement-20110809",
+        "chunkId": "fed-statement-20110809:v1:00002",
+        "section": "Policy statement",
+        "quote": "The Committee also anticipates that inflation will settle, over coming quarters, at levels at or below those consistent with the Committee's dual mandate as the effects of past energy and other commodity price increases dissipate further.",
+        "passages": [
+          {
+            "chunkId": "fed-statement-20110809:v1:00002",
+            "quote": "The Committee also anticipates that inflation will settle, over coming quarters, at levels at or below those consistent with the Committee's dual mandate as the effects of past energy and other commodity price increases dissipate further.",
+            "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20110809a.htm",
+            "section": "Policy statement",
+            "start": 0,
+            "end": 238,
+            "sourceTextSha256": "b36ff85b2bc0f20f557383549d14b0bc2fd58187ce641529532ed27f04635f51"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c22p01-v2-n01",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Forecast",
+      "actor": "Primary dealer survey",
+      "title": "Dealer survey suggested inflation pressures would subside",
+      "summary": "Primary dealers sharply raised their median 2021 core PCE inflation forecast, but made much smaller upward revisions for 2022 and 2023, suggesting expectations that inflation pressures would subside.",
+      "publishedOn": "2021-07-07",
+      "eventOn": "2021-06-16",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2021-06-16",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20210616.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+        "documentId": "fed-minutes-20210616",
+        "chunkId": "fed-minutes-20210616:v2:00009",
+        "section": "Developments in Financial Markets and Open Market Operations",
+        "quote": "The median 2021 core personal consumption expenditures (PCE) inflation forecast from the Open Market Desk's Survey of Primary Dealers jumped nearly 1 percentage point from the previous survey.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20210616:v2:00009",
+            "quote": "The median 2021 core personal consumption expenditures (PCE) inflation forecast from the Open Market Desk's Survey of Primary Dealers jumped nearly 1 percentage point from the previous survey.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20210616.htm",
+            "section": "Developments in Financial Markets and Open Market Operations",
+            "start": 597,
+            "end": 789,
+            "sourceTextSha256": "7ae7e3a385f02a84cf3dd70c72c33e5e2cc32383a976571d770f5c54506a3caa"
+          },
+          {
+            "chunkId": "fed-minutes-20210616:v2:00009",
+            "quote": "However, median forecasts for 2022 and 2023 each rose less than 0.1 percent, suggesting expectations for inflationary pressures to subside.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20210616.htm",
+            "section": "Developments in Financial Markets and Open Market Operations",
+            "start": 790,
+            "end": 929,
+            "sourceTextSha256": "7ae7e3a385f02a84cf3dd70c72c33e5e2cc32383a976571d770f5c54506a3caa"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c22p02-v2-n02",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "actor": "Fed staff",
+      "title": "Core PCE inflation reached 3.1% in April",
+      "summary": "The staff review reported core PCE inflation of 3.1% over the 12 months ending in April 2021.",
+      "publishedOn": "2021-07-07",
+      "eventOn": "2021-06-16",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2021-06-16",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20210616.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+        "documentId": "fed-minutes-20210616",
+        "chunkId": "fed-minutes-20210616:v2:00015",
+        "section": "Staff Review of the Economic Situation",
+        "quote": "Core PCE price inflation, which excludes changes in consumer energy prices and many consumer food prices, was 3.1 percent over the 12 months ending in April.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20210616:v2:00015",
+            "quote": "Core PCE price inflation, which excludes changes in consumer energy prices and many consumer food prices, was 3.1 percent over the 12 months ending in April.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20210616.htm",
+            "section": "Staff Review of the Economic Situation",
+            "start": 0,
+            "end": 157,
+            "sourceTextSha256": "97dea0e487f60ca8506de2097b4b03e2917328547c1212475f7196c6a4c66e66"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c22p02-v2-n03",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Forecast",
+      "actor": "OIS market pricing",
+      "title": "OIS quotes implied a low expected rate path",
+      "summary": "The minutes reported that a straight reading of OIS quotes implied a policy rate below 25 basis points until Q1 2023. This was a market-implied path, not a Fed commitment.",
+      "publishedOn": "2021-07-07",
+      "eventOn": "2021-06-16",
+      "source": {
+        "institution": "Fed",
+        "title": "FOMC minutes — 2021-06-16",
+        "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20210616.htm",
+        "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+        "documentId": "fed-minutes-20210616",
+        "chunkId": "fed-minutes-20210616:v2:00019",
+        "section": "Staff Review of the Financial Situation",
+        "quote": "A straight read of overnight index swap (OIS) quotes suggested that the expected path for the federal funds rate moved lower over the intermeeting period and that the expected policy rate would remain below 25 basis points until the first quarter of 2023.",
+        "passages": [
+          {
+            "chunkId": "fed-minutes-20210616:v2:00019",
+            "quote": "A straight read of overnight index swap (OIS) quotes suggested that the expected path for the federal funds rate moved lower over the intermeeting period and that the expected policy rate would remain below 25 basis points until the first quarter of 2023.",
+            "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20210616.htm",
+            "section": "Staff Review of the Financial Situation",
+            "start": 604,
+            "end": 859,
+            "sourceTextSha256": "0c7581d49c0dd4b00594ccbecd191c644ed943b3a2e0497ffcd543d32be8c6d2"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c23p02-v2-n03",
+      "country": "USA",
+      "topics": ["inflation"],
+      "kind": "Assessment",
+      "actor": "OECD",
+      "title": "OECD: US inflation may have peaked",
+      "summary": "The OECD assessed that US inflation may have peaked and expected faster progress toward target than in the euro area or the United Kingdom.",
+      "publishedOn": "2022-09-26",
+      "eventOn": null,
+      "source": {
+        "institution": "OECD",
+        "title": "OECD Economic Outlook, Interim Report September 2022",
+        "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/09/oecd-economic-outlook-interim-report-september-2022_76a917c4/ae8c39ec-en.pdf#page=13",
+        "publicationEvidenceUrl": "https://doi.org/10.1787/ae8c39ec-en",
+        "documentId": "10.1787/ae8c39ec-en",
+        "chunkId": "10.1787/ae8c39ec-en:v2:00014",
+        "section": "Paying the Price of War > Global growth is projected to weaken further in 2023 with inflation easing gradually",
+        "quote": "In the United States, where inflation may have now peaked and where the tightening of monetary policy began earlier than in most other large advanced economies, faster progress in bringing inflation back to target is expected than in the euro area or the United Kingdom.",
+        "passages": [
+          {
+            "chunkId": "10.1787/ae8c39ec-en:v2:00014",
+            "quote": "In the United States, where inflation may have now peaked and where the tightening of monetary policy began earlier than in most other large advanced economies, faster progress in bringing inflation back to target is expected than in the euro area or the United Kingdom.",
+            "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/09/oecd-economic-outlook-interim-report-september-2022_76a917c4/ae8c39ec-en.pdf#page=13",
+            "section": "Paying the Price of War > Global growth is projected to weaken further in 2023 with inflation easing gradually",
+            "start": 568,
+            "end": 838,
+            "sourceTextSha256": "a18f0f477b1f41108a1f9f13a90bd5a16e5e7a145bbb56e0f3439cd6162924b9"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reviewed-c23p03-v2-n01",
+      "country": "USA",
+      "topics": ["policy_rate"],
+      "kind": "Forecast",
+      "actor": "OECD",
+      "title": "OECD projected US policy rates at 4.5–4.75% in 2023",
+      "summary": "The OECD projected US policy interest rates rising to 4.5–4.75% in 2023, reflecting labour-market pressures. This was an OECD projection, not an announced Fed decision.",
+      "publishedOn": "2022-09-26",
+      "eventOn": null,
+      "source": {
+        "institution": "OECD",
+        "title": "OECD Economic Outlook, Interim Report September 2022",
+        "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/09/oecd-economic-outlook-interim-report-september-2022_76a917c4/ae8c39ec-en.pdf#page=18",
+        "publicationEvidenceUrl": "https://doi.org/10.1787/ae8c39ec-en",
+        "documentId": "10.1787/ae8c39ec-en",
+        "chunkId": "10.1787/ae8c39ec-en:v2:00024",
+        "section": "Paying the Price of War > Policy requirements > Additional monetary policy tightening is required to lower inflation",
+        "quote": "Policy interest rates are projected to rise to 4½-4¾ per cent in the United States, 4½ per cent in Canada, and 4¼ per cent in the United Kingdom in 2023, reflecting the visible labour market pressures in these countries, and 3.6% in Australia (Figure 12).",
+        "passages": [
+          {
+            "chunkId": "10.1787/ae8c39ec-en:v2:00024",
+            "quote": "Policy interest rates are projected to rise to 4½-4¾ per cent in the United States, 4½ per cent in Canada, and 4¼ per cent in the United Kingdom in 2023, reflecting the visible labour market pressures in these countries, and 3.6% in Australia (Figure 12).",
+            "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/09/oecd-economic-outlook-interim-report-september-2022_76a917c4/ae8c39ec-en.pdf#page=18",
+            "section": "Paying the Price of War > Policy requirements > Additional monetary policy tightening is required to lower inflation",
+            "start": 1302,
+            "end": 1557,
+            "sourceTextSha256": "e44235e4d9fa3a27767588f67180f774cbcaaf46da734cd87bcdad73097e2dca"
+          }
+        ]
+      }
+    }
+  ]
+}

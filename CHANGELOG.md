@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.7.0 — Source-backed economic timeline
+
+- Browse 801 selected official-source notes for all 39 economies, covering 2009–2026, from the Economic timeline main-menu entry. No analysis or account is required.
+- Filter by country, publication year, economic topic and quoted words. Each note retains an attributed summary, original quotation, release date and source link; OECD quotations link to their physical PDF page.
+- Keep historical context below successful analyses, bounded by the actual sample and forecast-origin publication cutoff. Notes are contextual and are never model inputs.
+- Retain explicit coverage gaps, including Costa Rica in 2012. The chronology is a selection of reports, not a complete event history.
+- Scientific calculations, numerical data, runtime and export values remain unchanged apart from interface-version text.
+
 ## 2.6.4 — Variable-first analysis form
 
 - Build a custom analysis on one page: variable of interest, other variables, model and countries, with terminology that follows the selected method.
@@ -59,7 +67,6 @@ hero and provides a short dataset link. Recent results on Explore and Build
 rerun locally stored configurations; old hash routes and share links remain
 supported. No scientific runtime, data, default, warning or export-value changes;
 PNG/LaTeX build-version text changes only. Later UX phases are not included.
-
 
 ## 2.2.2
 

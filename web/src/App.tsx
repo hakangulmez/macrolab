@@ -49,6 +49,25 @@ import "./navigation.css";
 import { useTheme, setTheme } from "./theme";
 import { SeriesSearch } from "./components/SeriesSearch";
 const DatasetExplorer = lazy(() => import("./components/DatasetExplorer"));
+const reportsPath: string = import.meta.env.MACROLAB_REPORTS_PATH;
+const AskReports = reportsPath
+  ? lazy(() => import("./components/AskReports"))
+  : null;
+const EconomicTimeline = import.meta.env.MACROLAB_TIMELINE_ENABLED
+  ? lazy(() =>
+      import("./components/ReportTimeline").then((module) => ({
+        default: module.EconomicTimeline,
+      })),
+    )
+  : null;
+function visibleRoute(hash: string) {
+  const route = routeFromHash(hash);
+  if (route?.screen === "reports" && !AskReports)
+    return { screen: "home" as const, methodsOpen: false };
+  return route?.screen === "timeline" && !EconomicTimeline
+    ? { screen: "home" as const, methodsOpen: false }
+    : route;
+}
 const Builder = lazy(() =>
   import("./components/VariableFirstBuilder").then((module) => ({
     default: module.VariableFirstBuilder,
@@ -73,6 +92,9 @@ const NAV: [Screen, string][] = [
   ["data", "Data"],
   ["builder", "Build"],
 ];
+if (reportsPath) NAV.push(["reports", "Ask the reports"]);
+if (EconomicTimeline) NAV.push(["timeline", "Economic timeline"]);
+
 export function App() {
   const theme = useTheme();
   const [buildMode, setBuildMode] = useState<BuildMode>(() =>
@@ -105,7 +127,7 @@ export function App() {
   }>({});
   const [route, setRoute] = useState(
     () =>
-      (typeof location !== "undefined" && routeFromHash(location.hash)) || {
+      (typeof location !== "undefined" && visibleRoute(location.hash)) || {
         screen: "home" as Screen,
         methodsOpen: false,
       },
@@ -120,7 +142,7 @@ export function App() {
   );
   useEffect(() => {
     const followLocation = () => {
-      const next = routeFromHash(location.hash);
+      const next = visibleRoute(location.hash);
       if (next) {
         setRoute(next);
         if (next.methodsOpen) setBuildMode("advanced");
@@ -146,6 +168,7 @@ export function App() {
   const [shareUrl, setShareUrl] = useState("");
   const validator = useRef<ValidateFunction<AnalysisConfig> | null>(null);
   const requestId = useRef(0);
+  const deferredSharedToken = useRef<string | null>(null);
   const [runtime] = useState(() => new AnalysisRuntime(setProgress));
   useEffect(() => {
     let active = true;
@@ -169,7 +192,13 @@ export function App() {
         );
         const token = new URL(location.href).searchParams.get("c");
         let initial = blankAnalysis(m);
-        if (token) {
+        if (
+          token &&
+          EconomicTimeline &&
+          routeFromHash(location.hash)?.screen === "timeline"
+        ) {
+          deferredSharedToken.current = token;
+        } else if (token) {
           setBusy(true);
           try {
             initial = await runtime.decode(token);
@@ -180,7 +209,11 @@ export function App() {
             if (active) {
               setRuntimeStatus("ready");
               setBuildMode("advanced");
-              setRoute({ screen: "builder", methodsOpen: false });
+              setRoute((current) =>
+                current.screen === "reports" || current.screen === "timeline"
+                  ? current
+                  : { screen: "builder", methodsOpen: false },
+              );
             }
           } finally {
             if (active) {
@@ -203,8 +236,28 @@ export function App() {
     if (screen !== "builder" || !manifest) return;
     let active = true;
     // The next analysis shares this initialization promise and the same worker.
-    void runtime
-      .prewarm()
+    async function prepareBuilder() {
+      const token = deferredSharedToken.current;
+      if (token) {
+        setBusy(true);
+        try {
+          const shared = await runtime.decode(token);
+          if (!active || deferredSharedToken.current !== token) return;
+          if (!validator.current?.(shared))
+            throw new Error(
+              "Shared configuration does not match the supported schema.",
+            );
+          deferredSharedToken.current = null;
+          setRawConfig(structuredClone(shared));
+          setBuildMode("advanced");
+        } finally {
+          setBusy(false);
+          setProgress("");
+        }
+      }
+      await runtime.prewarm();
+    }
+    void prepareBuilder()
       .then(() => {
         if (active) setRuntimeStatus("ready");
       })
@@ -276,6 +329,7 @@ export function App() {
     navigate("catalogue");
   }
   function setConfig(next: AnalysisConfig) {
+    deferredSharedToken.current = null;
     if (busy) {
       requestId.current += 1;
       runtime.cancel();
@@ -558,7 +612,10 @@ export function App() {
           </span>
           MacroLab
         </button>
-        <nav className="site-nav" aria-label="Main navigation">
+        <nav
+          className={`site-nav${reportsPath ? " site-nav--reports" : ""}${EconomicTimeline ? " site-nav--timeline" : ""}`}
+          aria-label="Main navigation"
+        >
           {NAV.map(([id, label]) => (
             <button
               key={id}
@@ -617,7 +674,7 @@ export function App() {
             openMethods={() => navigate("methods")}
           />
         )}
-        {error && (
+        {error && screen !== "reports" && screen !== "timeline" && (
           <div role="alert" className="error-box section">
             <strong>We couldn’t complete that action.</strong>
             <p>{error}</p>
@@ -649,7 +706,11 @@ export function App() {
             </section>
           }
         >
-          {!manifest || !config ? (
+          {screen === "timeline" && EconomicTimeline ? (
+            <EconomicTimeline />
+          ) : screen === "reports" && AskReports ? (
+            <AskReports endpoint={reportsPath} />
+          ) : !manifest || !config ? (
             <section className="empty">
               <span className="overline">MacroLab</span>
               <h1>
@@ -829,7 +890,11 @@ export function App() {
       )}
       <footer>
         <span>
-          MacroLab {buildVersion} · Runs entirely in your browser ·{" "}
+          MacroLab {buildVersion} ·{" "}
+          {reportsPath
+            ? "Econometric analyses run in your browser"
+            : "Runs entirely in your browser"}{" "}
+          ·{" "}
           <a
             href="https://hakangulmez.github.io/"
             target="_blank"

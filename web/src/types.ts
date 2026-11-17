@@ -1,6 +1,14 @@
 export type JsonRecord = Record<string, unknown>;
 export type Screen =
-  "home" | "builder" | "library" | "results" | "catalogue" | "data" | "methods";
+  | "home"
+  | "builder"
+  | "library"
+  | "results"
+  | "catalogue"
+  | "data"
+  | "methods"
+  | "reports"
+  | "timeline";
 export interface SeriesSpec {
   concept_id: string;
   role: string;
