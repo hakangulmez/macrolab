@@ -1,0 +1,11 @@
+MacroLab brings official macroeconomic data and econometric models into your browser.
+
+Start with the existing Same ECB shock, pooled template. Here, Germany, France, Italy and Spain face the same identified monetary policy shock.
+
+Run the analysis, then focus on two outcomes: real GDP and the price level. Use the existing country selector to compare Germany, France, Italy and Spain in turn, then switch between the GDP and price responses.
+
+The horizontal axis shows quarters after the shock. Each line shows an estimated cumulative response, while the shaded bands show uncertainty. A tightening shock need not produce identical responses across countries, and a point estimate alone is not a firm conclusion.
+
+These are conditional estimates. The shock is constructed using the template’s existing recursive identification, rather than a directly observed policy surprise. The bands do not include uncertainty from estimating that shock, and they do not establish statistically significant differences between countries.
+
+Use the charts to explore a question, inspect the assumptions, and export the results. MacroLab runs the calculation locally, with no account or coding required.
