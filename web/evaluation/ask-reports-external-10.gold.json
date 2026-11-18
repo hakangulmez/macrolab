@@ -1,0 +1,305 @@
+{
+  "schemaVersion": 1,
+  "curation": "Questions and reference choices supplied by user as Claude-selected and Hakan-reviewed; not Codex-authored.",
+  "version": "updated external10, supplied2026-11-18",
+  "publicationRule": "Zero wrong-period and false-premise errors on BOTH this external10 AND the newheldout. Prior heldout failure cannot be replaced by this score.",
+  "strictIdentityRule": "Only exact supplied passage IDs in primary top5 count. Equivalent text, other aliases/IDs and related-only hits do not count. Q3requires both previously retained decision/dissent IDs marked in the source list.",
+  "codePolicy": "Frozen r6implementation tested without edits or tuning after receiving the updated7questions.",
+  "questions": [
+    {
+      "id": "Q1",
+      "question": "What did the Federal Reserve decide at its July 2024 meeting, and how did it describe the labour market?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": true,
+      "requiredPassageIds": [
+        "fed:fed-statement-20240731:v1:00001"
+      ],
+      "referencePassages": [
+        {
+          "id": "fed:fed-statement-20240731:v1:00001",
+          "institution": "Fed",
+          "country": "USA",
+          "title": "FOMC statement — 2024-07-31",
+          "publishedOn": "2024-07-31",
+          "eventOn": "2024-07-31",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240731a.htm",
+          "text": "Recent indicators suggest that economic activity has continued to expand at a solid pace. Job gains have moderated, and the unemployment rate has moved up but remains low. Inflation has eased over the past year but remains somewhat elevated. In recent months, there has been some further progress toward the Committee's 2 percent inflation objective. The Committee seeks to achieve maximum employment and inflation at the rate of 2 percent over the longer run. The Committee judges that the risks to achieving its employment and inflation goals continue to move into better balance. The economic outlook is uncertain, and the Committee is attentive to the risks to both sides of its dual mandate. In support of its goals, the Committee decided to maintain the target range for the federal funds rate at 5-1/4 to 5-1/2 percent. In considering any adjustments to the target range for the federal funds rate, the Committee will carefully assess incoming data, the evolving outlook, and the balance of risks. The Committee does not expect it will be appropriate to reduce the target range until it has gained greater confidence that inflation is moving sustainably toward 2 percent. In addition, the Committee will continue reducing its holdings of Treasury securities and agency debt and agency mortgage‑backed securities. The Committee is strongly committed to returning inflation to its 2 percent objective. In assessing the appropriate stance of monetary policy, the Committee will continue to monitor the implications of incoming information for the economic outlook."
+        }
+      ],
+      "expectedEventOn": "2024-07-31",
+      "expectedPublishedOn": "2024-07-31",
+      "expectedInstitution": "Fed",
+      "expectedCountry": "USA",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval"
+    },
+    {
+      "id": "Q2",
+      "question": "When did the ECB first cut its deposit facility rate below zero, and to what level?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": true,
+      "requiredPassageIds": [
+        "timeline:ea-20140605-negative-deposit-rate:0"
+      ],
+      "referencePassages": [
+        {
+          "id": "timeline:ea-20140605-negative-deposit-rate:0",
+          "institution": "ECB",
+          "country": "EA",
+          "title": "Monetary policy decisions",
+          "publishedOn": "2014-06-05",
+          "eventOn": null,
+          "url": "https://www.ecb.europa.eu/press/pr/date/2014/html/pr140605.en.html",
+          "text": "The interest rate on the deposit facility will be decreased by 10 basis points to -0.10%"
+        }
+      ],
+      "expectedEventOn": "2014-06-05",
+      "expectedPublishedOn": "2014-06-05",
+      "expectedInstitution": "ECB",
+      "expectedCountry": "EA",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval"
+    },
+    {
+      "id": "Q3",
+      "question": "How much did the Federal Reserve cut rates in September 2024, and who dissented?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": false,
+      "requiredPassageIds": [
+        "fed:fed-statement-20240918:v1:00001",
+        "fed:fed-statement-20240918:v1:00002"
+      ],
+      "referencePassages": [
+        {
+          "id": "fed:fed-statement-20240918:v1:00001",
+          "institution": "Fed",
+          "country": "USA",
+          "title": "FOMC statement — 2024-09-18",
+          "publishedOn": "2024-09-18",
+          "eventOn": "2024-09-18",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240918a.htm",
+          "text": "Recent indicators suggest that economic activity has continued to expand at a solid pace. Job gains have slowed, and the unemployment rate has moved up but remains low. Inflation has made further progress toward the Committee's 2 percent objective but remains somewhat elevated. The Committee seeks to achieve maximum employment and inflation at the rate of 2 percent over the longer run. The Committee has gained greater confidence that inflation is moving sustainably toward 2 percent, and judges that the risks to achieving its employment and inflation goals are roughly in balance. The economic outlook is uncertain, and the Committee is attentive to the risks to both sides of its dual mandate. In light of the progress on inflation and the balance of risks, the Committee decided to lower the target range for the federal funds rate by 1/2 percentage point to 4-3/4 to 5 percent. In considering additional adjustments to the target range for the federal funds rate, the Committee will carefully assess incoming data, the evolving outlook, and the balance of risks. The Committee will continue reducing its holdings of Treasury securities and agency debt and agency mortgage‑backed securities. The Committee is strongly committed to supporting maximum employment and returning inflation to its 2 percent objective. In assessing the appropriate stance of monetary policy, the Committee will continue to monitor the implications of incoming information for the economic outlook. The Committee would be prepared to adjust the stance of monetary policy as appropriate if risks emerge that could impede the attainment of the Committee's goals."
+        },
+        {
+          "id": "fed:fed-statement-20240918:v1:00002",
+          "institution": "Fed",
+          "country": "USA",
+          "title": "FOMC statement — 2024-09-18",
+          "publishedOn": "2024-09-18",
+          "eventOn": "2024-09-18",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240918a.htm",
+          "text": "The Committee's assessments will take into account a wide range of information, including readings on labor market conditions, inflation pressures and inflation expectations, and financial and international developments. Voting for the monetary policy action were Jerome H. Powell, Chair; John C. Williams, Vice Chair; Thomas I. Barkin; Michael S. Barr; Raphael W. Bostic; Lisa D. Cook; Mary C. Daly; Beth M. Hammack; Philip N. Jefferson; Adriana D. Kugler; and Christopher J. Waller. Voting against this action was Michelle W. Bowman, who preferred to lower the target range for the federal funds rate by 1/4 percentage point at this meeting."
+        }
+      ],
+      "expectedEventOn": "2024-09-18",
+      "expectedPublishedOn": "2024-09-18",
+      "expectedInstitution": "Fed",
+      "expectedCountry": "USA",
+      "retainedFromInitialSet": true,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval"
+    },
+    {
+      "id": "Q4",
+      "question": "By how much did the ECB raise its key interest rates in July 2022?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": false,
+      "requiredPassageIds": [
+        "timeline:ea-20220721-first-normalisation-hike:0"
+      ],
+      "referencePassages": [
+        {
+          "id": "timeline:ea-20220721-first-normalisation-hike:0",
+          "institution": "ECB",
+          "country": "EA",
+          "title": "Monetary policy decisions",
+          "publishedOn": "2022-07-21",
+          "eventOn": null,
+          "url": "https://www.ecb.europa.eu/press/pr/date/2022/html/ecb.mp220721~53e5bdd317.en.html",
+          "text": "The Governing Council decided to raise the three key ECB interest rates by 50 basis points"
+        }
+      ],
+      "expectedEventOn": "2022-07-21",
+      "expectedPublishedOn": "2022-07-21",
+      "expectedInstitution": "ECB",
+      "expectedCountry": "EA",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval"
+    },
+    {
+      "id": "Q5",
+      "question": "What did the CBRT decide on its policy rate in March 2024?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": true,
+      "requiredPassageIds": [
+        "timeline:tur-20240321-cbrt-rate:0"
+      ],
+      "referencePassages": [
+        {
+          "id": "timeline:tur-20240321-cbrt-rate:0",
+          "institution": "CBRT",
+          "country": "TUR",
+          "title": "Press Release on Interest Rates (2024-14)",
+          "publishedOn": "2024-03-21",
+          "eventOn": "2024-03-21",
+          "url": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB%2BEN/Main%2BMenu/Announcements/Press%2BReleases/2024/ANO2024-14",
+          "text": "has decided to raise the policy rate (the one-week repo auction rate) from 45 percent to 50 percent."
+        }
+      ],
+      "expectedEventOn": "2024-03-21",
+      "expectedPublishedOn": "2024-03-21",
+      "expectedInstitution": "CBRT",
+      "expectedCountry": "TUR",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval"
+    },
+    {
+      "id": "Q6",
+      "question": "How large was the CBRT's policy rate increase in June 2023?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": false,
+      "requiredPassageIds": [
+        "timeline:tur-20230622-cbrt-rate:0"
+      ],
+      "referencePassages": [
+        {
+          "id": "timeline:tur-20230622-cbrt-rate:0",
+          "institution": "CBRT",
+          "country": "TUR",
+          "title": "Press Release on Interest Rates (2023-22)",
+          "publishedOn": "2023-06-22",
+          "eventOn": "2023-06-22",
+          "url": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB%2BEN/MPC/MPC%2BMeeting%2BDecisions/ANO2023-22",
+          "text": "has decided to increase the policy rate (the one-week repo auction rate) from 8.5 percent to 15 percent."
+        }
+      ],
+      "expectedEventOn": "2023-06-22",
+      "expectedPublishedOn": "2023-06-22",
+      "expectedInstitution": "CBRT",
+      "expectedCountry": "TUR",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval"
+    },
+    {
+      "id": "Q7",
+      "question": "What did the OECD's June 2026 Economic Outlook report about inflation in Greece?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": false,
+      "requiredPassageIds": [
+        "timeline:grc-20260603-oecd-01:0"
+      ],
+      "referencePassages": [
+        {
+          "id": "timeline:grc-20260603-oecd-01:0",
+          "institution": "OECD",
+          "country": "GRC",
+          "title": "OECD Economic Outlook, Volume 2026 Issue 1",
+          "publishedOn": "2026-06-03",
+          "eventOn": null,
+          "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/06/oecd-economic-outlook-volume-2026-issue-1_8be0dba6/2d1956f0-en.pdf#page=183",
+          "text": "Inflation increased to 4.6% in April 2026 with rising energy prices, and persistent food and service inflation."
+        }
+      ],
+      "expectedEventOn": null,
+      "expectedPublishedOn": "2026-06-03",
+      "expectedInstitution": "OECD",
+      "expectedCountry": "GRC",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval"
+    },
+    {
+      "id": "Q8",
+      "question": "Why did the ECB raise its deposit facility rate to 4.25% in June 2024?",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "falsePremise": true,
+      "temporalTrap": false,
+      "requiredPassageIds": [],
+      "referencePassages": [
+        {
+          "id": "timeline:ea-20240606-rate-cut-twenty-five:0",
+          "institution": "ECB",
+          "country": "EA",
+          "title": "Monetary policy decisions",
+          "publishedOn": "2024-06-06",
+          "eventOn": null,
+          "url": "https://www.ecb.europa.eu/press/pr/date/2024/html/ecb.mp240606~2148ecdb3c.en.html",
+          "text": "The Governing Council today decided to lower the three key ECB interest rates by 25 basis points."
+        }
+      ],
+      "expectedEventOn": "2024-06-06",
+      "expectedPublishedOn": "2024-06-06",
+      "expectedInstitution": "ECB",
+      "expectedCountry": "EA",
+      "retainedFromInitialSet": true,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval"
+    },
+    {
+      "id": "Q9",
+      "question": "Why did the Federal Reserve cut rates by 75 basis points in September 2024?",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "falsePremise": true,
+      "temporalTrap": false,
+      "requiredPassageIds": [],
+      "referencePassages": [
+        {
+          "id": "fed:fed-statement-20240918:v1:00001",
+          "institution": "Fed",
+          "country": "USA",
+          "title": "FOMC statement — 2024-09-18",
+          "publishedOn": "2024-09-18",
+          "eventOn": "2024-09-18",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240918a.htm",
+          "text": "Recent indicators suggest that economic activity has continued to expand at a solid pace. Job gains have slowed, and the unemployment rate has moved up but remains low. Inflation has made further progress toward the Committee's 2 percent objective but remains somewhat elevated. The Committee seeks to achieve maximum employment and inflation at the rate of 2 percent over the longer run. The Committee has gained greater confidence that inflation is moving sustainably toward 2 percent, and judges that the risks to achieving its employment and inflation goals are roughly in balance. The economic outlook is uncertain, and the Committee is attentive to the risks to both sides of its dual mandate. In light of the progress on inflation and the balance of risks, the Committee decided to lower the target range for the federal funds rate by 1/2 percentage point to 4-3/4 to 5 percent. In considering additional adjustments to the target range for the federal funds rate, the Committee will carefully assess incoming data, the evolving outlook, and the balance of risks. The Committee will continue reducing its holdings of Treasury securities and agency debt and agency mortgage‑backed securities. The Committee is strongly committed to supporting maximum employment and returning inflation to its 2 percent objective. In assessing the appropriate stance of monetary policy, the Committee will continue to monitor the implications of incoming information for the economic outlook. The Committee would be prepared to adjust the stance of monetary policy as appropriate if risks emerge that could impede the attainment of the Committee's goals."
+        }
+      ],
+      "expectedEventOn": "2024-09-18",
+      "expectedPublishedOn": "2024-09-18",
+      "expectedInstitution": "Fed",
+      "expectedCountry": "USA",
+      "retainedFromInitialSet": true,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval"
+    },
+    {
+      "id": "Q10",
+      "question": "Why did the CBRT cut its policy rate from 50 percent to 45 percent in March 2024?",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "falsePremise": true,
+      "temporalTrap": true,
+      "requiredPassageIds": [],
+      "referencePassages": [
+        {
+          "id": "timeline:tur-20240321-cbrt-rate:0",
+          "institution": "CBRT",
+          "country": "TUR",
+          "title": "Press Release on Interest Rates (2024-14)",
+          "publishedOn": "2024-03-21",
+          "eventOn": "2024-03-21",
+          "url": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB%2BEN/Main%2BMenu/Announcements/Press%2BReleases/2024/ANO2024-14",
+          "text": "has decided to raise the policy rate (the one-week repo auction rate) from 45 percent to 50 percent."
+        }
+      ],
+      "expectedEventOn": "2024-03-21",
+      "expectedPublishedOn": "2024-03-21",
+      "expectedInstitution": "CBRT",
+      "expectedCountry": "TUR",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval"
+    }
+  ]
+}

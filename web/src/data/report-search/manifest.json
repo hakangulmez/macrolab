@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-11-17",
+  "timelineNotes": 801,
+  "timelinePassages": 809,
+  "reportPassages": 8581,
+  "reportDocuments": 483,
+  "excludedChunks": 83,
+  "institutions": [
+    "CBRT",
+    "ECB",
+    "Fed",
+    "IMF",
+    "OECD"
+  ],
+  "countries": [
+    {
+      "id": "USA",
+      "name": "United States"
+    },
+    {
+      "id": "EA",
+      "name": "Euro area"
+    },
+    {
+      "id": "TUR",
+      "name": "Türkiye"
+    },
+    {
+      "id": "AUS",
+      "name": "Australia"
+    },
+    {
+      "id": "AUT",
+      "name": "Austria"
+    },
+    {
+      "id": "BEL",
+      "name": "Belgium"
+    },
+    {
+      "id": "CAN",
+      "name": "Canada"
+    },
+    {
+      "id": "CHL",
+      "name": "Chile"
+    },
+    {
+      "id": "COL",
+      "name": "Colombia"
+    },
+    {
+      "id": "CRI",
+      "name": "Costa Rica"
+    },
+    {
+      "id": "CZE",
+      "name": "Czechia"
+    },
+    {
+      "id": "DNK",
+      "name": "Denmark"
+    },
+    {
+      "id": "EST",
+      "name": "Estonia"
+    },
+    {
+      "id": "FIN",
+      "name": "Finland"
+    },
+    {
+      "id": "FRA",
+      "name": "France"
+    },
+    {
+      "id": "DEU",
+      "name": "Germany"
+    },
+    {
+      "id": "GRC",
+      "name": "Greece"
+    },
+    {
+      "id": "HUN",
+      "name": "Hungary"
+    },
+    {
+      "id": "ISL",
+      "name": "Iceland"
+    },
+    {
+      "id": "IRL",
+      "name": "Ireland"
+    },
+    {
+      "id": "ISR",
+      "name": "Israel"
+    },
+    {
+      "id": "ITA",
+      "name": "Italy"
+    },
+    {
+      "id": "JPN",
+      "name": "Japan"
+    },
+    {
+      "id": "KOR",
+      "name": "Korea"
+    },
+    {
+      "id": "LVA",
+      "name": "Latvia"
+    },
+    {
+      "id": "LTU",
+      "name": "Lithuania"
+    },
+    {
+      "id": "LUX",
+      "name": "Luxembourg"
+    },
+    {
+      "id": "MEX",
+      "name": "Mexico"
+    },
+    {
+      "id": "NLD",
+      "name": "Netherlands"
+    },
+    {
+      "id": "NZL",
+      "name": "New Zealand"
+    },
+    {
+      "id": "NOR",
+      "name": "Norway"
+    },
+    {
+      "id": "POL",
+      "name": "Poland"
+    },
+    {
+      "id": "PRT",
+      "name": "Portugal"
+    },
+    {
+      "id": "SVK",
+      "name": "Slovak Republic"
+    },
+    {
+      "id": "SVN",
+      "name": "Slovenia"
+    },
+    {
+      "id": "ESP",
+      "name": "Spain"
+    },
+    {
+      "id": "SWE",
+      "name": "Sweden"
+    },
+    {
+      "id": "CHE",
+      "name": "Switzerland"
+    },
+    {
+      "id": "GBR",
+      "name": "United Kingdom"
+    }
+  ],
+  "shards": [
+    {
+      "key": "2009",
+      "file": "2009.json.gz",
+      "passages": 415,
+      "bytes": 162698,
+      "sha256": "efc2edf26d668afaba5293487103f24e5e20b828e8606bb85fa0d7bd6e9b8d46",
+      "rawBytes": 757278
+    },
+    {
+      "key": "2010",
+      "file": "2010.json.gz",
+      "passages": 428,
+      "bytes": 171345,
+      "sha256": "6d6e1631c7fd4b8d01b219f2d6e5d8096dfabfd9fd5346b991e92390cd3878d8",
+      "rawBytes": 789082
+    },
+    {
+      "key": "2011",
+      "file": "2011.json.gz",
+      "passages": 459,
+      "bytes": 176053,
+      "sha256": "37e62b4738eda7887fdf4ef9a9202aa6d5f39d4878e6f8791b6decb52ce6f3af",
+      "rawBytes": 837623
+    },
+    {
+      "key": "2012",
+      "file": "2012.json.gz",
+      "passages": 452,
+      "bytes": 175436,
+      "sha256": "cf6166ff034db770b968b792a713272ed9975d864641828283b18fcc07ba72db",
+      "rawBytes": 843372
+    },
+    {
+      "key": "2013",
+      "file": "2013.json.gz",
+      "passages": 467,
+      "bytes": 177800,
+      "sha256": "48059c223b54f129d4fda74b768c20ac1775886edb0f73e3da565cd4acc63e43",
+      "rawBytes": 875813
+    },
+    {
+      "key": "2014",
+      "file": "2014.json.gz",
+      "passages": 496,
+      "bytes": 186604,
+      "sha256": "0959b9af16352fcb790e11f0f9cc691bfc7813e43d54078aaa3b917825ce9c30",
+      "rawBytes": 934996
+    },
+    {
+      "key": "2015",
+      "file": "2015.json.gz",
+      "passages": 516,
+      "bytes": 185043,
+      "sha256": "6f861c29d8986540b0adeb5e0ff81c5fd99b85b287f68479e008fc2198e7555a",
+      "rawBytes": 944069
+    },
+    {
+      "key": "2016",
+      "file": "2016.json.gz",
+      "passages": 517,
+      "bytes": 190200,
+      "sha256": "0d99c273858c072ce5c02b3334d7e940f7a97f6fee6a7e6112d3dc9409a0eb99",
+      "rawBytes": 972242
+    },
+    {
+      "key": "2017",
+      "file": "2017.json.gz",
+      "passages": 541,
+      "bytes": 166054,
+      "sha256": "acb71815c098c7877586d76e0d9ddb4fe7c57ca4adc432e2aa14a4b098dfd583",
+      "rawBytes": 870524
+    },
+    {
+      "key": "2018",
+      "file": "2018.json.gz",
+      "passages": 453,
+      "bytes": 145670,
+      "sha256": "1b9318ccf5006b5c00acbec5d67eccc9e94d423506913646b8647b6a76a95c86",
+      "rawBytes": 719255
+    },
+    {
+      "key": "2019",
+      "file": "2019.json.gz",
+      "passages": 530,
+      "bytes": 180764,
+      "sha256": "a1e839318d04e45ade717678ae287e8965e67cc0642d35e154a1eb4db27f1c93",
+      "rawBytes": 883451
+    },
+    {
+      "key": "2020",
+      "file": "2020.json.gz",
+      "passages": 530,
+      "bytes": 181237,
+      "sha256": "8b6fc8be18d37f01f993cd68bcf9316758f961d28a6395c7eaffe3556d67635f",
+      "rawBytes": 871730
+    },
+    {
+      "key": "2021",
+      "file": "2021.json.gz",
+      "passages": 501,
+      "bytes": 166892,
+      "sha256": "f4b0e38afa9ec03beb6ec88312825906be1ee1a7c016344fc7df2caf9c2b7b48",
+      "rawBytes": 822053
+    },
+    {
+      "key": "2022",
+      "file": "2022.json.gz",
+      "passages": 485,
+      "bytes": 160006,
+      "sha256": "de861bac4b23b955d9dd8ca57685b8fc60fbb26b5dc944050de55dc717429c0e",
+      "rawBytes": 782232
+    },
+    {
+      "key": "2023",
+      "file": "2023.json.gz",
+      "passages": 431,
+      "bytes": 135043,
+      "sha256": "159f520e737aa9342623b1da3ae9de0e00a327a687485ac3e03aeed3ed7cc3bb",
+      "rawBytes": 673679
+    },
+    {
+      "key": "2024",
+      "file": "2024.json.gz",
+      "passages": 481,
+      "bytes": 142855,
+      "sha256": "c55570b1fdb9482fc7ed5c2595bcf759eac47d86084f7a2e0d39c3cbc24ed86f",
+      "rawBytes": 743470
+    },
+    {
+      "key": "2025",
+      "file": "2025.json.gz",
+      "passages": 524,
+      "bytes": 163574,
+      "sha256": "b0aff95e39ef6c6b46629c28e1daa160b8dd77fdf0cb9bbe952052de4c20fcee",
+      "rawBytes": 832808
+    },
+    {
+      "key": "2026",
+      "file": "2026.json.gz",
+      "passages": 355,
+      "bytes": 102021,
+      "sha256": "fbcbbbb2adc94eeaa2d2b0ca3ae4c4533f5b503877f1dbb2db6b9d7a5149c533",
+      "rawBytes": 532710
+    },
+    {
+      "key": "timeline",
+      "file": "timeline.json.gz",
+      "passages": 809,
+      "bytes": 102809,
+      "sha256": "13501bcf49e0e861364535756cea6f2daa5635cddfa4b83af4e1b10b78782613",
+      "rawBytes": 749822
+    }
+  ],
+  "scope": "Selected timeline quotations and date-verified Fed statements, minutes, Beige Book summaries and SLOOS prose; not a complete international report archive.",
+  "historicalVintagesVerified": false
+}

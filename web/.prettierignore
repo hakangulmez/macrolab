@@ -6,3 +6,10 @@ test-results/
 package-lock.json
 public/data/
 public/runtime/
+# Deterministic generated manifest; formatting is owned by the index builder.
+src/data/report-search/manifest.json
+# Frozen evaluation bytes; the pre-retrieval seal covers this exact JSON.
+evaluation/ask-reports.gold.json
+# Frozen regression/held-out exports retain their exact evaluation bytes.
+evaluation/ask-reports-fixes-*.gold.json
+evaluation/ask-reports-external-10.gold.json

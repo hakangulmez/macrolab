@@ -50,8 +50,8 @@ import { useTheme, setTheme } from "./theme";
 import { SeriesSearch } from "./components/SeriesSearch";
 const DatasetExplorer = lazy(() => import("./components/DatasetExplorer"));
 const reportsPath: string = import.meta.env.MACROLAB_REPORTS_PATH;
-const AskReports = reportsPath
-  ? lazy(() => import("./components/AskReports"))
+const AskReports = import.meta.env.MACROLAB_ASK_REPORTS_ENABLED
+  ? lazy(() => import("./components/AskReportPassages"))
   : null;
 const EconomicTimeline = import.meta.env.MACROLAB_TIMELINE_ENABLED
   ? lazy(() =>
@@ -92,7 +92,7 @@ const NAV: [Screen, string][] = [
   ["data", "Data"],
   ["builder", "Build"],
 ];
-if (reportsPath) NAV.push(["reports", "Ask the reports"]);
+if (AskReports) NAV.push(["reports", "Ask the reports"]);
 if (EconomicTimeline) NAV.push(["timeline", "Economic timeline"]);
 
 export function App() {
@@ -613,7 +613,7 @@ export function App() {
           MacroLab
         </button>
         <nav
-          className={`site-nav${reportsPath ? " site-nav--reports" : ""}${EconomicTimeline ? " site-nav--timeline" : ""}`}
+          className={`site-nav${AskReports ? " site-nav--reports" : ""}${EconomicTimeline ? " site-nav--timeline" : ""}`}
           aria-label="Main navigation"
         >
           {NAV.map(([id, label]) => (
@@ -709,7 +709,7 @@ export function App() {
           {screen === "timeline" && EconomicTimeline ? (
             <EconomicTimeline />
           ) : screen === "reports" && AskReports ? (
-            <AskReports endpoint={reportsPath} />
+            <AskReports />
           ) : !manifest || !config ? (
             <section className="empty">
               <span className="overline">MacroLab</span>

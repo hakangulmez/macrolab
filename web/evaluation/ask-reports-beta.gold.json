@@ -1,0 +1,3009 @@
+{
+  "curation": "Previously observed regression sets, not a new unseen test.",
+  "questions": [
+    {
+      "id": "P01",
+      "question": "What separate purchase amounts did the FOMC announce on March 18, 2009 for agency mortgage-backed securities, agency debt, and longer-term Treasuries, and which amounts were additions or totals?",
+      "category": "policy_decision",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20090318:v1:00002"],
+          "expectedQuote": "To provide greater support to mortgage lending and housing markets, the Committee decided today to increase the size of the Federal Reserve\u2019s balance sheet further by purchasing up to an additional $750 billion of agency mortgage-backed securities, bringing its total purchases of these securities to up to $1.25 trillion this year, and to increase its purchases of agency debt this year by up to $100 billion to a total of up to $200 billion. Moreover, to help improve conditions in private credit markets, the Committee decided to purchase up to $300 billion of longer-term Treasury securities over the next six months.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/press/monetary/20090318a.htm",
+          "publishedOn": "2009-03-18",
+          "rationale": "The two sentences name each instrument, distinguish additional purchases from annual totals for MBS and agency debt, and state the separate Treasury amount and horizon."
+        }
+      ],
+      "economicChecks": [
+        "Agency MBS: up to an additional $750 billion, bringing total purchases to up to $1.25 trillion in 2009.",
+        "Agency debt: up to an additional $100 billion, bringing the annual total to up to $200 billion.",
+        "Longer-term Treasuries: up to $300 billion over the next six months; do not assign the MBS or agency-debt amount to Treasuries.",
+        "Keep the up-to limits; these are announced purchase decisions, not evidence that the amounts were ultimately purchased."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "P02",
+      "question": "In its November 3, 2010 announcement, how much more in longer-term Treasury securities did the FOMC intend to buy, by when, and at roughly what monthly pace?",
+      "category": "policy_decision",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20101103:v1:00002"],
+          "expectedQuote": "In addition, the Committee intends to purchase a further $600 billion of longer-term Treasury securities by the end of the second quarter of 2011, a pace of about $75 billion per month.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/press/monetary/20101103a.htm",
+          "publishedOn": "2010-11-03",
+          "rationale": "A single sentence supplies the additional Treasury amount, completion horizon, and approximate monthly pace."
+        }
+      ],
+      "economicChecks": [
+        "Identify further purchases of longer-term Treasury securities, not agency MBS.",
+        "State $600 billion by the end of Q2 2011 at about $75 billion per month.",
+        "Preserve intends and about; do not describe the sentence as a verified realized total."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "P03",
+      "question": "How was the maturity-extension operation announced by the FOMC on September 21, 2011 structured in terms of purchase amount, maturities, offsetting sales, and deadline?",
+      "category": "policy_decision",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20110921:v1:00002"],
+          "expectedQuote": "The Committee intends to purchase, by the end of June 2012, $400 billion of Treasury securities with remaining maturities of 6 years to 30 years and to sell an equal amount of Treasury securities with remaining maturities of 3 years or less.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20110921a.htm",
+          "publishedOn": "2011-09-21",
+          "rationale": "This sentence gives all four requested operational elements, including the offsetting sales that distinguish maturity extension from unoffset net purchases."
+        }
+      ],
+      "economicChecks": [
+        "Purchase $400 billion of Treasuries with remaining maturities of 6\u201330 years by end-June 2012.",
+        "Sell an equal amount of Treasuries with remaining maturities of 3 years or less.",
+        "Do not present the $400 billion as an unoffset increase in total securities holdings."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "P04",
+      "question": "What additional asset purchases, including the instrument and monthly amount, did the FOMC agree to on September 13, 2012?",
+      "category": "policy_decision",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20120913:v1:00001"],
+          "expectedQuote": "To support a stronger economic recovery and to help ensure that inflation, over time, is at the rate most consistent with its dual mandate, the Committee agreed today to increase policy accommodation by purchasing additional agency mortgage-backed securities at a pace of $40 billion per month.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20120913a.htm",
+          "publishedOn": "2012-09-13",
+          "rationale": "The sentence identifies the new purchase instrument and its monthly pace without conflating it with the combined effect of other ongoing operations."
+        }
+      ],
+      "economicChecks": [
+        "Additional agency mortgage-backed securities at $40 billion per month.",
+        "Do not replace this instrument-specific $40 billion pace with the approximately $85 billion combined monthly increase described elsewhere.",
+        "This is an asset-purchase decision; do not report a policy-rate increase."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "P05",
+      "question": "Under the purchase changes announced on December 18, 2013, how were monthly agency MBS and longer-term Treasury purchases to change beginning in January?",
+      "category": "policy_decision",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20131218:v1:00002"],
+          "expectedQuote": "Beginning in January, the Committee will add to its holdings of agency mortgage-backed securities at a pace of $35 billion per month rather than $40 billion per month, and will add to its holdings of longer-term Treasury securities at a pace of $40 billion per month rather than $45 billion per month.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20131218a.htm",
+          "publishedOn": "2013-12-18",
+          "rationale": "The sentence separately gives the new and preceding monthly pace for each of the two instruments and states when the change starts."
+        }
+      ],
+      "economicChecks": [
+        "Beginning in January 2014: agency MBS $35 billion rather than $40 billion per month.",
+        "Longer-term Treasuries $40 billion rather than $45 billion per month.",
+        "This reduces the pace of additions to holdings; it does not say the Fed sold these securities or immediately reduced its stock of holdings."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "P06",
+      "question": "On October 29, 2014, what did the FOMC decide about its asset-purchase program, reinvestment policy, and federal funds target range?",
+      "category": "policy_decision",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20141029:v1:00002"],
+          "expectedQuote": "Accordingly, the Committee decided to conclude its asset purchase program this month. The Committee is maintaining its existing policy of reinvesting principal payments from its holdings of agency debt and agency mortgage-backed securities in agency mortgage-backed securities and of rolling over maturing Treasury securities at auction. This policy, by keeping the Committee's holdings of longer-term securities at sizable levels, should help maintain accommodative financial conditions. To support continued progress toward maximum employment and price stability, the Committee today reaffirmed its view that the current 0 to 1/4 percent target range for the federal funds rate remains appropriate.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20141029a.htm",
+          "publishedOn": "2014-10-29",
+          "rationale": "The contiguous passage covers the conclusion of the purchase program, continuing reinvestment and rollovers, and the unchanged target range."
+        }
+      ],
+      "economicChecks": [
+        "Conclude the asset-purchase program in October 2014 while maintaining principal reinvestment and Treasury rollovers.",
+        "The federal funds target range remains 0\u20130.25%.",
+        "Ending purchases is not a rate increase and is not an announcement that all securities holdings would run off."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "P07",
+      "question": "When the FOMC raised rates on December 16, 2015, what new target range did it choose, what inflation confidence did it express, and how did it describe the policy stance after the increase?",
+      "category": "policy_decision",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20151216:v1:00002"],
+          "expectedQuote": "The Committee judges that there has been considerable improvement in labor market conditions this year, and it is reasonably confident that inflation will rise, over the medium term, to its 2 percent objective. Given the economic outlook, and recognizing the time it takes for policy actions to affect future economic outcomes, the Committee decided to raise the target range for the federal funds rate to 1/4 to 1/2 percent. The stance of monetary policy remains accommodative after this increase, thereby supporting further improvement in labor market conditions and a return to 2 percent inflation.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20151216a.htm",
+          "publishedOn": "2015-12-16",
+          "rationale": "The three sentences directly pair the rate decision with the stated inflation confidence and the continuing accommodative stance."
+        }
+      ],
+      "economicChecks": [
+        "Raise the target range to 0.25\u20130.50%.",
+        "Reasonably confident that inflation will rise to 2% over the medium term is a forward-looking assessment, not evidence that inflation was already 2%.",
+        "Policy was described as remaining accommodative after the increase."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "P08",
+      "question": "What federal funds target range did the FOMC choose on July 31, 2019, why did it lower rates, and how did it change the timing for ending the reduction in its securities holdings?",
+      "category": "policy_decision",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20190731:v1:00001"],
+          "expectedQuote": "In light of the implications of global developments for the economic outlook as well as muted inflation pressures, the Committee decided to lower the target range for the federal funds rate to 2 to 2-1/4 percent.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20190731a.htm",
+          "publishedOn": "2019-07-31",
+          "rationale": "This sentence provides the new range and the stated global-outlook and inflation motivations."
+        },
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20190731:v1:00002"],
+          "expectedQuote": "The Committee will conclude the reduction of its aggregate securities holdings in the System Open Market Account in August, two months earlier than previously indicated.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20190731a.htm",
+          "publishedOn": "2019-07-31",
+          "rationale": "This separate sentence supplies the revised end date and the two-month timing comparison for securities-holdings reduction."
+        }
+      ],
+      "economicChecks": [
+        "Lower the federal funds target range to 2.00\u20132.25%, citing global developments and muted inflation pressures.",
+        "Conclude securities-holdings reduction in August 2019, two months earlier than previously indicated.",
+        "Earlier describes timing; it does not by itself specify a smaller monthly runoff amount or the start of new net asset purchases."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "P09",
+      "question": "In its March 15, 2020 response to the coronavirus disruption, what target range did the FOMC set and what minimum increases in Treasury and agency MBS holdings did it announce for the coming months?",
+      "category": "policy_decision",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20200315:v1:00001"],
+          "expectedQuote": "In light of these developments, the Committee decided to lower the target range for the federal funds rate to 0 to 1/4 percent.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20200315a.htm",
+          "publishedOn": "2020-03-15",
+          "rationale": "This is the rate decision and resulting range."
+        },
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20200315:v1:00002"],
+          "expectedQuote": "To support the smooth functioning of markets for Treasury securities and agency mortgage-backed securities that are central to the flow of credit to households and businesses, over coming months the Committee will increase its holdings of Treasury securities by at least $500 billion and its holdings of agency mortgage-backed securities by at least $200 billion.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20200315a.htm",
+          "publishedOn": "2020-03-15",
+          "rationale": "This sentence supplies the distinct minimum increases for the two instruments, the coming-months horizon, and the market-functioning purpose."
+        }
+      ],
+      "economicChecks": [
+        "Lower the federal funds target range to 0\u20130.25%.",
+        "Increase Treasury holdings by at least $500 billion and agency MBS holdings by at least $200 billion over coming months.",
+        "At least denotes minima, not maxima; these are not stated as monthly purchase rates.",
+        "Distinguish the rate decision from securities purchases and do not substitute later March 2020 unlimited-purchase wording for this dated announcement."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "P10",
+      "question": "What target range did the FOMC adopt on June 15, 2022, and what did it say about further rate increases and the reduction of securities holdings?",
+      "category": "policy_decision",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20220615:v1:00001"],
+          "expectedQuote": "In support of these goals, the Committee decided to raise the target range for the federal funds rate to 1\u20111/2 to 1-3/4 percent and anticipates that ongoing increases in the target range will be appropriate. In addition, the Committee will continue reducing its holdings of Treasury securities and agency debt and agency mortgage-backed securities, as described in the Plans for Reducing the Size of the Federal Reserve's Balance Sheet that were issued in May.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220615a.htm",
+          "publishedOn": "2022-06-15",
+          "rationale": "The two sentences provide the new range, the conditional outlook for ongoing rate increases, and continuing balance-sheet reduction."
+        }
+      ],
+      "economicChecks": [
+        "Raise the target range to 1.50\u20131.75%.",
+        "The Committee anticipated that ongoing increases would be appropriate; this is guidance rather than a realized schedule of later increases.",
+        "Continue reducing Treasury, agency debt, and agency MBS holdings; do not describe this as restarting asset purchases."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "P11",
+      "question": "At its July 31, 2024 meeting, what federal funds target range did the FOMC retain, and what inflation-related confidence did it require before expecting a rate reduction to be appropriate?",
+      "category": "policy_decision",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20240731:v1:00001"],
+          "expectedQuote": "In support of its goals, the Committee decided to maintain the target range for the federal funds rate at 5-1/4 to 5-1/2 percent. In considering any adjustments to the target range for the federal funds rate, the Committee will carefully assess incoming data, the evolving outlook, and the balance of risks. The Committee does not expect it will be appropriate to reduce the target range until it has gained greater confidence that inflation is moving sustainably toward 2 percent.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240731a.htm",
+          "publishedOn": "2024-07-31",
+          "rationale": "The passage couples the unchanged range with the explicit confidence condition for a future reduction."
+        }
+      ],
+      "economicChecks": [
+        "Maintain 5.25\u20135.50%.",
+        "A reduction was not expected to be appropriate until greater confidence that inflation was moving sustainably toward 2%.",
+        "Do not convert this condition into an announced date or guarantee of a cut."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "P12",
+      "question": "What inflation confidence did the FOMC express on September 18, 2024, what rate reduction and new target range did it choose, and how did Michelle Bowman\u2019s preferred action differ?",
+      "category": "policy_decision",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20240918:v1:00001"],
+          "expectedQuote": "The Committee has gained greater confidence that inflation is moving sustainably toward 2 percent, and judges that the risks to achieving its employment and inflation goals are roughly in balance. The economic outlook is uncertain, and the Committee is attentive to the risks to both sides of its dual mandate. In light of the progress on inflation and the balance of risks, the Committee decided to lower the target range for the federal funds rate by 1/2 percentage point to 4-3/4 to 5 percent.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240918a.htm",
+          "publishedOn": "2024-09-18",
+          "rationale": "The passage gives the confidence assessment, balance of risks, and majority decision including both size and resulting range."
+        },
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20240918:v1:00002"],
+          "expectedQuote": "Voting against this action was Michelle W. Bowman, who preferred to lower the target range for the federal funds rate by 1/4 percentage point at this meeting.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240918a.htm",
+          "publishedOn": "2024-09-18",
+          "rationale": "The dissent sentence identifies Bowman and her preferred quarter-point reduction."
+        }
+      ],
+      "economicChecks": [
+        "The majority cut by 0.50 percentage point to 4.75\u20135.00%.",
+        "Bowman dissented in favor of a smaller 0.25 percentage-point cut, not a rate hold or increase.",
+        "Greater confidence in sustainable progress toward 2% is not a claim that inflation had already reached 2%."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "P13",
+      "question": "What downside inflation risk did the FOMC identify in its January 28, 2009 statement, and how certain was that assessment?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20090128:v1:00001"],
+          "expectedQuote": "Moreover, the Committee sees some risk that inflation could persist for a time below rates that best foster economic growth and price stability in the longer term.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/press/monetary/20090128a.htm",
+          "publishedOn": "2009-01-28",
+          "rationale": "The original statement quote specifies the downside risk and its qualified some-risk/could formulation."
+        }
+      ],
+      "economicChecks": [
+        "Some risk that inflation could persist below rates consistent with longer-run growth and price stability.",
+        "Preserve could and some risk; do not report a certain forecast that inflation would remain too low.",
+        "The passage does not state a numerical inflation forecast or an exact ending date."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "P14",
+      "question": "According to the July 2017 FOMC meeting minutes released on August 16, how did the Committee expect inflation to differ between the near term and the medium term?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-minutes-20170726:v2:00029"],
+          "expectedQuote": "Inflation on a 12\u2011month basis was expected to remain somewhat below 2 percent in the near term but to stabilize around the Committee's 2 percent objective over the medium term.",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+          "publishedOn": "2017-08-16",
+          "rationale": "The original Committee Policy Action passage explicitly contrasts near-term and medium-term expected inflation."
+        }
+      ],
+      "economicChecks": [
+        "12-month inflation was expected somewhat below 2% in the near term and around 2% over the medium term.",
+        "Attribute this expectation to Committee members in the policy-action discussion, not to a separate staff forecast.",
+        "The meeting was July 26, 2017; the minutes were published August 16, 2017.",
+        "Expected inflation is not a statement of subsequent realized inflation."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "P15",
+      "question": "In the FOMC minutes released on April 7, 2021, what did the staff forecast production bottlenecks and supply constraints would do to inflation that year, and for how long?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-minutes-20210317:v2:00023"],
+          "expectedQuote": "In addition, inflation was forecast to be temporarily boosted this year by the expected emergence of some production bottlenecks and supply constraints.",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20210317.htm",
+          "publishedOn": "2021-04-07",
+          "rationale": "This original Staff Economic Outlook sentence states the expected inflation effect, the 2021 horizon, and the temporary qualifier."
+        }
+      ],
+      "economicChecks": [
+        "Fed staff forecast a temporary boost to inflation in 2021 from expected bottlenecks and supply constraints.",
+        "Do not turn temporarily into a permanent increase or a claim that the temporary assessment proved correct.",
+        "Staff forecast in minutes of the March 17, 2021 meeting, published April 7, 2021; do not treat the meeting date as the publication date."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "P16",
+      "question": "What did the OECD\u2019s March 17, 2025 interim outlook project for US core inflation in 2026, and what bilateral tariff assumption accompanied those projections?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["10.1787/89af4857-en:v2:00005"],
+          "expectedQuote": "Core inflation is now projected to remain above central bank targets in many countries in 2026, including the United States. These projections are based on an assumption that bilateral tariffs between Canada and the United States and between Mexico and the United States are raised by an additional 25 percentage points on almost all merchandise imports from April.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/03/oecd-economic-outlook-interim-report-march-2025_47a36021/89af4857-en.pdf#page=6",
+          "publishedOn": "2025-03-17",
+          "rationale": "The two original sentences state the US-inclusive above-target core-inflation projection and the exact tariff assumption underlying the projections."
+        }
+      ],
+      "economicChecks": [
+        "Attribute the projection to the OECD, not the Federal Reserve.",
+        "US core inflation was projected to remain above target in 2026; do not label this headline inflation or realized 2026 data.",
+        "The assumption adds 25 percentage points to bilateral tariffs between the United States and Canada and between the United States and Mexico on almost all merchandise imports from April 2025.",
+        "An assumed tariff increase is not evidence that the assumed policy was enacted or that it alone explains the projection."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "P17",
+      "question": "In the ECB outlook published on September 14, 2023, what annual average inflation rates were expected for the euro area in 2023, 2024, and 2025?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "EA",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp230914~aab39f8c21:selected-inflation-projections-five-six"
+          ],
+          "expectedQuote": "average inflation at 5.6% in 2023, 3.2% in 2024 and 2.1% in 2025.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2023/html/ecb.mp230914~aab39f8c21.en.html",
+          "publishedOn": "2023-09-14",
+          "rationale": "The original ECB quote contains the three annual averages and the years needed to answer the question."
+        }
+      ],
+      "economicChecks": [
+        "Euro-area annual average inflation projections: 5.6% in 2023, 3.2% in 2024, and 2.1% in 2025.",
+        "Keep each rate paired with its year; do not assign these to the United States or T\u00fcrkiye.",
+        "These are projections from September 2023, not ex-post annual inflation outcomes."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "P18",
+      "question": "In its June 6, 2024 outlook, what did the ECB identify as sustaining domestic price pressures, and how long was inflation likely to stay above target?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "EA",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp240606~2148ecdb3c:selected-domestic-inflation-pressure"
+          ],
+          "expectedQuote": "domestic price pressures remain strong as wage growth is elevated, and inflation is likely to stay above target well into next year.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2024/html/ecb.mp240606~2148ecdb3c.en.html",
+          "publishedOn": "2024-06-06",
+          "rationale": "The original ECB passage connects domestic pressures to elevated wage growth and supplies the qualified above-target horizon."
+        }
+      ],
+      "economicChecks": [
+        "Elevated wage growth was linked to strong domestic price pressures.",
+        "Inflation was likely to remain above target well into 2025, relative to the June 2024 publication.",
+        "Preserve likely and the outlook horizon; do not state an observed 2025 outcome or import a forecast for a different country."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "P19",
+      "question": "For T\u00fcrkiye in the OECD outlook published on June 30, 2017, what was the consumer-inflation situation and how fast was disinflation projected to proceed?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "TUR",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2017-1-en:v2:00374"],
+          "expectedQuote": "Consumer price inflation is back in double digits and disinflation is projected to be slow.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2017/06/oecd-economic-outlook-volume-2017-issue-1_g1g7b0f4/eco_outlook-v2017-1-en.pdf#page=252",
+          "publishedOn": "2017-06-30",
+          "rationale": "The original OECD T\u00fcrkiye quote distinguishes the current double-digit inflation assessment from the slow-disinflation projection."
+        }
+      ],
+      "economicChecks": [
+        "Consumer price inflation was back in double digits; disinflation was projected to be slow.",
+        "Slow disinflation means a projected slowing in inflation, not a prediction of a fall in the consumer price level.",
+        "Attribute this to the OECD outlook for T\u00fcrkiye, not a CBRT policy decision."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "P20",
+      "question": "In its June 8, 2022 outlook for T\u00fcrkiye, what level did the OECD expect consumer inflation to exceed that year, and which monetary-policy and price conditions did it cite?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "TUR",
+          "anyOfChunkIds": ["10.1787/62d0ca31-en:v3:00423"],
+          "expectedQuote": "Accommodative monetary policy coupled with high commodity and food prices will keep consumer inflation above 70% in 2022.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/06/oecd-economic-outlook-volume-2022-issue-1_76440490/62d0ca31-en.pdf#page=220",
+          "publishedOn": "2022-06-08",
+          "rationale": "The original forecast supplies the above-70% threshold, the 2022 horizon, and both policy and price conditions."
+        }
+      ],
+      "economicChecks": [
+        "The OECD forecast consumer inflation above 70% in 2022.",
+        "The cited combination is accommodative monetary policy with high commodity and food prices.",
+        "The source uses will in a dated outlook; describe it as that forecast rather than as verified realized annual inflation.",
+        "Do not attribute the forecast to the CBRT or infer a policy-rate decision from it."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "PN01",
+      "question": "What federal funds target range did the FOMC set in its December 16, 2008 statement, and what reasons did that statement give?",
+      "category": "unsupported_period",
+      "split": "development",
+      "filters": {},
+      "rationale": "The requested primary statement predates this bounded source collection. Fed document publication coverage begins January 14, 2009; the 801 timeline notes begin January 28, 2009. Later passages may mention 2008, but that cannot substitute for the requested December 2008 statement or establish its complete reasons.",
+      "economicChecks": [
+        "Abstain from providing the requested December 2008 statement answer as source-supported.",
+        "Do not substitute the January 2009 target range, external knowledge, or a later retrospective mention for the missing primary statement."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "PN02",
+      "question": "What reasons did the Bank of England itself give in its July 2014 Monetary Policy Committee minutes for keeping Bank Rate unchanged?",
+      "category": "unsupported_institution",
+      "split": "development",
+      "filters": {},
+      "rationale": "The Fed corpus contains Fed and OECD documents; all 18 GBR timeline notes are attributed to the OECD, and no timeline source institution is the Bank of England. A request for the Bank of England\u2019s own July 2014 minutes is therefore outside this collection, even if OECD UK assessments discuss monetary policy.",
+      "economicChecks": [
+        "Abstain from claiming to quote or summarize the Bank of England\u2019s own minutes.",
+        "Do not relabel OECD UK commentary or a Fed statement as a Bank of England primary source."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "PN03",
+      "question": "What inflation outlook did Brazil\u2019s central bank give in its September 2024 Copom statement?",
+      "category": "unsupported_country",
+      "split": "development",
+      "filters": {},
+      "rationale": "The complete 801-note timeline inventory contains zero BRA-country notes and its institution inventory has no Banco Central do Brasil. The other eligible source collection consists of Fed passages. This is a request for a Brazil-specific central-bank statement outside the indexed country and institution scope, not a claim that Brazil is never mentioned incidentally.",
+      "economicChecks": [
+        "Abstain from a Brazil-specific Copom answer using this collection.",
+        "Do not transfer the Fed, ECB, or T\u00fcrkiye inflation outlook to Brazil or supply an uncited answer from prior knowledge."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "PN04",
+      "question": "Why did Michelle Bowman prefer a three-quarter-percentage-point rate cut in the September 18, 2024 FOMC statement?",
+      "category": "unsupported_claim",
+      "split": "development",
+      "filters": {},
+      "rationale": "The original September 18, 2024 statement explicitly says Bowman preferred a one-quarter-percentage-point cut. The question\u2019s three-quarter-point premise contradicts the source; the statement also does not provide a fuller personal rationale for that invented preference. The control is established by the read dissent sentence, not by an unverified search absence.",
+      "economicChecks": [
+        "Reject the unsupported 0.75-percentage-point preference.",
+        "The source supports a 0.25-percentage-point preferred cut; it does not supply a reason for the invented larger cut.",
+        "Do not fabricate an explanation or infer that Bowman preferred a rate hold."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": true
+    },
+    {
+      "id": "C01",
+      "question": "In their 2010 assessments, what inflation path did the OECD describe for Hungary and the FOMC describe for the United States, including any target, horizon or economic conditions attached to each?",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "HUN",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2010-1-en:v3:00189"],
+          "expectedQuote": "Inflation is expected to be below the central bank\u2019s 3% inflation target by the end of 2011.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2010/05/oecd-economic-outlook-volume-2010-issue-1_g1ghbb3a/eco_outlook-v2010-1-en.pdf#page=145",
+          "publishedOn": "2010-05-26",
+          "rationale": "The OECD projected inflation below Hungary\u2019s 3% target by end-2011."
+        },
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20100810:v1:00001"],
+          "expectedQuote": "Measures of underlying inflation have trended lower in recent quarters and, with substantial resource slack continuing to restrain cost pressures and longer-term inflation expectations stable, inflation is likely to be subdued for some time.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/press/monetary/20100810a.htm",
+          "publishedOn": "2010-08-10",
+          "rationale": "The FOMC expected subdued US inflation, with resource slack and stable longer-term expectations."
+        }
+      ],
+      "economicChecks": [
+        "Attribute the Hungary forecast to the OECD on 26 May 2010 and the US outlook to the FOMC on 10 August 2010; these are different issuers and publication months.",
+        "Keep Hungary\u2019s end-2011 horizon and 3% target separate from the US description of subdued inflation for some time.",
+        "Describe the US slack and expectations conditions; do not invent a US numerical forecast or infer a cross-country inflation gap."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "C02",
+      "question": "Compare what the OECD\u2019s November 2011 outlook said about inflation prospects in Chile and Slovakia and the qualifications attached to each economy.",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "CHL",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2011-2-en:v3:00165"],
+          "expectedQuote": "Inflation is projected to remain well within the target range of 3% (+/\u20131) until the end of the projection period.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2011/11/oecd-economic-outlook-volume-2011-issue-2_g1g11688/eco_outlook-v2011-2-en.pdf#page=121",
+          "publishedOn": "2011-11-28",
+          "rationale": "Chile\u2019s projected inflation remained within its stated target range through the projection period."
+        },
+        {
+          "country": "SVK",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2011-2-en:v3:00232"],
+          "expectedQuote": "Finally, real household income will benefit from lower inflation, not least because increases in regulated prices should be less pronounced going forward.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2011/11/oecd-economic-outlook-volume-2011-issue-2_g1g11688/eco_outlook-v2011-2-en.pdf#page=175",
+          "publishedOn": "2011-11-28",
+          "rationale": "Slovakia\u2019s lower-inflation outlook was linked to real household income and less pronounced regulated-price increases."
+        }
+      ],
+      "economicChecks": [
+        "Preserve Chile\u2019s 3% (+/\u20131) target range and the stated projection-period horizon; the excerpt does not give an exact end date.",
+        "For Slovakia, describe lower inflation and the projected household-income benefit, including the regulated-price explanation.",
+        "Do not turn Slovakia\u2019s qualitative outlook into a numerical inflation forecast or treat the Chilean target as a forecast point."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "C03",
+      "question": "What did the IMF\u2019s 2012 assessments project for headline inflation in Latvia and Lithuania, and what condition accompanied Latvia\u2019s projection?",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "LVA",
+          "anyOfChunkIds": ["lva-20120516-imf-excerpt"],
+          "expectedQuote": "Headline inflation should fall to around 2.6 percent in 2012, provided there are no shocks to world energy or food prices.",
+          "sourceUrl": "https://www.imf.org/en/news/articles/2015/09/14/01/49/pr12180",
+          "publishedOn": "2012-05-16",
+          "rationale": "The Latvia passage gives an approximate 2012 forecast and an explicit world energy/food-price condition."
+        },
+        {
+          "country": "LTU",
+          "anyOfChunkIds": ["ltu-20120614-imf-excerpt"],
+          "expectedQuote": "Headline inflation expected to fall to around 3 percent in 2012.",
+          "sourceUrl": "https://www.imf.org/en/news/articles/2015/09/28/04/52/mcs061412",
+          "publishedOn": "2012-06-14",
+          "rationale": "The Lithuania passage gives its separate approximate 2012 headline-inflation projection."
+        }
+      ],
+      "economicChecks": [
+        "State Latvia\u2019s around-2.6% and Lithuania\u2019s around-3% projections for 2012 as forecasts, not outcomes.",
+        "Retain Latvia\u2019s proviso that there are no shocks to world energy or food prices.",
+        "Identify the publication dates as 16 May and 14 June 2012; do not copy 2015 URL migration dates into the economic chronology.",
+        "Do not extend Latvia\u2019s condition to Lithuania or present the forecast difference as an established economic effect."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "C04",
+      "question": "According to the OECD\u2019s first 2013 outlook issue, what inflation prospects and supporting economic mechanisms did it describe for the Czech Republic and Iceland?",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "CZE",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2013-1-en:v3:00154"],
+          "expectedQuote": "Growth is projected to be too low to prevent a further widening of the output gap, implying continued weak inflation.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2013/05/oecd-economic-outlook-volume-2013-issue-1_g1g238a8/eco_outlook-v2013-1-en.pdf#page=115",
+          "publishedOn": "2013-06-20",
+          "rationale": "The Czech passage connects continued weak inflation to insufficient growth and a widening output gap."
+        },
+        {
+          "country": "ISL",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2013-1-en:v3:00174"],
+          "expectedQuote": "Following monetary policy tightening and recent exchange rate appreciation, inflation is set to fall too, but to remain above target.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2013/05/oecd-economic-outlook-volume-2013-issue-1_g1g238a8/eco_outlook-v2013-1-en.pdf#page=132",
+          "publishedOn": "2013-06-20",
+          "rationale": "The Iceland passage projects falling inflation that nevertheless remains above target after tightening and appreciation."
+        }
+      ],
+      "economicChecks": [
+        "Explain the Czech growth/output-gap mechanism as the source\u2019s projected reason for continued weak inflation.",
+        "Retain both parts of Iceland\u2019s outlook: inflation falls but remains above target.",
+        "Attribute Iceland\u2019s stated monetary tightening and appreciation to that economy; do not invent target values or exact inflation rates."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "C05",
+      "question": "What inflation paths did the OECD\u2019s first 2014 outlook issue project for Belgium and Canada, and how did it relate those paths to economic slack?",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "BEL",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2014-1-en:v3:00152"],
+          "expectedQuote": "Inflation will remain low, due to limited imported price pressures, still sizeable economic slack and recent wage restraint.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2014/05/oecd-economic-outlook-volume-2014-issue-1_g1g369e0/eco_outlook-v2014-1-en.pdf#page=127",
+          "publishedOn": "2014-06-20",
+          "rationale": "Belgium\u2019s low-inflation outlook has three stated explanations, including sizeable slack."
+        },
+        {
+          "country": "CAN",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2014-1-en:v3:00141"],
+          "expectedQuote": "With economic slack fully absorbed, inflation is projected to rise to nearly 2% by late 2015.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2014/05/oecd-economic-outlook-volume-2014-issue-1_g1g369e0/eco_outlook-v2014-1-en.pdf#page=117",
+          "publishedOn": "2014-06-20",
+          "rationale": "Canada\u2019s projection approaches 2% by late 2015 with slack fully absorbed."
+        }
+      ],
+      "economicChecks": [
+        "For Belgium, retain low inflation, limited imported price pressures, sizeable slack and recent wage restraint.",
+        "For Canada, retain the nearly-2% level, late-2015 horizon and absorbed-slack premise.",
+        "Do not assign Belgium Canada\u2019s numerical forecast or infer a numerical difference from a qualitative Belgian forecast."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "C06",
+      "question": "How did the OECD\u2019s June 2015 outlook explain projected inflation in Australia and Colombia, including the expected persistence of the price pressures it described?",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "AUS",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2015-1-en:v3:00089"],
+          "expectedQuote": "Consumer price inflation has been dented by lower oil prices and will remain moderate due to economic slack.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2015/06/oecd-economic-outlook-volume-2015-issue-1_g1g46e77/eco_outlook-v2015-1-en.pdf#page=64",
+          "publishedOn": "2015-06-19",
+          "rationale": "Australia\u2019s consumer-price outlook was moderate because of slack after lower oil prices."
+        },
+        {
+          "country": "COL",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2015-1-en:v3:00122"],
+          "expectedQuote": "Currency depreciation will temporarily raise headline inflation, but also contribute to growth by gradually boosting non-commodity exports.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2015/06/oecd-economic-outlook-volume-2015-issue-1_g1g46e77/eco_outlook-v2015-1-en.pdf#page=89",
+          "publishedOn": "2015-06-19",
+          "rationale": "Colombia\u2019s headline-inflation effect from currency depreciation was explicitly temporary, alongside an export-growth channel."
+        }
+      ],
+      "economicChecks": [
+        "Distinguish Australia\u2019s lower-oil-price effect and economic slack from Colombia\u2019s currency-depreciation effect.",
+        "Preserve the temporary character of Colombia\u2019s headline-inflation increase and the gradual non-commodity-export channel if discussing growth.",
+        "Do not invent dates for the end of either effect or turn these source descriptions into identified causal estimates."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "C07",
+      "question": "In the OECD\u2019s June 2016 outlook, what directions for inflation were expected in Norway and Estonia, and what mechanisms supported each outlook?",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "NOR",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2016-1-en:v3:00280"],
+          "expectedQuote": "Inflation will drift down as currency-depreciation effects wane and economic slack continues.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2016/06/oecd-economic-outlook-volume-2016-issue-1_g1g68ec8/eco_outlook-v2016-1-en.pdf#page=196",
+          "publishedOn": "2016-06-01",
+          "rationale": "Norway\u2019s inflation was expected to drift down as depreciation effects waned and slack continued."
+        },
+        {
+          "country": "EST",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2016-1-en:v3:00186"],
+          "expectedQuote": "Shortages of skilled labour will push up wages and raise consumer price inflation somewhat.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2016/06/oecd-economic-outlook-volume-2016-issue-1_g1g68ec8/eco_outlook-v2016-1-en.pdf#page=125",
+          "publishedOn": "2016-06-01",
+          "rationale": "Estonia\u2019s skilled-labour shortages were expected to raise wages and consumer-price inflation somewhat."
+        }
+      ],
+      "economicChecks": [
+        "Retain Norway\u2019s downward direction and both the fading depreciation effect and continuing slack.",
+        "Retain Estonia\u2019s upward consumer-price pressure through skilled-labour shortages and wages, including the qualifier somewhat.",
+        "Do not infer exact inflation rates, a numerical cross-country gap or a common monetary-policy recommendation."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "C08",
+      "question": "In the OECD\u2019s first 2017 outlook issue, what did it project about inflation in Switzerland and the inflation-related monetary-policy path in Israel?",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "CHE",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2017-1-en:v2:00371"],
+          "expectedQuote": "Deflation seems to have been overcome, but inflation is projected to remain low through 2018.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2017/06/oecd-economic-outlook-volume-2017-issue-1_g1g7b0f4/eco_outlook-v2017-1-en.pdf#page=249",
+          "publishedOn": "2017-06-30",
+          "rationale": "The Swiss passage qualifies the apparent end of deflation and projects low inflation through 2018."
+        },
+        {
+          "country": "ISR",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2017-1-en:v2:00289"],
+          "expectedQuote": "As inflation increases, the central bank is projected to gradually withdraw monetary stimulus.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2017/06/oecd-economic-outlook-volume-2017-issue-1_g1g7b0f4/eco_outlook-v2017-1-en.pdf#page=189",
+          "publishedOn": "2017-06-30",
+          "rationale": "The Israeli passage projects a gradual withdrawal of monetary stimulus as inflation increases."
+        }
+      ],
+      "economicChecks": [
+        "Keep Switzerland\u2019s tentative assessment that deflation seems overcome and the low-inflation horizon through 2018.",
+        "Describe Israel\u2019s stimulus withdrawal as projected and gradual, tied to rising inflation.",
+        "Do not report either outlook as a realised policy action or invent a Swiss inflation rate or Israeli rate-increase schedule."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "C09",
+      "question": "What did the OECD\u2019s first 2018 outlook issue say about labour-market pressures and prospective inflation in Denmark and Israel?",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "DNK",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2018-1-en:v2:00201"],
+          "expectedQuote": "While rising labour force participation will partly help to meet growing labour demand, wage and price inflation are expected to rise as labour shortages increase.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2018/05/oecd-economic-outlook-volume-2018-issue-1_g1g8d58b/eco_outlook-v2018-1-en.pdf#page=131",
+          "publishedOn": "2018-06-21",
+          "rationale": "The Denmark passage balances rising participation against growing labour demand and labour-shortage pressure on wages and prices."
+        },
+        {
+          "country": "ISR",
+          "anyOfChunkIds": ["10.1787/eco_outlook-v2018-1-en:v2:00250"],
+          "expectedQuote": "In a tight labour market, rising wage pressures are projected to lead to a steady increase in inflation.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2018/05/oecd-economic-outlook-volume-2018-issue-1_g1g8d58b/eco_outlook-v2018-1-en.pdf#page=171",
+          "publishedOn": "2018-06-21",
+          "rationale": "The Israel passage links a tight labour market and wage pressures to a projected steady inflation increase."
+        }
+      ],
+      "economicChecks": [
+        "Preserve Denmark\u2019s qualification that higher participation partly meets labour demand but shortages still increase.",
+        "For Israel, state that rising wage pressures in a tight labour market are projected to raise inflation steadily.",
+        "Do not equate the countries\u2019 inflation rates, quantify pass-through, or claim the passages establish a causal coefficient."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "C10",
+      "question": "Compare the inflation outlooks for Denmark and Japan in the OECD\u2019s May 2019 report, keeping each economy\u2019s stated drivers, measures and horizons distinct.",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "DNK",
+          "anyOfChunkIds": ["10.1787/b2e897b0-en:v3:00214"],
+          "expectedQuote": "Inflation is set to pick up from a very low rate as the economy operates above its capacity constraints.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2019/05/oecd-economic-outlook-volume-2019-issue-1_432786b2/b2e897b0-en.pdf#page=124",
+          "publishedOn": "2019-05-21",
+          "rationale": "Denmark\u2019s very-low-rate inflation was set to pick up as the economy operated above capacity constraints."
+        },
+        {
+          "country": "JPN",
+          "anyOfChunkIds": ["10.1787/b2e897b0-en:v3:00294"],
+          "expectedQuote": "Sustained growth is projected to gradually push up headline inflation to 1% (excluding the impact of the tax increase) by 2020.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2019/05/oecd-economic-outlook-volume-2019-issue-1_432786b2/b2e897b0-en.pdf#page=168",
+          "publishedOn": "2019-05-21",
+          "rationale": "Japan\u2019s projected headline inflation reaches 1% by 2020 excluding the tax-increase impact."
+        }
+      ],
+      "economicChecks": [
+        "Describe Denmark\u2019s capacity-pressure explanation and its qualitative pick-up from a very low rate.",
+        "Retain Japan\u2019s 1% headline-inflation projection by 2020, excluding the impact of the tax increase, and its sustained-growth explanation.",
+        "Do not reinterpret the Japanese projection as core inflation or give Denmark the same numerical forecast."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "C11",
+      "question": "How did the OECD\u2019s May 2021 outlook describe inflation relative to each country\u2019s own target in Costa Rica and Sweden?",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "CRI",
+          "anyOfChunkIds": ["10.1787/edfbca02-en:v2:00190"],
+          "expectedQuote": "Inflation will slowly increase, but remain below the 3% target rate as spare capacity remains large.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2021/05/oecd-economic-outlook-volume-2021-issue-1_88e062cf/edfbca02-en.pdf#page=101",
+          "publishedOn": "2021-05-31",
+          "rationale": "Costa Rica\u2019s inflation slowly rises but stays below its 3% target because spare capacity remains large."
+        },
+        {
+          "country": "SWE",
+          "anyOfChunkIds": ["10.1787/edfbca02-en:v2:00408"],
+          "expectedQuote": "Inflation is set to remain below the 2% target throughout 2021 and 2022.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2021/05/oecd-economic-outlook-volume-2021-issue-1_88e062cf/edfbca02-en.pdf#page=204",
+          "publishedOn": "2021-05-31",
+          "rationale": "Sweden\u2019s inflation remains below its 2% target throughout 2021 and 2022."
+        }
+      ],
+      "economicChecks": [
+        "Keep Costa Rica\u2019s 3% target, slow increase and spare-capacity explanation together.",
+        "Keep Sweden\u2019s different 2% target and explicit 2021\u20132022 horizon.",
+        "Below-target statements do not identify exact country inflation rates or establish which country has the lower inflation rate."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "C12",
+      "question": "In the OECD\u2019s December 2024 outlook, what did it say about the inflation condition for policy easing in New Zealand and the expected 2025 headline-inflation path in Slovakia?",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "NZL",
+          "anyOfChunkIds": ["10.1787/d8814e8b-en:v3:00394"],
+          "expectedQuote": "Provided inflation stabilises around 2%, the official cash rate should continue to be gradually reduced in 2025.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/12/oecd-economic-outlook-volume-2024-issue-2_67bb8fac/d8814e8b-en.pdf#page=215",
+          "publishedOn": "2024-12-04",
+          "rationale": "New Zealand\u2019s gradual 2025 cash-rate reduction is recommended only provided inflation stabilises around 2%."
+        },
+        {
+          "country": "SVK",
+          "anyOfChunkIds": ["10.1787/d8814e8b-en:v3:00431"],
+          "expectedQuote": "Headline inflation is expected to rise to 4.4% in 2025, on account of higher gas prices, increased VAT rates and other tax increases.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/12/oecd-economic-outlook-volume-2024-issue-2_67bb8fac/d8814e8b-en.pdf#page=233",
+          "publishedOn": "2024-12-04",
+          "rationale": "Slovakia\u2019s 2025 headline-inflation forecast is 4.4%, explained by gas and tax increases."
+        }
+      ],
+      "economicChecks": [
+        "Preserve the New Zealand proviso of inflation stabilising around 2% and the recommendation for gradual rate reductions in 2025.",
+        "Preserve Slovakia\u2019s 4.4% headline-inflation forecast for 2025 and all stated gas-price, VAT and other-tax drivers.",
+        "Do not treat New Zealand\u2019s conditional stabilisation premise as an unconditional inflation forecast or infer a precise inflation gap."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "C13",
+      "question": "What did the OECD\u2019s June 2025 outlook expect to happen to inflation in Estonia and Japan, and which drivers and later moderation did it describe for each?",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "EST",
+          "anyOfChunkIds": ["10.1787/83363382-en:v2:00268"],
+          "expectedQuote": "Inflation will pick up again in 2025 due to a VAT rise in July but moderate subsequently.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/06/oecd-economic-outlook-volume-2025-issue-1_1fd979a8/83363382-en.pdf#page=151",
+          "publishedOn": "2025-06-03",
+          "rationale": "Estonia\u2019s inflation picks up in 2025 with July VAT and moderates subsequently."
+        },
+        {
+          "country": "JPN",
+          "anyOfChunkIds": ["10.1787/83363382-en:v2:00360"],
+          "expectedQuote": "A surge in food prices will slightly raise headline consumer price inflation in 2025, before it eases towards the 2% target in 2026.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/06/oecd-economic-outlook-volume-2025-issue-1_1fd979a8/83363382-en.pdf#page=196",
+          "publishedOn": "2025-06-03",
+          "rationale": "Japan\u2019s food-price surge slightly raises 2025 headline consumer-price inflation before easing towards 2% in 2026."
+        }
+      ],
+      "economicChecks": [
+        "Retain Estonia\u2019s July VAT rise and subsequent moderation without inventing a precise year or rate for that moderation.",
+        "Retain Japan\u2019s food-price driver, slight 2025 increase and easing towards the 2% target in 2026.",
+        "Do not turn towards-target into an assurance of reaching target, or substitute a core measure for Japan\u2019s headline consumer-price measure."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "C14",
+      "question": "In its June 2022 outlook, what inflation prospects did the OECD describe for New Zealand and T\u00fcrkiye, including the distinct forecast horizons and drivers?",
+      "category": "country_comparison",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "NZL",
+          "anyOfChunkIds": ["10.1787/62d0ca31-en:v3:00357"],
+          "expectedQuote": "Inflation will decline in 2023 but remain high, as firms pass on global commodity price inflation and workers demand higher wages.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/06/oecd-economic-outlook-volume-2022-issue-1_76440490/62d0ca31-en.pdf#page=187",
+          "publishedOn": "2022-06-08",
+          "rationale": "New Zealand\u2019s inflation declines in 2023 but stays high because of commodity-cost pass-through and wage demands."
+        },
+        {
+          "country": "TUR",
+          "anyOfChunkIds": ["10.1787/62d0ca31-en:v3:00423"],
+          "expectedQuote": "Accommodative monetary policy coupled with high commodity and food prices will keep consumer inflation above 70% in 2022.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/06/oecd-economic-outlook-volume-2022-issue-1_76440490/62d0ca31-en.pdf#page=220",
+          "publishedOn": "2022-06-08",
+          "rationale": "T\u00fcrkiye\u2019s consumer inflation stays above 70% in 2022 amid accommodative policy and high commodity and food prices."
+        }
+      ],
+      "economicChecks": [
+        "Keep New Zealand\u2019s decline-but-still-high forecast for 2023 separate from T\u00fcrkiye\u2019s above-70% forecast for 2022.",
+        "Preserve the stated commodity-price and wage-demand drivers for New Zealand and the monetary-policy, commodity and food-price drivers for T\u00fcrkiye.",
+        "Do not directly subtract these forecasts or claim a same-year quantitative inflation comparison."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "C15",
+      "question": "What risk to the US inflation outlook did the FOMC identify in its 28 January 2009 statement?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-statement-20090128:v1:00001"],
+          "expectedQuote": "Moreover, the Committee sees some risk that inflation could persist for a time below rates that best foster economic growth and price stability in the longer term.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/press/monetary/20090128a.htm",
+          "publishedOn": "2009-01-28",
+          "rationale": "The statement identifies some risk of persistently too-low inflation relative to rates consistent with longer-run growth and price stability."
+        }
+      ],
+      "economicChecks": [
+        "Describe a risk that inflation could persist below appropriate longer-run rates, rather than a certainty that deflation would occur.",
+        "Do not assign a numerical target or forecast rate that is absent from this passage."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "C16",
+      "question": "What did the Fed staff\u2019s PCE inflation outlook in the minutes published on 16 August 2017 say about the revision for 2017 and the projected path in 2018 and 2019?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-minutes-20170726:v2:00016"],
+          "expectedQuote": "The staff's forecast for consumer price inflation, as measured by the change in the PCE price index, was revised down slightly for 2017 in response to weaker-than-expected incoming data for inflation.",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+          "publishedOn": "2017-08-16",
+          "rationale": "The first original passage states the staff\u2019s slight downward 2017 PCE-inflation revision and its incoming-data basis."
+        },
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["fed-minutes-20170726:v2:00017"],
+          "expectedQuote": "The staff continued to project that inflation would increase in the next couple of years and that it would be close to the Committee's longer-run objective in 2018 and at 2 percent in 2019.",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20170726.htm",
+          "publishedOn": "2017-08-16",
+          "rationale": "A separate original passage supplies the staff\u2019s later inflation path and the distinct 2018/2019 target language."
+        }
+      ],
+      "economicChecks": [
+        "Attribute the outlook to Fed staff; do not relabel it as an FOMC decision or a committee-member forecast.",
+        "Keep the 2017 slight downward revision and weaker-than-expected incoming inflation data separate from the later projection.",
+        "Retain close to the longer-run objective in 2018 versus at 2% in 2019, measured with the PCE price index.",
+        "Use 16 August 2017 as publication date; 26 July 2017 is the meeting date in the document title."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "C17",
+      "question": "What inflation path did the IMF project for Costa Rica in its statement published on 4 February 2015, and how did the forecast relate to the central bank\u2019s announced band?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "CRI",
+          "anyOfChunkIds": ["cri-20150204-imf-excerpt"],
+          "expectedQuote": "Inflation is projected to hover around 4 percent after returning within the Central Bank\u2019s announced band in early 2015.",
+          "sourceUrl": "https://www.imf.org/en/news/articles/2015/09/14/01/49/pr1532",
+          "publishedOn": "2015-02-04",
+          "rationale": "The IMF projected inflation hovering around 4% after returning to the announced band in early 2015."
+        }
+      ],
+      "economicChecks": [
+        "Preserve the approximate 4% projection and the early-2015 return-within-band sequence.",
+        "The quoted excerpt does not specify the band\u2019s endpoints; do not invent them or describe 4% as an observed realised rate.",
+        "Use the 2015 publication date even though the title refers to the 2014 Article IV consultation."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "C18",
+      "question": "What did the OECD\u2019s September 2022 interim outlook project for US core inflation in 2023, distinguishing the annual average from the year-end rate and identifying the price measure?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "anyOfChunkIds": ["10.1787/ae8c39ec-en:v2:00014"],
+          "expectedQuote": "US core inflation (based on the private consumption deflator) is projected to average around 3% in 2023 (Table 3), and to be around 2\u00be per cent by the end of the year.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/09/oecd-economic-outlook-interim-report-september-2022_76a917c4/ae8c39ec-en.pdf#page=13",
+          "publishedOn": "2022-09-26",
+          "rationale": "The original passage provides both 2023 horizons and identifies the private-consumption-deflator basis."
+        }
+      ],
+      "economicChecks": [
+        "Retain the US core-inflation measure based on the private consumption deflator; do not substitute headline CPI.",
+        "Distinguish around 3% as the 2023 average from around 2\u00be% at the end of 2023.",
+        "Describe both numbers as projections in a report published in 2022, not realised 2023 observations."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "C19",
+      "question": "What inflation outlook and wage condition underpinned the OECD\u2019s December 2024 recommendation for Japan\u2019s policy interest rate?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "JPN",
+          "anyOfChunkIds": ["10.1787/d8814e8b-en:v3:00344"],
+          "expectedQuote": "Projections of sustained inflation around the 2% target and robust wage growth imply gradual increases in the policy interest rate are warranted.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/12/oecd-economic-outlook-volume-2024-issue-2_67bb8fac/d8814e8b-en.pdf#page=190",
+          "publishedOn": "2024-12-04",
+          "rationale": "The passage links projected sustained near-target inflation and robust wage growth to warranted gradual policy-rate increases."
+        }
+      ],
+      "economicChecks": [
+        "Preserve projected sustained inflation around the 2% target and robust wage growth as the stated basis.",
+        "Present gradual policy-rate increases as the OECD\u2019s recommendation, not an already executed Bank of Japan decision.",
+        "Do not invent an exact rate path, meeting date or separate core-inflation forecast."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "C20",
+      "question": "What conditional upside risk to Slovenia\u2019s inflation outlook did the OECD identify in its June 2026 country assessment?",
+      "category": "inflation_outlook",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [
+        {
+          "country": "SVN",
+          "anyOfChunkIds": ["10.1787/2d1956f0-en:v3:00530"],
+          "expectedQuote": "Stronger-than-expected wage growth would keep inflation elevated for longer.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/06/oecd-economic-outlook-volume-2026-issue-1_8be0dba6/2d1956f0-en.pdf#page=265",
+          "publishedOn": "2026-06-03",
+          "rationale": "The source gives a conditional stronger-than-expected-wage-growth risk to the duration of elevated inflation."
+        }
+      ],
+      "economicChecks": [
+        "Preserve the conditional stronger-than-expected wage-growth premise and the longer duration of elevated inflation.",
+        "Describe this as an inflation risk, not the baseline forecast or evidence that stronger wage growth had already occurred.",
+        "Do not invent a numerical inflation forecast or a specific date for inflation returning to target."
+      ],
+      "sourceRead": true,
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "CN01",
+      "question": "What did the indexed Costa Rica country assessment published in 2012 forecast for inflation? Quote that 2012 country assessment.",
+      "category": "unanswerable",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [],
+      "economicChecks": [
+        "State that no verified Costa Rica country note published in 2012 is covered by this index.",
+        "Do not substitute Costa Rica\u2019s 2011 or 2013 country assessment or answer from a later retrospective mention.",
+        "This is an indexed-source coverage control, not a claim that Costa Rica had no inflation forecast in 2012."
+      ],
+      "sourceRead": true,
+      "outOfCoverageRationale": "The unchanged 801-note timeline contains zero CRI notes with a 2012 publication date; countries.coverage.byCountry.CRI also lists 2012 as its missing year. Other indexed non-timeline passages are date-verified Fed sources, not a Costa Rica country assessment.",
+      "coverageCheck": {
+        "scope": "All 801 original timeline notes in pilot/reviewed/regions/countries, plus the defined additional date-verified Fed-only passage scope.",
+        "predicate": "country == CRI and publishedOn starts with 2012",
+        "matchingTimelineNotes": 0
+      },
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "CN02",
+      "question": "What inflation forecast for Brazil is stated in the indexed OECD Brazil country note published on 4 December 2024? Please quote that country note.",
+      "category": "unanswerable",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [],
+      "economicChecks": [
+        "Explain that the indexed timeline does not include a Brazil country note.",
+        "Do not quote another OECD country\u2019s December 2024 assessment as Brazil\u2019s, or use a Fed reference to Brazil as the requested OECD source.",
+        "Do not claim that the actual OECD report or economic forecast does not exist outside this index."
+      ],
+      "sourceRead": true,
+      "outOfCoverageRationale": "BRA is absent from all 801 country-tagged timeline notes and from countries.coverage.countries. The defined additional passage scope is Fed-only, so it cannot supply the specifically requested OECD Brazil country note.",
+      "coverageCheck": {
+        "scope": "All 801 original timeline notes; additional passages are Fed-only.",
+        "predicate": "country == BRA",
+        "matchingTimelineNotes": 0
+      },
+      "originalR5Split": "development",
+      "falsePremise": false
+    },
+    {
+      "id": "CN03",
+      "question": "Find the indexed OECD Japan country assessment published in 2008 and quote its outlook for Japanese inflation in 2009.",
+      "category": "unanswerable",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [],
+      "economicChecks": [
+        "State that no OECD Japan country note published in 2008 is included in the defined index.",
+        "Do not use a 2009-published note or a US Fed document that merely discusses Japan.",
+        "Keep the publication year distinct from the forecast horizon."
+      ],
+      "sourceRead": true,
+      "outOfCoverageRationale": "Across all 801 timeline notes there are no OECD notes published before 2009; the earliest timeline publication is 28 January 2009. The extra indexed passages are Fed sources, not an OECD Japan assessment published in 2008.",
+      "coverageCheck": {
+        "scope": "All 801 original timeline notes; additional passages are Fed-only.",
+        "predicate": "source.institution == OECD and publishedOn < 2009-01-01",
+        "matchingTimelineNotes": 0
+      },
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "CN04",
+      "question": "What does the indexed OECD Finland country note published in 2027 forecast for inflation in 2028? Quote that 2027 source.",
+      "category": "unanswerable",
+      "split": "development",
+      "filters": {},
+      "goldEvidence": [],
+      "economicChecks": [
+        "Explain that an OECD Finland country note published in 2027 is outside the indexed publication coverage.",
+        "Do not confuse a forecast for 2027 or 2028 in an earlier source with a document published in 2027.",
+        "Do not generate a future report or fabricate a forecast and citation."
+      ],
+      "sourceRead": true,
+      "outOfCoverageRationale": "The four unchanged timeline files have coverage as of 17 November 2026 and contain no OECD notes published in 2027. Their latest actual note publication is 29 October 2026. Additional indexed sources are date-verified Fed passages, not an OECD Finland report from 2027.",
+      "coverageCheck": {
+        "scope": "All 801 original timeline notes; country/region coverage asOf 2026-11-17; additional passages are Fed-only.",
+        "predicate": "source.institution == OECD and publishedOn starts with 2027",
+        "matchingTimelineNotes": 0
+      },
+      "originalR5Split": "holdout",
+      "falsePremise": false
+    },
+    {
+      "id": "FP01",
+      "question": "How much did the FOMC raise its federal funds target range on 31 July 2019, and what reasons did it give for that increase?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": ["decision_direction_reversal"],
+      "contradictingEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "noteId": "note-11",
+          "anyOfChunkIds": ["fed-statement-20190731:v1:00001"],
+          "expectedQuote": "In light of the implications of global developments for the economic outlook as well as muted inflation pressures, the Committee decided to lower the target range for the federal funds rate to 2 to 2-1/4 percent.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20190731a.htm",
+          "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20190731a.htm",
+          "publishedOn": "2019-07-31",
+          "eventOn": "2019-07-31",
+          "section": "Policy statement",
+          "rationale": "The original statement explicitly says the Committee decided to lower the target range to 2 to 2-1/4 percent. A question requesting the amount and rationale for an increase contradicts that decision direction.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The original statement explicitly says the Committee decided to lower the target range to 2 to 2-1/4 percent. A question requesting the amount and rationale for an increase contradicts that decision direction.",
+      "economicChecks": [
+        "Return not_found for a supported rate-increase answer; the date itself is covered.",
+        "A quote about lowering rates is related contradictory evidence, not evidence that rates were raised.",
+        "Do not relabel the 2 to 2-1/4 percent target range as the size of an increase."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FP02",
+      "question": "Why did T\u00fcrkiye\u2019s central bank cut its one-week repo policy rate from 50% to 45% in its 21 March 2024 decision?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": [
+        "decision_direction_reversal",
+        "starting_and_ending_levels_reversed"
+      ],
+      "contradictingEvidence": [
+        {
+          "country": "TUR",
+          "institution": "CBRT",
+          "noteId": "tur-20240321-cbrt-rate",
+          "anyOfChunkIds": ["cbrt-press-2024-14:decision"],
+          "expectedQuote": "has decided to raise the policy rate (the one-week repo auction rate) from 45 percent to 50 percent.",
+          "sourceUrl": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB%2BEN/Main%2BMenu/Announcements/Press%2BReleases/2024/ANO2024-14",
+          "publicationEvidenceUrl": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB%2BEN/Main%2BMenu/Announcements/Press%2BReleases/2024/ANO2024-14",
+          "publishedOn": "2024-03-21",
+          "eventOn": "2024-03-21",
+          "section": "Decision of the Monetary Policy Committee",
+          "rationale": "The original CBRT decision raises the rate from 45% to 50%; the question reverses both the direction and the ordered endpoints.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The original CBRT decision raises the rate from 45% to 50%; the question reverses both the direction and the ordered endpoints.",
+      "economicChecks": [
+        "Return not_found for the claimed cut, while permitting the actual hike quote as related evidence.",
+        "Keep the actor as the CBRT and the instrument as the one-week repo auction rate.",
+        "Preserve the 21 March 2024 publication and event date; do not substitute a later Turkish rate cut."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FP03",
+      "question": "What was the rationale for the ECB\u2019s 25-basis-point increase in its three key interest rates in the announcement dated 6 June 2024?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": ["decision_direction_reversal"],
+      "contradictingEvidence": [
+        {
+          "country": "EA",
+          "institution": "ECB",
+          "noteId": "ea-20240606-rate-cut-twenty-five",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp240606~2148ecdb3c:selected-rate-cut-twenty-five"
+          ],
+          "expectedQuote": "The Governing Council today decided to lower the three key ECB interest rates by 25 basis points.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2024/html/ecb.mp240606~2148ecdb3c.en.html",
+          "publicationEvidenceUrl": "https://www.ecb.europa.eu/press/pr/date/2024/html/ecb.mp240606~2148ecdb3c.en.html",
+          "publishedOn": "2024-06-06",
+          "eventOn": null,
+          "section": "Press release",
+          "rationale": "The announcement explicitly says the Governing Council decided to lower the three key rates by 25 basis points, not increase them.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The announcement explicitly says the Governing Council decided to lower the three key rates by 25 basis points, not increase them.",
+      "economicChecks": [
+        "Return not_found for a supported hike rationale.",
+        "Keep the quoted 25-basis-point magnitude attached to a decrease.",
+        "Use the source-note publication date; do not fabricate a separately stored eventOn where the original note has null."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FP04",
+      "question": "Why did the OECD\u2019s December 2024 Japan outlook recommend gradual cuts in the policy interest rate?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": ["recommendation_direction_reversal"],
+      "contradictingEvidence": [
+        {
+          "country": "JPN",
+          "institution": "OECD",
+          "noteId": "jpn-20241204-oecd-01",
+          "anyOfChunkIds": ["10.1787/d8814e8b-en:v3:00344"],
+          "expectedQuote": "Projections of sustained inflation around the 2% target and robust wage growth imply gradual increases in the policy interest rate are warranted.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/12/oecd-economic-outlook-volume-2024-issue-2_67bb8fac/d8814e8b-en.pdf#page=190",
+          "publicationEvidenceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook-volume-2024-issue-2_d8814e8b-en.html",
+          "publishedOn": "2024-12-04",
+          "eventOn": null,
+          "section": "3 Developments in individual OECD and selected non-member economies > Japan",
+          "rationale": "The Japan passage says gradual increases in the policy interest rate are warranted, based on projected sustained inflation around 2% and robust wage growth. Cuts reverse the stated recommendation.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The Japan passage says gradual increases in the policy interest rate are warranted, based on projected sustained inflation around 2% and robust wage growth. Cuts reverse the stated recommendation.",
+      "economicChecks": [
+        "Return not_found for evidence supporting a recommendation for cuts.",
+        "An OECD recommendation is not an executed Bank of Japan decision.",
+        "Keep projected near-target inflation and robust wage growth as the source\u2019s basis for increases, not cuts."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FP05",
+      "question": "Why did the OECD\u2019s June 2022 outlook recommend that the Bank of Canada cut its policy rate and expand its balance sheet?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": [
+        "recommendation_direction_reversal",
+        "balance_sheet_direction_reversal"
+      ],
+      "contradictingEvidence": [
+        {
+          "country": "CAN",
+          "institution": "OECD",
+          "noteId": "can-20220608-oecd-01",
+          "anyOfChunkIds": ["10.1787/62d0ca31-en:v3:00172"],
+          "expectedQuote": "The Bank of Canada should continue raising its policy rate and shrinking its balance sheet to return inflation to target and contain financial imbalances.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/06/oecd-economic-outlook-volume-2022-issue-1_76440490/62d0ca31-en.pdf#page=97",
+          "publicationEvidenceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook/volume-2022/issue-1_62d0ca31-en.html",
+          "publishedOn": "2022-06-08",
+          "eventOn": null,
+          "section": "2 Developments in individual OECD and selected non-member economies > Canada",
+          "rationale": "The country passage recommends continuing to raise the policy rate and shrink the balance sheet, directly opposing both alleged recommendations.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The country passage recommends continuing to raise the policy rate and shrink the balance sheet, directly opposing both alleged recommendations.",
+      "economicChecks": [
+        "Return not_found for the claimed easing recommendation.",
+        "Preserve both policy-rate and balance-sheet directions; do not treat any Canada or inflation passage as affirmative support.",
+        "Attribute the recommendation to the OECD, with the Bank of Canada as the recommended actor."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FP06",
+      "question": "Why did the OECD\u2019s May 2019 Korea outlook call for monetary tightening because headline inflation was well above the 2% target?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": [
+        "recommendation_direction_reversal",
+        "inflation_target_side_reversal"
+      ],
+      "contradictingEvidence": [
+        {
+          "country": "KOR",
+          "institution": "OECD",
+          "noteId": "kor-20190521-oecd-01",
+          "anyOfChunkIds": ["10.1787/b2e897b0-en:v3:00301"],
+          "expectedQuote": "Fiscal stimulus should continue in 2020, accompanied by an easing of monetary policy, as headline inflation is well below the 2% target.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2019/05/oecd-economic-outlook-volume-2019-issue-1_432786b2/b2e897b0-en.pdf#page=172",
+          "publicationEvidenceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook-volume-2019-issue-1_b2e897b0-en.html",
+          "publishedOn": "2019-05-21",
+          "eventOn": null,
+          "section": "3 Developments in individual OECD and selected non-member economies > Korea",
+          "rationale": "The Korea passage calls for an easing of monetary policy and says headline inflation is well below the 2% target, contradicting both the alleged policy direction and target-side premise.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The Korea passage calls for an easing of monetary policy and says headline inflation is well below the 2% target, contradicting both the alleged policy direction and target-side premise.",
+      "economicChecks": [
+        "Return not_found for an affirmative answer to the tightening/above-target claim.",
+        "Do not mistake continued fiscal stimulus for monetary tightening.",
+        "Retain 21 May 2019 as publication and 2020 as the stated fiscal-stimulus horizon."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FP07",
+      "question": "Why did the FOMC decide on 15 December 2021 to reduce monthly net purchases of Treasury securities by $10 billion and agency mortgage-backed securities by $20 billion?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": ["instrument_amount_swap"],
+      "contradictingEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "noteId": "note-16",
+          "anyOfChunkIds": ["fed-statement-20211215:v1:00002"],
+          "expectedQuote": "In light of inflation developments and the further improvement in the labor market, the Committee decided to reduce the monthly pace of its net asset purchases by $20 billion for Treasury securities and $10 billion for agency mortgage-backed securities.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20211215a.htm",
+          "publicationEvidenceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20211215a.htm",
+          "publishedOn": "2021-12-15",
+          "eventOn": "2021-12-15",
+          "section": "Policy statement",
+          "rationale": "The original decision assigns the reductions in the opposite way: $20 billion for Treasury securities and $10 billion for agency mortgage-backed securities. Matching the same aggregate reduction does not support swapped instrument amounts.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The original decision assigns the reductions in the opposite way: $20 billion for Treasury securities and $10 billion for agency mortgage-backed securities. Matching the same aggregate reduction does not support swapped instrument amounts.",
+      "economicChecks": [
+        "Return not_found for the specific Treasury-10/MBS-20 allocation.",
+        "Related taper evidence is not affirmative support unless each amount is attached to its actual instrument.",
+        "These are reductions in the monthly purchase pace, not remaining monthly levels or total holdings."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FP08",
+      "question": "Why did the ECB set the PEPP\u2019s total envelope at \u20ac500 billion in its announcement dated 10 December 2020?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": ["increment_total_conflation"],
+      "contradictingEvidence": [
+        {
+          "country": "EA",
+          "institution": "ECB",
+          "noteId": "ea-20201210-pepp-envelope-expanded",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp201210~8c2778b843:selected-pepp-envelope-expanded"
+          ],
+          "expectedQuote": "the Governing Council decided to increase the envelope of the pandemic emergency purchase programme (PEPP) by \u20ac500 billion to a total of \u20ac1,850 billion.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2020/html/ecb.mp201210~8c2778b843.en.html",
+          "publicationEvidenceUrl": "https://www.ecb.europa.eu/press/pr/date/2020/html/ecb.mp201210~8c2778b843.en.html",
+          "publishedOn": "2020-12-10",
+          "eventOn": null,
+          "section": "Press release",
+          "rationale": "The source explicitly distinguishes an increase by \u20ac500 billion from a total envelope of \u20ac1,850 billion. The question falsely substitutes the increment for the total.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The source explicitly distinguishes an increase by \u20ac500 billion from a total envelope of \u20ac1,850 billion. The question falsely substitutes the increment for the total.",
+      "economicChecks": [
+        "Return not_found for the claimed \u20ac500 billion total.",
+        "A passage containing \u20ac500 billion is only related contradictory evidence when that figure is the increase.",
+        "Do not confuse a programme envelope with a monthly purchase pace."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FP09",
+      "question": "Why did the ECB\u2019s 29 October 2026 assessment say rising energy prices posed downside risks to inflation but upside risks to growth?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": [
+        "inflation_growth_concept_swap",
+        "risk_direction_reversal"
+      ],
+      "contradictingEvidence": [
+        {
+          "country": "EA",
+          "institution": "ECB",
+          "noteId": "ea-20261029-energy-shock-inflation-growth-risks",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp261029~9a493adf17:selected-energy-shock-inflation-growth-risks"
+          ],
+          "expectedQuote": "Energy prices have continued to rise, posing upside risks to the inflation outlook and downside risks to the growth outlook.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~9a493adf17.en.html",
+          "publicationEvidenceUrl": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~9a493adf17.en.html",
+          "publishedOn": "2026-10-29",
+          "eventOn": null,
+          "section": "Press release",
+          "rationale": "The assessment states the opposite concept/sign mapping: upside risks to inflation and downside risks to growth. The question swaps those economic outcomes and their directions.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The assessment states the opposite concept/sign mapping: upside risks to inflation and downside risks to growth. The question swaps those economic outcomes and their directions.",
+      "economicChecks": [
+        "Return not_found for support of the swapped inflation/growth claim.",
+        "Preserve risk language rather than reporting either risk as a realised inflation or GDP outcome.",
+        "A shared energy-price topic is insufficient to affirm the reversed economic claim."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FP10",
+      "question": "Why did the OECD\u2019s 26 September 2022 US assessment say monetary tightening began later and was smaller than in most other large advanced economies?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": [
+        "earlier_later_reversal",
+        "timing_size_concept_substitution"
+      ],
+      "contradictingEvidence": [
+        {
+          "country": "USA",
+          "institution": "OECD",
+          "noteId": "reviewed-c23p02-v2-n03",
+          "anyOfChunkIds": ["10.1787/ae8c39ec-en:v2:00014"],
+          "expectedQuote": "In the United States, where inflation may have now peaked and where the tightening of monetary policy began earlier than in most other large advanced economies, faster progress in bringing inflation back to target is expected than in the euro area or the United Kingdom.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/09/oecd-economic-outlook-interim-report-september-2022_76a917c4/ae8c39ec-en.pdf#page=13",
+          "publicationEvidenceUrl": "https://doi.org/10.1787/ae8c39ec-en",
+          "publishedOn": "2022-09-26",
+          "eventOn": null,
+          "section": "Paying the Price of War > Global growth is projected to weaken further in 2023 with inflation easing gradually",
+          "rationale": "The original passage explicitly says US tightening began earlier, directly contradicting later. Earlier is a timing comparison and cannot be rewritten as a smaller-amount comparison. The quote does not establish the actual cross-country ordering of tightening amounts; the rejection is anchored to the explicit false timing clause and false attribution of a size comparison.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The original passage explicitly says US tightening began earlier, directly contradicting later. Earlier is a timing comparison and cannot be rewritten as a smaller-amount comparison. The quote does not establish the actual cross-country ordering of tightening amounts; the rejection is anchored to the explicit false timing clause and false attribution of a size comparison.",
+      "economicChecks": [
+        "Return not_found for the compound later-and-smaller source claim.",
+        "Do not interpret earlier as smaller, or infer a basis-point or pace comparison from start timing.",
+        "Preserve may-have-peaked and expected faster progress as qualified outlook language, not realised disinflation.",
+        "The source does not prove that US tightening was larger; do not invent that opposite quantitative claim."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FP11",
+      "question": "Why did the IMF\u2019s Latvia assessment published on 16 May 2012 forecast headline inflation rising above 3% in 2012?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": [
+        "forecast_direction_reversal",
+        "forecast_level_misstatement"
+      ],
+      "contradictingEvidence": [
+        {
+          "country": "LVA",
+          "institution": "IMF",
+          "noteId": "lva-20120516-imf",
+          "anyOfChunkIds": ["lva-20120516-imf-excerpt"],
+          "expectedQuote": "Headline inflation should fall to around 2.6 percent in 2012, provided there are no shocks to world energy or food prices.",
+          "sourceUrl": "https://www.imf.org/en/news/articles/2015/09/14/01/49/pr12180",
+          "publicationEvidenceUrl": "https://www.imf.org/en/news/articles/2015/09/14/01/49/pr12180",
+          "publishedOn": "2012-05-16",
+          "eventOn": null,
+          "section": "Country assessment",
+          "rationale": "The IMF passage says headline inflation should fall to around 2.6% in 2012, conditional on no shocks to world energy or food prices. The question reverses the projected direction and places the forecast above a level that exceeds the stated around-2.6% forecast.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The IMF passage says headline inflation should fall to around 2.6% in 2012, conditional on no shocks to world energy or food prices. The question reverses the projected direction and places the forecast above a level that exceeds the stated around-2.6% forecast.",
+      "economicChecks": [
+        "Return not_found for support of the forecast rise above 3%.",
+        "Preserve around 2.6% and its energy/food-price proviso if the contradiction is shown as related evidence.",
+        "Use publication on 16 May 2012, not the 2015 migration date embedded in the IMF URL.",
+        "Do not transform the conditional forecast into a realised 2012 observation."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FP12",
+      "question": "What observed Swedish inflation result for 2022 did the OECD report in its outlook published on 31 May 2021?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": [
+        "projection_presented_as_observation",
+        "future_horizon_as_completed_observation"
+      ],
+      "contradictingEvidence": [
+        {
+          "country": "SWE",
+          "institution": "OECD",
+          "noteId": "swe-20210531-oecd-01",
+          "anyOfChunkIds": ["10.1787/edfbca02-en:v2:00408"],
+          "expectedQuote": "Inflation is set to remain below the 2% target throughout 2021 and 2022.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2021/05/oecd-economic-outlook-volume-2021-issue-1_88e062cf/edfbca02-en.pdf#page=204",
+          "publicationEvidenceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook/volume-2021/issue-1_edfbca02-en.html",
+          "publishedOn": "2021-05-31",
+          "eventOn": null,
+          "section": "2. Developments in individual OECD and selected non-member economies > Sweden",
+          "rationale": "The source is explicitly prospective: inflation is set to remain below target throughout 2021 and 2022. Its publication precedes 2022, so the quoted 2022 outlook is not an already observed 2022 result. This control concerns the source\u2019s modality, not whether Swedish inflation later matched the forecast.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The source is explicitly prospective: inflation is set to remain below target throughout 2021 and 2022. Its publication precedes 2022, so the quoted 2022 outlook is not an already observed 2022 result. This control concerns the source\u2019s modality, not whether Swedish inflation later matched the forecast.",
+      "economicChecks": [
+        "Return not_found for an observed 2022 result in this May 2021 source.",
+        "The below-2%-target projection may be shown as related evidence but cannot be labelled as an observed 2022 inflation rate.",
+        "Do not infer that the actual 2022 outcome equalled the forecast or that it was absent from all later reports."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FP13",
+      "question": "Why did the OECD\u2019s May 2021 Costa Rica outlook project inflation remaining above the 3% target despite large spare capacity?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": ["inflation_target_side_reversal"],
+      "contradictingEvidence": [
+        {
+          "country": "CRI",
+          "institution": "OECD",
+          "noteId": "cri-20210531-oecd-01",
+          "anyOfChunkIds": ["10.1787/edfbca02-en:v2:00190"],
+          "expectedQuote": "Inflation will slowly increase, but remain below the 3% target rate as spare capacity remains large.",
+          "sourceUrl": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2021/05/oecd-economic-outlook-volume-2021-issue-1_88e062cf/edfbca02-en.pdf#page=101",
+          "publicationEvidenceUrl": "https://www.oecd.org/en/publications/oecd-economic-outlook/volume-2021/issue-1_edfbca02-en.html",
+          "publishedOn": "2021-05-31",
+          "eventOn": null,
+          "section": "2. Developments in individual OECD and selected non-member economies > Costa Rica",
+          "rationale": "The source says inflation will slowly increase but remain below the 3% target as spare capacity remains large. A rising inflation path does not support the question\u2019s reversed above-target assertion.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The source says inflation will slowly increase but remain below the 3% target as spare capacity remains large. A rising inflation path does not support the question\u2019s reversed above-target assertion.",
+      "economicChecks": [
+        "Return not_found for affirmative support of above-target inflation.",
+        "Preserve the difference between the direction of inflation change and its level relative to target.",
+        "Keep the source as a projection, not an observed outcome or a monetary-policy decision."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FP14",
+      "question": "Why did the FOMC revise its near-term consumer-price inflation forecast downward in the minutes published on 5 April 2011?",
+      "category": "false_premise",
+      "split": "development",
+      "expectedStatus": "not_found",
+      "filters": {},
+      "goldEvidence": [],
+      "falsePremise": true,
+      "contradictionTypes": [
+        "forecast_revision_direction_reversal",
+        "staff_committee_attribution_swap"
+      ],
+      "contradictingEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "noteId": "reviewed-c03p02-v2-n01",
+          "anyOfChunkIds": ["fed-minutes-20110315:v2:00017"],
+          "expectedQuote": "The staff revised up its projection for consumer price inflation in the near term, largely because of the recent increases in the prices of energy and food.",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20110315.htm",
+          "publicationEvidenceUrl": "https://www.federalreserve.gov/monetarypolicy/fomchistorical2011.htm",
+          "publishedOn": "2011-04-05",
+          "eventOn": "2011-03-15",
+          "section": "Staff Economic Outlook",
+          "rationale": "The cited Staff Economic Outlook says the staff revised up its near-term consumer-price inflation projection because of higher energy and food prices. Downward reverses the explicit revision, and treating the staff projection as a Committee action changes the stated actor.",
+          "dateBasis": "Preserved source-note publication date and eventOn; null eventOn means no separate event date is supplied by this note."
+        }
+      ],
+      "whyPremiseIsFalse": "The cited Staff Economic Outlook says the staff revised up its near-term consumer-price inflation projection because of higher energy and food prices. Downward reverses the explicit revision, and treating the staff projection as a Committee action changes the stated actor.",
+      "economicChecks": [
+        "Return not_found for the claimed downward Committee forecast revision.",
+        "Related staff evidence must retain both revised up and staff attribution.",
+        "Use 5 April 2011 as publication date and 15 March 2011 as meeting/event date.",
+        "Do not conflate higher energy/food prices with evidence of a downward revision."
+      ],
+      "relatedEvidencePolicy": "The contradictory original passage may be displayed as related evidence with its actual attribution and date; it must not be labelled as supporting the false claim in the question.",
+      "sourceRead": true,
+      "independentHumanValidation": false
+    },
+    {
+      "id": "FH01",
+      "question": "As of the corpus manifest dated November 17, 2026, what federal funds target range was chosen at the latest FOMC policy meeting represented in the corpus, and was it a change or a hold?",
+      "category": "latest_meeting",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2026-10-28",
+      "expectedEventOn": "2026-10-28",
+      "asOf": "2026-11-17",
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": ["fed-statement-20261028:v1:00001"],
+          "acceptableSourceIds": ["fed-statement-20261028:v1:00001"],
+          "passageIds": ["fed:fed-statement-20261028:v1:00001"],
+          "expectedQuote": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+          "publishedOn": "2026-10-28",
+          "expectedPublishedOn": "2026-10-28",
+          "expectedEventOn": "2026-10-28",
+          "rationale": "The original latest FOMC statement supplies the range and unchanged action; event metadata identifies October 28."
+        }
+      ],
+      "economicChecks": [
+        "Anchor latest to the frozen corpus as of 2026-11-17, not to the live calendar or the latest document of any kind.",
+        "Use the October 28, 2026 FOMC event; maintain 3.75\u20134.00%, not a cut or a hike.",
+        "Do not substitute the November SLOOS publication or a dissenter\u2019s preferred increase for the Committee decision."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH02",
+      "question": "Using only the meetings represented in the corpus as of its November 17, 2026 manifest, what did the CBRT decide at its latest Monetary Policy Committee meeting about the one-week repo auction rate?",
+      "category": "latest_meeting",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "TUR",
+      "institution": "CBRT",
+      "expectedPublishedOn": "2026-10-22",
+      "expectedEventOn": "2026-10-22",
+      "asOf": "2026-11-17",
+      "goldEvidence": [
+        {
+          "country": "TUR",
+          "institution": "CBRT",
+          "anyOfChunkIds": ["cbrt-press-2026-45:decision"],
+          "acceptableSourceIds": ["cbrt-press-2026-45:decision"],
+          "passageIds": ["timeline:tur-20261022-cbrt-rate:0"],
+          "expectedQuote": "has decided to reduce the policy rate (the one-week repo auction rate) from 37 percent to 36 percent.",
+          "sourceUrl": "https://tcmb.gov.tr/wps/wcm/connect/en/tcmb%2Ben/main%2Bmenu/announcements/press%2Breleases/2026/ano2026-45",
+          "publishedOn": "2026-10-22",
+          "expectedPublishedOn": "2026-10-22",
+          "expectedEventOn": "2026-10-22",
+          "rationale": "The original CBRT quote gives the instrument, action, old rate and new rate, with event and publication metadata."
+        }
+      ],
+      "economicChecks": [
+        "Anchor latest to the corpus snapshot as of 2026-11-17.",
+        "Latest represented CBRT policy event is October 22, 2026; reduce the one-week repo auction rate from 37% to 36%.",
+        "Do not treat the rate as an ECB or Fed instrument or infer an unindexed later meeting."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH03",
+      "question": "As of the November 17, 2026 corpus manifest, what opposing inflation and growth risks did the latest ECB monetary-policy decision release represented in the corpus associate with energy prices?",
+      "category": "latest_policy_release",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "EA",
+      "institution": "ECB",
+      "expectedPublishedOn": "2026-10-29",
+      "expectedEventOn": null,
+      "asOf": "2026-11-17",
+      "goldEvidence": [
+        {
+          "country": "EA",
+          "institution": "ECB",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp261029~9a493adf17:selected-energy-shock-inflation-growth-risks"
+          ],
+          "acceptableSourceIds": [
+            "ecb-ecb.mp261029~9a493adf17:selected-energy-shock-inflation-growth-risks"
+          ],
+          "passageIds": [
+            "timeline:ea-20261029-energy-shock-inflation-growth-risks:0"
+          ],
+          "expectedQuote": "Energy prices have continued to rise, posing upside risks to the inflation outlook and downside risks to the growth outlook.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~9a493adf17.en.html",
+          "publishedOn": "2026-10-29",
+          "expectedPublishedOn": "2026-10-29",
+          "expectedEventOn": null,
+          "rationale": "The latest original ECB release quote directly supplies the two risk directions and the energy-price condition."
+        }
+      ],
+      "economicChecks": [
+        "Use the latest represented ECB decision release, published October 29, 2026.",
+        "Rising energy prices pose upside inflation risks and downside growth risks; do not reverse them.",
+        "The timeline records publication date but no independently separate event date; do not fabricate one or a rate decision absent from this quote."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH04",
+      "question": "In the FOMC minutes published on October 7, 2026, which meeting\u2019s policy decision is recorded and by how much did members change the target range, to what new level?",
+      "category": "publication_vs_event",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2026-10-07",
+      "expectedEventOn": "2026-09-16",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": ["fed-minutes-20260916:v2:00019"],
+          "acceptableSourceIds": ["fed-minutes-20260916:v2:00019"],
+          "passageIds": ["fed:fed-minutes-20260916:v2:00019"],
+          "expectedQuote": "In support of the Committee's dual-mandate goals, all members agreed to raise the target range for the federal funds rate 1/4 percentage point to 3-3/4 to 4 percent and reaffirmed the FOMC's policy of maintaining ample reserves in the banking system.",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260916.htm",
+          "publishedOn": "2026-10-07",
+          "expectedPublishedOn": "2026-10-07",
+          "expectedEventOn": "2026-09-16",
+          "rationale": "The original Committee Policy Actions sentence states the actual decision and amount, while source metadata separates event and release dates."
+        }
+      ],
+      "economicChecks": [
+        "Publication is October 7, 2026; the meeting event is September 16, 2026.",
+        "Raise by 0.25 percentage point to 3.75\u20134.00%, not a decision made at an October meeting.",
+        "Member agreement is distinct from earlier market-implied expectations."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH05",
+      "question": "What federal funds target range did the Committee retain at the meeting documented by the minutes released on July 8, 2026, and on what date was that meeting?",
+      "category": "publication_vs_event",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2026-07-08",
+      "expectedEventOn": "2026-06-17",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": ["fed-minutes-20260617:v2:00021"],
+          "acceptableSourceIds": ["fed-minutes-20260617:v2:00021"],
+          "passageIds": ["fed:fed-minutes-20260617:v2:00021"],
+          "expectedQuote": "In support of the Committee's dual-mandate goals, all members agreed to maintain the target range for the federal funds rate at 3-1/2 to 3-3/4 percent and to reaffirm the FOMC's policy of maintaining ample reserves in the banking system.",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260617.htm",
+          "publishedOn": "2026-07-08",
+          "expectedPublishedOn": "2026-07-08",
+          "expectedEventOn": "2026-06-17",
+          "rationale": "The original member-decision sentence states the retained range; the source event metadata identifies the June meeting."
+        }
+      ],
+      "economicChecks": [
+        "Publication is July 8, 2026, for the June 17, 2026 event.",
+        "Maintain the 3.50\u20133.75% federal funds target range.",
+        "Do not select a July meeting or replace the target range with the overnight repo, reverse-repo, or reserve-interest rate."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH06",
+      "question": "Mart 2024 PPK toplant\u0131s\u0131nda TCMB politika faizi i\u00e7in hangi karar\u0131 ald\u0131; bir hafta vadeli repo ihale faizi hangi seviyeden hangi seviyeye de\u011fi\u015fti?",
+      "category": "month_event_turkish",
+      "split": "holdout",
+      "language": "tr",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "TUR",
+      "institution": "CBRT",
+      "expectedPublishedOn": "2024-03-21",
+      "expectedEventOn": "2024-03-21",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "TUR",
+          "institution": "CBRT",
+          "anyOfChunkIds": ["cbrt-press-2024-14:decision"],
+          "acceptableSourceIds": ["cbrt-press-2024-14:decision"],
+          "passageIds": ["timeline:tur-20240321-cbrt-rate:0"],
+          "expectedQuote": "has decided to raise the policy rate (the one-week repo auction rate) from 45 percent to 50 percent.",
+          "sourceUrl": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB%2BEN/Main%2BMenu/Announcements/Press%2BReleases/2024/ANO2024-14",
+          "publishedOn": "2024-03-21",
+          "expectedPublishedOn": "2024-03-21",
+          "expectedEventOn": "2024-03-21",
+          "rationale": "The original CBRT source explicitly defines the policy instrument and both rate levels; the Turkish query tests month and institution aliases."
+        }
+      ],
+      "economicChecks": [
+        "Mart 2024 means the March 21, 2024 CBRT PPK event, not a document release in another month.",
+        "Increase the one-week repo auction rate from 45% to 50%, a 5-percentage-point increase.",
+        "Keep CBRT/TCMB attribution and instrument identity; do not use an OECD forecast as a PPK decision."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH07",
+      "question": "What instrument did the CBRT raise on September 13, 2018, and what were its old and new rates?",
+      "category": "policy_instrument",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "TUR",
+      "institution": "CBRT",
+      "expectedPublishedOn": "2018-09-13",
+      "expectedEventOn": "2018-09-13",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "TUR",
+          "institution": "CBRT",
+          "anyOfChunkIds": ["cbrt-press-2018-38:decision"],
+          "acceptableSourceIds": ["cbrt-press-2018-38:decision"],
+          "passageIds": ["timeline:tur-20180913-cbrt-rate:0"],
+          "expectedQuote": "has decided to increase the policy rate (one week repo auction rate) from 17.75 percent to 24 percent.",
+          "sourceUrl": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB%2BEN/MPC/MPC%2BMeeting%2BDecisions/ANO2018-38",
+          "publishedOn": "2018-09-13",
+          "expectedPublishedOn": "2018-09-13",
+          "expectedEventOn": "2018-09-13",
+          "rationale": "The original CBRT quote contains the complete instrument/action and old/new rate pair."
+        }
+      ],
+      "economicChecks": [
+        "The policy instrument is the one-week repo auction rate.",
+        "Increase from 17.75% to 24%, not an interest-rate cut.",
+        "These are rate levels; any computed change is 6.25 percentage points, not 6.25%."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH08",
+      "question": "What change to the three key ECB interest rates did the Governing Council announce on June 5, 2025?",
+      "category": "policy_action",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "EA",
+      "institution": "ECB",
+      "expectedPublishedOn": "2025-06-05",
+      "expectedEventOn": null,
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "EA",
+          "institution": "ECB",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp250605~3b5f67d007:selected-rate-cut-twenty-five"
+          ],
+          "acceptableSourceIds": [
+            "ecb-ecb.mp250605~3b5f67d007:selected-rate-cut-twenty-five"
+          ],
+          "passageIds": ["timeline:ea-20250605-rate-cut-twenty-five:0"],
+          "expectedQuote": "The Governing Council today decided to lower the three key ECB interest rates by 25 basis points.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2025/html/ecb.mp250605~3b5f67d007.en.html",
+          "publishedOn": "2025-06-05",
+          "expectedPublishedOn": "2025-06-05",
+          "expectedEventOn": null,
+          "rationale": "The original ECB sentence supplies the actor, action, scope, and size without requiring unindexed resulting levels."
+        }
+      ],
+      "economicChecks": [
+        "The action is a reduction, not an increase.",
+        "The size is 25 basis points, equal to 0.25 percentage point, across the three key ECB interest rates.",
+        "Do not invent the resulting individual rate levels; the indexed quote does not state them."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH09",
+      "question": "In the ECB release of June 11, 2026, what headline inflation averages were expected for 2026, 2027 and 2028?",
+      "category": "inflation_projection",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "EA",
+      "institution": "ECB",
+      "expectedPublishedOn": "2026-06-11",
+      "expectedEventOn": null,
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "EA",
+          "institution": "ECB",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp260611~4d41bd5e83:selected-inflation-baseline-projections"
+          ],
+          "acceptableSourceIds": [
+            "ecb-ecb.mp260611~4d41bd5e83:selected-inflation-baseline-projections"
+          ],
+          "passageIds": [
+            "timeline:ea-20260611-inflation-baseline-projections:0"
+          ],
+          "expectedQuote": "headline inflation is expected to average 3.0% in 2026, 2.3% in 2027 and 2.0% in 2028.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260611~4d41bd5e83.en.html",
+          "publishedOn": "2026-06-11",
+          "expectedPublishedOn": "2026-06-11",
+          "expectedEventOn": null,
+          "rationale": "The original ECB quote provides all requested year/rate pairs and explicitly retains expected headline-inflation status."
+        }
+      ],
+      "economicChecks": [
+        "Headline inflation projections are 3.0%, 2.3%, and 2.0% in 2026, 2027, and 2028 respectively.",
+        "These are expected averages, not realized inflation or a core-inflation series.",
+        "Keep euro-area/ECB attribution and the June 11 publication context."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH10",
+      "question": "In the FOMC minutes released on October 17, 2018, what description of the policy stance did participants support removing, and did they view its removal as a signal of a changed expected policy path?",
+      "category": "publication_vs_event",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2018-10-17",
+      "expectedEventOn": "2018-09-26",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": ["fed-minutes-20180926:v2:00025"],
+          "acceptableSourceIds": ["fed-minutes-20180926:v2:00025"],
+          "passageIds": ["fed:fed-minutes-20180926:v2:00025"],
+          "expectedQuote": "Almost all considered that it was also appropriate to revise the Committee's postmeeting statement in order to remove the language stating that \"the stance of monetary policy remains accommodative.\" Participants discussed a number of reasons for removing the language at this time, noting that the Committee would not be signaling a change in the expected path for policy, particularly as the target range for the federal funds rate announced after the Committee's meeting would still be below all of the estimates of its longer-run level submitted in the September SEP.",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20180926.htm",
+          "publishedOn": "2018-10-17",
+          "expectedPublishedOn": "2018-10-17",
+          "expectedEventOn": "2018-09-26",
+          "rationale": "The contiguous original minutes passage includes the wording, qualified participant support, and explicit no-signal interpretation."
+        }
+      ],
+      "economicChecks": [
+        "The event is September 26, 2018; publication is October 17, 2018.",
+        "Almost all participants supported removing the remains-accommodative description; do not report unanimity unless the source states it.",
+        "Removing the language was not intended to signal a changed expected policy path."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH11",
+      "question": "Under the FOMC decision of January 29, 2014, what monthly purchase paces for agency MBS and longer-term Treasuries were to begin in February, compared with their preceding paces?",
+      "category": "purchase_flow",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2014-01-29",
+      "expectedEventOn": "2014-01-29",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": ["fed-statement-20140129:v1:00002"],
+          "acceptableSourceIds": ["fed-statement-20140129:v1:00002"],
+          "passageIds": ["fed:fed-statement-20140129:v1:00002"],
+          "expectedQuote": "Beginning in February, the Committee will add to its holdings of agency mortgage-backed securities at a pace of $30 billion per month rather than $35 billion per month, and will add to its holdings of longer-term Treasury securities at a pace of $35 billion per month rather than $40 billion per month.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20140129a.htm",
+          "publishedOn": "2014-01-29",
+          "expectedPublishedOn": "2014-01-29",
+          "expectedEventOn": "2014-01-29",
+          "rationale": "The original January statement sentence gives both prior/new instrument-specific paces and the implementation month."
+        }
+      ],
+      "economicChecks": [
+        "Agency MBS falls to $30bn from $35bn/month; longer-term Treasuries to $35bn from $40bn/month, beginning February 2014.",
+        "These are slower additions to holdings, not stock sales or the end of purchases.",
+        "Do not substitute the distinct December 2013 announcement and January 2014 purchase paces."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH12",
+      "question": "What near-term and medium-term inflation path did the FOMC expect in its March 16, 2016 statement, and what forces were expected to help inflation return toward its goal?",
+      "category": "inflation_outlook",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2016-03-16",
+      "expectedEventOn": "2016-03-16",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": ["fed-statement-20160316:v1:00001"],
+          "acceptableSourceIds": ["fed-statement-20160316:v1:00001"],
+          "passageIds": ["fed:fed-statement-20160316:v1:00001"],
+          "expectedQuote": "Inflation is expected to remain low in the near term, in part because of earlier declines in energy prices, but to rise to 2 percent over the medium term as the transitory effects of declines in energy and import prices dissipate and the labor market strengthens further.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20160316a.htm",
+          "publishedOn": "2016-03-16",
+          "expectedPublishedOn": "2016-03-16",
+          "expectedEventOn": "2016-03-16",
+          "rationale": "The original statement sentence contains the two horizons and the stated inflation forces."
+        }
+      ],
+      "economicChecks": [
+        "Low inflation in the near term versus a rise to 2% over the medium term is an expectation, not an observed subsequent outcome.",
+        "Earlier energy-price declines, dissipating energy/import-price effects, and a strengthening labor market are the stated forces.",
+        "Do not convert a medium-term expectation into a numerical forecast for a named later year not provided by the source."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH13",
+      "question": "What did firms from many Districts expect for wage pressures and wage growth over the next year in the January 17, 2024 Beige Book?",
+      "category": "contact_forecast",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2024-01-17",
+      "expectedEventOn": null,
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": ["fed-beige-2024-01-17:v1:00002"],
+          "acceptableSourceIds": ["fed-beige-2024-01-17:v1:00002"],
+          "passageIds": ["fed:fed-beige-2024-01-17:v1:00002"],
+          "expectedQuote": "Firms from many Districts expected wage pressures to ease and wage growth to fall further over the next year.",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/beigebook202401-summary.htm",
+          "publishedOn": "2024-01-17",
+          "expectedPublishedOn": "2024-01-17",
+          "expectedEventOn": null,
+          "rationale": "The original Beige Book sentence gives the contacts\u2019 qualified coverage, wage-pressure direction, growth-rate direction and horizon."
+        }
+      ],
+      "economicChecks": [
+        "Attribute the expectation to firms from many Districts, not all Districts or a binding FOMC commitment.",
+        "Wage growth falling means a slower rate of wage increases; the sentence does not predict a fall in wage levels.",
+        "Retain the next-year horizon relative to the January 2024 report."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH14",
+      "question": "At its April 17, 2025 meeting, what policy instrument did the CBRT increase and from what rate to what new rate?",
+      "category": "policy_instrument",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "TUR",
+      "institution": "CBRT",
+      "expectedPublishedOn": "2025-04-17",
+      "expectedEventOn": "2025-04-17",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "TUR",
+          "institution": "CBRT",
+          "anyOfChunkIds": ["cbrt-press-2025-24:decision"],
+          "acceptableSourceIds": ["cbrt-press-2025-24:decision"],
+          "passageIds": ["timeline:tur-20250417-cbrt-rate:0"],
+          "expectedQuote": "has decided to raise the policy rate (the one-week repo auction rate) from 42.5 percent to 46 percent.",
+          "sourceUrl": "https://tcmb.gov.tr/wps/wcm/connect/en/tcmb%2Ben/main%2Bmenu/announcements/press%2Breleases/2025/ano2025-24",
+          "publishedOn": "2025-04-17",
+          "expectedPublishedOn": "2025-04-17",
+          "expectedEventOn": "2025-04-17",
+          "rationale": "The original CBRT sentence explicitly names the instrument and its old/new levels."
+        }
+      ],
+      "economicChecks": [
+        "The action concerns the policy rate defined here as the one-week repo auction rate.",
+        "Raise from 42.5% to 46%, not an overnight-lending instrument or a rate reduction.",
+        "Keep the April 17 meeting separate from the July 24, 2025 cut."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FHN01",
+      "question": "Why did the ECB project headline inflation averaging 4.0% in 2028 in its June 11, 2026 release?",
+      "category": "false_premise",
+      "falsePremiseType": "numeric",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "expectedNoSupportedAnswer": true,
+      "country": "EA",
+      "sourceInstitution": "ECB",
+      "expectedPublishedOn": "2026-06-11",
+      "expectedEventOn": null,
+      "asOf": null,
+      "goldEvidence": [],
+      "contradictingEvidence": [
+        {
+          "country": "EA",
+          "institution": "ECB",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp260611~4d41bd5e83:selected-inflation-baseline-projections"
+          ],
+          "acceptableSourceIds": [
+            "ecb-ecb.mp260611~4d41bd5e83:selected-inflation-baseline-projections"
+          ],
+          "passageIds": [
+            "timeline:ea-20260611-inflation-baseline-projections:0"
+          ],
+          "expectedQuote": "headline inflation is expected to average 3.0% in 2026, 2.3% in 2027 and 2.0% in 2028.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260611~4d41bd5e83.en.html",
+          "publishedOn": "2026-06-11",
+          "expectedPublishedOn": "2026-06-11",
+          "expectedEventOn": null,
+          "rationale": "The original quote projects 2.0%, not 4.0%, for 2028. The requested explanation for a 4.0% projection rests on a directly contradicted numeric premise."
+        }
+      ],
+      "rationale": "The original quote projects 2.0%, not 4.0%, for 2028. The requested explanation for a 4.0% projection rests on a directly contradicted numeric premise.",
+      "relatedEvidencePolicy": "The contradicting source may be displayed separately as related-but-not-answer evidence; it must not turn the supported-answer status into found.",
+      "economicChecks": [
+        "Return not_found for a supported answer; do not endorse or explain the invented 4.0% projection.",
+        "The correct 2.0% projection may appear only as separate related/contradicting evidence."
+      ],
+      "sourceRead": true,
+      "falsePremise": true
+    },
+    {
+      "id": "FHN02",
+      "question": "What increase in the three key ECB interest rates did the Governing Council announce on June 5, 2025?",
+      "category": "false_premise",
+      "falsePremiseType": "action",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "expectedNoSupportedAnswer": true,
+      "country": "EA",
+      "sourceInstitution": "ECB",
+      "expectedPublishedOn": "2025-06-05",
+      "expectedEventOn": null,
+      "asOf": null,
+      "goldEvidence": [],
+      "contradictingEvidence": [
+        {
+          "country": "EA",
+          "institution": "ECB",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp250605~3b5f67d007:selected-rate-cut-twenty-five"
+          ],
+          "acceptableSourceIds": [
+            "ecb-ecb.mp250605~3b5f67d007:selected-rate-cut-twenty-five"
+          ],
+          "passageIds": ["timeline:ea-20250605-rate-cut-twenty-five:0"],
+          "expectedQuote": "The Governing Council today decided to lower the three key ECB interest rates by 25 basis points.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2025/html/ecb.mp250605~3b5f67d007.en.html",
+          "publishedOn": "2025-06-05",
+          "expectedPublishedOn": "2025-06-05",
+          "expectedEventOn": null,
+          "rationale": "The original release says lower by 25 basis points, directly contradicting the question\u2019s increase premise."
+        }
+      ],
+      "rationale": "The original release says lower by 25 basis points, directly contradicting the question\u2019s increase premise.",
+      "relatedEvidencePolicy": "The contradicting source may be displayed separately as related-but-not-answer evidence; it must not turn the supported-answer status into found.",
+      "economicChecks": [
+        "Return not_found for the requested increase; do not silently treat a cut as support for an increase.",
+        "A separate related quote may show the actual reduction, without marking the false-premise answer supported."
+      ],
+      "sourceRead": true,
+      "falsePremise": true
+    },
+    {
+      "id": "FHN03",
+      "question": "What US federal funds target range did the ECB Governing Council set on October 28, 2026?",
+      "category": "false_premise",
+      "falsePremiseType": "actor",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "expectedNoSupportedAnswer": true,
+      "country": "USA",
+      "sourceInstitution": "Fed",
+      "expectedPublishedOn": "2026-10-28",
+      "expectedEventOn": "2026-10-28",
+      "asOf": null,
+      "goldEvidence": [],
+      "contradictingEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": ["fed-statement-20261028:v1:00001"],
+          "acceptableSourceIds": ["fed-statement-20261028:v1:00001"],
+          "passageIds": ["fed:fed-statement-20261028:v1:00001"],
+          "expectedQuote": "The Federal Open Market Committee approved the following statement for release by a 10 \u2013 2 vote: The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+          "publishedOn": "2026-10-28",
+          "expectedPublishedOn": "2026-10-28",
+          "expectedEventOn": "2026-10-28",
+          "rationale": "The original source explicitly identifies the Federal Open Market Committee as the decision maker, not the ECB Governing Council. The requested actor/instrument attribution is false."
+        }
+      ],
+      "rationale": "The original source explicitly identifies the Federal Open Market Committee as the decision maker, not the ECB Governing Council. The requested actor/instrument attribution is false.",
+      "relatedEvidencePolicy": "The contradicting source may be displayed separately as related-but-not-answer evidence; it must not turn the supported-answer status into found.",
+      "economicChecks": [
+        "Return not_found for an ECB decision on the US federal funds target range.",
+        "Do not relabel a Fed/FOMC quote as an ECB decision even though its date and rate figures resemble the question."
+      ],
+      "sourceRead": true,
+      "falsePremise": true
+    },
+    {
+      "id": "FHN04",
+      "question": "Why did the FOMC declare on January 29, 2014 that future asset purchases were on a preset course, unaffected by its labor-market and inflation outlook?",
+      "category": "false_premise",
+      "falsePremiseType": "qualifier",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "expectedNoSupportedAnswer": true,
+      "country": "USA",
+      "sourceInstitution": "Fed",
+      "expectedPublishedOn": "2014-01-29",
+      "expectedEventOn": "2014-01-29",
+      "asOf": null,
+      "goldEvidence": [],
+      "contradictingEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": ["fed-statement-20140129:v1:00003"],
+          "acceptableSourceIds": ["fed-statement-20140129:v1:00003"],
+          "passageIds": ["fed:fed-statement-20140129:v1:00003"],
+          "expectedQuote": "However, asset purchases are not on a preset course, and the Committee's decisions about their pace will remain contingent on the Committee's outlook for the labor market and inflation as well as its assessment of the likely efficacy and costs of such purchases.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20140129a.htm",
+          "publishedOn": "2014-01-29",
+          "expectedPublishedOn": "2014-01-29",
+          "expectedEventOn": "2014-01-29",
+          "rationale": "The original sentence expressly says not on a preset course and contingent on the labor-market/inflation outlook; the query reverses both qualifications."
+        }
+      ],
+      "rationale": "The original sentence expressly says not on a preset course and contingent on the labor-market/inflation outlook; the query reverses both qualifications.",
+      "relatedEvidencePolicy": "The contradicting source may be displayed separately as related-but-not-answer evidence; it must not turn the supported-answer status into found.",
+      "economicChecks": [
+        "Return not_found for an unconditional preset purchase path.",
+        "Do not convert contingent decisions into a guarantee; the explicit contradiction may be related-but-not-answer evidence."
+      ],
+      "sourceRead": true,
+      "falsePremise": true
+    },
+    {
+      "id": "FHN05",
+      "question": "As of the corpus manifest dated November 17, 2026, what were the reasons for the half-percentage-point rate cut at the latest FOMC policy meeting represented in the corpus?",
+      "category": "false_premise",
+      "falsePremiseType": "latest_action_numeric",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "expectedNoSupportedAnswer": true,
+      "country": "USA",
+      "sourceInstitution": "Fed",
+      "expectedPublishedOn": "2026-10-28",
+      "expectedEventOn": "2026-10-28",
+      "asOf": "2026-11-17",
+      "goldEvidence": [],
+      "contradictingEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": ["fed-statement-20261028:v1:00001"],
+          "acceptableSourceIds": ["fed-statement-20261028:v1:00001"],
+          "passageIds": ["fed:fed-statement-20261028:v1:00001"],
+          "expectedQuote": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+          "publishedOn": "2026-10-28",
+          "expectedPublishedOn": "2026-10-28",
+          "expectedEventOn": "2026-10-28",
+          "rationale": "The latest represented FOMC policy event is October 28, 2026 and its original statement maintains the range. It did not make the half-point cut presupposed by the question."
+        }
+      ],
+      "rationale": "The latest represented FOMC policy event is October 28, 2026 and its original statement maintains the range. It did not make the half-point cut presupposed by the question.",
+      "relatedEvidencePolicy": "The contradicting source may be displayed separately as related-but-not-answer evidence; it must not turn the supported-answer status into found.",
+      "economicChecks": [
+        "Anchor latest to the manifest snapshot as of 2026-11-17 and the October 28 event.",
+        "Return not_found for reasons for the invented half-point cut; do not substitute a different meeting\u2019s cut or a dissenter\u2019s preferred action."
+      ],
+      "sourceRead": true,
+      "falsePremise": true
+    },
+    {
+      "id": "FHN06",
+      "question": "What did the CBRT decide on April 17, 2025 about raising its overnight lending rate from 42.5% to 46%?",
+      "category": "false_premise",
+      "falsePremiseType": "instrument",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "expectedNoSupportedAnswer": true,
+      "country": "TUR",
+      "sourceInstitution": "CBRT",
+      "expectedPublishedOn": "2025-04-17",
+      "expectedEventOn": "2025-04-17",
+      "asOf": null,
+      "goldEvidence": [],
+      "contradictingEvidence": [
+        {
+          "country": "TUR",
+          "institution": "CBRT",
+          "anyOfChunkIds": ["cbrt-press-2025-24:decision"],
+          "acceptableSourceIds": ["cbrt-press-2025-24:decision"],
+          "passageIds": ["timeline:tur-20250417-cbrt-rate:0"],
+          "expectedQuote": "has decided to raise the policy rate (the one-week repo auction rate) from 42.5 percent to 46 percent.",
+          "sourceUrl": "https://tcmb.gov.tr/wps/wcm/connect/en/tcmb%2Ben/main%2Bmenu/announcements/press%2Breleases/2025/ano2025-24",
+          "publishedOn": "2025-04-17",
+          "expectedPublishedOn": "2025-04-17",
+          "expectedEventOn": "2025-04-17",
+          "rationale": "The source explicitly assigns the 42.5%-to-46% change to the one-week repo auction policy rate, not the overnight lending rate named in the question."
+        }
+      ],
+      "rationale": "The source explicitly assigns the 42.5%-to-46% change to the one-week repo auction policy rate, not the overnight lending rate named in the question.",
+      "relatedEvidencePolicy": "The contradicting source may be displayed separately as related-but-not-answer evidence; it must not turn the supported-answer status into found.",
+      "economicChecks": [
+        "Return not_found for the requested overnight-lending-rate action.",
+        "Do not map the correct numeric pair to the wrong instrument; the one-week repo quote is only separate related/contradicting evidence."
+      ],
+      "sourceRead": true,
+      "falsePremise": true
+    },
+    {
+      "id": "Q1",
+      "question": "What did the Federal Reserve decide at its July 2024 meeting, and how did it describe the labour market?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": true,
+      "requiredPassageIds": ["fed:fed-statement-20240731:v1:00001"],
+      "referencePassages": [
+        {
+          "id": "fed:fed-statement-20240731:v1:00001",
+          "institution": "Fed",
+          "country": "USA",
+          "title": "FOMC statement \u2014 2024-07-31",
+          "publishedOn": "2024-07-31",
+          "eventOn": "2024-07-31",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240731a.htm",
+          "text": "Recent indicators suggest that economic activity has continued to expand at a solid pace. Job gains have moderated, and the unemployment rate has moved up but remains low. Inflation has eased over the past year but remains somewhat elevated. In recent months, there has been some further progress toward the Committee's 2 percent inflation objective. The Committee seeks to achieve maximum employment and inflation at the rate of 2 percent over the longer run. The Committee judges that the risks to achieving its employment and inflation goals continue to move into better balance. The economic outlook is uncertain, and the Committee is attentive to the risks to both sides of its dual mandate. In support of its goals, the Committee decided to maintain the target range for the federal funds rate at 5-1/4 to 5-1/2 percent. In considering any adjustments to the target range for the federal funds rate, the Committee will carefully assess incoming data, the evolving outlook, and the balance of risks. The Committee does not expect it will be appropriate to reduce the target range until it has gained greater confidence that inflation is moving sustainably toward 2 percent. In addition, the Committee will continue reducing its holdings of Treasury securities and agency debt and agency mortgage\u2011backed securities. The Committee is strongly committed to returning inflation to its 2 percent objective. In assessing the appropriate stance of monetary policy, the Committee will continue to monitor the implications of incoming information for the economic outlook."
+        }
+      ],
+      "expectedEventOn": "2024-07-31",
+      "expectedPublishedOn": "2024-07-31",
+      "expectedInstitution": "Fed",
+      "expectedCountry": "USA",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval",
+      "category": "external",
+      "split": "external",
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "publishedOn": "2024-07-31",
+          "expectedEventOn": "2024-07-31",
+          "anyOfChunkIds": ["fed-statement-20240731:v1:00001"],
+          "passageIds": ["fed:fed-statement-20240731:v1:00001"],
+          "exactPassageId": "fed:fed-statement-20240731:v1:00001",
+          "expectedQuote": "Recent indicators suggest that economic activity has continued to expand at a solid pace. Job gains have moderated, and the unemployment rate has moved up but remains low. Inflation has eased over the past year but remains somewhat elevated. In recent months, there has been some further progress toward the Committee's 2 percent inflation objective. The Committee seeks to achieve maximum employment and inflation at the rate of 2 percent over the longer run. The Committee judges that the risks to achieving its employment and inflation goals continue to move into better balance. The economic outlook is uncertain, and the Committee is attentive to the risks to both sides of its dual mandate. In support of its goals, the Committee decided to maintain the target range for the federal funds rate at 5-1/4 to 5-1/2 percent. In considering any adjustments to the target range for the federal funds rate, the Committee will carefully assess incoming data, the evolving outlook, and the balance of risks. The Committee does not expect it will be appropriate to reduce the target range until it has gained greater confidence that inflation is moving sustainably toward 2 percent. In addition, the Committee will continue reducing its holdings of Treasury securities and agency debt and agency mortgage\u2011backed securities. The Committee is strongly committed to returning inflation to its 2 percent objective. In assessing the appropriate stance of monetary policy, the Committee will continue to monitor the implications of incoming information for the economic outlook."
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "question": "When did the ECB first cut its deposit facility rate below zero, and to what level?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": true,
+      "requiredPassageIds": ["timeline:ea-20140605-negative-deposit-rate:0"],
+      "referencePassages": [
+        {
+          "id": "timeline:ea-20140605-negative-deposit-rate:0",
+          "institution": "ECB",
+          "country": "EA",
+          "title": "Monetary policy decisions",
+          "publishedOn": "2014-06-05",
+          "eventOn": null,
+          "url": "https://www.ecb.europa.eu/press/pr/date/2014/html/pr140605.en.html",
+          "text": "The interest rate on the deposit facility will be decreased by 10 basis points to -0.10%"
+        }
+      ],
+      "expectedEventOn": "2014-06-05",
+      "expectedPublishedOn": "2014-06-05",
+      "expectedInstitution": "ECB",
+      "expectedCountry": "EA",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval",
+      "category": "external",
+      "split": "external",
+      "goldEvidence": [
+        {
+          "country": "EA",
+          "publishedOn": "2014-06-05",
+          "expectedEventOn": "2014-06-05",
+          "anyOfChunkIds": ["ecb-pr140605:selected-negative-deposit-rate"],
+          "passageIds": ["timeline:ea-20140605-negative-deposit-rate:0"],
+          "exactPassageId": "timeline:ea-20140605-negative-deposit-rate:0",
+          "expectedQuote": "The interest rate on the deposit facility will be decreased by 10 basis points to -0.10%"
+        }
+      ]
+    },
+    {
+      "id": "Q3",
+      "question": "How much did the Federal Reserve cut rates in September 2024, and who dissented?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": false,
+      "requiredPassageIds": [
+        "fed:fed-statement-20240918:v1:00001",
+        "fed:fed-statement-20240918:v1:00002"
+      ],
+      "referencePassages": [
+        {
+          "id": "fed:fed-statement-20240918:v1:00001",
+          "institution": "Fed",
+          "country": "USA",
+          "title": "FOMC statement \u2014 2024-09-18",
+          "publishedOn": "2024-09-18",
+          "eventOn": "2024-09-18",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240918a.htm",
+          "text": "Recent indicators suggest that economic activity has continued to expand at a solid pace. Job gains have slowed, and the unemployment rate has moved up but remains low. Inflation has made further progress toward the Committee's 2 percent objective but remains somewhat elevated. The Committee seeks to achieve maximum employment and inflation at the rate of 2 percent over the longer run. The Committee has gained greater confidence that inflation is moving sustainably toward 2 percent, and judges that the risks to achieving its employment and inflation goals are roughly in balance. The economic outlook is uncertain, and the Committee is attentive to the risks to both sides of its dual mandate. In light of the progress on inflation and the balance of risks, the Committee decided to lower the target range for the federal funds rate by 1/2 percentage point to 4-3/4 to 5 percent. In considering additional adjustments to the target range for the federal funds rate, the Committee will carefully assess incoming data, the evolving outlook, and the balance of risks. The Committee will continue reducing its holdings of Treasury securities and agency debt and agency mortgage\u2011backed securities. The Committee is strongly committed to supporting maximum employment and returning inflation to its 2 percent objective. In assessing the appropriate stance of monetary policy, the Committee will continue to monitor the implications of incoming information for the economic outlook. The Committee would be prepared to adjust the stance of monetary policy as appropriate if risks emerge that could impede the attainment of the Committee's goals."
+        },
+        {
+          "id": "fed:fed-statement-20240918:v1:00002",
+          "institution": "Fed",
+          "country": "USA",
+          "title": "FOMC statement \u2014 2024-09-18",
+          "publishedOn": "2024-09-18",
+          "eventOn": "2024-09-18",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240918a.htm",
+          "text": "The Committee's assessments will take into account a wide range of information, including readings on labor market conditions, inflation pressures and inflation expectations, and financial and international developments. Voting for the monetary policy action were Jerome H. Powell, Chair; John C. Williams, Vice Chair; Thomas I. Barkin; Michael S. Barr; Raphael W. Bostic; Lisa D. Cook; Mary C. Daly; Beth M. Hammack; Philip N. Jefferson; Adriana D. Kugler; and Christopher J. Waller. Voting against this action was Michelle W. Bowman, who preferred to lower the target range for the federal funds rate by 1/4 percentage point at this meeting."
+        }
+      ],
+      "expectedEventOn": "2024-09-18",
+      "expectedPublishedOn": "2024-09-18",
+      "expectedInstitution": "Fed",
+      "expectedCountry": "USA",
+      "retainedFromInitialSet": true,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval",
+      "category": "external",
+      "split": "external",
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "publishedOn": "2024-09-18",
+          "expectedEventOn": "2024-09-18",
+          "anyOfChunkIds": ["fed-statement-20240918:v1:00001"],
+          "passageIds": ["fed:fed-statement-20240918:v1:00001"],
+          "exactPassageId": "fed:fed-statement-20240918:v1:00001",
+          "expectedQuote": "Recent indicators suggest that economic activity has continued to expand at a solid pace. Job gains have slowed, and the unemployment rate has moved up but remains low. Inflation has made further progress toward the Committee's 2 percent objective but remains somewhat elevated. The Committee seeks to achieve maximum employment and inflation at the rate of 2 percent over the longer run. The Committee has gained greater confidence that inflation is moving sustainably toward 2 percent, and judges that the risks to achieving its employment and inflation goals are roughly in balance. The economic outlook is uncertain, and the Committee is attentive to the risks to both sides of its dual mandate. In light of the progress on inflation and the balance of risks, the Committee decided to lower the target range for the federal funds rate by 1/2 percentage point to 4-3/4 to 5 percent. In considering additional adjustments to the target range for the federal funds rate, the Committee will carefully assess incoming data, the evolving outlook, and the balance of risks. The Committee will continue reducing its holdings of Treasury securities and agency debt and agency mortgage\u2011backed securities. The Committee is strongly committed to supporting maximum employment and returning inflation to its 2 percent objective. In assessing the appropriate stance of monetary policy, the Committee will continue to monitor the implications of incoming information for the economic outlook. The Committee would be prepared to adjust the stance of monetary policy as appropriate if risks emerge that could impede the attainment of the Committee's goals."
+        },
+        {
+          "country": "USA",
+          "publishedOn": "2024-09-18",
+          "expectedEventOn": "2024-09-18",
+          "anyOfChunkIds": ["fed-statement-20240918:v1:00002"],
+          "passageIds": ["fed:fed-statement-20240918:v1:00002"],
+          "exactPassageId": "fed:fed-statement-20240918:v1:00002",
+          "expectedQuote": "The Committee's assessments will take into account a wide range of information, including readings on labor market conditions, inflation pressures and inflation expectations, and financial and international developments. Voting for the monetary policy action were Jerome H. Powell, Chair; John C. Williams, Vice Chair; Thomas I. Barkin; Michael S. Barr; Raphael W. Bostic; Lisa D. Cook; Mary C. Daly; Beth M. Hammack; Philip N. Jefferson; Adriana D. Kugler; and Christopher J. Waller. Voting against this action was Michelle W. Bowman, who preferred to lower the target range for the federal funds rate by 1/4 percentage point at this meeting."
+        }
+      ]
+    },
+    {
+      "id": "Q4",
+      "question": "By how much did the ECB raise its key interest rates in July 2022?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": false,
+      "requiredPassageIds": ["timeline:ea-20220721-first-normalisation-hike:0"],
+      "referencePassages": [
+        {
+          "id": "timeline:ea-20220721-first-normalisation-hike:0",
+          "institution": "ECB",
+          "country": "EA",
+          "title": "Monetary policy decisions",
+          "publishedOn": "2022-07-21",
+          "eventOn": null,
+          "url": "https://www.ecb.europa.eu/press/pr/date/2022/html/ecb.mp220721~53e5bdd317.en.html",
+          "text": "The Governing Council decided to raise the three key ECB interest rates by 50 basis points"
+        }
+      ],
+      "expectedEventOn": "2022-07-21",
+      "expectedPublishedOn": "2022-07-21",
+      "expectedInstitution": "ECB",
+      "expectedCountry": "EA",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval",
+      "category": "external",
+      "split": "external",
+      "goldEvidence": [
+        {
+          "country": "EA",
+          "publishedOn": "2022-07-21",
+          "expectedEventOn": "2022-07-21",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp220721~53e5bdd317:selected-first-normalisation-hike"
+          ],
+          "passageIds": ["timeline:ea-20220721-first-normalisation-hike:0"],
+          "exactPassageId": "timeline:ea-20220721-first-normalisation-hike:0",
+          "expectedQuote": "The Governing Council decided to raise the three key ECB interest rates by 50 basis points"
+        }
+      ]
+    },
+    {
+      "id": "Q5",
+      "question": "What did the CBRT decide on its policy rate in March 2024?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": true,
+      "requiredPassageIds": ["timeline:tur-20240321-cbrt-rate:0"],
+      "referencePassages": [
+        {
+          "id": "timeline:tur-20240321-cbrt-rate:0",
+          "institution": "CBRT",
+          "country": "TUR",
+          "title": "Press Release on Interest Rates (2024-14)",
+          "publishedOn": "2024-03-21",
+          "eventOn": "2024-03-21",
+          "url": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB%2BEN/Main%2BMenu/Announcements/Press%2BReleases/2024/ANO2024-14",
+          "text": "has decided to raise the policy rate (the one-week repo auction rate) from 45 percent to 50 percent."
+        }
+      ],
+      "expectedEventOn": "2024-03-21",
+      "expectedPublishedOn": "2024-03-21",
+      "expectedInstitution": "CBRT",
+      "expectedCountry": "TUR",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval",
+      "category": "external",
+      "split": "external",
+      "goldEvidence": [
+        {
+          "country": "TUR",
+          "publishedOn": "2024-03-21",
+          "expectedEventOn": "2024-03-21",
+          "anyOfChunkIds": ["cbrt-press-2024-14:decision"],
+          "passageIds": ["timeline:tur-20240321-cbrt-rate:0"],
+          "exactPassageId": "timeline:tur-20240321-cbrt-rate:0",
+          "expectedQuote": "has decided to raise the policy rate (the one-week repo auction rate) from 45 percent to 50 percent."
+        }
+      ]
+    },
+    {
+      "id": "Q6",
+      "question": "How large was the CBRT's policy rate increase in June 2023?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": false,
+      "requiredPassageIds": ["timeline:tur-20230622-cbrt-rate:0"],
+      "referencePassages": [
+        {
+          "id": "timeline:tur-20230622-cbrt-rate:0",
+          "institution": "CBRT",
+          "country": "TUR",
+          "title": "Press Release on Interest Rates (2023-22)",
+          "publishedOn": "2023-06-22",
+          "eventOn": "2023-06-22",
+          "url": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB%2BEN/MPC/MPC%2BMeeting%2BDecisions/ANO2023-22",
+          "text": "has decided to increase the policy rate (the one-week repo auction rate) from 8.5 percent to 15 percent."
+        }
+      ],
+      "expectedEventOn": "2023-06-22",
+      "expectedPublishedOn": "2023-06-22",
+      "expectedInstitution": "CBRT",
+      "expectedCountry": "TUR",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval",
+      "category": "external",
+      "split": "external",
+      "goldEvidence": [
+        {
+          "country": "TUR",
+          "publishedOn": "2023-06-22",
+          "expectedEventOn": "2023-06-22",
+          "anyOfChunkIds": ["cbrt-press-2023-22:decision"],
+          "passageIds": ["timeline:tur-20230622-cbrt-rate:0"],
+          "exactPassageId": "timeline:tur-20230622-cbrt-rate:0",
+          "expectedQuote": "has decided to increase the policy rate (the one-week repo auction rate) from 8.5 percent to 15 percent."
+        }
+      ]
+    },
+    {
+      "id": "Q7",
+      "question": "What did the OECD's June 2026 Economic Outlook report about inflation in Greece?",
+      "filters": {},
+      "expectedStatus": "found",
+      "falsePremise": false,
+      "temporalTrap": false,
+      "requiredPassageIds": ["timeline:grc-20260603-oecd-01:0"],
+      "referencePassages": [
+        {
+          "id": "timeline:grc-20260603-oecd-01:0",
+          "institution": "OECD",
+          "country": "GRC",
+          "title": "OECD Economic Outlook, Volume 2026 Issue 1",
+          "publishedOn": "2026-06-03",
+          "eventOn": null,
+          "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/06/oecd-economic-outlook-volume-2026-issue-1_8be0dba6/2d1956f0-en.pdf#page=183",
+          "text": "Inflation increased to 4.6% in April 2026 with rising energy prices, and persistent food and service inflation."
+        }
+      ],
+      "expectedEventOn": null,
+      "expectedPublishedOn": "2026-06-03",
+      "expectedInstitution": "OECD",
+      "expectedCountry": "GRC",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval",
+      "category": "external",
+      "split": "external",
+      "goldEvidence": [
+        {
+          "country": "GRC",
+          "publishedOn": "2026-06-03",
+          "expectedEventOn": null,
+          "anyOfChunkIds": ["10.1787/2d1956f0-en:v3:00360"],
+          "passageIds": ["timeline:grc-20260603-oecd-01:0"],
+          "exactPassageId": "timeline:grc-20260603-oecd-01:0",
+          "expectedQuote": "Inflation increased to 4.6% in April 2026 with rising energy prices, and persistent food and service inflation."
+        }
+      ]
+    },
+    {
+      "id": "Q8",
+      "question": "Why did the ECB raise its deposit facility rate to 4.25% in June 2024?",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "falsePremise": true,
+      "temporalTrap": false,
+      "requiredPassageIds": [],
+      "referencePassages": [
+        {
+          "id": "timeline:ea-20240606-rate-cut-twenty-five:0",
+          "institution": "ECB",
+          "country": "EA",
+          "title": "Monetary policy decisions",
+          "publishedOn": "2024-06-06",
+          "eventOn": null,
+          "url": "https://www.ecb.europa.eu/press/pr/date/2024/html/ecb.mp240606~2148ecdb3c.en.html",
+          "text": "The Governing Council today decided to lower the three key ECB interest rates by 25 basis points."
+        }
+      ],
+      "expectedEventOn": "2024-06-06",
+      "expectedPublishedOn": "2024-06-06",
+      "expectedInstitution": "ECB",
+      "expectedCountry": "EA",
+      "retainedFromInitialSet": true,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval",
+      "category": "false_premise",
+      "split": "external",
+      "goldEvidence": []
+    },
+    {
+      "id": "Q9",
+      "question": "Why did the Federal Reserve cut rates by 75 basis points in September 2024?",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "falsePremise": true,
+      "temporalTrap": false,
+      "requiredPassageIds": [],
+      "referencePassages": [
+        {
+          "id": "fed:fed-statement-20240918:v1:00001",
+          "institution": "Fed",
+          "country": "USA",
+          "title": "FOMC statement \u2014 2024-09-18",
+          "publishedOn": "2024-09-18",
+          "eventOn": "2024-09-18",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240918a.htm",
+          "text": "Recent indicators suggest that economic activity has continued to expand at a solid pace. Job gains have slowed, and the unemployment rate has moved up but remains low. Inflation has made further progress toward the Committee's 2 percent objective but remains somewhat elevated. The Committee seeks to achieve maximum employment and inflation at the rate of 2 percent over the longer run. The Committee has gained greater confidence that inflation is moving sustainably toward 2 percent, and judges that the risks to achieving its employment and inflation goals are roughly in balance. The economic outlook is uncertain, and the Committee is attentive to the risks to both sides of its dual mandate. In light of the progress on inflation and the balance of risks, the Committee decided to lower the target range for the federal funds rate by 1/2 percentage point to 4-3/4 to 5 percent. In considering additional adjustments to the target range for the federal funds rate, the Committee will carefully assess incoming data, the evolving outlook, and the balance of risks. The Committee will continue reducing its holdings of Treasury securities and agency debt and agency mortgage\u2011backed securities. The Committee is strongly committed to supporting maximum employment and returning inflation to its 2 percent objective. In assessing the appropriate stance of monetary policy, the Committee will continue to monitor the implications of incoming information for the economic outlook. The Committee would be prepared to adjust the stance of monetary policy as appropriate if risks emerge that could impede the attainment of the Committee's goals."
+        }
+      ],
+      "expectedEventOn": "2024-09-18",
+      "expectedPublishedOn": "2024-09-18",
+      "expectedInstitution": "Fed",
+      "expectedCountry": "USA",
+      "retainedFromInitialSet": true,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval",
+      "category": "false_premise",
+      "split": "external",
+      "goldEvidence": []
+    },
+    {
+      "id": "Q10",
+      "question": "Why did the CBRT cut its policy rate from 50 percent to 45 percent in March 2024?",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "falsePremise": true,
+      "temporalTrap": true,
+      "requiredPassageIds": [],
+      "referencePassages": [
+        {
+          "id": "timeline:tur-20240321-cbrt-rate:0",
+          "institution": "CBRT",
+          "country": "TUR",
+          "title": "Press Release on Interest Rates (2024-14)",
+          "publishedOn": "2024-03-21",
+          "eventOn": "2024-03-21",
+          "url": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB%2BEN/Main%2BMenu/Announcements/Press%2BReleases/2024/ANO2024-14",
+          "text": "has decided to raise the policy rate (the one-week repo auction rate) from 45 percent to 50 percent."
+        }
+      ],
+      "expectedEventOn": "2024-03-21",
+      "expectedPublishedOn": "2024-03-21",
+      "expectedInstitution": "CBRT",
+      "expectedCountry": "TUR",
+      "retainedFromInitialSet": false,
+      "sourceAvailability": "all exact referenced passage IDs exist before retrieval",
+      "category": "false_premise",
+      "split": "external",
+      "goldEvidence": []
+    }
+  ]
+}

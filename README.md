@@ -1,6 +1,6 @@
 # MacroLab
 
-Version 2.7.0.
+Version: **2.8.0-beta.1** — Ask the reports is a beta source-search feature. The econometric engine and bundled data are unchanged.
 
 Explore official macroeconomic data and econometric models in your browser. For students, researchers and teaching, with assumptions and data gaps in view.
 
@@ -32,6 +32,12 @@ The first analysis may take a few extra seconds while the browser prepares the c
 - Browse **Economic timeline** without running an analysis: 801 selected report notes across all 39 economies, with country, year and topic filters, original quotations and official source links. [Coverage and source notes](docs/ECONOMIC_TIMELINE.md).
 
 Calculations run locally through **Pyodide**, using the bundled snapshot. The published app does not request new data from providers or send your analysis to an analysis server.
+
+## Ask the reports — beta
+
+Search original quotations from the 801 timeline notes and 483 date-verified Fed reports directly in your browser. Results show official links, country, meeting date and publication date. No model API or embedding service is required. First/last, maximum/minimum and count questions return chronological source lists without a verdict. Unsupported premises return **Not found in these reports**; nearby material is labelled separately.
+
+The external ten-question regression passes 10/10 under the user's comparison-list rule. The previously held-out regression recovers 12/14 complete positive references and correctly abstains on 6/6 negatives. Both have zero period/false-premise errors and zero failed requests in the local browser run. These are bounded observed tests, not a guarantee for arbitrary questions. [Coverage, limitations and measured beta gate](docs/ASK_THE_REPORTS.md).
 
 ## Results at a glance
 

@@ -1,0 +1,76 @@
+{
+  "externalTest": "Claude-selected; Hakan-reviewed, updated10",
+  "questions": 10,
+  "answerable": 7,
+  "falsePremises": 3,
+  "falsePremiseShare": 0.3,
+  "strictIdentityRule": "Only exact supplied passage IDs in primary top5 count. Equivalent text, other aliases/IDs and related-only hits do not count. Q3requires both previously retained decision/dissent IDs marked in the source list.",
+  "node": {
+    "questions": 10,
+    "answerable": 7,
+    "falsePremises": 3,
+    "exactIdCompleteAt5": 6,
+    "requiredIds": 8,
+    "requiredIdsMatched": 7,
+    "correctAbstentions": 3,
+    "falsePremiseErrors": 0,
+    "wrongPeriodAnswers": 0,
+    "attributionErrors": 0,
+    "integrityErrors": 0,
+    "passedQuestions": 9,
+    "allTenPassed": false,
+    "maxBrowserLatencyMs": null,
+    "publicationDecision": "DO_NOT_PUBLISH: the previous frozen held-out set failed; this test cannot replace it."
+  },
+  "browser": {
+    "questions": 10,
+    "answerable": 7,
+    "falsePremises": 3,
+    "exactIdCompleteAt5": 6,
+    "requiredIds": 8,
+    "requiredIdsMatched": 7,
+    "correctAbstentions": 3,
+    "falsePremiseErrors": 0,
+    "wrongPeriodAnswers": 0,
+    "attributionErrors": 0,
+    "integrityErrors": 0,
+    "passedQuestions": 9,
+    "allTenPassed": false,
+    "maxBrowserLatencyMs": 240.10000002384186,
+    "publicationDecision": "DO_NOT_PUBLISH: the previous frozen held-out set failed; this test cannot replace it."
+  },
+  "nodeBrowserAgreement": true,
+  "codeChangedForExternalTest": false,
+  "frozenSourceMatches": true,
+  "previousHeldoutRetained": {
+    "completeAt5": 10,
+    "answerable": 14,
+    "falsePremiseErrors": 3,
+    "rerunThisTurn": false
+  },
+  "publicationDecision": "DO_NOT_PUBLISH",
+  "reasons": [
+    "Q2correct exact passage appears only in related evidence, not primary top5",
+    "Previous separately frozen heldout still failed (10/14complete,3false-premise primary errors)"
+  ],
+  "failedRequests": [
+    {
+      "id": "Q6",
+      "url": "http://127.0.0.1:8787/macrolab/assets/jetbrains-mono-latin-500-normal-BWZEU5yA.woff2",
+      "error": "net::ERR_CONNECTION_RESET"
+    },
+    {
+      "id": "Q6",
+      "url": "http://127.0.0.1:8787/macrolab/assets/favicon-c18pVkGq.svg",
+      "error": "net::ERR_CONNECTION_RESET"
+    },
+    {
+      "id": "Q6",
+      "url": "http://127.0.0.1:8787/macrolab/data/manifest.json",
+      "error": "net::ERR_CONNECTION_RESET"
+    }
+  ],
+  "pageErrors": [],
+  "externalRequests": [],
+  "requestFailureCause": "Unconfirmed; all question results and exact rendered-quote checks completed. No zero-request-error claim."
+}

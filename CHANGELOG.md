@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.8.0-beta.1 — Ask the reports (18 November 2026)
+
+- Chronological source lists for first/last/extreme/count questions, with no generated verdict.
+- Narrow fixes for nominal policy direction, institution binding and predicate negation.
+- Previously observed internal/external sets retested: period/false-premise errors 0. External 10/10; internal positives 12/14 and negatives 6/6. Original failures preserved.
+- Static BM25 search; no paid API or language model enabled. Scientific code and payloads unchanged.
+
+### Earlier candidate implementation
+
+- Search a static, sharded BM25 index of original timeline quotations and 483 dated Fed reports in a browser worker. Return original passages with source, country, publication date and regional attribution.
+- Keep economic interpretation out of the response. An optional linking-sentence adapter is available only in development, disabled by default, with no model connected.
+- Preserve the frozen source-curated evaluation set, development runs and held-out failures. See `docs/ASK_THE_REPORTS.md` for the measured beta gate, provenance and limitations.
+- Scientific calculations, accepted numerical data, runtime and existing timeline notes are unchanged.
+
 ## 2.7.0 — Source-backed economic timeline
 
 - Browse 801 selected official-source notes for all 39 economies, covering 2009–2026, from the Economic timeline main-menu entry. No analysis or account is required.

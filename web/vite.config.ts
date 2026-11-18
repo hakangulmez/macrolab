@@ -46,6 +46,11 @@ export default defineConfig({
     "import.meta.env.MACROLAB_REPORTS_PATH": JSON.stringify(reportsPath),
     "import.meta.env.MACROLAB_TIMELINE_ENABLED":
       process.env.MACROLAB_TIMELINE_ENABLED !== "0",
+    "import.meta.env.MACROLAB_ASK_REPORTS_ENABLED":
+      process.env.MACROLAB_ASK_REPORTS_ENABLED !== "0",
+    "import.meta.env.MACROLAB_CONTEXT_TEST_PATH": JSON.stringify(
+      process.env.MACROLAB_CONTEXT_TEST_PATH ?? "",
+    ),
   },
   publicDir: process.env.MACROLAB_PUBLIC_DIR ?? "public",
   build: {

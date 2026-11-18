@@ -1,0 +1,872 @@
+{
+  "schemaVersion": 2,
+  "curation": "Codex source-reading holdout; not independent human validation",
+  "asOf": "2026-11-17",
+  "sourceCuratedOriginalSha256": "d18b865a47b467a91dd01e604ebf493bafbab926dd1d8c8b525f4377cfda62fc",
+  "questions": [
+    {
+      "id": "FH01",
+      "question": "As of the corpus manifest dated November 17, 2026, what federal funds target range was chosen at the latest FOMC policy meeting represented in the corpus, and was it a change or a hold?",
+      "category": "latest_meeting",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2026-10-28",
+      "expectedEventOn": "2026-10-28",
+      "asOf": "2026-11-17",
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": [
+            "fed-statement-20261028:v1:00001"
+          ],
+          "acceptableSourceIds": [
+            "fed-statement-20261028:v1:00001"
+          ],
+          "passageIds": [
+            "fed:fed-statement-20261028:v1:00001"
+          ],
+          "expectedQuote": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+          "publishedOn": "2026-10-28",
+          "expectedPublishedOn": "2026-10-28",
+          "expectedEventOn": "2026-10-28",
+          "rationale": "The original latest FOMC statement supplies the range and unchanged action; event metadata identifies October 28."
+        }
+      ],
+      "economicChecks": [
+        "Anchor latest to the frozen corpus as of 2026-11-17, not to the live calendar or the latest document of any kind.",
+        "Use the October 28, 2026 FOMC event; maintain 3.75–4.00%, not a cut or a hike.",
+        "Do not substitute the November SLOOS publication or a dissenter’s preferred increase for the Committee decision."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH02",
+      "question": "Using only the meetings represented in the corpus as of its November 17, 2026 manifest, what did the CBRT decide at its latest Monetary Policy Committee meeting about the one-week repo auction rate?",
+      "category": "latest_meeting",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "TUR",
+      "institution": "CBRT",
+      "expectedPublishedOn": "2026-10-22",
+      "expectedEventOn": "2026-10-22",
+      "asOf": "2026-11-17",
+      "goldEvidence": [
+        {
+          "country": "TUR",
+          "institution": "CBRT",
+          "anyOfChunkIds": [
+            "cbrt-press-2026-45:decision"
+          ],
+          "acceptableSourceIds": [
+            "cbrt-press-2026-45:decision"
+          ],
+          "passageIds": [
+            "timeline:tur-20261022-cbrt-rate:0"
+          ],
+          "expectedQuote": "has decided to reduce the policy rate (the one-week repo auction rate) from 37 percent to 36 percent.",
+          "sourceUrl": "https://tcmb.gov.tr/wps/wcm/connect/en/tcmb%2Ben/main%2Bmenu/announcements/press%2Breleases/2026/ano2026-45",
+          "publishedOn": "2026-10-22",
+          "expectedPublishedOn": "2026-10-22",
+          "expectedEventOn": "2026-10-22",
+          "rationale": "The original CBRT quote gives the instrument, action, old rate and new rate, with event and publication metadata."
+        }
+      ],
+      "economicChecks": [
+        "Anchor latest to the corpus snapshot as of 2026-11-17.",
+        "Latest represented CBRT policy event is October 22, 2026; reduce the one-week repo auction rate from 37% to 36%.",
+        "Do not treat the rate as an ECB or Fed instrument or infer an unindexed later meeting."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH03",
+      "question": "As of the November 17, 2026 corpus manifest, what opposing inflation and growth risks did the latest ECB monetary-policy decision release represented in the corpus associate with energy prices?",
+      "category": "latest_policy_release",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "EA",
+      "institution": "ECB",
+      "expectedPublishedOn": "2026-10-29",
+      "expectedEventOn": null,
+      "asOf": "2026-11-17",
+      "goldEvidence": [
+        {
+          "country": "EA",
+          "institution": "ECB",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp261029~9a493adf17:selected-energy-shock-inflation-growth-risks"
+          ],
+          "acceptableSourceIds": [
+            "ecb-ecb.mp261029~9a493adf17:selected-energy-shock-inflation-growth-risks"
+          ],
+          "passageIds": [
+            "timeline:ea-20261029-energy-shock-inflation-growth-risks:0"
+          ],
+          "expectedQuote": "Energy prices have continued to rise, posing upside risks to the inflation outlook and downside risks to the growth outlook.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~9a493adf17.en.html",
+          "publishedOn": "2026-10-29",
+          "expectedPublishedOn": "2026-10-29",
+          "expectedEventOn": null,
+          "rationale": "The latest original ECB release quote directly supplies the two risk directions and the energy-price condition."
+        }
+      ],
+      "economicChecks": [
+        "Use the latest represented ECB decision release, published October 29, 2026.",
+        "Rising energy prices pose upside inflation risks and downside growth risks; do not reverse them.",
+        "The timeline records publication date but no independently separate event date; do not fabricate one or a rate decision absent from this quote."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH04",
+      "question": "In the FOMC minutes published on October 7, 2026, which meeting’s policy decision is recorded and by how much did members change the target range, to what new level?",
+      "category": "publication_vs_event",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2026-10-07",
+      "expectedEventOn": "2026-09-16",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": [
+            "fed-minutes-20260916:v2:00019"
+          ],
+          "acceptableSourceIds": [
+            "fed-minutes-20260916:v2:00019"
+          ],
+          "passageIds": [
+            "fed:fed-minutes-20260916:v2:00019"
+          ],
+          "expectedQuote": "In support of the Committee's dual-mandate goals, all members agreed to raise the target range for the federal funds rate 1/4 percentage point to 3-3/4 to 4 percent and reaffirmed the FOMC's policy of maintaining ample reserves in the banking system.",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260916.htm",
+          "publishedOn": "2026-10-07",
+          "expectedPublishedOn": "2026-10-07",
+          "expectedEventOn": "2026-09-16",
+          "rationale": "The original Committee Policy Actions sentence states the actual decision and amount, while source metadata separates event and release dates."
+        }
+      ],
+      "economicChecks": [
+        "Publication is October 7, 2026; the meeting event is September 16, 2026.",
+        "Raise by 0.25 percentage point to 3.75–4.00%, not a decision made at an October meeting.",
+        "Member agreement is distinct from earlier market-implied expectations."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH05",
+      "question": "What federal funds target range did the Committee retain at the meeting documented by the minutes released on July 8, 2026, and on what date was that meeting?",
+      "category": "publication_vs_event",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2026-07-08",
+      "expectedEventOn": "2026-06-17",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": [
+            "fed-minutes-20260617:v2:00021"
+          ],
+          "acceptableSourceIds": [
+            "fed-minutes-20260617:v2:00021"
+          ],
+          "passageIds": [
+            "fed:fed-minutes-20260617:v2:00021"
+          ],
+          "expectedQuote": "In support of the Committee's dual-mandate goals, all members agreed to maintain the target range for the federal funds rate at 3-1/2 to 3-3/4 percent and to reaffirm the FOMC's policy of maintaining ample reserves in the banking system.",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260617.htm",
+          "publishedOn": "2026-07-08",
+          "expectedPublishedOn": "2026-07-08",
+          "expectedEventOn": "2026-06-17",
+          "rationale": "The original member-decision sentence states the retained range; the source event metadata identifies the June meeting."
+        }
+      ],
+      "economicChecks": [
+        "Publication is July 8, 2026, for the June 17, 2026 event.",
+        "Maintain the 3.50–3.75% federal funds target range.",
+        "Do not select a July meeting or replace the target range with the overnight repo, reverse-repo, or reserve-interest rate."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH06",
+      "question": "Mart 2024 PPK toplantısında TCMB politika faizi için hangi kararı aldı; bir hafta vadeli repo ihale faizi hangi seviyeden hangi seviyeye değişti?",
+      "category": "month_event_turkish",
+      "split": "holdout",
+      "language": "tr",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "TUR",
+      "institution": "CBRT",
+      "expectedPublishedOn": "2024-03-21",
+      "expectedEventOn": "2024-03-21",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "TUR",
+          "institution": "CBRT",
+          "anyOfChunkIds": [
+            "cbrt-press-2024-14:decision"
+          ],
+          "acceptableSourceIds": [
+            "cbrt-press-2024-14:decision"
+          ],
+          "passageIds": [
+            "timeline:tur-20240321-cbrt-rate:0"
+          ],
+          "expectedQuote": "has decided to raise the policy rate (the one-week repo auction rate) from 45 percent to 50 percent.",
+          "sourceUrl": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB%2BEN/Main%2BMenu/Announcements/Press%2BReleases/2024/ANO2024-14",
+          "publishedOn": "2024-03-21",
+          "expectedPublishedOn": "2024-03-21",
+          "expectedEventOn": "2024-03-21",
+          "rationale": "The original CBRT source explicitly defines the policy instrument and both rate levels; the Turkish query tests month and institution aliases."
+        }
+      ],
+      "economicChecks": [
+        "Mart 2024 means the March 21, 2024 CBRT PPK event, not a document release in another month.",
+        "Increase the one-week repo auction rate from 45% to 50%, a 5-percentage-point increase.",
+        "Keep CBRT/TCMB attribution and instrument identity; do not use an OECD forecast as a PPK decision."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH07",
+      "question": "What instrument did the CBRT raise on September 13, 2018, and what were its old and new rates?",
+      "category": "policy_instrument",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "TUR",
+      "institution": "CBRT",
+      "expectedPublishedOn": "2018-09-13",
+      "expectedEventOn": "2018-09-13",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "TUR",
+          "institution": "CBRT",
+          "anyOfChunkIds": [
+            "cbrt-press-2018-38:decision"
+          ],
+          "acceptableSourceIds": [
+            "cbrt-press-2018-38:decision"
+          ],
+          "passageIds": [
+            "timeline:tur-20180913-cbrt-rate:0"
+          ],
+          "expectedQuote": "has decided to increase the policy rate (one week repo auction rate) from 17.75 percent to 24 percent.",
+          "sourceUrl": "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB%2BEN/MPC/MPC%2BMeeting%2BDecisions/ANO2018-38",
+          "publishedOn": "2018-09-13",
+          "expectedPublishedOn": "2018-09-13",
+          "expectedEventOn": "2018-09-13",
+          "rationale": "The original CBRT quote contains the complete instrument/action and old/new rate pair."
+        }
+      ],
+      "economicChecks": [
+        "The policy instrument is the one-week repo auction rate.",
+        "Increase from 17.75% to 24%, not an interest-rate cut.",
+        "These are rate levels; any computed change is 6.25 percentage points, not 6.25%."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH08",
+      "question": "What change to the three key ECB interest rates did the Governing Council announce on June 5, 2025?",
+      "category": "policy_action",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "EA",
+      "institution": "ECB",
+      "expectedPublishedOn": "2025-06-05",
+      "expectedEventOn": null,
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "EA",
+          "institution": "ECB",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp250605~3b5f67d007:selected-rate-cut-twenty-five"
+          ],
+          "acceptableSourceIds": [
+            "ecb-ecb.mp250605~3b5f67d007:selected-rate-cut-twenty-five"
+          ],
+          "passageIds": [
+            "timeline:ea-20250605-rate-cut-twenty-five:0"
+          ],
+          "expectedQuote": "The Governing Council today decided to lower the three key ECB interest rates by 25 basis points.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2025/html/ecb.mp250605~3b5f67d007.en.html",
+          "publishedOn": "2025-06-05",
+          "expectedPublishedOn": "2025-06-05",
+          "expectedEventOn": null,
+          "rationale": "The original ECB sentence supplies the actor, action, scope, and size without requiring unindexed resulting levels."
+        }
+      ],
+      "economicChecks": [
+        "The action is a reduction, not an increase.",
+        "The size is 25 basis points, equal to 0.25 percentage point, across the three key ECB interest rates.",
+        "Do not invent the resulting individual rate levels; the indexed quote does not state them."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH09",
+      "question": "In the ECB release of June 11, 2026, what headline inflation averages were expected for 2026, 2027 and 2028?",
+      "category": "inflation_projection",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "EA",
+      "institution": "ECB",
+      "expectedPublishedOn": "2026-06-11",
+      "expectedEventOn": null,
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "EA",
+          "institution": "ECB",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp260611~4d41bd5e83:selected-inflation-baseline-projections"
+          ],
+          "acceptableSourceIds": [
+            "ecb-ecb.mp260611~4d41bd5e83:selected-inflation-baseline-projections"
+          ],
+          "passageIds": [
+            "timeline:ea-20260611-inflation-baseline-projections:0"
+          ],
+          "expectedQuote": "headline inflation is expected to average 3.0% in 2026, 2.3% in 2027 and 2.0% in 2028.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260611~4d41bd5e83.en.html",
+          "publishedOn": "2026-06-11",
+          "expectedPublishedOn": "2026-06-11",
+          "expectedEventOn": null,
+          "rationale": "The original ECB quote provides all requested year/rate pairs and explicitly retains expected headline-inflation status."
+        }
+      ],
+      "economicChecks": [
+        "Headline inflation projections are 3.0%, 2.3%, and 2.0% in 2026, 2027, and 2028 respectively.",
+        "These are expected averages, not realized inflation or a core-inflation series.",
+        "Keep euro-area/ECB attribution and the June 11 publication context."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH10",
+      "question": "In the FOMC minutes released on October 17, 2018, what description of the policy stance did participants support removing, and did they view its removal as a signal of a changed expected policy path?",
+      "category": "publication_vs_event",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2018-10-17",
+      "expectedEventOn": "2018-09-26",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": [
+            "fed-minutes-20180926:v2:00025"
+          ],
+          "acceptableSourceIds": [
+            "fed-minutes-20180926:v2:00025"
+          ],
+          "passageIds": [
+            "fed:fed-minutes-20180926:v2:00025"
+          ],
+          "expectedQuote": "Almost all considered that it was also appropriate to revise the Committee's postmeeting statement in order to remove the language stating that \"the stance of monetary policy remains accommodative.\" Participants discussed a number of reasons for removing the language at this time, noting that the Committee would not be signaling a change in the expected path for policy, particularly as the target range for the federal funds rate announced after the Committee's meeting would still be below all of the estimates of its longer-run level submitted in the September SEP.",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20180926.htm",
+          "publishedOn": "2018-10-17",
+          "expectedPublishedOn": "2018-10-17",
+          "expectedEventOn": "2018-09-26",
+          "rationale": "The contiguous original minutes passage includes the wording, qualified participant support, and explicit no-signal interpretation."
+        }
+      ],
+      "economicChecks": [
+        "The event is September 26, 2018; publication is October 17, 2018.",
+        "Almost all participants supported removing the remains-accommodative description; do not report unanimity unless the source states it.",
+        "Removing the language was not intended to signal a changed expected policy path."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH11",
+      "question": "Under the FOMC decision of January 29, 2014, what monthly purchase paces for agency MBS and longer-term Treasuries were to begin in February, compared with their preceding paces?",
+      "category": "purchase_flow",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2014-01-29",
+      "expectedEventOn": "2014-01-29",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": [
+            "fed-statement-20140129:v1:00002"
+          ],
+          "acceptableSourceIds": [
+            "fed-statement-20140129:v1:00002"
+          ],
+          "passageIds": [
+            "fed:fed-statement-20140129:v1:00002"
+          ],
+          "expectedQuote": "Beginning in February, the Committee will add to its holdings of agency mortgage-backed securities at a pace of $30 billion per month rather than $35 billion per month, and will add to its holdings of longer-term Treasury securities at a pace of $35 billion per month rather than $40 billion per month.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20140129a.htm",
+          "publishedOn": "2014-01-29",
+          "expectedPublishedOn": "2014-01-29",
+          "expectedEventOn": "2014-01-29",
+          "rationale": "The original January statement sentence gives both prior/new instrument-specific paces and the implementation month."
+        }
+      ],
+      "economicChecks": [
+        "Agency MBS falls to $30bn from $35bn/month; longer-term Treasuries to $35bn from $40bn/month, beginning February 2014.",
+        "These are slower additions to holdings, not stock sales or the end of purchases.",
+        "Do not substitute the distinct December 2013 announcement and January 2014 purchase paces."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH12",
+      "question": "What near-term and medium-term inflation path did the FOMC expect in its March 16, 2016 statement, and what forces were expected to help inflation return toward its goal?",
+      "category": "inflation_outlook",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2016-03-16",
+      "expectedEventOn": "2016-03-16",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": [
+            "fed-statement-20160316:v1:00001"
+          ],
+          "acceptableSourceIds": [
+            "fed-statement-20160316:v1:00001"
+          ],
+          "passageIds": [
+            "fed:fed-statement-20160316:v1:00001"
+          ],
+          "expectedQuote": "Inflation is expected to remain low in the near term, in part because of earlier declines in energy prices, but to rise to 2 percent over the medium term as the transitory effects of declines in energy and import prices dissipate and the labor market strengthens further.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20160316a.htm",
+          "publishedOn": "2016-03-16",
+          "expectedPublishedOn": "2016-03-16",
+          "expectedEventOn": "2016-03-16",
+          "rationale": "The original statement sentence contains the two horizons and the stated inflation forces."
+        }
+      ],
+      "economicChecks": [
+        "Low inflation in the near term versus a rise to 2% over the medium term is an expectation, not an observed subsequent outcome.",
+        "Earlier energy-price declines, dissipating energy/import-price effects, and a strengthening labor market are the stated forces.",
+        "Do not convert a medium-term expectation into a numerical forecast for a named later year not provided by the source."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH13",
+      "question": "What did firms from many Districts expect for wage pressures and wage growth over the next year in the January 17, 2024 Beige Book?",
+      "category": "contact_forecast",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "USA",
+      "institution": "Fed",
+      "expectedPublishedOn": "2024-01-17",
+      "expectedEventOn": null,
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": [
+            "fed-beige-2024-01-17:v1:00002"
+          ],
+          "acceptableSourceIds": [
+            "fed-beige-2024-01-17:v1:00002"
+          ],
+          "passageIds": [
+            "fed:fed-beige-2024-01-17:v1:00002"
+          ],
+          "expectedQuote": "Firms from many Districts expected wage pressures to ease and wage growth to fall further over the next year.",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/beigebook202401-summary.htm",
+          "publishedOn": "2024-01-17",
+          "expectedPublishedOn": "2024-01-17",
+          "expectedEventOn": null,
+          "rationale": "The original Beige Book sentence gives the contacts’ qualified coverage, wage-pressure direction, growth-rate direction and horizon."
+        }
+      ],
+      "economicChecks": [
+        "Attribute the expectation to firms from many Districts, not all Districts or a binding FOMC commitment.",
+        "Wage growth falling means a slower rate of wage increases; the sentence does not predict a fall in wage levels.",
+        "Retain the next-year horizon relative to the January 2024 report."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FH14",
+      "question": "At its April 17, 2025 meeting, what policy instrument did the CBRT increase and from what rate to what new rate?",
+      "category": "policy_instrument",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "found",
+      "country": "TUR",
+      "institution": "CBRT",
+      "expectedPublishedOn": "2025-04-17",
+      "expectedEventOn": "2025-04-17",
+      "asOf": null,
+      "goldEvidence": [
+        {
+          "country": "TUR",
+          "institution": "CBRT",
+          "anyOfChunkIds": [
+            "cbrt-press-2025-24:decision"
+          ],
+          "acceptableSourceIds": [
+            "cbrt-press-2025-24:decision"
+          ],
+          "passageIds": [
+            "timeline:tur-20250417-cbrt-rate:0"
+          ],
+          "expectedQuote": "has decided to raise the policy rate (the one-week repo auction rate) from 42.5 percent to 46 percent.",
+          "sourceUrl": "https://tcmb.gov.tr/wps/wcm/connect/en/tcmb%2Ben/main%2Bmenu/announcements/press%2Breleases/2025/ano2025-24",
+          "publishedOn": "2025-04-17",
+          "expectedPublishedOn": "2025-04-17",
+          "expectedEventOn": "2025-04-17",
+          "rationale": "The original CBRT sentence explicitly names the instrument and its old/new levels."
+        }
+      ],
+      "economicChecks": [
+        "The action concerns the policy rate defined here as the one-week repo auction rate.",
+        "Raise from 42.5% to 46%, not an overnight-lending instrument or a rate reduction.",
+        "Keep the April 17 meeting separate from the July 24, 2025 cut."
+      ],
+      "sourceRead": true,
+      "falsePremise": false
+    },
+    {
+      "id": "FHN01",
+      "question": "Why did the ECB project headline inflation averaging 4.0% in 2028 in its June 11, 2026 release?",
+      "category": "false_premise",
+      "falsePremiseType": "numeric",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "expectedNoSupportedAnswer": true,
+      "country": "EA",
+      "sourceInstitution": "ECB",
+      "expectedPublishedOn": "2026-06-11",
+      "expectedEventOn": null,
+      "asOf": null,
+      "goldEvidence": [],
+      "contradictingEvidence": [
+        {
+          "country": "EA",
+          "institution": "ECB",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp260611~4d41bd5e83:selected-inflation-baseline-projections"
+          ],
+          "acceptableSourceIds": [
+            "ecb-ecb.mp260611~4d41bd5e83:selected-inflation-baseline-projections"
+          ],
+          "passageIds": [
+            "timeline:ea-20260611-inflation-baseline-projections:0"
+          ],
+          "expectedQuote": "headline inflation is expected to average 3.0% in 2026, 2.3% in 2027 and 2.0% in 2028.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp260611~4d41bd5e83.en.html",
+          "publishedOn": "2026-06-11",
+          "expectedPublishedOn": "2026-06-11",
+          "expectedEventOn": null,
+          "rationale": "The original quote projects 2.0%, not 4.0%, for 2028. The requested explanation for a 4.0% projection rests on a directly contradicted numeric premise."
+        }
+      ],
+      "rationale": "The original quote projects 2.0%, not 4.0%, for 2028. The requested explanation for a 4.0% projection rests on a directly contradicted numeric premise.",
+      "relatedEvidencePolicy": "The contradicting source may be displayed separately as related-but-not-answer evidence; it must not turn the supported-answer status into found.",
+      "economicChecks": [
+        "Return not_found for a supported answer; do not endorse or explain the invented 4.0% projection.",
+        "The correct 2.0% projection may appear only as separate related/contradicting evidence."
+      ],
+      "sourceRead": true,
+      "falsePremise": true
+    },
+    {
+      "id": "FHN02",
+      "question": "What increase in the three key ECB interest rates did the Governing Council announce on June 5, 2025?",
+      "category": "false_premise",
+      "falsePremiseType": "action",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "expectedNoSupportedAnswer": true,
+      "country": "EA",
+      "sourceInstitution": "ECB",
+      "expectedPublishedOn": "2025-06-05",
+      "expectedEventOn": null,
+      "asOf": null,
+      "goldEvidence": [],
+      "contradictingEvidence": [
+        {
+          "country": "EA",
+          "institution": "ECB",
+          "anyOfChunkIds": [
+            "ecb-ecb.mp250605~3b5f67d007:selected-rate-cut-twenty-five"
+          ],
+          "acceptableSourceIds": [
+            "ecb-ecb.mp250605~3b5f67d007:selected-rate-cut-twenty-five"
+          ],
+          "passageIds": [
+            "timeline:ea-20250605-rate-cut-twenty-five:0"
+          ],
+          "expectedQuote": "The Governing Council today decided to lower the three key ECB interest rates by 25 basis points.",
+          "sourceUrl": "https://www.ecb.europa.eu/press/pr/date/2025/html/ecb.mp250605~3b5f67d007.en.html",
+          "publishedOn": "2025-06-05",
+          "expectedPublishedOn": "2025-06-05",
+          "expectedEventOn": null,
+          "rationale": "The original release says lower by 25 basis points, directly contradicting the question’s increase premise."
+        }
+      ],
+      "rationale": "The original release says lower by 25 basis points, directly contradicting the question’s increase premise.",
+      "relatedEvidencePolicy": "The contradicting source may be displayed separately as related-but-not-answer evidence; it must not turn the supported-answer status into found.",
+      "economicChecks": [
+        "Return not_found for the requested increase; do not silently treat a cut as support for an increase.",
+        "A separate related quote may show the actual reduction, without marking the false-premise answer supported."
+      ],
+      "sourceRead": true,
+      "falsePremise": true
+    },
+    {
+      "id": "FHN03",
+      "question": "What US federal funds target range did the ECB Governing Council set on October 28, 2026?",
+      "category": "false_premise",
+      "falsePremiseType": "actor",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "expectedNoSupportedAnswer": true,
+      "country": "USA",
+      "sourceInstitution": "Fed",
+      "expectedPublishedOn": "2026-10-28",
+      "expectedEventOn": "2026-10-28",
+      "asOf": null,
+      "goldEvidence": [],
+      "contradictingEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": [
+            "fed-statement-20261028:v1:00001"
+          ],
+          "acceptableSourceIds": [
+            "fed-statement-20261028:v1:00001"
+          ],
+          "passageIds": [
+            "fed:fed-statement-20261028:v1:00001"
+          ],
+          "expectedQuote": "The Federal Open Market Committee approved the following statement for release by a 10 – 2 vote: The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+          "publishedOn": "2026-10-28",
+          "expectedPublishedOn": "2026-10-28",
+          "expectedEventOn": "2026-10-28",
+          "rationale": "The original source explicitly identifies the Federal Open Market Committee as the decision maker, not the ECB Governing Council. The requested actor/instrument attribution is false."
+        }
+      ],
+      "rationale": "The original source explicitly identifies the Federal Open Market Committee as the decision maker, not the ECB Governing Council. The requested actor/instrument attribution is false.",
+      "relatedEvidencePolicy": "The contradicting source may be displayed separately as related-but-not-answer evidence; it must not turn the supported-answer status into found.",
+      "economicChecks": [
+        "Return not_found for an ECB decision on the US federal funds target range.",
+        "Do not relabel a Fed/FOMC quote as an ECB decision even though its date and rate figures resemble the question."
+      ],
+      "sourceRead": true,
+      "falsePremise": true
+    },
+    {
+      "id": "FHN04",
+      "question": "Why did the FOMC declare on January 29, 2014 that future asset purchases were on a preset course, unaffected by its labor-market and inflation outlook?",
+      "category": "false_premise",
+      "falsePremiseType": "qualifier",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "expectedNoSupportedAnswer": true,
+      "country": "USA",
+      "sourceInstitution": "Fed",
+      "expectedPublishedOn": "2014-01-29",
+      "expectedEventOn": "2014-01-29",
+      "asOf": null,
+      "goldEvidence": [],
+      "contradictingEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": [
+            "fed-statement-20140129:v1:00003"
+          ],
+          "acceptableSourceIds": [
+            "fed-statement-20140129:v1:00003"
+          ],
+          "passageIds": [
+            "fed:fed-statement-20140129:v1:00003"
+          ],
+          "expectedQuote": "However, asset purchases are not on a preset course, and the Committee's decisions about their pace will remain contingent on the Committee's outlook for the labor market and inflation as well as its assessment of the likely efficacy and costs of such purchases.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20140129a.htm",
+          "publishedOn": "2014-01-29",
+          "expectedPublishedOn": "2014-01-29",
+          "expectedEventOn": "2014-01-29",
+          "rationale": "The original sentence expressly says not on a preset course and contingent on the labor-market/inflation outlook; the query reverses both qualifications."
+        }
+      ],
+      "rationale": "The original sentence expressly says not on a preset course and contingent on the labor-market/inflation outlook; the query reverses both qualifications.",
+      "relatedEvidencePolicy": "The contradicting source may be displayed separately as related-but-not-answer evidence; it must not turn the supported-answer status into found.",
+      "economicChecks": [
+        "Return not_found for an unconditional preset purchase path.",
+        "Do not convert contingent decisions into a guarantee; the explicit contradiction may be related-but-not-answer evidence."
+      ],
+      "sourceRead": true,
+      "falsePremise": true
+    },
+    {
+      "id": "FHN05",
+      "question": "As of the corpus manifest dated November 17, 2026, what were the reasons for the half-percentage-point rate cut at the latest FOMC policy meeting represented in the corpus?",
+      "category": "false_premise",
+      "falsePremiseType": "latest_action_numeric",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "expectedNoSupportedAnswer": true,
+      "country": "USA",
+      "sourceInstitution": "Fed",
+      "expectedPublishedOn": "2026-10-28",
+      "expectedEventOn": "2026-10-28",
+      "asOf": "2026-11-17",
+      "goldEvidence": [],
+      "contradictingEvidence": [
+        {
+          "country": "USA",
+          "institution": "Fed",
+          "anyOfChunkIds": [
+            "fed-statement-20261028:v1:00001"
+          ],
+          "acceptableSourceIds": [
+            "fed-statement-20261028:v1:00001"
+          ],
+          "passageIds": [
+            "fed:fed-statement-20261028:v1:00001"
+          ],
+          "expectedQuote": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+          "publishedOn": "2026-10-28",
+          "expectedPublishedOn": "2026-10-28",
+          "expectedEventOn": "2026-10-28",
+          "rationale": "The latest represented FOMC policy event is October 28, 2026 and its original statement maintains the range. It did not make the half-point cut presupposed by the question."
+        }
+      ],
+      "rationale": "The latest represented FOMC policy event is October 28, 2026 and its original statement maintains the range. It did not make the half-point cut presupposed by the question.",
+      "relatedEvidencePolicy": "The contradicting source may be displayed separately as related-but-not-answer evidence; it must not turn the supported-answer status into found.",
+      "economicChecks": [
+        "Anchor latest to the manifest snapshot as of 2026-11-17 and the October 28 event.",
+        "Return not_found for reasons for the invented half-point cut; do not substitute a different meeting’s cut or a dissenter’s preferred action."
+      ],
+      "sourceRead": true,
+      "falsePremise": true
+    },
+    {
+      "id": "FHN06",
+      "question": "What did the CBRT decide on April 17, 2025 about raising its overnight lending rate from 42.5% to 46%?",
+      "category": "false_premise",
+      "falsePremiseType": "instrument",
+      "split": "holdout",
+      "language": "en",
+      "filters": {},
+      "expectedStatus": "not_found",
+      "expectedNoSupportedAnswer": true,
+      "country": "TUR",
+      "sourceInstitution": "CBRT",
+      "expectedPublishedOn": "2025-04-17",
+      "expectedEventOn": "2025-04-17",
+      "asOf": null,
+      "goldEvidence": [],
+      "contradictingEvidence": [
+        {
+          "country": "TUR",
+          "institution": "CBRT",
+          "anyOfChunkIds": [
+            "cbrt-press-2025-24:decision"
+          ],
+          "acceptableSourceIds": [
+            "cbrt-press-2025-24:decision"
+          ],
+          "passageIds": [
+            "timeline:tur-20250417-cbrt-rate:0"
+          ],
+          "expectedQuote": "has decided to raise the policy rate (the one-week repo auction rate) from 42.5 percent to 46 percent.",
+          "sourceUrl": "https://tcmb.gov.tr/wps/wcm/connect/en/tcmb%2Ben/main%2Bmenu/announcements/press%2Breleases/2025/ano2025-24",
+          "publishedOn": "2025-04-17",
+          "expectedPublishedOn": "2025-04-17",
+          "expectedEventOn": "2025-04-17",
+          "rationale": "The source explicitly assigns the 42.5%-to-46% change to the one-week repo auction policy rate, not the overnight lending rate named in the question."
+        }
+      ],
+      "rationale": "The source explicitly assigns the 42.5%-to-46% change to the one-week repo auction policy rate, not the overnight lending rate named in the question.",
+      "relatedEvidencePolicy": "The contradicting source may be displayed separately as related-but-not-answer evidence; it must not turn the supported-answer status into found.",
+      "economicChecks": [
+        "Return not_found for the requested overnight-lending-rate action.",
+        "Do not map the correct numeric pair to the wrong instrument; the one-week repo quote is only separate related/contradicting evidence."
+      ],
+      "sourceRead": true,
+      "falsePremise": true
+    }
+  ]
+}

@@ -4,8 +4,8 @@ import { describe, expect, it, vi } from "vitest";
 import { App } from "../src/App";
 
 describe("G3 application boot", () => {
-  it("keeps the experimental reports route closed when no backend is enabled", () => {
-    if (import.meta.env.MACROLAB_REPORTS_PATH) return;
+  it("keeps the reports route closed when evidence search is explicitly disabled", () => {
+    if (import.meta.env.MACROLAB_ASK_REPORTS_ENABLED) return;
     vi.stubGlobal("location", { hash: "#reports", search: "" });
     try {
       const markup = renderToStaticMarkup(<App />);
@@ -29,7 +29,7 @@ describe("G3 application boot", () => {
       expect(markup).not.toContain('data-testid="nav-library"');
       expect(markup).not.toContain('data-testid="nav-results"');
       expect(markup.includes('data-testid="nav-reports"')).toBe(
-        Boolean(import.meta.env.MACROLAB_REPORTS_PATH),
+        Boolean(import.meta.env.MACROLAB_ASK_REPORTS_ENABLED),
       );
       expect(markup.includes('data-testid="nav-timeline"')).toBe(
         Boolean(import.meta.env.MACROLAB_TIMELINE_ENABLED),
