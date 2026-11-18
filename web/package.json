@@ -1,6 +1,6 @@
 {
   "name": "macrolab-web",
-  "version": "2.8.0-beta.1",
+  "version": "2.8.0-beta.2",
   "private": true,
   "type": "module",
   "engines": {
@@ -10,7 +10,7 @@
   "packageManager": "npm@11.17.0",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "npm run typecheck && vite build",
+    "build": "npm run typecheck && vite build && node scripts/package-presentation.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run --reporter=default --reporter=json --outputFile.json=../runs/checks/vitest.json",
     "lint": "eslint . --max-warnings 0 && npm run format:check",

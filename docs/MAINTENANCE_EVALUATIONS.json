@@ -1,0 +1,157 @@
+{
+  "scope": "Preserved local research candidates. None is a measurement of the deployed engine. AI-curated references, not independent human validation.",
+  "rows": [
+    {
+      "label": "first20",
+      "provenanceLabel": "First external20 on an earlier local candidate; first unseen run, not a current-live-binary measurement.",
+      "questions": 20,
+      "positiveEvidence": {
+        "complete": 7,
+        "total": 14,
+        "rate": 0.5
+      },
+      "comparisons": {
+        "complete": 0,
+        "total": 3
+      },
+      "safeAbstentions": {
+        "correct": 5,
+        "total": 6
+      },
+      "falsePremiseErrors": 1,
+      "goldSha256": "426550edec855531e357d5ce650df09e403e7f7265fc151fa9149f6833e94a7f",
+      "completeImplementationEquivalentToLivePublic": false,
+      "displayAsLiveBinaryScore": false,
+      "implementationBundle": {
+        "files": {
+          "src/reportSearch.ts": "4bc0ad1d005d5a723b69c22e8de2a63306317ed04f8927b5ca3f198e83c306c2",
+          "src/reportEvidenceDates.ts": "dbce3eb61fda7d865f3fbd5d61e574de1f8b46faaa57d6918d863aab1cce6a36",
+          "src/reportEvidenceSupport.ts": "b0b14e8fb1ea2c170c192bb35b0a4172733aba2bdb169ce48f7a642297fbcb05",
+          "src/data/report-meeting-catalog.ts": "55379389050501e0450ab086202fbea94c2358610443e67ab78fdfcf22b10fc2",
+          "src/reportSearch.worker.ts": "e2ac94e5c14ba478bf8be61c6ead766dcf6b92ff5364fc37e5da0609f0593506"
+        },
+        "sha256": "12529300306fe66cc6d79b7accd553dda1ece8e29e433123d7322248c05aae31"
+      },
+      "privateEvidenceRecords": [
+        {
+          "privateArchivePath": "runs/v280-independent20-20261118/independent-node/results.json",
+          "sha256": "35d09fdf55f8ee5174655f6d81d2b51eebe9f18cc992c9282a85e69d1d11cde6"
+        },
+        {
+          "privateArchivePath": "runs/v280-independent20-20261118/independent-node/audit.json",
+          "sha256": "01af2995cf4d496f52c600f1c9f33afd0e1c439bce98624eb8da2bb2fd5dfec4"
+        },
+        {
+          "privateArchivePath": "runs/v280-independent20-20261118/independent-browser/browser.json",
+          "sha256": "41bd96a916ac6e6834657d1dd7478f1c6ea43877919a8cc763b8af7f0161320c"
+        },
+        {
+          "privateArchivePath": "runs/v280-independent20-20261118/independent-browser/audit.json",
+          "sha256": "294ccdf3aac9f7d59624fc6e4b7dbd690391ee8488bb9b65a06dde11f6e8796d"
+        }
+      ]
+    },
+    {
+      "label": "retest20",
+      "provenanceLabel": "Retest of the now-observed20 on the unpublished general correction; development/retest result, not fresh holdout and not live.",
+      "questions": 20,
+      "positiveEvidence": {
+        "complete": 13,
+        "total": 14,
+        "rate": 0.9285714285714286
+      },
+      "comparisons": {
+        "complete": 3,
+        "total": 3
+      },
+      "safeAbstentions": {
+        "correct": 6,
+        "total": 6
+      },
+      "falsePremiseErrors": 0,
+      "goldSha256": "426550edec855531e357d5ce650df09e403e7f7265fc151fa9149f6833e94a7f",
+      "completeImplementationEquivalentToLivePublic": false,
+      "displayAsLiveBinaryScore": false,
+      "implementationBundle": {
+        "files": {
+          "src/reportSearch.ts": "7249003f10f80bf76f0e7ad957d87e82a8d82a5b5afca8689653fe78ac9687f9",
+          "src/reportEvidenceDates.ts": "9c702c5ac20b023ad03cedbbdcfa0ef40fdc9ee7afdcc9ffef8a0ccd731d2b6a",
+          "src/reportEvidenceSupport.ts": "1116fb2ae42dcd571a191c6daf7ff6a2ffab3197863ff5533351d0e02c0a5885",
+          "src/reportEvidenceIntent.ts": "0db11237f45d5dab31b8d1494a961129bc8295301f43405c042ced492cff34d9",
+          "src/data/report-meeting-catalog.ts": "55379389050501e0450ab086202fbea94c2358610443e67ab78fdfcf22b10fc2",
+          "src/reportSearch.worker.ts": "e2ac94e5c14ba478bf8be61c6ead766dcf6b92ff5364fc37e5da0609f0593506"
+        },
+        "sha256": "b7a99818c60cfb1f9328590a238c304d453e1a8ba81a57514c7cc3b0fa3e2821"
+      },
+      "privateEvidenceRecords": [
+        {
+          "privateArchivePath": "runs/v280-general-round-20261118/retest20-node/results.json",
+          "sha256": "20ac2c2f42feb4dcb3cc8b7734a1ae38d6b97e908295d14df2fb5797393d9b06"
+        },
+        {
+          "privateArchivePath": "runs/v280-general-round-20261118/retest20-node/audit.json",
+          "sha256": "61fedb77cd5d369af4f93924b46120d4a33887b1e2f68c5192228f4b2b815d4f"
+        },
+        {
+          "privateArchivePath": "runs/v280-general-round-20261118/retest20-browser/browser.json",
+          "sha256": "a5b6394e3af236fcdd8e13e5c62036201e2571b92c066605e9cef35be289c71b"
+        },
+        {
+          "privateArchivePath": "runs/v280-general-round-20261118/retest20-browser/audit.json",
+          "sha256": "c968524067d891cd7091eb04f7c583c3c2085d65ddcd9386b64a200dce0bdfce"
+        }
+      ]
+    },
+    {
+      "label": "final25",
+      "provenanceLabel": "Fresh final25 after implementation freeze; single local evaluation of the unpublished correction, which failed its preregistered acceptance gate.",
+      "questions": 25,
+      "positiveEvidence": {
+        "complete": 10,
+        "total": 17,
+        "rate": 0.5882352941176471
+      },
+      "comparisons": {
+        "complete": 2,
+        "total": 5
+      },
+      "safeAbstentions": {
+        "correct": 4,
+        "total": 8
+      },
+      "falsePremiseErrors": 4,
+      "goldSha256": "3a97368d6851bfa6731426f7e201862dd025f1495dc1f1f1e1fbdf99dfde5e27",
+      "completeImplementationEquivalentToLivePublic": false,
+      "displayAsLiveBinaryScore": false,
+      "implementationBundle": {
+        "files": {
+          "src/reportSearch.ts": "7249003f10f80bf76f0e7ad957d87e82a8d82a5b5afca8689653fe78ac9687f9",
+          "src/reportEvidenceDates.ts": "9c702c5ac20b023ad03cedbbdcfa0ef40fdc9ee7afdcc9ffef8a0ccd731d2b6a",
+          "src/reportEvidenceSupport.ts": "1116fb2ae42dcd571a191c6daf7ff6a2ffab3197863ff5533351d0e02c0a5885",
+          "src/reportEvidenceIntent.ts": "0db11237f45d5dab31b8d1494a961129bc8295301f43405c042ced492cff34d9",
+          "src/data/report-meeting-catalog.ts": "55379389050501e0450ab086202fbea94c2358610443e67ab78fdfcf22b10fc2",
+          "src/reportSearch.worker.ts": "e2ac94e5c14ba478bf8be61c6ead766dcf6b92ff5364fc37e5da0609f0593506"
+        },
+        "sha256": "b7a99818c60cfb1f9328590a238c304d453e1a8ba81a57514c7cc3b0fa3e2821"
+      },
+      "privateEvidenceRecords": [
+        {
+          "privateArchivePath": "runs/v280-general-round-20261118/final-node/results.json",
+          "sha256": "6a420c27fb207554c0dc4e112900156da24889056abb5ddeb7015e1cbafedab1"
+        },
+        {
+          "privateArchivePath": "runs/v280-general-round-20261118/final-node/audit.json",
+          "sha256": "5284df2794c3ab181da753deae83d56bc80aab2a4a09a4e207cc9b54343475ec"
+        },
+        {
+          "privateArchivePath": "runs/v280-general-round-20261118/final-browser/browser.json",
+          "sha256": "3d852ad6bded396d8efe252569ca52a1b64a54c4bacbc05a4b60e1ee246c6a32"
+        },
+        {
+          "privateArchivePath": "runs/v280-general-round-20261118/final-browser/audit.json",
+          "sha256": "c49b04ece7bc55e2611aa39e5287c62fb321575bd3f2c14e7f83f271c3a5d28c"
+        }
+      ]
+    }
+  ]
+}

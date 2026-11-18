@@ -7,6 +7,8 @@ import {
   templateTags,
 } from "../uiData";
 import { snapshotDate } from "../version";
+import project from "../data/maintenance-package.json";
+import { DemoPreview, ExperimentalReportsNotice } from "./ProjectPresentation";
 const InflationHero = lazy(() => import("./InflationHero"));
 export function Home({
   manifest,
@@ -54,11 +56,10 @@ export function Home({
             <br />
             Question the model.
           </h1>
-          <p className="hero-description">
-            Macroeconomic data and validated econometrics, with the assumptions
-            in view. Start with a series, compare economies, or put a model to
-            the test.
+          <p className="hero-description project-definition" lang="tr">
+            {project.description}
           </p>
+          <p>{project.descriptionEnglish}</p>
           <div className="row hero-actions">
             <a className="button primary" href="#templates">
               Start an analysis <span aria-hidden="true">↓</span>
@@ -81,6 +82,7 @@ export function Home({
           <InflationHero snapshot={manifest.snapshot_id} />
         </Suspense>
       </div>
+      <DemoPreview />
       <dl className="stats-strip" aria-label="Dataset and method statistics">
         {[
           [counts.economies, "Economies"],
@@ -207,6 +209,7 @@ export function Home({
         </button>
       </div>
       {recentResults}
+      <ExperimentalReportsNotice compact />
     </section>
   );
 }

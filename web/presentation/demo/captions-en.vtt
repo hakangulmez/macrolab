@@ -1,0 +1,38 @@
+WEBVTT
+
+1
+00:00:00.341 --> 00:00:04.376
+MacroLab: official macro data and econometric models, running in the browser.
+
+2
+00:00:04.376 --> 00:00:10.836
+Start from the existing Same ECB shock template.
+
+3
+00:00:10.836 --> 00:00:19.361
+Keep the existing method. Choose a common country window and conditional intervals.
+
+4
+00:00:19.361 --> 00:00:54.695
+Run analysis. The calculation below is the actual browser run, without a time cut.
+
+5
+00:00:54.695 --> 00:01:00.824
+Read Key facts and the Econometric specification before interpreting the response.
+
+6
+00:01:00.824 --> 00:01:07.441
+Spain: cumulative real-GDP response to one identified ECB tightening shock.
+
+7
+00:01:07.441 --> 00:01:14.002
+Germany: the same identified shock, on the same LP origin window.
+
+8
+00:01:14.002 --> 00:01:20.003
+Shaded area: 68% pointwise conditional interval; it omits first-stage uncertainty.
+
+9
+00:01:20.003 --> 00:01:46.160
+There is no cross-country equality test. Read the one-page case study for the limits.
+

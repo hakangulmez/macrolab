@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>A real analysis in your browser · MacroLab</title>
+    <meta
+      name="description"
+      content="Resmî makro veriyle, doğrulanmış ekonometrik yöntemleri tarayıcıda çalıştıran açık kaynak araç."
+    />
+    <link rel="stylesheet" href="../presentation.css" />
+  </head>
+  <body>
+    <nav aria-label="Main">
+      <a href="../">MacroLab</a><a href="../demo/">Demo</a
+      ><a href="../case-study/">Case study</a
+      ><a href="../publication/">Publication record</a>
+    </nav>
+    <main class="">
+      <p class="definition" lang="tr">
+        Resmî makro veriyle, doğrulanmış ekonometrik yöntemleri tarayıcıda
+        çalıştıran açık kaynak araç.
+      </p>
+      <header>
+        <p class="eyebrow">A real screen recording</p>
+        <h1>Template → model run → response and interval.</h1>
+        <p>
+          Follow the existing Same ECB shock template. The recording shows the
+          actual browser workflow with the common country window and conditional
+          bands. It adds no new model or method.
+        </p>
+      </header>
+      <video
+        controls
+        playsinline
+        preload="metadata"
+        poster="macrolab-demo-poster.png"
+        aria-label="MacroLab ECB template screen recording"
+      >
+        <source src="macrolab-demo.webm" type="video/webm" />
+        <track
+          kind="captions"
+          src="captions-en.vtt"
+          srclang="en"
+          label="English captions"
+          default
+        />
+      </video>
+      <h2>Transcript</h2>
+      <ol>
+        <li>Open the existing Same ECB shock template on Explore.</li>
+        <li>
+          In Advanced settings choose the common window across countries; retain
+          the existing conditional band and one-standard-deviation shock.
+        </li>
+        <li>Select Run analysis. The calculations execute in the browser.</li>
+        <li>
+          Read Key facts, the specification and the GDP response. Choose Spain,
+          then Germany; the same shock is used.
+        </li>
+        <li>
+          The shaded area is a 68% pointwise conditional interval. It omits
+          first-stage shock-estimation uncertainty and is not a
+          country-difference test.
+        </li>
+      </ol>
+      <p>
+        <a href="../case-study/"
+          >Read the numerical case study and limitations</a
+        >
+        ·
+        <a href="macrolab-demo.webm" download>Download the recording (WebM)</a>
+      </p>
+    </main>
+    <footer>
+      MacroLab v2.8.0-beta.2 · 18 November 2026 · Feature development frozen;
+      maintenance fixes only.
+      <a href="https://github.com/hakangulmez/macrolab">Source</a>
+    </footer>
+  </body>
+</html>

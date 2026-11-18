@@ -1,0 +1,212 @@
+{
+  "aggregation": {
+    "commod_idx": "mean",
+    "cpi": "mean",
+    "gdp_real": "mean",
+    "identified_impulse": "mean",
+    "oil_brent": "mean",
+    "policy_rate": "mean",
+    "unemp": "mean"
+  },
+  "comparison": {
+    "enabled": true,
+    "identifications": [],
+    "methods": [],
+    "scenarios": []
+  },
+  "countries": ["DEU", "FRA", "ITA", "ESP"],
+  "frequency": "Q",
+  "identification": null,
+  "model": {
+    "id": "cmp.common_shock",
+    "params": {
+      "bootstrap_draws": 200,
+      "country_window": "common",
+      "covariance": "HC1",
+      "displayed_band": "conditional",
+      "first_stage": {
+        "aggregation": {
+          "commod_idx": "mean",
+          "cpi": "mean",
+          "gdp_real": "mean",
+          "oil_brent": "mean",
+          "policy_rate": "mean",
+          "unemp": "mean"
+        },
+        "comparison": {
+          "enabled": false,
+          "identifications": [],
+          "methods": [],
+          "scenarios": []
+        },
+        "countries": ["EA"],
+        "frequency": "Q",
+        "identification": {
+          "id": "recursive",
+          "params": {
+            "order": ["gdp_real", "cpi", "unemp", "policy_rate"]
+          }
+        },
+        "model": {
+          "id": "ident.external_series",
+          "params": {
+            "exclude_window": {},
+            "lag_selection": "fixed",
+            "lags": 2,
+            "maxlags": 4,
+            "trend": "c"
+          }
+        },
+        "outputs": {
+          "confidence": 0.95,
+          "irf": {
+            "bands": 0.68,
+            "draws": 200,
+            "horizon": 12,
+            "method": "bootstrap",
+            "shock_mode": "one_sd",
+            "shock_size": 1
+          }
+        },
+        "sample": {
+          "end": "latest",
+          "start": "1999-Q1"
+        },
+        "schema_version": 1,
+        "seed": 20261021,
+        "series": [
+          {
+            "concept_id": "policy_rate",
+            "role": "shock",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "gdp_real",
+            "role": "endogenous",
+            "transform": "qoq_saar",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "cpi",
+            "role": "endogenous",
+            "transform": "qoq_saar",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "unemp",
+            "role": "endogenous",
+            "transform": "level",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "oil_brent",
+            "role": "exogenous",
+            "transform": "log",
+            "transform_params": {}
+          },
+          {
+            "concept_id": "commod_idx",
+            "role": "exogenous",
+            "transform": "yoy_pct",
+            "transform_params": {}
+          }
+        ],
+        "snapshot_id": "20261024-2040",
+        "special_periods": {
+          "covid": "dummy",
+          "covid_window": {
+            "end": "2020-Q3",
+            "start": "2020-Q1"
+          },
+          "elb_threshold": 0.25
+        }
+      },
+      "growth_scale": 1,
+      "horizon": 12,
+      "joint_bootstrap": false,
+      "lag_augmented": true,
+      "lag_difference_scales": {
+        "cpi": 400,
+        "gdp_real": 400
+      },
+      "lags": 2,
+      "policy_measure": "dfr",
+      "response_mode": "level",
+      "response_modes": {
+        "cpi": "cumulative_log",
+        "gdp_real": "cumulative_log",
+        "unemp": "change"
+      },
+      "sample_mode": "common",
+      "seasonal": false,
+      "shared_controls": {
+        "policy_rate": "policy_rate"
+      },
+      "shock_size": 1,
+      "template_id": "same_ecb_shock"
+    }
+  },
+  "outputs": {
+    "confidence": 0.95
+  },
+  "sample": {
+    "end": "latest",
+    "start": "1999-Q1"
+  },
+  "schema_version": 1,
+  "seed": 20261021,
+  "series": [
+    {
+      "concept_id": "policy_rate",
+      "role": "endogenous",
+      "transform": "level",
+      "transform_params": {}
+    },
+    {
+      "concept_id": "gdp_real",
+      "role": "response",
+      "transform": "log",
+      "transform_params": {}
+    },
+    {
+      "concept_id": "cpi",
+      "role": "response",
+      "transform": "log",
+      "transform_params": {}
+    },
+    {
+      "concept_id": "unemp",
+      "role": "response",
+      "transform": "level",
+      "transform_params": {}
+    },
+    {
+      "concept_id": "oil_brent",
+      "role": "exogenous",
+      "transform": "log",
+      "transform_params": {}
+    },
+    {
+      "concept_id": "commod_idx",
+      "role": "exogenous",
+      "transform": "yoy_pct",
+      "transform_params": {}
+    },
+    {
+      "concept_id": "identified_impulse",
+      "role": "shock",
+      "transform": "level",
+      "transform_params": {}
+    }
+  ],
+  "snapshot_id": "20261024-2040",
+  "special_periods": {
+    "covid": "dummy",
+    "covid_window": {
+      "end": "2020-Q3",
+      "start": "2020-Q1"
+    },
+    "elb_threshold": 0.25
+  }
+}

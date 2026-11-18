@@ -1,0 +1,37 @@
+{
+  "description": "Resmî makro veriyle, doğrulanmış ekonometrik yöntemleri tarayıcıda çalıştıran açık kaynak araç.",
+  "descriptionEnglish": "An open-source tool for running validated econometric methods on official macroeconomic data in your browser.",
+  "warning": "Beta; yanlış öncüllü sorularda güvenilir değil.",
+  "warningEnglish": "Beta; unreliable on questions with false premises.",
+  "status": "Feature development is frozen. Maintenance fixes only.",
+  "evaluations": [
+    {
+      "label": "First 20 · initial local measurement",
+      "positive": "7/14",
+      "abstention": "5/6",
+      "comparison": "0/3"
+    },
+    {
+      "label": "Same 20 · observed retest",
+      "positive": "13/14",
+      "abstention": "6/6",
+      "comparison": "3/3"
+    },
+    {
+      "label": "New 25 · first final measurement",
+      "positive": "10/17",
+      "abstention": "4/8",
+      "comparison": "2/5"
+    }
+  ],
+  "evaluationScope": "These are measurements of local research candidates, not of the currently deployed search engine. The failed general-correction candidate was not deployed. Retests are observed development evidence, not new independent validation. Source references were AI-curated, not independently human-validated.",
+  "limitations": [
+    "A Found label does not validate the question's premise. Direction, permanence, targeting and variable/mechanism claims can escape the checks.",
+    "Multiple dates, report periods and publication dates may be resolved incompletely. Verify the period on the official source.",
+    "Relevant evidence may remain only under Related; weak word overlap can miss an existing source.",
+    "Selected extracts are not complete reports. Rationale, timing, eligibility and other conditions may be absent. Missing evidence does not establish that an event did not occur.",
+    "The tool returns original quotations, not a generated economic explanation or a reliable automated fact-check. Check the date, instrument, actor and qualifiers yourself."
+  ],
+  "liveSearchBaseCommit": "a6f5a90305e3abf757cb0025214889a83a4d3cfb",
+  "freezeDate": "2026-11-18"
+}

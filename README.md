@@ -1,10 +1,16 @@
 # MacroLab
 
-Version: **2.8.0-beta.1** — Ask the reports is a beta source-search feature. The econometric engine and bundled data are unchanged.
+**Resmî makro veriyle, doğrulanmış ekonometrik yöntemleri tarayıcıda çalıştıran açık kaynak araç.**
 
-Explore official macroeconomic data and econometric models in your browser. For students, researchers and teaching, with assumptions and data gaps in view.
+An open-source tool for running validated econometric methods on official macroeconomic data in your browser.
 
-[Open MacroLab](https://hakangulmez.github.io/macrolab/) · [Methods and documentation](https://hakangulmez.github.io/macrolab/#methods) · [Data licences](DATA.md)
+Version: **2.8.0-beta.2** — feature development is frozen; maintenance fixes only. The econometric engine, numerical snapshot and live report-search engine are unchanged.
+
+[Open MacroLab](https://hakangulmez.github.io/macrolab/) · [Methods](https://hakangulmez.github.io/macrolab/#methods) · [Data licences](DATA.md)
+
+[![Watch the ECB template demo: model run, GDP response and confidence interval](docs/images/macrolab-demo-poster.png)](https://hakangulmez.github.io/macrolab/demo/)
+
+[Watch the real screen recording and transcript](https://hakangulmez.github.io/macrolab/demo/) · [One-page Spain–Germany case study](https://hakangulmez.github.io/macrolab/case-study/) · [Publication record and measured limits](https://hakangulmez.github.io/macrolab/publication/)
 
 ## Build an analysis
 
@@ -33,11 +39,25 @@ The first analysis may take a few extra seconds while the browser prepares the c
 
 Calculations run locally through **Pyodide**, using the bundled snapshot. The published app does not request new data from providers or send your analysis to an analysis server.
 
-## Ask the reports — beta
+## Deneysel / Experimental
 
-Search original quotations from the 801 timeline notes and 483 date-verified Fed reports directly in your browser. Results show official links, country, meeting date and publication date. No model API or embedding service is required. First/last, maximum/minimum and count questions return chronological source lists without a verdict. Unsupported premises return **Not found in these reports**; nearby material is labelled separately.
+### Ask the reports — beta
 
-The external ten-question regression passes 10/10 under the user's comparison-list rule. The previously held-out regression recovers 12/14 complete positive references and correctly abstains on 6/6 negatives. Both have zero period/false-premise errors and zero failed requests in the local browser run. These are bounded observed tests, not a guarantee for arbitrary questions. [Coverage, limitations and measured beta gate](docs/ASK_THE_REPORTS.md).
+**Beta; yanlış öncüllü sorularda güvenilir değil.** Beta; unreliable on questions with false premises.
+
+Search original quotations from 801 timeline notes and 483 date-verified Fed reports in your browser. Results show official links, country, meeting date and publication date. No model API or embedding service is required. They are source passages, without a generated economic explanation.
+
+**Known limits:** A Found label does not validate the question's premise. Direction, permanence, targeting and variable/mechanism claims can escape the checks. Multiple dates, report periods and publication dates may resolve incompletely. Relevant evidence may remain only under Related; weak word overlap can miss an existing source. Selected extracts are not complete reports; rationale, timing, eligibility and other conditions may be absent. Missing evidence does not establish that an event did not occur. Check the date, instrument, actor and qualifiers against the official source yourself.
+
+| Local research-candidate measurement | Complete positive references | Safe negative abstentions | Complete comparisons |
+| ------------------------------------ | ---------------------------: | ------------------------: | -------------------: |
+| First 20 — initial measurement       |                         7/14 |                       5/6 |                  0/3 |
+| Same 20 — observed **retest**        |                        13/14 |                       6/6 |                  3/3 |
+| New 25 — first final measurement     |                        10/17 |                       4/8 |                  2/5 |
+
+**None of these three rows measures the currently deployed search binary.** The failed general-correction candidate was not deployed. Retests are observed development evidence, not new independent validation. The fresh 25 failed the 85%/zero-error gate; no further correction round is planned. Source references were AI-curated, not independently human-validated. Source-search remains experimental.
+
+[Live evaluation record and limits](https://hakangulmez.github.io/macrolab/publication/) · [Maintenance publication report](docs/PUBLISH_REPORT_MAINTENANCE.md) · [Coverage and source notes](docs/ASK_THE_REPORTS.md).
 
 ## Results at a glance
 

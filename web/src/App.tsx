@@ -43,6 +43,7 @@ import {
 import { RecentResults } from "./components/RecentResults";
 import { Home, Library } from "./components/Explore";
 import { PublicationNotice } from "./components/PublicationNotice";
+import { ExperimentalReportsNotice } from "./components/ProjectPresentation";
 import "./styles.css";
 import "./ui-v3.css";
 import "./navigation.css";
@@ -92,7 +93,7 @@ const NAV: [Screen, string][] = [
   ["data", "Data"],
   ["builder", "Build"],
 ];
-if (AskReports) NAV.push(["reports", "Ask the reports"]);
+if (AskReports) NAV.push(["reports", "Deneysel"]);
 if (EconomicTimeline) NAV.push(["timeline", "Economic timeline"]);
 
 export function App() {
@@ -709,7 +710,10 @@ export function App() {
           {screen === "timeline" && EconomicTimeline ? (
             <EconomicTimeline />
           ) : screen === "reports" && AskReports ? (
-            <AskReports />
+            <>
+              <ExperimentalReportsNotice />
+              <AskReports />
+            </>
           ) : !manifest || !config ? (
             <section className="empty">
               <span className="overline">MacroLab</span>
