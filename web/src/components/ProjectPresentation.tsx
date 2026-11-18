@@ -10,9 +10,9 @@ export function DemoPreview() {
           From a template to a response and its uncertainty.
         </h2>
         <p>
-          Open the existing ECB-shock template, run it, and read the response
-          with its confidence band. A real screen recording, without a new model
-          or method.
+          Run the existing Same ECB shock · pooled template. Compare four
+          countries with the original controls, then see a clearly labelled
+          summary of exported results.
         </p>
       </div>
       <video
@@ -22,13 +22,12 @@ export function DemoPreview() {
         poster={`${base}demo/macrolab-demo-poster.png`}
         aria-label="MacroLab screen recording: template, model run, response and confidence interval"
       >
-        <source src={`${base}demo/macrolab-demo.webm`} type="video/webm" />
+        <source src={`${base}demo/macrolab-demo.mp4`} type="video/mp4" />
         <track
           kind="captions"
           src={`${base}demo/captions-en.vtt`}
           srcLang="en"
           label="English captions"
-          default
         />
         <a href={`${base}demo/`}>Open the demo and transcript</a>
       </video>
@@ -50,11 +49,10 @@ export function ExperimentalReportsNotice({
       aria-label="Experimental report-search limitations"
       data-testid="experimental-notice"
     >
-      <p className="overline">Deneysel / Experimental</p>
-      <p className="project-beta-warning" lang="tr">
-        <strong>{content.warning}</strong>
+      <p className="overline">Experimental</p>
+      <p className="project-beta-warning">
+        <strong>{content.warningEnglish}</strong>
       </p>
-      <p>{content.warningEnglish}</p>
       {compact ? (
         <p>
           Search original report passages as research leads. Check their date,

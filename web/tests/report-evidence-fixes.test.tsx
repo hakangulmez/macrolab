@@ -233,7 +233,7 @@ describe("comparison source lists and narrow premise regressions", () => {
     );
     const html = renderToStaticMarkup(<EvidenceAnswerCard answer={answer} />);
     expect(html).toContain(
-      "Bu soru birden fazla kararın karşılaştırılmasını gerektiriyor; ilgili kararlar tarih sırasıyla aşağıda.",
+      "This question requires comparing multiple decisions. Relevant source passages are listed chronologically.",
     );
     expect(html).toContain("data-comparison-id=");
     expect(html).not.toContain("data-evidence-id=");

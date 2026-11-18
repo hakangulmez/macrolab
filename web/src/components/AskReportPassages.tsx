@@ -166,10 +166,6 @@ export function EvidenceAnswerCard({ answer }: { answer: EvidenceAnswer }) {
       </header>
       {answer.status === "comparison" && (
         <section data-testid="comparison-evidence">
-          <p lang="tr">
-            Bu soru birden fazla kararın karşılaştırılmasını gerektiriyor;
-            ilgili kararlar tarih sırasıyla aşağıda.
-          </p>
           <p>
             This question requires comparing multiple decisions. Relevant source
             passages are listed chronologically. This selection is not a

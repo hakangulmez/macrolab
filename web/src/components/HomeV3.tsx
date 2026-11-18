@@ -56,10 +56,9 @@ export function Home({
             <br />
             Question the model.
           </h1>
-          <p className="hero-description project-definition" lang="tr">
-            {project.description}
+          <p className="hero-description project-definition">
+            {project.descriptionEnglish}
           </p>
-          <p>{project.descriptionEnglish}</p>
           <div className="row hero-actions">
             <a className="button primary" href="#templates">
               Start an analysis <span aria-hidden="true">↓</span>

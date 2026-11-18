@@ -1,24 +1,24 @@
 {
-  "description": "Resmî makro veriyle, doğrulanmış ekonometrik yöntemleri tarayıcıda çalıştıran açık kaynak araç.",
+  "description": "An open-source tool for running validated econometric methods on official macroeconomic data in your browser.",
   "descriptionEnglish": "An open-source tool for running validated econometric methods on official macroeconomic data in your browser.",
-  "warning": "Beta; yanlış öncüllü sorularda güvenilir değil.",
+  "warning": "Beta; unreliable on questions with false premises.",
   "warningEnglish": "Beta; unreliable on questions with false premises.",
   "status": "Feature development is frozen. Maintenance fixes only.",
   "evaluations": [
     {
-      "label": "First 20 · initial local measurement",
+      "label": "First 20 \u00b7 initial local measurement",
       "positive": "7/14",
       "abstention": "5/6",
       "comparison": "0/3"
     },
     {
-      "label": "Same 20 · observed retest",
+      "label": "Same 20 \u00b7 observed retest",
       "positive": "13/14",
       "abstention": "6/6",
       "comparison": "3/3"
     },
     {
-      "label": "New 25 · first final measurement",
+      "label": "New 25 \u00b7 first final measurement",
       "positive": "10/17",
       "abstention": "4/8",
       "comparison": "2/5"

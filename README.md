@@ -1,16 +1,14 @@
 # MacroLab
 
-**Resmî makro veriyle, doğrulanmış ekonometrik yöntemleri tarayıcıda çalıştıran açık kaynak araç.**
-
 An open-source tool for running validated econometric methods on official macroeconomic data in your browser.
 
-Version: **2.8.0-beta.2** — feature development is frozen; maintenance fixes only. The econometric engine, numerical snapshot and live report-search engine are unchanged.
+Version: **2.8.0-beta.3** — feature development is frozen; maintenance fixes only. The econometric engine, numerical snapshot and live report-search engine are unchanged.
 
 [Open MacroLab](https://hakangulmez.github.io/macrolab/) · [Methods](https://hakangulmez.github.io/macrolab/#methods) · [Data licences](DATA.md)
 
 [![Watch the ECB template demo: model run, GDP response and confidence interval](docs/images/macrolab-demo-poster.png)](https://hakangulmez.github.io/macrolab/demo/)
 
-[Watch the real screen recording and transcript](https://hakangulmez.github.io/macrolab/demo/) · [One-page Spain–Germany case study](https://hakangulmez.github.io/macrolab/case-study/) · [Publication record and measured limits](https://hakangulmez.github.io/macrolab/publication/)
+[Watch the narrated screen recording and transcript](https://hakangulmez.github.io/macrolab/demo/) · [One-page Spain–Germany case study](https://hakangulmez.github.io/macrolab/case-study/) · [Publication record and measured limits](https://hakangulmez.github.io/macrolab/publication/)
 
 ## Build an analysis
 
@@ -39,11 +37,11 @@ The first analysis may take a few extra seconds while the browser prepares the c
 
 Calculations run locally through **Pyodide**, using the bundled snapshot. The published app does not request new data from providers or send your analysis to an analysis server.
 
-## Deneysel / Experimental
+## Experimental
 
 ### Ask the reports — beta
 
-**Beta; yanlış öncüllü sorularda güvenilir değil.** Beta; unreliable on questions with false premises.
+**Beta; unreliable on questions with false premises.**
 
 Search original quotations from 801 timeline notes and 483 date-verified Fed reports in your browser. Results show official links, country, meeting date and publication date. No model API or embedding service is required. They are source passages, without a generated economic explanation.
 

@@ -93,7 +93,7 @@ const NAV: [Screen, string][] = [
   ["data", "Data"],
   ["builder", "Build"],
 ];
-if (AskReports) NAV.push(["reports", "Deneysel"]);
+if (AskReports) NAV.push(["reports", "Experimental"]);
 if (EconomicTimeline) NAV.push(["timeline", "Economic timeline"]);
 
 export function App() {

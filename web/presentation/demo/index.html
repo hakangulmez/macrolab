@@ -6,7 +6,7 @@
     <title>A real analysis in your browser · MacroLab</title>
     <meta
       name="description"
-      content="Resmî makro veriyle, doğrulanmış ekonometrik yöntemleri tarayıcıda çalıştıran açık kaynak araç."
+      content="An open-source tool for running validated econometric methods on official macroeconomic data in your browser."
     />
     <link rel="stylesheet" href="../presentation.css" />
   </head>
@@ -17,17 +17,18 @@
       ><a href="../publication/">Publication record</a>
     </nav>
     <main class="">
-      <p class="definition" lang="tr">
-        Resmî makro veriyle, doğrulanmış ekonometrik yöntemleri tarayıcıda
-        çalıştıran açık kaynak araç.
+      <p class="definition">
+        An open-source tool for running validated econometric methods on
+        official macroeconomic data in your browser.
       </p>
       <header>
-        <p class="eyebrow">A real screen recording</p>
-        <h1>Template → model run → response and interval.</h1>
+        <p class="eyebrow">A narrated screen recording</p>
+        <h1>One ECB shock. Four country responses.</h1>
         <p>
-          Follow the existing Same ECB shock template. The recording shows the
-          actual browser workflow with the common country window and conditional
-          bands. It adds no new model or method.
+          82 seconds, with English narration and captions. The actual screen
+          recording uses the existing Same ECB shock · pooled template and
+          country selector. It ends with a separate seven-second summary graphic
+          made from the exported results.
         </p>
       </header>
       <video
@@ -37,43 +38,67 @@
         poster="macrolab-demo-poster.png"
         aria-label="MacroLab ECB template screen recording"
       >
-        <source src="macrolab-demo.webm" type="video/webm" />
+        <source src="macrolab-demo.mp4" type="video/mp4" />
         <track
           kind="captions"
           src="captions-en.vtt"
           srclang="en"
           label="English captions"
-          default
         />
       </video>
       <h2>Transcript</h2>
-      <ol>
-        <li>Open the existing Same ECB shock template on Explore.</li>
-        <li>
-          In Advanced settings choose the common window across countries; retain
-          the existing conditional band and one-standard-deviation shock.
-        </li>
-        <li>Select Run analysis. The calculations execute in the browser.</li>
-        <li>
-          Read Key facts, the specification and the GDP response. Choose Spain,
-          then Germany; the same shock is used.
-        </li>
-        <li>
-          The shaded area is a 68% pointwise conditional interval. It omits
-          first-stage shock-estimation uncertainty and is not a
-          country-difference test.
-        </li>
-      </ol>
+      <p>
+        MacroLab brings official macroeconomic data and econometric models into
+        your browser.
+      </p>
+      <p>
+        Start with the existing Same ECB shock, pooled template. Here, Germany,
+        France, Italy and Spain face the same identified monetary policy shock.
+      </p>
+      <p>
+        Run the analysis, then focus on two outcomes: real GDP and the price
+        level. Use the existing country selector to compare Germany, France,
+        Italy and Spain in turn, then switch between the GDP and price
+        responses.
+      </p>
+      <p>
+        The horizontal axis shows quarters after the shock. Each line shows an
+        estimated cumulative response, while the shaded bands show uncertainty.
+        A tightening shock need not produce identical responses across
+        countries, and a point estimate alone is not a firm conclusion.
+      </p>
+      <p>
+        These are conditional estimates. The shock is constructed using the
+        template’s existing recursive identification, rather than a directly
+        observed policy surprise. The bands do not include uncertainty from
+        estimating that shock, and they do not establish statistically
+        significant differences between countries.
+      </p>
+      <p>
+        Use the charts to explore a question, inspect the assumptions, and
+        export the results. MacroLab runs the calculation locally, with no
+        account or coding required.
+      </p>
+      <p class="muted">
+        Blue shading belongs to the pooled response: 68% pointwise intervals
+        conditional on the estimated shock. Dashed curves show the selected
+        country. The summary graphic is an illustration of exported estimates,
+        rather than a new application feature.
+      </p>
+      <p>
+        <a href="voiceover.txt">Voiceover script</a> ·
+        <a href="captions-en.vtt">English captions</a>
+      </p>
       <p>
         <a href="../case-study/"
           >Read the numerical case study and limitations</a
         >
         ·
-        <a href="macrolab-demo.webm" download>Download the recording (WebM)</a>
+        <a href="macrolab-demo.mp4" download>Download the recording (WebM)</a>
       </p>
     </main>
     <footer>
-      MacroLab v2.8.0-beta.2 · 18 November 2026 · Feature development frozen;
+      MacroLab v2.8.0-beta.3 · 18 November 2026 · Feature development frozen;
       maintenance fixes only.
       <a href="https://github.com/hakangulmez/macrolab">Source</a>
     </footer>
