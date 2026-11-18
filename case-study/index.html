@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>One ECB shock: Spain and Germany · MacroLab</title>
+    <meta
+      name="description"
+      content="Resmî makro veriyle, doğrulanmış ekonometrik yöntemleri tarayıcıda çalıştıran açık kaynak araç."
+    />
+    <link rel="stylesheet" href="../presentation.css" />
+  </head>
+  <body>
+    <nav aria-label="Main">
+      <a href="../">MacroLab</a><a href="../demo/">Demo</a
+      ><a href="../case-study/">Case study</a
+      ><a href="../publication/">Publication record</a>
+    </nav>
+    <main class="case">
+      <p class="definition" lang="tr">
+        Resmî makro veriyle, doğrulanmış ekonometrik yöntemleri tarayıcıda
+        çalıştıran açık kaynak araç.
+      </p>
+      <header>
+        <p class="eyebrow">One-page case study · existing template</p>
+        <h1>One ECB shock. How do Spain and Germany’s GDP responses differ?</h1>
+      </header>
+      <section>
+        <h2>Question &amp; data</h2>
+        <p>
+          How does real GDP respond in Spain and Germany to the same identified
+          tightening innovation? I ran MacroLab’s existing
+          <em>Same ECB shock</em> country-comparison template with a common
+          country window. The fixed October 2026 snapshot supplies OECD real GDP
+          and unemployment, ECB prices and deposit facility rate (DFR), EIA
+          Brent and the IMF non-fuel commodity index. No new observations or
+          estimator were added.
+        </p>
+      </section>
+      <section>
+        <h2>Where the shock comes from</h2>
+        <p>
+          MacroLab generates it from a recursive euro-area VAR(2), ordered real
+          GDP → prices → unemployment → DFR. This assumes the preceding real
+          variables do not react within the quarter to the policy innovation,
+          while policy may react to them. It is an internally estimated
+          residual, not a high-frequency market-surprise series. One positive
+          identified standard deviation raises DFR on impact by
+          <strong>0.197 percentage points</strong> (about 19.66 bp).
+        </p>
+      </section>
+      <section>
+        <h2>Method &amp; result</h2>
+        <p>
+          The existing lag-augmented country local projections use two base
+          lags, HC1 inference, oil/commodity controls, seasonal controls and
+          COVID dummies. Responses are cumulative changes in log real GDP,
+          expressed in percent. Both countries use the same 92 LP origin
+          quarters, 2000 Q3–2023 Q2, at horizons 0–12.
+        </p>
+        <figure>
+          <img
+            src="responses.png"
+            width="1440"
+            height="420"
+            alt="Germany and Spain real-GDP responses with separate 68 percent pointwise conditional confidence bands"
+          />
+          <figcaption>
+            One identified standard deviation; shaded bands are 68%, pointwise
+            and conditional on the estimated shock.
+          </figcaption>
+        </figure>
+        <div
+          class="table-wrap"
+          tabindex="0"
+          role="region"
+          aria-label="GDP response estimates"
+        >
+          <table>
+            <thead>
+              <tr>
+                <th>Quarters after shock</th>
+                <th>Country</th>
+                <th>GDP response</th>
+                <th>68% interval</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>4</td>
+                <th scope="row">Germany</th>
+                <td>-0.174%</td>
+                <td>[-0.445%, +0.097%]</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <th scope="row">Spain</th>
+                <td>-0.101%</td>
+                <td>[-0.492%, +0.290%]</td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <th scope="row">Germany</th>
+                <td>-0.185%</td>
+                <td>[-0.461%, +0.091%]</td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <th scope="row">Spain</th>
+                <td>+0.013%</td>
+                <td>[-0.497%, +0.523%]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Germany’s point estimate is more negative at four and eight quarters.
+          <strong>All four intervals in the table contain zero.</strong> The
+          template provides no Spain-minus-Germany confidence interval or
+          equality test; these estimates do not establish a statistically
+          significant cross-country difference. Overlap of separate bands is not
+          such a test.
+        </p>
+      </section>
+      <section>
+        <h2>Limit</h2>
+        <p>
+          This is a descriptive comparison conditional on one recursively
+          identified DFR shock. The VAR uses 1999 Q3–2026 Q2; common LP origins
+          end earlier because twelve future quarters are needed. Final-vintage
+          data, the recursive ordering, the negative-rate period without a
+          shadow rate, and bands omitting shock-estimation uncertainty limit
+          interpretation. A different sample or shock measure could change the
+          result.
+        </p>
+      </section>
+      <p class="muted">
+        Sources:
+        <a
+          href="https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV"
+          >ECB DFR</a
+        >
+        ·
+        <a
+          href="https://data.ecb.europa.eu/data/datasets/HICP/HICP.M.U2.Y.000000.4F0.INX"
+          >ECB SA HICP</a
+        >
+        · <a href="https://data-explorer.oecd.org/">OECD QNA / labour data</a> ·
+        <a href="https://www.eia.gov/dnav/pet/hist/RBRTED.htm">EIA Brent</a> ·
+        <a href="https://data.imf.org/en/datasets/IMF.RES:PCPS"
+          >IMF commodities</a
+        >.
+        <span class="no-print"
+          ><a href="evidence.json">Estimates &amp; provenance</a> ·
+          <a href="analysis-config.json"
+            >Exact existing-template configuration</a
+          ></span
+        >
+      </p>
+    </main>
+    <footer>
+      MacroLab v2.8.0-beta.2 · 18 November 2026 · Feature development frozen;
+      maintenance fixes only.
+      <a href="https://github.com/hakangulmez/macrolab">Source</a>
+    </footer>
+  </body>
+</html>
