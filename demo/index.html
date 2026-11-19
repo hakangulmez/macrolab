@@ -3,12 +3,39 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>A real analysis in your browser · MacroLab</title>
+    <title>Two real analysis workflows · MacroLab</title>
     <meta
       name="description"
       content="An open-source tool for running validated econometric methods on official macroeconomic data in your browser."
     />
     <link rel="stylesheet" href="../presentation.css" />
+    <style>
+      .demo-gallery {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px;
+      }
+      .demo-gallery section {
+        min-width: 0;
+        scroll-margin-top: 20px;
+      }
+      .demo-gallery video {
+        display: block;
+        aspect-ratio: 16/9;
+      }
+      .demo-gallery details {
+        margin-top: 16px;
+      }
+      .demo-gallery summary {
+        cursor: pointer;
+        font-weight: 600;
+      }
+      @media (max-width: 700px) {
+        .demo-gallery {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
     <nav aria-label="Main">
@@ -22,84 +49,174 @@
         official macroeconomic data in your browser.
       </p>
       <header>
-        <p class="eyebrow">A narrated screen recording</p>
-        <h1>One ECB shock. Four country responses.</h1>
-        <p>
-          82 seconds, with English narration and captions. The actual screen
-          recording uses the existing Same ECB shock · pooled template and
-          country selector. It ends with a separate seven-second summary graphic
-          made from the exported results. The calculation wait is shortened for
-          this recording.
-        </p>
+        <p class="eyebrow">Two narrated screen recordings</p>
+        <h1>Explore a template. Build your own analysis.</h1>
+        <p>Real workflows, with English narration and captions.</p>
       </header>
-      <video
-        controls
-        playsinline
-        preload="metadata"
-        poster="macrolab-demo-poster.png?v=60063fb11ff1"
-        aria-label="MacroLab ECB template screen recording"
-      >
-        <source src="macrolab-demo.mp4?v=60063fb11ff1" type="video/mp4" />
-        <track
-          kind="captions"
-          src="captions-en.vtt"
-          srclang="en"
-          label="English captions"
-        />
-      </video>
-      <h2>Transcript</h2>
-      <p>
-        MacroLab brings official macroeconomic data and econometric models into
-        your browser.
-      </p>
-      <p>
-        Start with the existing Same ECB shock, pooled template. Here, Germany,
-        France, Italy and Spain face the same identified monetary policy shock.
-      </p>
-      <p>
-        Run the analysis, then focus on two outcomes: real GDP and the price
-        level. Use the existing country selector to compare Germany, France,
-        Italy and Spain in turn, then switch between the GDP and price
-        responses.
-      </p>
-      <p>
-        The horizontal axis shows quarters after the shock. Each line shows an
-        estimated cumulative response, while the shaded bands show uncertainty.
-        A tightening shock need not produce identical responses across
-        countries, and a point estimate alone is not a firm conclusion.
-      </p>
-      <p>
-        These are conditional estimates. The shock is constructed using the
-        template’s existing recursive identification, rather than a directly
-        observed policy surprise. The bands do not include uncertainty from
-        estimating that shock, and they do not establish statistically
-        significant differences between countries.
-      </p>
-      <p>
-        Use the charts to explore a question, inspect the assumptions, and
-        export the results. MacroLab runs the calculation locally, with no
-        account or coding required.
-      </p>
-      <p class="muted">
-        Blue shading belongs to the pooled response: 68% pointwise intervals
-        conditional on the estimated shock. Dashed curves show the selected
-        country. The summary graphic is an illustration of exported estimates,
-        rather than a new application feature.
-      </p>
-      <p>
-        <a href="voiceover.txt">Voiceover script</a> ·
-        <a href="captions-en.vtt">English captions</a>
-      </p>
-      <p>
-        <a href="../case-study/"
-          >Read the numerical case study and limitations</a
-        >
-        ·
-        <a href="macrolab-demo.mp4?v=60063fb11ff1" download>Download the recording (MP4)</a>
-      </p>
+      <div class="demo-gallery">
+        <section id="ecb" aria-labelledby="ecb-heading">
+          <h2 id="ecb-heading">One ECB shock. Four country responses.</h2>
+          <p>
+            82 seconds · The existing Same ECB shock · pooled template and
+            country selector, followed by a separate seven-second summary
+            graphic made from exported results. The calculation wait is
+            shortened for this recording.
+          </p>
+          <video
+            controls
+            playsinline
+            preload="none"
+            poster="macrolab-demo-poster.png?v=60063fb11ff1"
+            aria-label="MacroLab ECB template screen recording"
+          >
+            <source src="macrolab-demo.mp4?v=60063fb11ff1" type="video/mp4" />
+            <track
+              kind="captions"
+              src="captions-en.vtt"
+              srclang="en"
+              label="English captions"
+            />
+          </video>
+          <details>
+            <summary>ECB demo transcript and limitations</summary>
+
+            <p>
+              MacroLab brings official macroeconomic data and econometric models
+              into your browser.
+            </p>
+            <p>
+              Start with the existing Same ECB shock, pooled template. Here,
+              Germany, France, Italy and Spain face the same identified monetary
+              policy shock.
+            </p>
+            <p>
+              Run the analysis, then focus on two outcomes: real GDP and the
+              price level. Use the existing country selector to compare Germany,
+              France, Italy and Spain in turn, then switch between the GDP and
+              price responses.
+            </p>
+            <p>
+              The horizontal axis shows quarters after the shock. Each line
+              shows an estimated cumulative response, while the shaded bands
+              show uncertainty. A tightening shock need not produce identical
+              responses across countries, and a point estimate alone is not a
+              firm conclusion.
+            </p>
+            <p>
+              These are conditional estimates. The shock is constructed using
+              the template’s existing recursive identification, rather than a
+              directly observed policy surprise. The bands do not include
+              uncertainty from estimating that shock, and they do not establish
+              statistically significant differences between countries.
+            </p>
+            <p>
+              Use the charts to explore a question, inspect the assumptions, and
+              export the results. MacroLab runs the calculation locally, with no
+              account or coding required.
+            </p>
+            <p class="muted">
+              Blue shading belongs to the pooled response: 68% pointwise
+              intervals conditional on the estimated shock. Dashed curves show
+              the selected country. The summary graphic is an illustration of
+              exported estimates, rather than a new application feature.
+            </p>
+            <p>
+              <a href="voiceover.txt">Voiceover script</a> ·
+              <a href="captions-en.vtt">English captions</a>
+            </p>
+            <p>
+              <a href="../case-study/"
+                >Read the numerical case study and limitations</a
+              >
+              ·
+              <a href="macrolab-demo.mp4?v=60063fb11ff1" download
+                >Download the ECB recording (MP4)</a
+              >
+            </p>
+          </details>
+        </section>
+        <section id="build" aria-labelledby="build-heading">
+          <h2 id="build-heading">Build your own analysis.</h2>
+          <p>
+            67 seconds · Set up a custom Canada inflation–unemployment analysis,
+            run linear and rolling regressions, then export the results.
+          </p>
+          <video
+            controls
+            playsinline
+            preload="none"
+            poster="macrolab-build-poster.png?v=f559ad342e9b"
+            aria-label="MacroLab Build screen recording: custom linear and rolling regressions"
+          >
+            <source
+              src="macrolab-build-demo.mp4?v=f559ad342e9b"
+              type="video/mp4"
+            />
+            <track
+              kind="captions"
+              src="build-captions-en.vtt"
+              srclang="en"
+              label="English captions"
+            />
+          </video>
+          <details>
+            <summary>Build demo transcript and limitations</summary>
+            <p>Build your own macroeconomic analysis in MacroLab.</p>
+            <p>
+              Start with a new custom analysis. Choose inflation as the outcome
+              and unemployment as an explanatory variable.
+            </p>
+            <p>
+              Select linear regression and Canada. Your variables, model and
+              country stay together on one screen.
+            </p>
+            <p>
+              Open Advanced to review the sample and model settings, then run
+              the analysis.
+            </p>
+            <p>
+              Inspect the estimated coefficient, its confidence interval and the
+              relationship chart. This describes an association, not a causal
+              effect.
+            </p>
+            <p>
+              Now return to Build. Keep the variables and country, but choose
+              rolling regression.
+            </p>
+            <p>
+              Set the window and run again. The new chart shows how the
+              estimated relationship changes across successive samples.
+            </p>
+            <p>
+              Different methods answer different questions. Check the
+              specification, sample and uncertainty before comparing results.
+            </p>
+            <p>
+              Finally, export the chart, download the numerical results, or save
+              a reproducible Python script.
+            </p>
+            <p>
+              MacroLab keeps your choices, source information and model settings
+              attached to the analysis.
+            </p>
+            <p class="muted">
+              This is a real screen recording using existing controls. The
+              closing chart is the PNG exported from MacroLab. The regressions
+              describe associations; they do not establish a causal effect.
+            </p>
+            <p>
+              <a href="build-voiceover.txt">Voiceover script</a> ·
+              <a href="build-captions-en.vtt">English captions</a> ·
+              <a href="macrolab-build-demo.mp4?v=f559ad342e9b" download
+                >Download the Build recording (MP4)</a
+              >
+            </p>
+          </details>
+        </section>
+      </div>
     </main>
     <footer>
-      MacroLab v2.8.0-beta.3 · 18 November 2026 · Feature development frozen;
+      MacroLab v2.8.0-beta.3 · 19 November 2026 · Feature development frozen;
       maintenance fixes only.
       <a href="https://github.com/hakangulmez/macrolab">Source</a>
     </footer>
