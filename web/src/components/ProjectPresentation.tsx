@@ -7,32 +7,73 @@ export function DemoPreview() {
       <div>
         <p className="overline">See the workflow</p>
         <h2 id="demo-heading">
-          From a template to a response and its uncertainty.
+          Start with a template. Or build your own analysis.
         </h2>
-        <p>
-          Run the existing Same ECB shock · pooled template. Compare four
-          countries with the original controls, then see a clearly labelled
-          summary of exported results.
-        </p>
+        <p>Two real screen recordings, with English narration and captions.</p>
       </div>
-      <video
-        controls
-        playsInline
-        preload="none"
-        poster={`${base}demo/macrolab-demo-poster.png`}
-        aria-label="MacroLab screen recording: template, model run, response and confidence interval"
-      >
-        <source src={`${base}demo/macrolab-demo.mp4`} type="video/mp4" />
-        <track
-          kind="captions"
-          src={`${base}demo/captions-en.vtt`}
-          srcLang="en"
-          label="English captions"
-        />
-        <a href={`${base}demo/`}>Open the demo and transcript</a>
-      </video>
+      <div className="project-demo-grid">
+        <article aria-labelledby="ecb-demo-heading">
+          <h3 id="ecb-demo-heading">One ECB shock. Four country responses.</h3>
+          <p>
+            82 seconds · Run a template, compare responses and inspect
+            uncertainty.
+          </p>
+          <video
+            controls
+            playsInline
+            preload="none"
+            poster={`${base}demo/macrolab-demo-poster.png?v=60063fb11ff1`}
+            aria-label="MacroLab ECB template screen recording"
+          >
+            <source
+              src={`${base}demo/macrolab-demo.mp4?v=60063fb11ff1`}
+              type="video/mp4"
+            />
+            <track
+              kind="captions"
+              src={`${base}demo/captions-en.vtt`}
+              srcLang="en"
+              label="English captions"
+            />
+            <a href={`${base}demo/#ecb`}>Open the ECB demo and transcript</a>
+          </video>
+          <a href={`${base}demo/#ecb`}>
+            Watch the ECB demo &amp; read the transcript ↗
+          </a>
+        </article>
+        <article aria-labelledby="build-demo-heading">
+          <h3 id="build-demo-heading">Build your own analysis.</h3>
+          <p>
+            67 seconds · Choose variables, a model and a country. Run and
+            export.
+          </p>
+          <video
+            controls
+            playsInline
+            preload="none"
+            poster={`${base}demo/macrolab-build-poster.png?v=f559ad342e9b`}
+            aria-label="MacroLab Build screen recording: custom linear and rolling regressions"
+          >
+            <source
+              src={`${base}demo/macrolab-build-demo.mp4?v=f559ad342e9b`}
+              type="video/mp4"
+            />
+            <track
+              kind="captions"
+              src={`${base}demo/build-captions-en.vtt`}
+              srcLang="en"
+              label="English captions"
+            />
+            <a href={`${base}demo/#build`}>
+              Open the Build demo and transcript
+            </a>
+          </video>
+          <a href={`${base}demo/#build`}>
+            Watch the Build demo &amp; read the transcript ↗
+          </a>
+        </article>
+      </div>
       <div className="row">
-        <a href={`${base}demo/`}>Watch the demo &amp; read the transcript ↗</a>
         <a href={`${base}case-study/`}>Read the one-page case study ↗</a>
       </div>
     </section>

@@ -1,0 +1,19 @@
+Build your own macroeconomic analysis in MacroLab.
+
+Start with a new custom analysis. Choose inflation as the outcome and unemployment as an explanatory variable.
+
+Select linear regression and Canada. Your variables, model and country stay together on one screen.
+
+Open Advanced to review the sample and model settings, then run the analysis.
+
+Inspect the estimated coefficient, its confidence interval and the relationship chart. This describes an association, not a causal effect.
+
+Now return to Build. Keep the variables and country, but choose rolling regression.
+
+Set the window and run again. The new chart shows how the estimated relationship changes across successive samples.
+
+Different methods answer different questions. Check the specification, sample and uncertainty before comparing results.
+
+Finally, export the chart, download the numerical results, or save a reproducible Python script.
+
+MacroLab keeps your choices, source information and model settings attached to the analysis.

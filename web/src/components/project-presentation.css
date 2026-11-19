@@ -7,7 +7,7 @@
   display: block;
   width: 100%;
   max-height: 38rem;
-  aspect-ratio: 16/10;
+  aspect-ratio: 16/9;
   border-radius: 0.75rem;
   background: #080c12;
   object-fit: contain;
@@ -34,4 +34,25 @@
 .project-definition {
   font-size: clamp(1.1rem, 1.7vw, 1.4rem);
   line-height: 1.5;
+}
+
+.project-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+.project-demo-grid article {
+  min-width: 0;
+}
+.project-demo-grid h3 {
+  margin: 0 0 0.5rem;
+}
+.project-demo-grid article > a {
+  display: inline-block;
+  margin-top: 0.75rem;
+}
+@media (max-width: 700px) {
+  .project-demo-grid {
+    grid-template-columns: 1fr;
+  }
 }
